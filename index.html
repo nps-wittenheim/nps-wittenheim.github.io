@@ -14,9 +14,6 @@
     }
 
     :root{
-      --bg-dark: rgba(10, 8, 18, 0.90);
-      --panel: rgba(18, 14, 30, 0.90);
-      --border: rgba(255,255,255,0.08);
       --gold-1:#f6c65a;
       --gold-2:#c98b1d;
       --red-1:#8a2030;
@@ -33,7 +30,7 @@
       display:flex;
       justify-content:center;
       align-items:center;
-      padding:20px;
+      padding:18px;
       position:relative;
       overflow-x:hidden;
     }
@@ -53,8 +50,7 @@
       content:"";
       position:absolute;
       inset:0;
-      background:
-        linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.02) 50%, transparent 100%);
+      background:linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.02) 50%, transparent 100%);
       opacity:0.16;
       pointer-events:none;
     }
@@ -66,10 +62,10 @@
       max-width:1120px;
       background:linear-gradient(180deg, rgba(24,18,38,0.95), rgba(12,10,22,0.96));
       border-radius:30px;
-      padding:30px;
+      padding:28px;
       box-shadow:0 30px 80px rgba(0,0,0,0.58);
       display:flex;
-      gap:30px;
+      gap:28px;
       align-items:center;
       border:1px solid rgba(255,255,255,0.06);
       overflow:hidden;
@@ -88,7 +84,7 @@
     .left-side{
       position:relative;
       width:100%;
-      max-width:410px;
+      max-width:400px;
     }
 
     .coffre-wrap{
@@ -99,8 +95,8 @@
       position:absolute;
       inset:50% auto auto 50%;
       transform:translate(-50%,-50%);
-      width:270px;
-      height:270px;
+      width:260px;
+      height:260px;
       border-radius:50%;
       background:radial-gradient(circle, rgba(246,198,90,0.22), transparent 65%);
       filter:blur(24px);
@@ -124,7 +120,7 @@
       position:relative;
       z-index:2;
       width:100%;
-      max-width:410px;
+      max-width:400px;
       border-radius:24px;
       display:block;
       box-shadow:0 26px 60px rgba(0,0,0,0.45);
@@ -171,8 +167,8 @@
       border-radius:50%;
       object-fit:cover;
       box-shadow:0 0 10px rgba(255,120,0,0.7);
-      flex:0 0 auto;
       background:#fff;
+      flex:0 0 auto;
     }
 
     .whisper{
@@ -195,8 +191,8 @@
       top:0;
       right:0;
       z-index:5;
-      width:90px;
-      height:90px;
+      width:88px;
+      height:88px;
       border-radius:50%;
       padding:6px;
       background:
@@ -226,15 +222,9 @@
     @keyframes logoPulse{
       0%,100%{
         transform:scale(1);
-        box-shadow:
-          0 0 24px rgba(255,140,0,0.25),
-          0 18px 30px rgba(0,0,0,0.28);
       }
       50%{
         transform:scale(1.04);
-        box-shadow:
-          0 0 34px rgba(255,140,0,0.34),
-          0 20px 36px rgba(0,0,0,0.32);
       }
     }
 
@@ -242,7 +232,7 @@
       display:flex;
       gap:12px;
       flex-wrap:wrap;
-      margin-bottom:20px;
+      margin-bottom:18px;
       padding-right:110px;
     }
 
@@ -285,8 +275,8 @@
     }
 
     h1{
-      font-size:46px;
-      margin-bottom:16px;
+      font-size:44px;
+      margin-bottom:14px;
       letter-spacing:0.6px;
       line-height:1.02;
       text-transform:uppercase;
@@ -296,16 +286,16 @@
 
     .desc{
       font-size:18px;
-      line-height:1.65;
-      margin-bottom:24px;
+      line-height:1.6;
+      margin-bottom:22px;
       color:var(--muted);
     }
 
     .panel{
       background:linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
-      border:1px solid var(--border);
+      border:1px solid rgba(255,255,255,0.08);
       border-radius:22px;
-      padding:22px;
+      padding:20px;
       box-shadow:inset 0 1px 0 rgba(255,255,255,0.03), 0 18px 34px rgba(0,0,0,0.18);
     }
 
@@ -365,9 +355,9 @@
     .rules-box{
       display:none;
       background:linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
-      border:1px solid var(--border);
+      border:1px solid rgba(255,255,255,0.08);
       border-radius:22px;
-      padding:24px;
+      padding:22px;
       box-shadow:inset 0 1px 0 rgba(255,255,255,0.03);
     }
 
@@ -466,11 +456,17 @@
       stroke-linejoin:round;
     }
 
-    @media (max-width:768px){
+    @media (max-width: 768px){
+      body{
+        padding:10px;
+        align-items:flex-start;
+      }
+
       .container{
         flex-direction:column;
-        padding:18px;
-        gap:18px;
+        padding:16px;
+        gap:14px;
+        border-radius:22px;
       }
 
       .left-side{
@@ -479,6 +475,18 @@
 
       .coffre{
         max-width:100%;
+        max-height:220px;
+        object-fit:cover;
+      }
+
+      .coffre-glow{
+        width:180px;
+        height:180px;
+      }
+
+      .whisper{
+        margin-top:10px;
+        font-size:12px;
       }
 
       .right-side{
@@ -488,30 +496,37 @@
 
       .logo-top-right{
         position:static;
-        margin:0 auto 16px auto;
-        width:76px;
-        height:76px;
+        margin:0 auto 12px auto;
+        width:64px;
+        height:64px;
+        padding:4px;
       }
 
       .topbar{
         justify-content:center;
         padding-right:0;
+        margin-bottom:14px;
+      }
+
+      .topbtn{
+        padding:10px 14px;
+        font-size:13px;
       }
 
       h1,
       .rules-title{
-        font-size:30px;
+        font-size:28px;
         padding-right:0;
       }
 
       .desc{
         font-size:15px;
-        margin-bottom:18px;
+        margin-bottom:16px;
       }
 
       .panel,
       .rules-box{
-        padding:18px;
+        padding:16px;
         text-align:left;
       }
 
@@ -529,19 +544,30 @@
       }
 
       .rule-text p,
-      .rule-end,
-      .whisper{
+      .rule-end{
         font-size:14px;
       }
 
       .ritual-badge{
-        font-size:11px;
-        padding:8px 10px;
+        font-size:10px;
+        padding:7px 9px;
+        top:10px;
+        left:10px;
       }
 
       .logo-badge{
-        width:20px;
-        height:20px;
+        width:18px;
+        height:18px;
+      }
+
+      input{
+        padding:14px;
+        font-size:15px;
+      }
+
+      button.main-btn{
+        padding:14px;
+        font-size:16px;
       }
     }
   </style>
