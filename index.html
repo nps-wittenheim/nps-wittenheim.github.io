@@ -318,7 +318,7 @@
     }
 
     .marquee-coffre{
-      width:100%;
+      width:calc(100% - 110px);
       overflow:hidden;
       margin-bottom:16px;
       border-radius:14px;
@@ -327,20 +327,24 @@
       box-shadow:0 8px 20px rgba(0,0,0,0.25);
     }
 
-    .marquee-coffre span{
-      display:inline-block;
+    .marquee-track{
+      display:flex;
+      width:max-content;
+      animation:scrollLoop 18s linear infinite;
+    }
+
+    .marquee-track span{
       white-space:nowrap;
-      padding:12px 0;
+      padding:12px 28px;
       font-weight:900;
       font-size:16px;
       color:#f6c65a;
       letter-spacing:1px;
-      animation:scrollCoffre 20s linear infinite;
     }
 
-    @keyframes scrollCoffre{
-      0%{transform:translateX(100%)}
-      100%{transform:translateX(-100%)}
+    @keyframes scrollLoop{
+      0%{transform:translateX(0)}
+      100%{transform:translateX(-50%)}
     }
 
     .panel{
@@ -617,9 +621,13 @@
         margin-bottom:16px;
       }
 
-      .marquee-coffre span{
+      .marquee-coffre{
+        width:100%;
+      }
+
+      .marquee-track span{
         font-size:13px;
-        animation:scrollCoffre 22s linear infinite;
+        padding:10px 24px;
       }
 
       .panel,
@@ -714,7 +722,10 @@
 
       <div id="sectionCoffre">
         <div class="marquee-coffre">
-          <span>😈 CHALLENGE NPS EN COURS… • QUI TROUVERA LE CODE AVANT LES AUTRES ? 🔐 •</span>
+          <div class="marquee-track">
+            <span>😈 CHALLENGE NPS EN COURS… • QUI TROUVERA LE CODE AVANT LES AUTRES ? 🔐 •</span>
+            <span>😈 CHALLENGE NPS EN COURS… • QUI TROUVERA LE CODE AVANT LES AUTRES ? 🔐 •</span>
+          </div>
         </div>
 
         <h1>Le Coffre</h1>
