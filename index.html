@@ -75,7 +75,7 @@
       box-shadow:0 30px 80px rgba(0,0,0,0.58);
       display:flex;
       gap:28px;
-      align-items:center;
+      align-items:flex-start;
       border:1px solid rgba(255,255,255,0.06);
       overflow:hidden;
     }
@@ -92,20 +92,22 @@
 
     .left-side{
       position:relative;
-      width:100%;
-      max-width:400px;
+      flex:0 0 340px;
+      max-width:340px;
+      min-width:340px;
     }
 
     .coffre-wrap{
       position:relative;
+      width:100%;
     }
 
     .coffre-glow{
       position:absolute;
       inset:50% auto auto 50%;
       transform:translate(-50%,-50%);
-      width:260px;
-      height:260px;
+      width:240px;
+      height:240px;
       border-radius:50%;
       background:radial-gradient(circle, rgba(246,198,90,0.22), transparent 65%);
       filter:blur(24px);
@@ -116,8 +118,8 @@
     }
 
     .coffre-glow.success{
-      width:340px;
-      height:340px;
+      width:320px;
+      height:320px;
       background:radial-gradient(circle, rgba(246,198,90,0.34), rgba(255,255,255,0.08) 45%, transparent 70%);
       filter:blur(28px);
     }
@@ -137,9 +139,8 @@
       position:relative;
       z-index:2;
       width:100%;
-      max-width:400px;
-      border-radius:24px;
       display:block;
+      border-radius:24px;
       box-shadow:0 26px 60px rgba(0,0,0,0.45);
       border:1px solid rgba(255,255,255,0.06);
       transition:transform 0.35s ease, box-shadow 0.35s ease, filter 0.35s ease;
@@ -211,7 +212,8 @@
     }
 
     .right-side{
-      flex:1;
+      flex:1 1 0;
+      min-width:0;
       color:var(--text);
       position:relative;
     }
@@ -300,6 +302,37 @@
       background:linear-gradient(135deg, rgba(138,32,48,0.96), rgba(201,139,29,0.78));
     }
 
+    .marquee-coffre{
+      width:calc(100% - 110px);
+      overflow:hidden;
+      margin-bottom:16px;
+      border-radius:14px;
+      background:linear-gradient(90deg, rgba(138,32,48,0.92), rgba(63,15,25,0.92));
+      border:1px solid rgba(255,255,255,0.08);
+      box-shadow:0 8px 20px rgba(0,0,0,0.25);
+    }
+
+    .marquee-track{
+      display:flex;
+      width:max-content;
+      animation:scrollLoop 18s linear infinite;
+      will-change:transform;
+    }
+
+    .marquee-track span{
+      white-space:nowrap;
+      padding:12px 28px;
+      font-weight:900;
+      font-size:16px;
+      color:#f6c65a;
+      letter-spacing:1px;
+    }
+
+    @keyframes scrollLoop{
+      0%{transform:translateX(0)}
+      100%{transform:translateX(-50%)}
+    }
+
     h1{
       font-size:44px;
       margin-bottom:14px;
@@ -315,36 +348,7 @@
       line-height:1.6;
       margin-bottom:22px;
       color:var(--muted);
-    }
-
-    .marquee-coffre{
-      width:calc(100% - 110px);
-      overflow:hidden;
-      margin-bottom:16px;
-      border-radius:14px;
-      background:linear-gradient(90deg, rgba(138,32,48,0.92), rgba(63,15,25,0.92));
-      border:1px solid rgba(255,255,255,0.08);
-      box-shadow:0 8px 20px rgba(0,0,0,0.25);
-    }
-
-    .marquee-track{
-      display:flex;
-      width:max-content;
-      animation:scrollLoop 18s linear infinite;
-    }
-
-    .marquee-track span{
-      white-space:nowrap;
-      padding:12px 28px;
-      font-weight:900;
-      font-size:16px;
-      color:#f6c65a;
-      letter-spacing:1px;
-    }
-
-    @keyframes scrollLoop{
-      0%{transform:translateX(0)}
-      100%{transform:translateX(-50%)}
+      max-width:680px;
     }
 
     .panel{
@@ -554,12 +558,7 @@
       stroke-linejoin:round;
     }
 
-    @media (max-width: 768px){
-      body{
-        padding:10px;
-        align-items:flex-start;
-      }
-
+    @media (max-width: 900px){
       .container{
         flex-direction:column;
         padding:16px;
@@ -568,7 +567,10 @@
       }
 
       .left-side{
+        flex:0 0 auto;
         max-width:100%;
+        min-width:0;
+        width:100%;
       }
 
       .coffre{
@@ -610,6 +612,15 @@
         font-size:13px;
       }
 
+      .marquee-coffre{
+        width:100%;
+      }
+
+      .marquee-track span{
+        font-size:13px;
+        padding:10px 24px;
+      }
+
       h1,
       .rules-title{
         font-size:28px;
@@ -619,15 +630,7 @@
       .desc{
         font-size:15px;
         margin-bottom:16px;
-      }
-
-      .marquee-coffre{
-        width:100%;
-      }
-
-      .marquee-track span{
-        font-size:13px;
-        padding:10px 24px;
+        max-width:none;
       }
 
       .panel,
