@@ -6,85 +6,115 @@
 <title>Le Coffre</title>
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box;}
+*{margin:0;padding:0;box-sizing:border-box}
 
 body{
-  font-family: Arial, sans-serif;
+  font-family:Arial, sans-serif;
   min-height:100vh;
   background:url('boulanger.jpg') center/cover no-repeat;
   display:flex;
   justify-content:center;
   align-items:center;
   padding:20px;
+  position:relative;
 }
 
-/* OVERLAY */
 body::before{
   content:"";
   position:absolute;
   inset:0;
-  background:rgba(10,15,30,0.75);
+  background:rgba(10,15,30,0.78);
   backdrop-filter:blur(6px);
 }
 
-/* CONTAINER */
 .container{
   position:relative;
   z-index:2;
   width:100%;
-  max-width:900px;
-  background:rgba(20,25,45,0.8);
-  border-radius:25px;
+  max-width:980px;
+  background:rgba(20,25,45,0.82);
+  border-radius:26px;
   padding:30px;
   box-shadow:0 30px 80px rgba(0,0,0,0.5);
   display:flex;
   gap:30px;
   align-items:center;
+  border:1px solid rgba(255,255,255,0.08);
 }
 
-/* IMAGE */
 .coffre{
   width:100%;
-  max-width:350px;
+  max-width:360px;
   border-radius:20px;
   transition:0.4s;
+  box-shadow:0 20px 50px rgba(0,0,0,0.35);
 }
 
-/* TEXTE */
 .content{
   flex:1;
   text-align:left;
   color:white;
 }
 
+.topbar{
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+  margin-bottom:18px;
+}
+
+.topbtn{
+  padding:11px 16px;
+  border:none;
+  border-radius:14px;
+  font-size:14px;
+  font-weight:bold;
+  cursor:pointer;
+  color:white;
+  background:rgba(255,255,255,0.08);
+  border:1px solid rgba(255,255,255,0.08);
+  transition:0.2s;
+}
+
+.topbtn.active{
+  background:linear-gradient(135deg,#ffcc3d,#f29a15);
+  color:white;
+}
+
 h1{
-  font-size:40px;
-  margin-bottom:15px;
+  font-size:42px;
+  margin-bottom:16px;
+  letter-spacing:0.3px;
 }
 
 .desc{
   font-size:18px;
-  line-height:1.5;
-  margin-bottom:20px;
-  opacity:0.9;
+  line-height:1.55;
+  margin-bottom:24px;
+  opacity:0.92;
 }
 
-/* INPUT */
+.panel{
+  background:rgba(255,255,255,0.05);
+  border:1px solid rgba(255,255,255,0.08);
+  border-radius:20px;
+  padding:20px;
+}
+
 input{
   width:100%;
   padding:15px;
-  border-radius:12px;
+  border-radius:14px;
   border:none;
-  margin-bottom:10px;
+  margin-bottom:12px;
   font-size:16px;
 }
 
-/* BUTTON */
-button{
+button.main-btn{
   width:100%;
   padding:15px;
   border:none;
-  border-radius:12px;
+  border-radius:14px;
   font-size:18px;
   font-weight:bold;
   background:linear-gradient(135deg,#ffcc3d,#f29a15);
@@ -92,37 +122,124 @@ button{
   cursor:pointer;
 }
 
-/* MESSAGE */
 #message{
-  margin-top:10px;
+  margin-top:12px;
   font-weight:bold;
+  min-height:24px;
 }
 
-/* SURPRISE */
 .surprise{
   display:none;
   margin-top:15px;
-  padding:15px;
-  border-radius:15px;
-  background:rgba(0,255,100,0.2);
+  padding:16px;
+  border-radius:16px;
+  background:rgba(0,255,100,0.16);
+  border:1px solid rgba(255,255,255,0.08);
+  line-height:1.5;
 }
 
-/* MOBILE */
+.rules-box{
+  display:none;
+  background:rgba(255,255,255,0.05);
+  border:1px solid rgba(255,255,255,0.08);
+  border-radius:20px;
+  padding:22px;
+}
+
+.rules-title{
+  font-size:24px;
+  margin-bottom:18px;
+  font-weight:800;
+  letter-spacing:0.4px;
+}
+
+.rule-intro{
+  font-size:17px;
+  line-height:1.6;
+  opacity:0.92;
+  margin-bottom:22px;
+}
+
+.rule-card{
+  background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,255,255,0.07);
+  border-radius:18px;
+  padding:16px;
+  margin-bottom:12px;
+}
+
+.rule-card strong{
+  display:block;
+  font-size:17px;
+  margin-bottom:8px;
+}
+
+.rule-card p{
+  font-size:15px;
+  line-height:1.55;
+  opacity:0.92;
+}
+
+.rule-end{
+  margin-top:18px;
+  font-size:16px;
+  line-height:1.6;
+  opacity:0.95;
+}
+
+.icon-mark{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:34px;
+  height:34px;
+  border-radius:12px;
+  margin-right:10px;
+  font-size:16px;
+  font-weight:800;
+  background:linear-gradient(135deg,#ffcc3d,#f29a15);
+  color:#1a1a1a;
+  vertical-align:middle;
+}
+
 @media(max-width:768px){
   .container{
     flex-direction:column;
-    text-align:center;
+    padding:18px;
+    gap:18px;
   }
 
   .content{
     text-align:center;
   }
 
+  .topbar{
+    justify-content:center;
+  }
+
   h1{
-    font-size:28px;
+    font-size:30px;
   }
 
   .desc{
+    font-size:15px;
+    margin-bottom:18px;
+  }
+
+  .rules-title{
+    font-size:22px;
+  }
+
+  .rule-intro{
+    font-size:15px;
+  }
+
+  .rule-card strong{
+    font-size:15px;
+  }
+
+  .rule-card p,
+  .rule-end{
     font-size:14px;
   }
 }
@@ -133,38 +250,86 @@ button{
 
 <div class="container">
 
-<img id="coffre" src="coffre-ferme.png" class="coffre">
+  <img id="coffre" src="coffre-ferme.png" class="coffre">
 
-<div class="content">
+  <div class="content">
 
-<h1>Le Coffre</h1>
+    <div class="topbar">
+      <button id="btnCoffre" class="topbtn active" onclick="afficherSection('coffre')">Le Coffre</button>
+      <button id="btnRegles" class="topbtn" onclick="afficherSection('regles')">Règles du jeu</button>
+    </div>
 
-<p class="desc">
-Le coffre est verrouillé.<br>
-Un seul mot peut le débloquer…<br>
-À vous de le découvrir.
-</p>
+    <div id="sectionCoffre">
+      <h1>Le Coffre</h1>
 
-<input type="text" id="mot" placeholder="Entre le mot secret">
+      <p class="desc">
+        Le coffre est verrouillé.<br>
+        Un seul mot peut le débloquer…<br>
+        À vous de le découvrir.
+      </p>
 
-<button onclick="verifier()">Ouvrir le coffre</button>
+      <div class="panel">
+        <input type="text" id="mot" placeholder="Entre le mot secret">
+        <button class="main-btn" onclick="verifier()">Ouvrir le coffre</button>
 
-<p id="message"></p>
+        <p id="message"></p>
 
-<div id="surprise" class="surprise">
-🎁 Bravo à toute l’équipe 🔥<br>
-COFFRE OUVERT AVEC SUCCÈS
-</div>
+        <div id="surprise" class="surprise">
+          🎁 Bravo à toute l’équipe 🔥<br>
+          COFFRE OUVERT AVEC SUCCÈS
+        </div>
+      </div>
+    </div>
 
-</div>
+    <div id="sectionRegles" class="rules-box">
+      <div class="rules-title">Les règles du jeu</div>
+
+      <div class="rule-intro">
+        <span class="icon-mark">01</span>
+        Le défi est lancé.<br><br>
+        Le coffre est verrouillé… Un seul mot peut le débloquer.
+        Mais ce mot ne s’obtient pas par hasard.
+      </div>
+
+      <div class="rule-card">
+        <strong><span class="icon-mark">02</span>Offrez une expérience client irréprochable</strong>
+        <p>Soyez cité dans un NPS positif pour entrer dans le jeu.</p>
+      </div>
+
+      <div class="rule-card">
+        <strong><span class="icon-mark">03</span>Recevez un indice</strong>
+        <p>Chaque citation vous donne un indice. Il vous sera envoyé directement sur WhatsApp.</p>
+      </div>
+
+      <div class="rule-card">
+        <strong><span class="icon-mark">04</span>Faites votre choix</strong>
+        <p>À vous de garder vos indices… ou de les partager avec l’équipe.</p>
+      </div>
+
+      <div class="rule-card">
+        <strong><span class="icon-mark">05</span>Reconstituez le mot secret</strong>
+        <p>Assemblez les indices pour découvrir le mot complet.</p>
+      </div>
+
+      <div class="rule-card">
+        <strong><span class="icon-mark">06</span>Déverrouillez le coffre</strong>
+        <p>Entrez le bon mot et débloquez la récompense.</p>
+      </div>
+
+      <div class="rule-end">
+        Chaque détail compte. Chaque indice peut faire la différence.<br><br>
+        Bonne chance.
+      </div>
+    </div>
+
+  </div>
 </div>
 
 <script>
-
 const motSecret = "PROMOTEUR";
 
 function verifier(){
-  let input = document.getElementById("mot").value.toUpperCase();
+  let input = document.getElementById("mot").value.toUpperCase().trim();
   let message = document.getElementById("message");
   let coffre = document.getElementById("coffre");
   let surprise = document.getElementById("surprise");
@@ -176,10 +341,28 @@ function verifier(){
     surprise.style.display = "block";
   } else {
     message.innerHTML = "❌ Mauvais mot";
-    message.style.color = "red";
+    message.style.color = "#ff6b6b";
   }
 }
 
+function afficherSection(section){
+  const sectionCoffre = document.getElementById("sectionCoffre");
+  const sectionRegles = document.getElementById("sectionRegles");
+  const btnCoffre = document.getElementById("btnCoffre");
+  const btnRegles = document.getElementById("btnRegles");
+
+  if(section === "coffre"){
+    sectionCoffre.style.display = "block";
+    sectionRegles.style.display = "none";
+    btnCoffre.classList.add("active");
+    btnRegles.classList.remove("active");
+  } else {
+    sectionCoffre.style.display = "none";
+    sectionRegles.style.display = "block";
+    btnRegles.classList.add("active");
+    btnCoffre.classList.remove("active");
+  }
+}
 </script>
 
 </body>
