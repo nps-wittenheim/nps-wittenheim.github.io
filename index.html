@@ -1,177 +1,506 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Coffre NPS Premium</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Coffre NPS Premium</title>
 
-<style>
-*{box-sizing:border-box;margin:0;padding:0}
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-body{
-  font-family:Arial, sans-serif;
-  min-height:100vh;
-  background:url('boulanger.jpg') center/cover no-repeat;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  padding:10px;
-  position:relative;
-}
+    :root {
+      --bg-dark: rgba(10, 16, 32, 0.74);
+      --card: rgba(18, 25, 48, 0.72);
+      --card-border: rgba(255,255,255,0.12);
+      --text: #ffffff;
+      --muted: rgba(255,255,255,0.84);
+      --gold-1: #ffcc3d;
+      --gold-2: #f29a15;
+      --green: #69e28a;
+      --red: #ff6b6b;
+    }
 
-body::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:rgba(10,15,30,0.7);
-  backdrop-filter:blur(6px);
-}
+    body {
+      font-family: Arial, sans-serif;
+      min-height: 100vh;
+      background: url('boulanger.jpg') center/cover no-repeat;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 10px;
+      position: relative;
+      overflow-x: hidden;
+    }
 
-.container{
-  position:relative;
-  z-index:2;
-  width:100%;
-  max-width:420px;
-  background:rgba(20,25,45,0.7);
-  border-radius:20px;
-  padding:20px;
-  text-align:center;
-  box-shadow:0 20px 60px rgba(0,0,0,0.5);
-}
+    body::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at top, rgba(255,199,70,0.16), transparent 30%),
+        rgba(8, 12, 24, 0.74);
+      backdrop-filter: blur(6px);
+    }
 
-/* IMAGE COFFRE */
-.coffre{
-  width:100%;
-  max-height:200px;
-  object-fit:cover;
-  border-radius:16px;
-  margin-bottom:15px;
-  transition:0.5s;
-}
+    #confetti {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 50;
+    }
 
-/* TITRE */
-h1{
-  color:white;
-  font-size:26px;
-  margin-bottom:10px;
-}
+    .container {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      max-width: 460px;
+      background: var(--bg-dark);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      padding: 16px;
+      text-align: center;
+      box-shadow: 0 24px 80px rgba(0,0,0,0.45);
+      overflow: hidden;
+    }
 
-/* TEXTE */
-.desc{
-  color:#ddd;
-  font-size:14px;
-  margin-bottom:15px;
-  line-height:1.4;
-}
+    .top-glow {
+      position: absolute;
+      top: -80px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,210,100,0.38), transparent 65%);
+      filter: blur(18px);
+      pointer-events: none;
+    }
 
-/* INPUT */
-input{
-  width:100%;
-  padding:12px;
-  border-radius:12px;
-  border:none;
-  margin-bottom:10px;
-  text-align:center;
-  font-size:15px;
-}
+    .coffre-wrap {
+      position: relative;
+      margin-bottom: 14px;
+    }
 
-/* BOUTON */
-button{
-  width:100%;
-  padding:12px;
-  border:none;
-  border-radius:12px;
-  background:linear-gradient(135deg,#ffbf1f,#f28c00);
-  color:white;
-  font-weight:bold;
-  font-size:15px;
-  cursor:pointer;
-}
+    .light-burst {
+      position: absolute;
+      inset: 50% auto auto 50%;
+      width: 80px;
+      height: 80px;
+      transform: translate(-50%, -50%) scale(0.3);
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,240,180,0.95), rgba(255,205,70,0.55) 45%, transparent 75%);
+      filter: blur(14px);
+      opacity: 0;
+      transition: all 0.6s ease;
+      pointer-events: none;
+      z-index: 1;
+    }
 
-/* MESSAGE */
-#message{
-  margin-top:12px;
-  font-weight:bold;
-}
+    .light-burst.active {
+      width: 340px;
+      height: 340px;
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+    }
 
-/* SURPRISE */
-.surprise{
-  display:none;
-  margin-top:12px;
-  padding:12px;
-  border-radius:12px;
-  background:rgba(0,200,100,0.2);
-  color:white;
-  font-size:14px;
-}
+    .coffre {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      max-height: 210px;
+      object-fit: cover;
+      border-radius: 18px;
+      display: block;
+      transition: transform 0.45s ease, box-shadow 0.45s ease, filter 0.45s ease;
+      box-shadow: 0 18px 40px rgba(0,0,0,0.35);
+    }
 
-/* EFFET OUVERT */
-.open{
-  transform:scale(1.05);
-  box-shadow:0 0 40px rgba(255,200,100,0.5);
-}
+    .coffre.open {
+      transform: scale(1.03);
+      box-shadow: 0 0 32px rgba(255,212,92,0.42), 0 22px 48px rgba(0,0,0,0.38);
+      filter: saturate(1.1);
+    }
 
-/* RESPONSIVE PC */
-@media(min-width:768px){
-  .container{
-    max-width:600px;
-    padding:30px;
-  }
-  h1{font-size:34px}
-  .desc{font-size:16px}
-  input,button{font-size:16px;padding:14px}
-}
-</style>
+    .coffre.shake {
+      animation: shake 0.4s ease;
+    }
+
+    @keyframes shake {
+      0% { transform: translateX(0); }
+      20% { transform: translateX(-6px); }
+      40% { transform: translateX(6px); }
+      60% { transform: translateX(-4px); }
+      80% { transform: translateX(4px); }
+      100% { transform: translateX(0); }
+    }
+
+    h1 {
+      color: var(--text);
+      font-size: 28px;
+      margin-bottom: 10px;
+      font-weight: 800;
+      letter-spacing: 0.2px;
+    }
+
+    .desc {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.45;
+      margin-bottom: 14px;
+    }
+
+    .panel {
+      background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 18px;
+      padding: 14px;
+    }
+
+    input {
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 14px;
+      font-size: 16px;
+      text-align: center;
+      margin-bottom: 10px;
+      background: rgba(255,255,255,0.98);
+      color: #111;
+      outline: none;
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--gold-1), var(--gold-2));
+      color: white;
+      font-size: 17px;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 0 14px 24px rgba(242,154,21,0.26);
+      transition: transform 0.15s ease, opacity 0.15s ease;
+    }
+
+    button:active {
+      transform: scale(0.985);
+    }
+
+    .status-row {
+      margin-top: 12px;
+      min-height: 26px;
+    }
+
+    #message {
+      font-size: 15px;
+      font-weight: 800;
+    }
+
+    .attempts {
+      margin-top: 8px;
+      color: rgba(255,255,255,0.74);
+      font-size: 13px;
+    }
+
+    .progress-box {
+      margin-top: 12px;
+      text-align: left;
+    }
+
+    .progress-label {
+      color: rgba(255,255,255,0.82);
+      font-size: 13px;
+      margin-bottom: 6px;
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.09);
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #ffcf4b, #ff9f1c);
+      transition: width 0.35s ease;
+    }
+
+    .surprise {
+      display: none;
+      margin-top: 14px;
+      padding: 14px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, rgba(68, 205, 118, 0.22), rgba(255,191,31,0.22));
+      border: 1px solid rgba(255,255,255,0.14);
+      color: white;
+      line-height: 1.4;
+      animation: pop 0.35s ease;
+    }
+
+    .surprise strong {
+      display: block;
+      font-size: 18px;
+      margin-bottom: 6px;
+    }
+
+    .badge {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.12);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.4px;
+    }
+
+    @keyframes pop {
+      0% { transform: scale(0.94); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    .locked {
+      opacity: 0.75;
+    }
+
+    @media (min-width: 768px) {
+      .container {
+        max-width: 640px;
+        padding: 22px;
+      }
+
+      .coffre {
+        max-height: 300px;
+      }
+
+      h1 {
+        font-size: 40px;
+      }
+
+      .desc {
+        font-size: 17px;
+      }
+
+      .panel {
+        padding: 22px;
+      }
+
+      input, button {
+        padding: 16px;
+        font-size: 17px;
+      }
+
+      #message {
+        font-size: 17px;
+      }
+
+      .attempts {
+        font-size: 14px;
+      }
+
+      .surprise {
+        padding: 18px;
+        font-size: 16px;
+      }
+    }
+  </style>
 </head>
-
 <body>
+  <canvas id="confetti"></canvas>
 
-<div class="container">
+  <div class="container">
+    <div class="top-glow"></div>
 
-<img id="coffre" src="coffre-ferme.png" class="coffre">
+    <div class="coffre-wrap">
+      <div id="lightBurst" class="light-burst"></div>
+      <img id="coffre" src="coffre-ferme.png" alt="Coffre fermé" class="coffre">
+    </div>
 
-<h1>Coffre NPS</h1>
+    <h1>Coffre NPS</h1>
 
-<p class="desc">
-Trouvez le mot secret pour ouvrir le coffre premium de Boulanger Wittenheim.
-</p>
+    <p class="desc">
+      Trouvez le mot secret pour ouvrir le coffre premium de Boulanger Wittenheim.
+    </p>
 
-<input type="text" id="mot" placeholder="Entre le mot secret">
+    <div class="panel">
+      <input type="text" id="mot" placeholder="Entre le mot secret" autocomplete="off">
+      <button id="openBtn" onclick="verifier()">Ouvrir le coffre</button>
 
-<button onclick="verifier()">Ouvrir le coffre</button>
+      <div class="status-row">
+        <p id="message"></p>
+      </div>
 
-<p id="message"></p>
+      <div class="attempts" id="attemptsText">Tentatives restantes : 5</div>
 
-<div id="surprise" class="surprise">
-🎁 Surprise débloquée<br>
-Bravo à toute l’équipe 🔥
-</div>
+      <div class="progress-box">
+        <div class="progress-label">Progression du coffre</div>
+        <div class="progress-bar">
+          <div id="progressFill" class="progress-fill"></div>
+        </div>
+      </div>
 
-</div>
+      <div id="surprise" class="surprise">
+        <strong>🎁 Surprise débloquée</strong>
+        Bravo à toute l’équipe de Boulanger Wittenheim 🔥
+        <div class="badge">COFFRE OUVERT AVEC SUCCÈS</div>
+      </div>
+    </div>
+  </div>
 
-<script>
-const motSecret = "PROMOTEUR";
+  <script>
+    const MOT_SECRET = "PROMOTEUR";
+    const MAX_ESSAIS = 5;
 
-function verifier(){
-  let input = document.getElementById("mot").value.toUpperCase();
-  let message = document.getElementById("message");
-  let coffre = document.getElementById("coffre");
-  let surprise = document.getElementById("surprise");
+    let essais = 0;
+    let ouvert = false;
 
-  if(input === motSecret){
-    message.innerHTML = "🎉 Coffre ouvert !";
-    message.style.color = "lightgreen";
+    const coffre = document.getElementById("coffre");
+    const message = document.getElementById("message");
+    const surprise = document.getElementById("surprise");
+    const attemptsText = document.getElementById("attemptsText");
+    const progressFill = document.getElementById("progressFill");
+    const lightBurst = document.getElementById("lightBurst");
+    const openBtn = document.getElementById("openBtn");
+    const motInput = document.getElementById("mot");
 
-    coffre.src = "coffre-ouvert.png";
-    coffre.classList.add("open");
+    function majUI() {
+      const restant = Math.max(0, MAX_ESSAIS - essais);
+      attemptsText.textContent = "Tentatives restantes : " + restant;
+      const progression = (essais / MAX_ESSAIS) * 100;
+      progressFill.style.width = progression + "%";
 
-    surprise.style.display = "block";
-  } else {
-    message.innerHTML = "❌ Mauvais mot";
-    message.style.color = "red";
-  }
-}
-</script>
+      if (restant === 0 && !ouvert) {
+        openBtn.classList.add("locked");
+      }
+    }
 
+    function shakeCoffre() {
+      coffre.classList.remove("shake");
+      void coffre.offsetWidth;
+      coffre.classList.add("shake");
+    }
+
+    function lancerConfettis() {
+      const canvas = document.getElementById("confetti");
+      const ctx = canvas.getContext("2d");
+
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      const pieces = [];
+      const colors = ["#ffcc3d", "#ff7b00", "#69e28a", "#ffffff", "#7dd3fc"];
+
+      for (let i = 0; i < 140; i++) {
+        pieces.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * -canvas.height,
+          w: 8 + Math.random() * 8,
+          h: 10 + Math.random() * 10,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          speed: 2 + Math.random() * 4,
+          tilt: Math.random() * 10 - 5,
+          rot: Math.random() * Math.PI
+        });
+      }
+
+      let frames = 0;
+
+      function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        pieces.forEach(p => {
+          p.y += p.speed;
+          p.x += Math.sin(p.rot) * 0.8;
+          p.rot += 0.03;
+
+          ctx.save();
+          ctx.translate(p.x, p.y);
+          ctx.rotate(p.rot);
+          ctx.fillStyle = p.color;
+          ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+          ctx.restore();
+        });
+
+        frames++;
+        if (frames < 180) {
+          requestAnimationFrame(draw);
+        } else {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+      }
+
+      draw();
+    }
+
+    function ouvrirCoffre() {
+      ouvert = true;
+      coffre.src = "coffre-ouvert.png";
+      coffre.classList.add("open");
+      lightBurst.classList.add("active");
+      message.innerHTML = "🎉 Coffre ouvert !";
+      message.style.color = "var(--green)";
+      surprise.style.display = "block";
+      openBtn.disabled = true;
+      motInput.disabled = true;
+      lancerConfettis();
+    }
+
+    function verifier() {
+      const motEntre = motInput.value.toUpperCase().trim();
+
+      if (ouvert) return;
+
+      if (essais >= MAX_ESSAIS) {
+        message.innerHTML = "⛔ Trop d’essais";
+        message.style.color = "#ffb84d";
+        return;
+      }
+
+      if (!motEntre) {
+        message.innerHTML = "⚠️ Entre un mot";
+        message.style.color = "#ffd166";
+        return;
+      }
+
+      essais++;
+      majUI();
+
+      if (motEntre === MOT_SECRET) {
+        ouvrirCoffre();
+      } else {
+        message.innerHTML = "❌ Mauvais mot";
+        message.style.color = "var(--red)";
+        shakeCoffre();
+
+        if (essais >= MAX_ESSAIS) {
+          message.innerHTML = "⛔ Trop d’essais";
+          message.style.color = "#ffb84d";
+        }
+      }
+    }
+
+    motInput.addEventListener("keydown", function(e) {
+      if (e.key === "Enter") {
+        verifier();
+      }
+    });
+
+    window.addEventListener("resize", () => {
+      const canvas = document.getElementById("confetti");
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    });
+
+    majUI();
+  </script>
 </body>
 </html>
