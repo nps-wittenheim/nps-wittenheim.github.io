@@ -317,6 +317,32 @@
       color:var(--muted);
     }
 
+    .marquee-coffre{
+      width:100%;
+      overflow:hidden;
+      margin-bottom:16px;
+      border-radius:14px;
+      background:linear-gradient(90deg, rgba(138,32,48,0.92), rgba(63,15,25,0.92));
+      border:1px solid rgba(255,255,255,0.08);
+      box-shadow:0 8px 20px rgba(0,0,0,0.25);
+    }
+
+    .marquee-coffre span{
+      display:inline-block;
+      white-space:nowrap;
+      padding:12px 0;
+      font-weight:900;
+      font-size:16px;
+      color:#f6c65a;
+      letter-spacing:1px;
+      animation:scrollCoffre 20s linear infinite;
+    }
+
+    @keyframes scrollCoffre{
+      0%{transform:translateX(100%)}
+      100%{transform:translateX(-100%)}
+    }
+
     .panel{
       background:linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
       border:1px solid rgba(255,255,255,0.08);
@@ -591,6 +617,11 @@
         margin-bottom:16px;
       }
 
+      .marquee-coffre span{
+        font-size:13px;
+        animation:scrollCoffre 22s linear infinite;
+      }
+
       .panel,
       .rules-box{
         padding:16px;
@@ -682,6 +713,10 @@
       </div>
 
       <div id="sectionCoffre">
+        <div class="marquee-coffre">
+          <span>😈 CHALLENGE NPS EN COURS… • QUI TROUVERA LE CODE AVANT LES AUTRES ? 🔐 •</span>
+        </div>
+
         <h1>Le Coffre</h1>
 
         <p class="desc">
@@ -698,10 +733,10 @@
 
           <div id="surprise" class="surprise">
             🚨 Bravo. Tu as trouvé le bon mot. 👏<br><br>
-  Ta récompense te sera annoncée très bientôt…<br><br>
-  Mais reste attentif.<br>
-  Ce serait dommage qu’on te la prenne sous les yeux.<br><br>
-  Ah ah ah… 😈😈😈
+            Ta récompense te sera annoncée très bientôt…<br><br>
+            Mais reste attentif.<br>
+            Ce serait dommage qu’on te la prenne sous les yeux.<br><br>
+            Ah ah ah… 😈😈😈
           </div>
         </div>
       </div>
@@ -712,7 +747,7 @@
         <div class="rule-intro">
           Le défi est lancé.<br><br>
           Le coffre est verrouillé… Un seul mot peut le débloquer.
-          Mais ce mot ne s’obtient pas par hasard. 😈
+          Mais ce mot ne s’obtient pas par hasard.
         </div>
 
         <div class="rule-card">
@@ -725,7 +760,7 @@
           </div>
           <div class="rule-text">
             <strong>Offrez une expérience client irréprochable</strong>
-            <p>Soyez cité dans un Avis NPS positif pour entrer dans le jeu.</p>
+            <p>Soyez cité dans un NPS positif pour entrer dans le jeu.</p>
           </div>
         </div>
 
@@ -739,9 +774,7 @@
           </div>
           <div class="rule-text">
             <strong>Recevez un indice</strong>
-            <p>Chaque citation NPS avec votre prénom = 2 indices 🔥
-Chaque avis Google = 1 indice ⭐
-👉 Les indices vous sont envoyés directement sur WhatsApp.</p>
+            <p>Citation NPS avec votre prénom = 2 indices 🔥<br>Avis Google = 1 indice ⭐<br>Les indices vous sont envoyés directement sur WhatsApp.</p>
           </div>
         </div>
 
@@ -789,7 +822,7 @@ Chaque avis Google = 1 indice ⭐
 
         <div class="rule-end">
           Chaque détail compte. Chaque indice peut faire la différence.<br><br>
-          Bonne chance. 😈
+          Bonne chance.
         </div>
       </div>
 
@@ -886,7 +919,7 @@ Chaque avis Google = 1 indice ⭐
 
         lancerConfettis();
       } else {
-        message.innerHTML = "Dommage… ce n’est pas le bon mot.<br><br>Obtiens un nouvel indice et retente ta chance. 😈";
+        message.innerHTML = "Dommage… ce n’est pas le bon mot.<br><br>Obtiens un nouvel indice et retente ta chance. 👿";
         message.classList.add("error-state");
 
         shakeCoffre();
