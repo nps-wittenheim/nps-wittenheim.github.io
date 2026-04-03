@@ -21,7 +21,7 @@
       --text:#f7f1e7;
       --muted:rgba(247,241,231,0.82);
       --success:#8ef0b0;
-      --danger:#ff7a7a;
+      --danger:#ff6b6b;
     }
 
     body{
@@ -53,6 +53,15 @@
       background:linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.02) 50%, transparent 100%);
       opacity:0.16;
       pointer-events:none;
+    }
+
+    #confetti-canvas{
+      position:fixed;
+      inset:0;
+      width:100%;
+      height:100%;
+      pointer-events:none;
+      z-index:999;
     }
 
     .container{
@@ -103,6 +112,14 @@
       z-index:1;
       animation:pulseGlow 3.2s ease-in-out infinite;
       pointer-events:none;
+      transition:0.4s ease;
+    }
+
+    .coffre-glow.success{
+      width:340px;
+      height:340px;
+      background:radial-gradient(circle, rgba(246,198,90,0.34), rgba(255,255,255,0.08) 45%, transparent 70%);
+      filter:blur(28px);
     }
 
     @keyframes pulseGlow{
@@ -136,9 +153,22 @@
     .coffre.opened{
       box-shadow:
         0 30px 70px rgba(0,0,0,0.52),
-        0 0 55px rgba(246,198,90,0.22);
-      transform:scale(1.01);
-      filter:saturate(1.04);
+        0 0 55px rgba(246,198,90,0.28);
+      transform:scale(1.02);
+      filter:saturate(1.08);
+    }
+
+    .coffre.shake{
+      animation:shake 0.45s ease;
+    }
+
+    @keyframes shake{
+      0%{transform:translateX(0)}
+      20%{transform:translateX(-8px)}
+      40%{transform:translateX(8px)}
+      60%{transform:translateX(-6px)}
+      80%{transform:translateX(6px)}
+      100%{transform:translateX(0)}
     }
 
     .ritual-badge{
@@ -220,12 +250,8 @@
     }
 
     @keyframes logoPulse{
-      0%,100%{
-        transform:scale(1);
-      }
-      50%{
-        transform:scale(1.04);
-      }
+      0%,100%{transform:scale(1)}
+      50%{transform:scale(1.04)}
     }
 
     .topbar{
@@ -335,21 +361,63 @@
     }
 
     #message{
-      margin-top:12px;
+      margin-top:14px;
+      min-height:42px;
       font-weight:bold;
-      min-height:24px;
+      text-align:center;
+      line-height:1.5;
+      border-radius:14px;
+      padding:0;
+      transition:0.25s ease;
+    }
+
+    #message.error-state{
+      background:rgba(192,47,69,0.12);
+      border:1px solid rgba(255,107,107,0.18);
+      color:#ff5c5c !important;
+      padding:16px;
+      font-size:22px !important;
+      font-weight:800;
+      animation:redAlert 0.45s ease;
+      box-shadow:0 0 22px rgba(255,60,60,0.18);
+    }
+
+    #message.success-state{
+      background:rgba(142,240,176,0.10);
+      border:1px solid rgba(142,240,176,0.18);
+      color:var(--success) !important;
+      padding:16px;
+      font-size:24px !important;
+      font-weight:900;
+      animation:successPop 0.45s ease;
+      box-shadow:0 0 30px rgba(246,198,90,0.20);
+    }
+
+    @keyframes redAlert{
+      0%{transform:scale(0.96); opacity:0.4}
+      25%{transform:translateX(-6px)}
+      50%{transform:translateX(6px)}
+      75%{transform:translateX(-4px)}
+      100%{transform:scale(1); opacity:1}
+    }
+
+    @keyframes successPop{
+      0%{transform:scale(0.92); opacity:0}
+      100%{transform:scale(1); opacity:1}
     }
 
     .surprise{
       display:none;
       margin-top:16px;
-      padding:16px;
+      padding:18px;
       border-radius:18px;
       background:linear-gradient(135deg, rgba(138,32,48,0.22), rgba(246,198,90,0.16));
       border:1px solid rgba(255,255,255,0.08);
-      line-height:1.55;
+      line-height:1.6;
       color:var(--text);
       box-shadow:0 14px 24px rgba(0,0,0,0.16);
+      text-align:center;
+      animation:successPop 0.45s ease;
     }
 
     .rules-box{
@@ -505,7 +573,6 @@
       .topbar{
         justify-content:center;
         padding-right:0;
-        margin-bottom:14px;
       }
 
       .topbtn{
@@ -569,16 +636,28 @@
         padding:14px;
         font-size:16px;
       }
+
+      #message.error-state{
+        font-size:18px !important;
+        padding:14px;
+      }
+
+      #message.success-state{
+        font-size:20px !important;
+        padding:14px;
+      }
     }
   </style>
 </head>
 <body>
 
+  <canvas id="confetti-canvas"></canvas>
+
   <div class="container">
 
     <div class="left-side">
       <div class="coffre-wrap">
-        <div class="coffre-glow"></div>
+        <div id="coffreGlow" class="coffre-glow"></div>
 
         <div class="ritual-badge">
           <img src="logo.png" alt="Logo Wittenheim" class="logo-badge" />
@@ -618,8 +697,9 @@
           <p id="message"></p>
 
           <div id="surprise" class="surprise">
-            🎁 Bravo à toute l’équipe 🔥<br>
-            COFFRE OUVERT AVEC SUCCÈS
+            ✨ Le coffre a cédé. ✨<br><br>
+            Bravo à toute l’équipe 🔥<br>
+            La récompense vient d’être révélée.
           </div>
         </div>
       </div>
@@ -715,21 +795,97 @@
   <script>
     const motSecret = "PROMOTEUR";
 
+    function resetMessageStyles() {
+      const message = document.getElementById("message");
+      message.classList.remove("error-state", "success-state");
+      message.style.color = "";
+    }
+
+    function shakeCoffre() {
+      const coffre = document.getElementById("coffre");
+      coffre.classList.remove("shake");
+      void coffre.offsetWidth;
+      coffre.classList.add("shake");
+    }
+
+    function lancerConfettis() {
+      const canvas = document.getElementById("confetti-canvas");
+      const ctx = canvas.getContext("2d");
+
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      const particles = [];
+      const colors = ["#f6c65a", "#ffffff", "#ff6b6b", "#ffd166", "#ffe8a3"];
+
+      for (let i = 0; i < 180; i++) {
+        particles.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * -canvas.height,
+          w: 6 + Math.random() * 8,
+          h: 10 + Math.random() * 12,
+          vx: -2 + Math.random() * 4,
+          vy: 2 + Math.random() * 4,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          rotation: Math.random() * Math.PI,
+          vr: -0.2 + Math.random() * 0.4
+        });
+      }
+
+      let frame = 0;
+
+      function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        particles.forEach((p) => {
+          p.x += p.vx;
+          p.y += p.vy;
+          p.rotation += p.vr;
+
+          ctx.save();
+          ctx.translate(p.x, p.y);
+          ctx.rotate(p.rotation);
+          ctx.fillStyle = p.color;
+          ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+          ctx.restore();
+        });
+
+        frame++;
+        if (frame < 180) {
+          requestAnimationFrame(animate);
+        } else {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+      }
+
+      animate();
+    }
+
     function verifier() {
       const input = document.getElementById("mot").value.toUpperCase().trim();
       const message = document.getElementById("message");
       const coffre = document.getElementById("coffre");
       const surprise = document.getElementById("surprise");
+      const glow = document.getElementById("coffreGlow");
+
+      resetMessageStyles();
 
       if (input === motSecret) {
-        message.innerHTML = "🎉 Coffre ouvert !";
-        message.style.color = "lightgreen";
+        message.innerHTML = "✨ INCROYABLE… LE COFFRE S’OUVRE ! ✨";
+        message.classList.add("success-state");
+
         coffre.src = "coffre-ouvert.png";
         coffre.classList.add("opened");
+        glow.classList.add("success");
+
         surprise.style.display = "block";
+
+        lancerConfettis();
       } else {
-        message.innerHTML = "❌ Mauvais mot";
-        message.style.color = "#ff6b6b";
+        message.innerHTML = "Dommage… ce n’est pas le bon mot.<br><br>Obtiens un nouvel indice et retente ta chance. 👿";
+        message.classList.add("error-state");
+
+        shakeCoffre();
       }
     }
 
@@ -751,6 +907,12 @@
         btnCoffre.classList.remove("active");
       }
     }
+
+    window.addEventListener("resize", () => {
+      const canvas = document.getElementById("confetti-canvas");
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    });
   </script>
 
 </body>
