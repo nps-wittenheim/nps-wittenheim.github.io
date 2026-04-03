@@ -9,17 +9,17 @@
 *{margin:0;padding:0;box-sizing:border-box}
 
 :root{
-  --bg-dark: rgba(12, 10, 22, 0.86);
-  --panel: rgba(22, 18, 36, 0.88);
-  --panel-2: rgba(18, 14, 30, 0.82);
+  --bg-dark: rgba(10, 8, 18, 0.88);
+  --panel: rgba(18, 14, 30, 0.88);
+  --panel-soft: rgba(30, 22, 48, 0.78);
   --border: rgba(255,255,255,0.08);
-  --gold-1:#f4c14c;
-  --gold-2:#c68b1c;
-  --red-1:#7e1d2c;
-  --red-2:#b3273d;
-  --text:#f6f1e8;
-  --muted:rgba(246,241,232,0.82);
-  --glow:rgba(244,193,76,0.22);
+  --gold-1:#f6c65a;
+  --gold-2:#c98b1d;
+  --red-1:#8a2030;
+  --red-2:#c02f45;
+  --text:#f7f1e7;
+  --muted:rgba(247,241,231,0.82);
+  --shadow:0 30px 80px rgba(0,0,0,0.55);
 }
 
 body{
@@ -39,33 +39,52 @@ body::before{
   position:absolute;
   inset:0;
   background:
-    radial-gradient(circle at top center, rgba(179,39,61,0.16), transparent 28%),
-    radial-gradient(circle at bottom left, rgba(244,193,76,0.08), transparent 24%),
-    rgba(8,8,16,0.78);
-  backdrop-filter:blur(7px);
+    radial-gradient(circle at top center, rgba(192,47,69,0.16), transparent 24%),
+    radial-gradient(circle at bottom left, rgba(246,198,90,0.10), transparent 22%),
+    rgba(6,6,14,0.80);
+  backdrop-filter:blur(8px);
+}
+
+body::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.02) 50%, transparent 100%);
+  opacity:.18;
+  pointer-events:none;
 }
 
 .container{
   position:relative;
   z-index:2;
   width:100%;
-  max-width:1040px;
-  background:linear-gradient(180deg, rgba(28,22,44,0.90), rgba(16,12,26,0.92));
-  border-radius:28px;
+  max-width:1100px;
+  background:linear-gradient(180deg, rgba(24,18,38,0.94), rgba(12,10,22,0.95));
+  border-radius:30px;
   padding:30px;
-  box-shadow:
-    0 30px 80px rgba(0,0,0,0.55),
-    inset 0 1px 0 rgba(255,255,255,0.03);
+  box-shadow:var(--shadow);
   display:flex;
   gap:30px;
   align-items:center;
   border:1px solid rgba(255,255,255,0.06);
+  overflow:hidden;
+}
+
+.container::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(246,198,90,0.06), transparent 18%),
+    radial-gradient(circle at 80% 10%, rgba(192,47,69,0.07), transparent 16%);
+  pointer-events:none;
 }
 
 .left-side{
   position:relative;
   width:100%;
-  max-width:390px;
+  max-width:400px;
 }
 
 .coffre-wrap{
@@ -76,26 +95,36 @@ body::before{
   position:absolute;
   inset:50% auto auto 50%;
   transform:translate(-50%,-50%);
-  width:230px;
-  height:230px;
+  width:260px;
+  height:260px;
   border-radius:50%;
-  background:
-    radial-gradient(circle, rgba(244,193,76,0.18), transparent 60%);
-  filter:blur(20px);
-  pointer-events:none;
+  background:radial-gradient(circle, rgba(246,198,90,0.20), transparent 65%);
+  filter:blur(24px);
   z-index:1;
+  animation:pulseGlow 3s ease-in-out infinite;
+  pointer-events:none;
+}
+
+@keyframes pulseGlow{
+  0%,100%{opacity:.65;transform:translate(-50%,-50%) scale(1)}
+  50%{opacity:1;transform:translate(-50%,-50%) scale(1.08)}
 }
 
 .coffre{
   position:relative;
   z-index:2;
   width:100%;
-  max-width:390px;
-  border-radius:22px;
+  max-width:400px;
+  border-radius:24px;
   display:block;
-  box-shadow:0 24px 60px rgba(0,0,0,0.42);
-  transition:0.4s ease;
+  box-shadow:0 26px 60px rgba(0,0,0,0.45);
   border:1px solid rgba(255,255,255,0.06);
+  transition:transform .35s ease, box-shadow .35s ease, filter .35s ease;
+}
+
+.coffre:hover{
+  transform:translateY(-2px) scale(1.01);
+  box-shadow:0 30px 70px rgba(0,0,0,0.52), 0 0 40px rgba(246,198,90,0.10);
 }
 
 .ritual-badge{
@@ -103,15 +132,24 @@ body::before{
   top:14px;
   left:14px;
   z-index:3;
-  padding:8px 12px;
+  padding:9px 13px;
   border-radius:999px;
   font-size:12px;
-  font-weight:700;
+  font-weight:800;
   letter-spacing:1px;
   color:var(--text);
-  background:linear-gradient(135deg, rgba(126,29,44,0.92), rgba(56,13,22,0.92));
+  background:linear-gradient(135deg, rgba(138,32,48,0.96), rgba(63,15,25,0.96));
   border:1px solid rgba(255,255,255,0.08);
   box-shadow:0 10px 24px rgba(0,0,0,0.28);
+}
+
+.whisper{
+  margin-top:14px;
+  text-align:center;
+  color:rgba(247,241,231,0.58);
+  font-size:13px;
+  letter-spacing:.6px;
+  text-transform:uppercase;
 }
 
 .right-side{
@@ -123,31 +161,32 @@ body::before{
   display:flex;
   gap:12px;
   flex-wrap:wrap;
-  margin-bottom:18px;
+  margin-bottom:20px;
 }
 
 .topbtn{
   position:relative;
-  padding:12px 16px;
+  padding:12px 18px;
   border:none;
   border-radius:16px;
   font-size:14px;
-  font-weight:700;
+  font-weight:800;
   cursor:pointer;
   color:var(--text);
   background:linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
   border:1px solid rgba(255,255,255,0.08);
-  transition:0.2s ease;
+  transition:.2s ease;
   overflow:hidden;
+  box-shadow:0 10px 20px rgba(0,0,0,0.18);
 }
 
 .topbtn::before{
   content:"";
   position:absolute;
   inset:0;
-  background:radial-gradient(circle at top, rgba(244,193,76,0.16), transparent 55%);
+  background:linear-gradient(135deg, rgba(246,198,90,0.20), rgba(192,47,69,0.14));
   opacity:0;
-  transition:0.2s ease;
+  transition:.2s ease;
 }
 
 .topbtn:hover::before,
@@ -155,32 +194,38 @@ body::before{
   opacity:1;
 }
 
+.topbtn:hover{
+  transform:translateY(-1px);
+}
+
 .topbtn.active{
-  background:linear-gradient(135deg, rgba(126,29,44,0.95), rgba(198,139,28,0.78));
-  box-shadow:0 12px 24px rgba(0,0,0,0.22);
+  background:linear-gradient(135deg, rgba(138,32,48,0.96), rgba(201,139,29,0.78));
 }
 
 h1{
-  font-size:44px;
+  font-size:46px;
   margin-bottom:16px;
-  letter-spacing:0.4px;
-  line-height:1.05;
+  letter-spacing:0.6px;
+  line-height:1.02;
   text-transform:uppercase;
+  text-shadow:0 6px 20px rgba(0,0,0,0.35);
 }
 
 .desc{
   font-size:18px;
-  line-height:1.6;
+  line-height:1.65;
   margin-bottom:24px;
   color:var(--muted);
 }
 
 .panel{
-  background:linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.025));
+  background:linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
   border:1px solid var(--border);
   border-radius:22px;
   padding:22px;
-  box-shadow:inset 0 1px 0 rgba(255,255,255,0.03);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.03),
+    0 18px 34px rgba(0,0,0,0.18);
 }
 
 input{
@@ -192,6 +237,7 @@ input{
   font-size:16px;
   background:#f8f4ee;
   color:#181818;
+  box-shadow:inset 0 2px 10px rgba(0,0,0,0.08);
 }
 
 button.main-btn{
@@ -200,16 +246,21 @@ button.main-btn{
   border:none;
   border-radius:16px;
   font-size:17px;
-  font-weight:800;
+  font-weight:900;
   background:linear-gradient(135deg,var(--gold-1),var(--gold-2));
-  color:#25180b;
+  color:#24180b;
   cursor:pointer;
-  box-shadow:0 16px 30px rgba(198,139,28,0.22);
-  transition:0.15s ease;
+  box-shadow:0 16px 30px rgba(201,139,29,0.28);
+  transition:.18s ease;
 }
 
 button.main-btn:hover{
   transform:translateY(-1px);
+  box-shadow:0 20px 36px rgba(201,139,29,0.34);
+}
+
+button.main-btn:active{
+  transform:scale(.99);
 }
 
 #message{
@@ -223,10 +274,11 @@ button.main-btn:hover{
   margin-top:16px;
   padding:16px;
   border-radius:18px;
-  background:linear-gradient(135deg, rgba(126,29,44,0.24), rgba(244,193,76,0.16));
+  background:linear-gradient(135deg, rgba(138,32,48,0.22), rgba(246,198,90,0.16));
   border:1px solid rgba(255,255,255,0.08);
   line-height:1.55;
   color:var(--text);
+  box-shadow:0 14px 24px rgba(0,0,0,0.16);
 }
 
 .rules-box{
@@ -235,19 +287,20 @@ button.main-btn:hover{
   border:1px solid var(--border);
   border-radius:22px;
   padding:24px;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,0.03);
 }
 
 .rules-title{
-  font-size:26px;
+  font-size:28px;
   margin-bottom:18px;
-  font-weight:800;
-  letter-spacing:0.5px;
+  font-weight:900;
+  letter-spacing:0.6px;
   text-transform:uppercase;
 }
 
 .rule-intro{
   font-size:17px;
-  line-height:1.65;
+  line-height:1.7;
   color:var(--muted);
   margin-bottom:20px;
 }
@@ -263,6 +316,13 @@ button.main-btn:hover{
   margin-bottom:12px;
   position:relative;
   overflow:hidden;
+  transition:.2s ease;
+}
+
+.rule-card:hover{
+  transform:translateY(-1px);
+  border-color:rgba(246,198,90,0.18);
+  box-shadow:0 14px 24px rgba(0,0,0,0.12);
 }
 
 .rule-card::before{
@@ -273,7 +333,6 @@ button.main-btn:hover{
   width:4px;
   height:100%;
   background:linear-gradient(180deg, var(--red-2), var(--gold-1));
-  opacity:0.9;
 }
 
 .rule-text{
@@ -296,30 +355,30 @@ button.main-btn:hover{
 .rule-end{
   margin-top:18px;
   font-size:16px;
-  line-height:1.65;
+  line-height:1.7;
   color:var(--muted);
 }
 
 .icon-mark{
   flex:0 0 auto;
-  width:42px;
-  height:42px;
-  border-radius:14px;
+  width:44px;
+  height:44px;
+  border-radius:15px;
   display:flex;
   align-items:center;
   justify-content:center;
   background:
-    radial-gradient(circle at top, rgba(244,193,76,0.24), transparent 55%),
-    linear-gradient(135deg, rgba(126,29,44,0.95), rgba(40,11,20,0.95));
+    radial-gradient(circle at top, rgba(246,198,90,0.22), transparent 55%),
+    linear-gradient(135deg, rgba(138,32,48,0.98), rgba(48,12,22,0.98));
   border:1px solid rgba(255,255,255,0.08);
-  box-shadow:0 10px 20px rgba(0,0,0,0.24);
+  box-shadow:0 12px 24px rgba(0,0,0,0.24);
 }
 
 .icon-mark svg{
   width:22px;
   height:22px;
-  stroke:#f6f1e8;
-  stroke-width:1.8;
+  stroke:#f7f1e7;
+  stroke-width:1.9;
   fill:none;
   stroke-linecap:round;
   stroke-linejoin:round;
@@ -378,7 +437,8 @@ button.main-btn:hover{
   }
 
   .rule-text p,
-  .rule-end{
+  .rule-end,
+  .whisper{
     font-size:14px;
   }
 }
@@ -395,6 +455,7 @@ button.main-btn:hover{
       <div class="ritual-badge">DÉFI STRATÉGIQUE</div>
       <img id="coffre" src="coffre-ferme.png" class="coffre" alt="Coffre verrouillé">
     </div>
+    <div class="whisper">Tous n’y arriveront pas.</div>
   </div>
 
   <div class="right-side">
