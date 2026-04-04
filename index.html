@@ -558,6 +558,11 @@
       stroke-linejoin:round;
     }
 
+    .loading{
+      opacity:0.75;
+      pointer-events:none;
+    }
+
     @media (max-width: 900px){
       .container{
         flex-direction:column;
@@ -740,8 +745,8 @@
         </p>
 
         <div class="panel">
-          <input type="text" id="mot" placeholder="Entre le mot secret" />
-          <button class="main-btn" onclick="verifier()">Ouvrir le coffre</button>
+          <input type="text" id="mot" placeholder="Entre le mot secret" autocomplete="off" />
+          <button id="mainButton" class="main-btn" onclick="verifier()">Ouvrir le coffre</button>
 
           <p id="message"></p>
 
@@ -844,12 +849,11 @@
   </div>
 
   <script>
-    const motSecret = "PROMOTEUR";
-
     function resetMessageStyles() {
       const message = document.getElementById("message");
       message.classList.remove("error-state", "success-state");
       message.style.color = "";
+      message.innerHTML = "";
     }
 
     function shakeCoffre() {
@@ -912,34 +916,6 @@
       animate();
     }
 
-    function verifier() {
-      const input = document.getElementById("mot").value.toUpperCase().trim();
-      const message = document.getElementById("message");
-      const coffre = document.getElementById("coffre");
-      const surprise = document.getElementById("surprise");
-      const glow = document.getElementById("coffreGlow");
-
-      resetMessageStyles();
-
-      if (input === motSecret) {
-        message.innerHTML = "✨ INCROYABLE… LE COFFRE S’OUVRE ! ✨";
-        message.classList.add("success-state");
-
-        coffre.src = "coffre-ouvert.png";
-        coffre.classList.add("opened");
-        glow.classList.add("success");
-
-        surprise.style.display = "block";
-
-        lancerConfettis();
-      } else {
-        message.innerHTML = "Dommage… ce n’est pas le bon mot.<br><br>Obtiens un nouvel indice et retente ta chance. 👿";
-        message.classList.add("error-state");
-
-        shakeCoffre();
-      }
-    }
-
     function afficherSection(section) {
       const sectionCoffre = document.getElementById("sectionCoffre");
       const sectionRegles = document.getElementById("sectionRegles");
@@ -958,6 +934,78 @@
         btnCoffre.classList.remove("active");
       }
     }
+
+    async function verifier() {
+      const inputEl = document.getElementById("mot");
+      const input = inputEl.value.trim();
+      const message = document.getElementById("message");
+      const coffre = document.getElementById("coffre");
+      const surprise = document.getElementById("surprise");
+      const glow = document.getElementById("coffreGlow");
+      const button = document.getElementById("mainButton");
+
+      resetMessageStyles();
+
+      if (!input) {
+        message.innerHTML = "Entre un mot avant de tenter ta chance.";
+        message.classList.add("error-state");
+        shakeCoffre();
+        return;
+      }
+
+      button.disabled = true;
+      button.classList.add("loading");
+      button.textContent = "Vérification...";
+
+      try {
+        const response = await fetch("/api/verifier", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ mot: input })
+        });
+
+        const data = await response.json();
+
+        if (data.ok) {
+          message.innerHTML = "✨ INCROYABLE… LE COFFRE S’OUVRE ! ✨";
+          message.classList.add("success-state");
+
+          coffre.src = "coffre-ouvert.png";
+          coffre.classList.add("opened");
+          glow.classList.add("success");
+
+          surprise.style.display = "block";
+
+          lancerConfettis();
+        } else {
+          message.innerHTML = "Dommage… ce n’est pas le bon mot.<br><br>Obtiens un nouvel indice et retente ta chance. 👿";
+          message.classList.add("error-state");
+
+          surprise.style.display = "none";
+          coffre.src = "coffre-ferme.png";
+          coffre.classList.remove("opened");
+          glow.classList.remove("success");
+
+          shakeCoffre();
+        }
+      } catch (error) {
+        message.innerHTML = "Erreur de vérification. Réessaie dans un instant.";
+        message.classList.add("error-state");
+        shakeCoffre();
+      } finally {
+        button.disabled = false;
+        button.classList.remove("loading");
+        button.textContent = "Ouvrir le coffre";
+      }
+    }
+
+    document.getElementById("mot").addEventListener("keydown", function(event) {
+      if (event.key === "Enter") {
+        verifier();
+      }
+    });
 
     window.addEventListener("resize", () => {
       const canvas = document.getElementById("confetti-canvas");
