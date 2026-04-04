@@ -849,6 +849,28 @@
   </div>
 
   <script>
+    /*
+      Ce hash correspond à "experience" normalisé.
+      Le mot n'apparaît donc plus en clair dans le code.
+    */
+    const HASH_ATTENDU = "53e5e7c5a884893739c4cf64528572aeb846f8e4ca1986188287475c65900fab";
+
+    function normaliserTexte(texte) {
+      return (texte || "")
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .trim()
+        .toLowerCase();
+    }
+
+    async function sha256(texte) {
+      const encoder = new TextEncoder();
+      const data = encoder.encode(texte);
+      const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+      const hashArray = Array.from(new Uint8Array(hashBuffer));
+      return hashArray.map(b => b.toString(16).padStart(2, "0")).join("");
+    }
+
     function resetMessageStyles() {
       const message = document.getElementById("message");
       message.classList.remove("error-state", "success-state");
@@ -937,7 +959,7 @@
 
     async function verifier() {
       const inputEl = document.getElementById("mot");
-      const input = inputEl.value.trim();
+      const input = inputEl.value;
       const message = document.getElementById("message");
       const coffre = document.getElementById("coffre");
       const surprise = document.getElementById("surprise");
@@ -946,7 +968,7 @@
 
       resetMessageStyles();
 
-      if (!input) {
+      if (!input.trim()) {
         message.innerHTML = "Entre un mot avant de tenter ta chance.";
         message.classList.add("error-state");
         shakeCoffre();
@@ -958,17 +980,10 @@
       button.textContent = "Vérification...";
 
       try {
-        const response = await fetch("/api/verifier", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({ mot: input })
-        });
+        const motNormalise = normaliserTexte(input);
+        const hashUtilisateur = await sha256(motNormalise);
 
-        const data = await response.json();
-
-        if (data.ok) {
+        if (hashUtilisateur === HASH_ATTENDU) {
           message.innerHTML = "✨ INCROYABLE… LE COFFRE S’OUVRE ! ✨";
           message.classList.add("success-state");
 
