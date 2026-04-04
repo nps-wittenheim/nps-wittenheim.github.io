@@ -563,6 +563,93 @@
       pointer-events:none;
     }
 
+    .nps-hero{
+      display:flex;
+      flex-direction:column;
+      gap:18px;
+    }
+
+    .nps-alert{
+      background:linear-gradient(135deg, rgba(192,47,69,0.20), rgba(246,198,90,0.10));
+      border:1px solid rgba(255,107,107,0.22);
+      color:#ffd5d5;
+      border-radius:18px;
+      padding:16px 18px;
+      font-size:16px;
+      line-height:1.6;
+      box-shadow:0 14px 24px rgba(0,0,0,0.16);
+    }
+
+    .nps-alert strong{
+      color:#ff8080;
+    }
+
+    .nps-quick-stats{
+      display:grid;
+      grid-template-columns:repeat(3, minmax(0, 1fr));
+      gap:12px;
+    }
+
+    .nps-stat{
+      background:linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+      border:1px solid rgba(255,255,255,0.08);
+      border-radius:18px;
+      padding:16px;
+      text-align:center;
+      box-shadow:0 12px 24px rgba(0,0,0,0.16);
+    }
+
+    .nps-stat-label{
+      font-size:13px;
+      text-transform:uppercase;
+      letter-spacing:1px;
+      color:rgba(247,241,231,0.60);
+      margin-bottom:8px;
+    }
+
+    .nps-stat-value{
+      font-size:30px;
+      font-weight:900;
+    }
+
+    .nps-bad{
+      color:#ff6b6b;
+    }
+
+    .nps-mid{
+      color:#ffd166;
+    }
+
+    .nps-good{
+      color:#8ef0b0;
+    }
+
+    .nps-image-wrap{
+      background:linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+      border:1px solid rgba(255,255,255,0.08);
+      border-radius:22px;
+      padding:14px;
+      box-shadow:0 18px 34px rgba(0,0,0,0.18);
+    }
+
+    .nps-image{
+      display:block;
+      width:100%;
+      max-width:520px;
+      margin:0 auto;
+      border-radius:18px;
+      border:1px solid rgba(255,255,255,0.08);
+      box-shadow:0 18px 40px rgba(0,0,0,0.28);
+    }
+
+    .nps-caption{
+      margin-top:14px;
+      text-align:center;
+      color:rgba(247,241,231,0.78);
+      font-size:15px;
+      line-height:1.6;
+    }
+
     @media (max-width: 900px){
       .container{
         flex-direction:column;
@@ -693,6 +780,14 @@
         font-size:20px !important;
         padding:14px;
       }
+
+      .nps-quick-stats{
+        grid-template-columns:1fr;
+      }
+
+      .nps-image{
+        max-width:100%;
+      }
     }
   </style>
 </head>
@@ -726,6 +821,7 @@
       <div class="topbar">
         <button id="btnCoffre" class="topbtn active" onclick="afficherSection('coffre')">Le Coffre</button>
         <button id="btnRegles" class="topbtn" onclick="afficherSection('regles')">Règles du jeu</button>
+        <button id="btnNps" class="topbtn" onclick="afficherSection('nps')">NPS actuel</button>
       </div>
 
       <div id="sectionCoffre">
@@ -845,6 +941,41 @@
         </div>
       </div>
 
+      <div id="sectionNps" class="rules-box">
+        <div class="rules-title">NPS actuel</div>
+
+        <div class="nps-hero">
+          <div class="nps-alert">
+            <strong>⚠️ Alerte NPS :</strong> le score actuel est nettement en dessous de l’objectif.
+            Chaque avis positif compte, et chaque neutre nous ralentit fortement.
+          </div>
+
+          <div class="nps-quick-stats">
+            <div class="nps-stat">
+              <div class="nps-stat-label">NPS du moment</div>
+              <div class="nps-stat-value nps-bad">46 😟</div>
+            </div>
+
+            <div class="nps-stat">
+              <div class="nps-stat-label">Objectif</div>
+              <div class="nps-stat-value nps-good">64</div>
+            </div>
+
+            <div class="nps-stat">
+              <div class="nps-stat-label">Écart</div>
+              <div class="nps-stat-value nps-mid">-18</div>
+            </div>
+          </div>
+
+          <div class="nps-image-wrap">
+            <img src="nps-actuel.png" alt="Affiche NPS actuel à 46 avec objectif 64" class="nps-image" />
+            <div class="nps-caption">
+              Nous sommes sous l’objectif. Il faut limiter les neutres et aller chercher un maximum de 9 et 10.
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 
@@ -937,19 +1068,29 @@
     function afficherSection(section) {
       const sectionCoffre = document.getElementById("sectionCoffre");
       const sectionRegles = document.getElementById("sectionRegles");
+      const sectionNps = document.getElementById("sectionNps");
+
       const btnCoffre = document.getElementById("btnCoffre");
       const btnRegles = document.getElementById("btnRegles");
+      const btnNps = document.getElementById("btnNps");
+
+      sectionCoffre.style.display = "none";
+      sectionRegles.style.display = "none";
+      sectionNps.style.display = "none";
+
+      btnCoffre.classList.remove("active");
+      btnRegles.classList.remove("active");
+      btnNps.classList.remove("active");
 
       if (section === "coffre") {
         sectionCoffre.style.display = "block";
-        sectionRegles.style.display = "none";
         btnCoffre.classList.add("active");
-        btnRegles.classList.remove("active");
-      } else {
-        sectionCoffre.style.display = "none";
+      } else if (section === "regles") {
         sectionRegles.style.display = "block";
         btnRegles.classList.add("active");
-        btnCoffre.classList.remove("active");
+      } else if (section === "nps") {
+        sectionNps.style.display = "block";
+        btnNps.classList.add("active");
       }
     }
 
