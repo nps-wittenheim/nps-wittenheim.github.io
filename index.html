@@ -360,6 +360,10 @@
       max-width:680px;
     }
 
+    .compact-status{
+      display:none;
+    }
+
     .escape-box{
       display:grid;
       grid-template-columns:repeat(2, minmax(0, 1fr));
@@ -406,32 +410,68 @@
       color:#ffe4a0;
     }
 
-    .panel{
-      background:linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
-      border:1px solid rgba(255,255,255,0.08);
-      border-radius:22px;
-      padding:20px;
-      box-shadow:inset 0 1px 0 rgba(255,255,255,0.03), 0 18px 34px rgba(0,0,0,0.18);
+    .code-panel{
+      position:relative;
+      background:linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+      border:1px solid rgba(246,198,90,0.28);
+      border-radius:26px;
+      padding:22px;
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.04),
+        0 18px 34px rgba(0,0,0,0.18),
+        0 0 0 2px rgba(246,198,90,0.06);
+      margin-bottom:18px;
+    }
+
+    .code-panel::before{
+      content:"ZONE DE SAISIE";
+      position:absolute;
+      top:-12px;
+      left:18px;
+      font-size:11px;
+      font-weight:900;
+      letter-spacing:1px;
+      color:#24180b;
+      background:linear-gradient(135deg, var(--gold-1), var(--gold-2));
+      padding:6px 10px;
+      border-radius:999px;
+      box-shadow:0 8px 18px rgba(201,139,29,0.22);
+    }
+
+    .code-intro{
+      text-align:center;
+      font-size:14px;
+      color:rgba(247,241,231,0.78);
+      margin-bottom:14px;
+      line-height:1.5;
+      font-weight:700;
     }
 
     input{
       width:100%;
-      padding:16px;
-      border-radius:16px;
+      padding:18px 16px;
+      border-radius:18px;
       border:none;
-      margin-bottom:12px;
-      font-size:16px;
+      margin-bottom:14px;
+      font-size:18px;
       background:#f8f4ee;
       color:#181818;
       box-shadow:inset 0 2px 10px rgba(0,0,0,0.08);
+      font-weight:700;
+      text-align:center;
+    }
+
+    input::placeholder{
+      color:#8b8b8b;
+      font-weight:700;
     }
 
     button.main-btn{
       width:100%;
-      padding:16px;
+      padding:18px;
       border:none;
-      border-radius:16px;
-      font-size:17px;
+      border-radius:18px;
+      font-size:19px;
       font-weight:900;
       background:linear-gradient(135deg, var(--gold-1), var(--gold-2));
       color:#24180b;
@@ -717,10 +757,14 @@
     }
 
     @media (max-width: 900px){
+      body{
+        padding:10px;
+      }
+
       .container{
         flex-direction:column;
-        padding:16px;
-        gap:14px;
+        padding:14px;
+        gap:12px;
         border-radius:22px;
       }
 
@@ -733,18 +777,19 @@
 
       .coffre{
         max-width:100%;
-        max-height:220px;
+        max-height:165px;
         object-fit:cover;
+        border-radius:20px;
       }
 
       .coffre-glow{
-        width:180px;
-        height:180px;
+        width:150px;
+        height:150px;
       }
 
       .whisper{
-        margin-top:10px;
-        font-size:12px;
+        margin-top:8px;
+        font-size:11px;
       }
 
       .right-side{
@@ -754,15 +799,17 @@
 
       .logo-top-right{
         position:static;
-        margin:0 auto 12px auto;
-        width:64px;
-        height:64px;
+        margin:0 auto 10px auto;
+        width:56px;
+        height:56px;
         padding:4px;
       }
 
       .topbar{
         justify-content:center;
         padding-right:0;
+        margin-bottom:12px;
+        gap:10px;
       }
 
       .topbtn{
@@ -772,27 +819,64 @@
 
       .marquee-coffre{
         width:100%;
+        margin-bottom:12px;
       }
 
       .marquee-track span{
-        font-size:13px;
-        padding:10px 24px;
+        font-size:12px;
+        padding:9px 20px;
       }
 
       h1,
       .rules-title{
-        font-size:28px;
+        font-size:26px;
         padding-right:0;
       }
 
       .desc{
-        font-size:15px;
-        margin-bottom:14px;
+        font-size:14px;
+        margin-bottom:12px;
         max-width:none;
       }
 
+      .code-panel{
+        padding:18px 14px 16px 14px;
+        margin-bottom:12px;
+      }
+
+      .code-panel::before{
+        font-size:10px;
+        padding:5px 9px;
+      }
+
+      .code-intro{
+        font-size:13px;
+        margin-bottom:12px;
+      }
+
+      input{
+        padding:17px 14px;
+        font-size:18px;
+        margin-bottom:12px;
+      }
+
+      button.main-btn{
+        padding:17px;
+        font-size:18px;
+      }
+
+      .compact-status{
+        display:block;
+        margin-bottom:12px;
+      }
+
+      .compact-status .escape-chip{
+        min-height:auto;
+        padding:12px 14px;
+      }
+
       .escape-box{
-        grid-template-columns:1fr;
+        display:none;
       }
 
       .panel,
@@ -831,28 +915,18 @@
         height:18px;
       }
 
-      input{
-        padding:14px;
-        font-size:15px;
-      }
-
-      button.main-btn{
-        padding:14px;
-        font-size:16px;
-      }
-
       #message.error-state{
-        font-size:18px !important;
+        font-size:17px !important;
         padding:14px;
       }
 
       #message.success-state{
-        font-size:20px !important;
+        font-size:19px !important;
         padding:14px;
       }
 
       #message.secret-state{
-        font-size:16px !important;
+        font-size:15px !important;
         padding:14px;
       }
 
@@ -915,6 +989,32 @@
           À vous de le découvrir 😈.
         </p>
 
+        <div class="code-panel">
+          <div class="code-intro">
+            Entre le mot ici pour tenter d’ouvrir le coffre.
+          </div>
+
+          <input type="text" id="mot" placeholder="ENTRE LE CODE ICI" autocomplete="off" />
+          <button id="mainButton" class="main-btn" onclick="verifier()">Ouvrir le coffre</button>
+
+          <p id="message"></p>
+
+          <div id="surprise" class="surprise">
+            🚨 Bravo. Tu as trouvé le bon mot. 👏<br><br>
+            Ta récompense te sera annoncée très bientôt…<br><br>
+            Mais reste attentif.<br>
+            Ce serait dommage qu’on te la prenne sous les yeux.<br><br>
+            Ah ah ah… 😈😈😈
+          </div>
+        </div>
+
+        <div class="compact-status">
+          <div class="escape-chip">
+            <div class="escape-label" id="compactLabel">Pression</div>
+            <div class="escape-value deadline" id="compactValue">⏳ Le coffre disparaît le 30 avril.</div>
+          </div>
+        </div>
+
         <div class="escape-box">
           <div class="escape-chip">
             <div class="escape-label">Pression</div>
@@ -934,21 +1034,6 @@
           <div class="escape-chip">
             <div class="escape-label">Progression</div>
             <div id="attemptsText" class="escape-value">🔎 7 tentatives aujourd’hui</div>
-          </div>
-        </div>
-
-        <div class="panel">
-          <input type="text" id="mot" placeholder="Entre le mot secret" autocomplete="off" />
-          <button id="mainButton" class="main-btn" onclick="verifier()">Ouvrir le coffre</button>
-
-          <p id="message"></p>
-
-          <div id="surprise" class="surprise">
-            🚨 Bravo. Tu as trouvé le bon mot. 👏<br><br>
-            Ta récompense te sera annoncée très bientôt…<br><br>
-            Mais reste attentif.<br>
-            Ce serait dommage qu’on te la prenne sous les yeux.<br><br>
-            Ah ah ah… 😈😈😈
           </div>
         </div>
       </div>
@@ -1108,10 +1193,21 @@
       "Presque… mais non."
     ];
 
+    const mobileStatusItems = [
+      { label: "Pression", value: "⏳ Le coffre disparaît le 30 avril.", className: "deadline" },
+      { label: "Murmure", dynamic: "mystery", className: "danger-value" },
+      { label: "Doute", dynamic: "doubt", className: "warning-value" },
+      { label: "Progression", dynamic: "attempts", className: "" }
+    ];
+
     let audioContext;
     let coffreClickCount = 0;
     let badgeClickCount = 0;
     let longPressTimer = null;
+    let currentMysteryMessage = mysteryMessages[0];
+    let currentDoubtMessage = doubtMessages[0];
+    let currentAttemptsMessage = "🔎 7 tentatives aujourd’hui";
+    let mobileStatusIndex = 0;
 
     function ensureAudio() {
       if (!audioContext) {
@@ -1293,14 +1389,45 @@
       }
     }
 
-    function rotateText(targetId, messages, delay) {
+    function updateCompactStatus() {
+      const compactLabel = document.getElementById("compactLabel");
+      const compactValue = document.getElementById("compactValue");
+      if (!compactLabel || !compactValue) return;
+
+      const item = mobileStatusItems[mobileStatusIndex];
+      compactLabel.textContent = item.label;
+
+      let valueText = item.value || "";
+      if (item.dynamic === "mystery") valueText = currentMysteryMessage;
+      if (item.dynamic === "doubt") valueText = currentDoubtMessage;
+      if (item.dynamic === "attempts") valueText = currentAttemptsMessage;
+
+      compactValue.textContent = valueText;
+      compactValue.className = "escape-value";
+      if (item.className) compactValue.classList.add(item.className);
+    }
+
+    function rotateCompactStatus() {
+      mobileStatusIndex = (mobileStatusIndex + 1) % mobileStatusItems.length;
+      updateCompactStatus();
+    }
+
+    function rotateText(targetId, messages, delay, type) {
       const el = document.getElementById(targetId);
       let index = Math.floor(Math.random() * messages.length);
       el.textContent = messages[index];
 
+      if (type === "mystery") currentMysteryMessage = messages[index];
+      if (type === "doubt") currentDoubtMessage = messages[index];
+      updateCompactStatus();
+
       setInterval(() => {
         index = (index + 1) % messages.length;
         el.textContent = messages[index];
+
+        if (type === "mystery") currentMysteryMessage = messages[index];
+        if (type === "doubt") currentDoubtMessage = messages[index];
+        updateCompactStatus();
       }, delay);
     }
 
@@ -1321,7 +1448,9 @@
         ? `🔎 ${attempts} tentatives aujourd’hui`
         : `🔎 ${attempts} tentative aujourd’hui`;
 
+      currentAttemptsMessage = text;
       document.getElementById("attemptsText").textContent = text;
+      updateCompactStatus();
     }
 
     async function verifier() {
@@ -1455,11 +1584,13 @@
       canvas.height = window.innerHeight;
     });
 
-    rotateText("mysteryText", mysteryMessages, 4200);
-    rotateText("doubtText", doubtMessages, 5600);
+    rotateText("mysteryText", mysteryMessages, 4200, "mystery");
+    rotateText("doubtText", doubtMessages, 5600, "doubt");
     updateAttemptsText();
     setInterval(updateAttemptsText, 180000);
     setupSecrets();
+    updateCompactStatus();
+    setInterval(rotateCompactStatus, 3200);
   </script>
 
 </body>
