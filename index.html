@@ -22,6 +22,8 @@
       --muted:rgba(247,241,231,0.82);
       --success:#8ef0b0;
       --danger:#ff6b6b;
+      --warning:#ffd166;
+      --dark:#080811;
     }
 
     body{
@@ -144,6 +146,8 @@
       box-shadow:0 26px 60px rgba(0,0,0,0.45);
       border:1px solid rgba(255,255,255,0.06);
       transition:transform 0.35s ease, box-shadow 0.35s ease, filter 0.35s ease;
+      user-select:none;
+      -webkit-user-drag:none;
     }
 
     .coffre:hover{
@@ -190,6 +194,8 @@
       border:1px solid rgba(255,255,255,0.08);
       box-shadow:0 10px 24px rgba(0,0,0,0.28);
       backdrop-filter:blur(8px);
+      cursor:pointer;
+      user-select:none;
     }
 
     .logo-badge{
@@ -239,6 +245,8 @@
       justify-content:center;
       backdrop-filter:blur(8px);
       animation:logoPulse 3.2s ease-in-out infinite;
+      cursor:pointer;
+      user-select:none;
     }
 
     .logo-top-right img{
@@ -249,6 +257,7 @@
       border:2px solid rgba(255,255,255,0.18);
       background:#fff;
       box-shadow:0 0 18px rgba(255,120,0,0.38);
+      pointer-events:none;
     }
 
     @keyframes logoPulse{
@@ -346,9 +355,55 @@
     .desc{
       font-size:18px;
       line-height:1.6;
-      margin-bottom:22px;
+      margin-bottom:18px;
       color:var(--muted);
       max-width:680px;
+    }
+
+    .escape-box{
+      display:grid;
+      grid-template-columns:repeat(2, minmax(0, 1fr));
+      gap:10px;
+      margin-bottom:18px;
+    }
+
+    .escape-chip{
+      background:linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+      border:1px solid rgba(255,255,255,0.08);
+      border-radius:16px;
+      padding:12px 14px;
+      box-shadow:0 10px 20px rgba(0,0,0,0.15);
+      min-height:64px;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+    }
+
+    .escape-label{
+      font-size:11px;
+      text-transform:uppercase;
+      letter-spacing:1px;
+      color:rgba(247,241,231,0.56);
+      margin-bottom:5px;
+    }
+
+    .escape-value{
+      font-size:14px;
+      line-height:1.45;
+      color:var(--text);
+      font-weight:700;
+    }
+
+    .deadline{
+      color:#ffd166;
+    }
+
+    .danger-value{
+      color:#ffb0b0;
+    }
+
+    .warning-value{
+      color:#ffe4a0;
     }
 
     .panel{
@@ -410,7 +465,7 @@
       border:1px solid rgba(255,107,107,0.18);
       color:#ff5c5c !important;
       padding:16px;
-      font-size:22px !important;
+      font-size:20px !important;
       font-weight:800;
       animation:redAlert 0.45s ease;
       box-shadow:0 0 22px rgba(255,60,60,0.18);
@@ -425,6 +480,17 @@
       font-weight:900;
       animation:successPop 0.45s ease;
       box-shadow:0 0 30px rgba(246,198,90,0.20);
+    }
+
+    #message.secret-state{
+      background:rgba(246,198,90,0.10);
+      border:1px solid rgba(246,198,90,0.18);
+      color:#ffe6a4 !important;
+      padding:16px;
+      font-size:18px !important;
+      font-weight:800;
+      animation:successPop 0.35s ease;
+      box-shadow:0 0 20px rgba(246,198,90,0.14);
     }
 
     @keyframes redAlert{
@@ -721,8 +787,12 @@
 
       .desc{
         font-size:15px;
-        margin-bottom:16px;
+        margin-bottom:14px;
         max-width:none;
+      }
+
+      .escape-box{
+        grid-template-columns:1fr;
       }
 
       .panel,
@@ -781,6 +851,11 @@
         padding:14px;
       }
 
+      #message.secret-state{
+        font-size:16px !important;
+        padding:14px;
+      }
+
       .nps-quick-stats{
         grid-template-columns:1fr;
       }
@@ -801,7 +876,7 @@
       <div class="coffre-wrap">
         <div id="coffreGlow" class="coffre-glow"></div>
 
-        <div class="ritual-badge">
+        <div id="ritualBadge" class="ritual-badge">
           <img src="logo.png" alt="Logo Wittenheim" class="logo-badge" />
           <span>DÉFI STRATÉGIQUE</span>
         </div>
@@ -814,7 +889,7 @@
 
     <div class="right-side">
 
-      <div class="logo-top-right">
+      <div id="logoTopRight" class="logo-top-right">
         <img src="logo.png" alt="Logo du magasin" />
       </div>
 
@@ -839,6 +914,28 @@
           Un seul mot peut le débloquer…<br>
           À vous de le découvrir 😈.
         </p>
+
+        <div class="escape-box">
+          <div class="escape-chip">
+            <div class="escape-label">Pression</div>
+            <div class="escape-value deadline">⏳ Le coffre disparaît le 30 avril.</div>
+          </div>
+
+          <div class="escape-chip">
+            <div class="escape-label">Murmure</div>
+            <div id="mysteryText" class="escape-value danger-value">Certains ont déjà essayé… ils ont échoué.</div>
+          </div>
+
+          <div class="escape-chip">
+            <div class="escape-label">Doute</div>
+            <div id="doubtText" class="escape-value warning-value">Le mot est peut-être plus simple que tu ne le penses…</div>
+          </div>
+
+          <div class="escape-chip">
+            <div class="escape-label">Progression</div>
+            <div id="attemptsText" class="escape-value">🔎 7 tentatives aujourd’hui</div>
+          </div>
+        </div>
 
         <div class="panel">
           <input type="text" id="mot" placeholder="Entre le mot secret" autocomplete="off" />
@@ -982,6 +1079,97 @@
   <script>
     const HASH_ATTENDU = "53e5e7c5a884893739c4cf64528572aeb846f8e4ca1986188287475c65900fab";
 
+    const mysteryMessages = [
+      "Certains ont déjà essayé… ils ont échoué.",
+      "Un vendeur est proche… très proche.",
+      "Tu penses être le premier ?",
+      "Quelqu’un a déjà compris une partie du mot.",
+      "Le coffre ne s’ouvre pas par hasard.",
+      "Tu passes peut-être à côté…",
+      "Ce jeu est plus simple que tu ne le crois… ou pas.",
+      "Un indice a déjà été donné aujourd’hui."
+    ];
+
+    const doubtMessages = [
+      "Le mot est peut-être plus simple que tu ne le penses…",
+      "Et si ce n’était pas un mot ?",
+      "Tu compliques peut-être quelque chose de simple…",
+      "La réponse est peut-être déjà sous tes yeux…"
+    ];
+
+    const wrongMessages = [
+      "Tu étais proche…",
+      "Il te manque quelque chose.",
+      "Ce mot n’a aucun lien…",
+      "Tu t’éloignes…",
+      "Tu tournes autour…",
+      "Ce mot a déjà été tenté.",
+      "Tu réfléchis trop… ou pas assez.",
+      "Presque… mais non."
+    ];
+
+    let audioContext;
+    let coffreClickCount = 0;
+    let badgeClickCount = 0;
+    let longPressTimer = null;
+
+    function ensureAudio() {
+      if (!audioContext) {
+        audioContext = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      if (audioContext.state === "suspended") {
+        audioContext.resume();
+      }
+      return audioContext;
+    }
+
+    function playTone({ frequency = 440, duration = 0.15, type = "sine", volume = 0.03, sweepTo = null }) {
+      const ctx = ensureAudio();
+      const oscillator = ctx.createOscillator();
+      const gain = ctx.createGain();
+
+      oscillator.type = type;
+      oscillator.frequency.setValueAtTime(frequency, ctx.currentTime);
+
+      if (sweepTo) {
+        oscillator.frequency.exponentialRampToValueAtTime(sweepTo, ctx.currentTime + duration);
+      }
+
+      gain.gain.setValueAtTime(0.0001, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(volume, ctx.currentTime + 0.01);
+      gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + duration);
+
+      oscillator.connect(gain);
+      gain.connect(ctx.destination);
+
+      oscillator.start();
+      oscillator.stop(ctx.currentTime + duration + 0.02);
+    }
+
+    function playErrorSound() {
+      playTone({ frequency: 170, duration: 0.12, type: "sawtooth", volume: 0.035, sweepTo: 120 });
+      setTimeout(() => {
+        playTone({ frequency: 120, duration: 0.16, type: "square", volume: 0.025, sweepTo: 90 });
+      }, 90);
+    }
+
+    function playSuccessSound() {
+      playTone({ frequency: 440, duration: 0.11, type: "triangle", volume: 0.03, sweepTo: 620 });
+      setTimeout(() => {
+        playTone({ frequency: 660, duration: 0.13, type: "triangle", volume: 0.035, sweepTo: 880 });
+      }, 90);
+      setTimeout(() => {
+        playTone({ frequency: 880, duration: 0.24, type: "sine", volume: 0.04, sweepTo: 1200 });
+      }, 180);
+    }
+
+    function playSecretSound() {
+      playTone({ frequency: 520, duration: 0.1, type: "sine", volume: 0.025, sweepTo: 660 });
+      setTimeout(() => {
+        playTone({ frequency: 780, duration: 0.14, type: "triangle", volume: 0.028, sweepTo: 980 });
+      }, 70);
+    }
+
     function normaliserTexte(texte) {
       return (texte || "")
         .normalize("NFD")
@@ -1000,9 +1188,20 @@
 
     function resetMessageStyles() {
       const message = document.getElementById("message");
-      message.classList.remove("error-state", "success-state");
+      message.classList.remove("error-state", "success-state", "secret-state");
       message.style.color = "";
       message.innerHTML = "";
+    }
+
+    function showSecretMessage(text) {
+      const message = document.getElementById("message");
+      const surprise = document.getElementById("surprise");
+
+      resetMessageStyles();
+      surprise.style.display = "none";
+      message.innerHTML = text;
+      message.classList.add("secret-state");
+      playSecretSound();
     }
 
     function shakeCoffre() {
@@ -1094,9 +1293,43 @@
       }
     }
 
+    function rotateText(targetId, messages, delay) {
+      const el = document.getElementById(targetId);
+      let index = Math.floor(Math.random() * messages.length);
+      el.textContent = messages[index];
+
+      setInterval(() => {
+        index = (index + 1) % messages.length;
+        el.textContent = messages[index];
+      }, delay);
+    }
+
+    function getPseudoAttempts() {
+      const now = new Date();
+      const year = now.getFullYear();
+      const month = now.getMonth() + 1;
+      const day = now.getDate();
+      const bucket = Math.floor(now.getHours() / 3);
+      const seed = year * 10000 + month * 100 + day + bucket * 17;
+      const attempts = 5 + (seed % 19);
+      return attempts;
+    }
+
+    function updateAttemptsText() {
+      const attempts = getPseudoAttempts();
+      const text = attempts > 1
+        ? `🔎 ${attempts} tentatives aujourd’hui`
+        : `🔎 ${attempts} tentative aujourd’hui`;
+
+      document.getElementById("attemptsText").textContent = text;
+    }
+
     async function verifier() {
+      ensureAudio();
+
       const inputEl = document.getElementById("mot");
       const input = inputEl.value;
+      const normalizedInput = normaliserTexte(input);
       const message = document.getElementById("message");
       const coffre = document.getElementById("coffre");
       const surprise = document.getElementById("surprise");
@@ -1109,6 +1342,12 @@
         message.innerHTML = "Entre un mot avant de tenter ta chance.";
         message.classList.add("error-state");
         shakeCoffre();
+        playErrorSound();
+        return;
+      }
+
+      if (normalizedInput === "indice") {
+        showSecretMessage("🔎 Certains indices ne sont pas donnés… ils se remarquent.");
         return;
       }
 
@@ -1117,8 +1356,7 @@
       button.textContent = "Vérification...";
 
       try {
-        const motNormalise = normaliserTexte(input);
-        const hashUtilisateur = await sha256(motNormalise);
+        const hashUtilisateur = await sha256(normalizedInput);
 
         if (hashUtilisateur === HASH_ATTENDU) {
           message.innerHTML = "✨ INCROYABLE… LE COFFRE S’OUVRE ! ✨";
@@ -1130,9 +1368,11 @@
 
           surprise.style.display = "block";
 
+          playSuccessSound();
           lancerConfettis();
         } else {
-          message.innerHTML = "Dommage… ce n’est pas le bon mot.<br><br>Obtiens un nouvel indice et retente ta chance. 👿";
+          const randomWrongMessage = wrongMessages[Math.floor(Math.random() * wrongMessages.length)];
+          message.innerHTML = `${randomWrongMessage}<br><br>Obtiens un nouvel indice et retente ta chance. 👿`;
           message.classList.add("error-state");
 
           surprise.style.display = "none";
@@ -1141,16 +1381,66 @@
           glow.classList.remove("success");
 
           shakeCoffre();
+          playErrorSound();
         }
       } catch (error) {
         message.innerHTML = "Erreur de vérification. Réessaie dans un instant.";
         message.classList.add("error-state");
         shakeCoffre();
+        playErrorSound();
       } finally {
         button.disabled = false;
         button.classList.remove("loading");
         button.textContent = "Ouvrir le coffre";
       }
+    }
+
+    function setupSecrets() {
+      const coffre = document.getElementById("coffre");
+      const logo = document.getElementById("logoTopRight");
+      const badge = document.getElementById("ritualBadge");
+
+      coffre.addEventListener("click", () => {
+        ensureAudio();
+        coffreClickCount++;
+        if (coffreClickCount >= 5) {
+          coffreClickCount = 0;
+          showSecretMessage("🎁 Indice gratuit : le client est roi. 😈");
+        }
+      });
+
+      logo.addEventListener("dblclick", () => {
+        ensureAudio();
+        showSecretMessage("👁 Indice : tu es déjà passé devant… sans le voir. Ah ah ah… 😈😈");
+      });
+
+      badge.addEventListener("click", () => {
+        ensureAudio();
+        badgeClickCount++;
+        if (badgeClickCount >= 4) {
+          badgeClickCount = 0;
+          showSecretMessage("⚠️ Un détail peut valoir plus qu’un long discours. Observe mieux. 😈");
+        }
+      });
+
+      const startLongPress = () => {
+        ensureAudio();
+        clearTimeout(longPressTimer);
+        longPressTimer = setTimeout(() => {
+          showSecretMessage("⏳ Tu forces… mais ce n’est pas comme ça que ça marche.");
+        }, 1800);
+      };
+
+      const cancelLongPress = () => {
+        clearTimeout(longPressTimer);
+      };
+
+      coffre.addEventListener("mousedown", startLongPress);
+      coffre.addEventListener("mouseup", cancelLongPress);
+      coffre.addEventListener("mouseleave", cancelLongPress);
+      coffre.addEventListener("touchstart", startLongPress, { passive: true });
+      coffre.addEventListener("touchend", cancelLongPress);
+      coffre.addEventListener("touchcancel", cancelLongPress);
     }
 
     document.getElementById("mot").addEventListener("keydown", function(event) {
@@ -1164,6 +1454,12 @@
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
     });
+
+    rotateText("mysteryText", mysteryMessages, 4200);
+    rotateText("doubtText", doubtMessages, 5600);
+    updateAttemptsText();
+    setInterval(updateAttemptsText, 180000);
+    setupSecrets();
   </script>
 
 </body>
