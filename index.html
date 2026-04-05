@@ -119,13 +119,6 @@
       transition:0.4s ease;
     }
 
-    .coffre-glow.success{
-      width:320px;
-      height:320px;
-      background:radial-gradient(circle, rgba(246,198,90,0.34), rgba(255,255,255,0.08) 45%, transparent 70%);
-      filter:blur(28px);
-    }
-
     @keyframes pulseGlow{
       0%,100%{
         opacity:0.65;
@@ -153,14 +146,6 @@
     .coffre:hover{
       transform:translateY(-2px) scale(1.01);
       box-shadow:0 30px 70px rgba(0,0,0,0.52), 0 0 40px rgba(246,198,90,0.10);
-    }
-
-    .coffre.opened{
-      box-shadow:
-        0 30px 70px rgba(0,0,0,0.52),
-        0 0 55px rgba(246,198,90,0.28);
-      transform:scale(1.02);
-      filter:saturate(1.08);
     }
 
     .coffre.shake{
@@ -509,17 +494,6 @@
       font-weight:800;
       animation:redAlert 0.45s ease;
       box-shadow:0 0 22px rgba(255,60,60,0.18);
-    }
-
-    #message.success-state{
-      background:rgba(142,240,176,0.10);
-      border:1px solid rgba(142,240,176,0.18);
-      color:var(--success) !important;
-      padding:16px;
-      font-size:24px !important;
-      font-weight:900;
-      animation:successPop 0.45s ease;
-      box-shadow:0 0 30px rgba(246,198,90,0.20);
     }
 
     #message.secret-state{
@@ -920,11 +894,6 @@
         padding:14px;
       }
 
-      #message.success-state{
-        font-size:19px !important;
-        padding:14px;
-      }
-
       #message.secret-state{
         font-size:15px !important;
         padding:14px;
@@ -991,21 +960,15 @@
 
         <div class="code-panel">
           <div class="code-intro">
-            Entre le mot ici pour tenter d’ouvrir le coffre.
+            Entre le mot ici pour envoyer ta proposition.
           </div>
 
           <input type="text" id="mot" placeholder="ENTRE LE CODE ICI" autocomplete="off" />
-          <button id="mainButton" class="main-btn" onclick="verifier()">Ouvrir le coffre</button>
+          <button id="mainButton" class="main-btn" onclick="envoyerReponse()">Envoyer le code</button>
 
           <p id="message"></p>
 
-          <div id="surprise" class="surprise">
-            🚨 Bravo. Tu as trouvé le bon mot. 👏<br><br>
-            Ta récompense te sera annoncée très bientôt…<br><br>
-            Mais reste attentif.<br>
-            Ce serait dommage qu’on te la prenne sous les yeux.<br><br>
-            Ah ah ah… 😈😈😈
-          </div>
+          <div id="surprise" class="surprise"></div>
         </div>
 
         <div class="compact-status">
@@ -1112,8 +1075,8 @@
             </svg>
           </div>
           <div class="rule-text">
-            <strong>Déverrouillez le coffre</strong>
-            <p>Entrez le bon mot et débloquez la récompense.</p>
+            <strong>Envoyez votre proposition</strong>
+            <p>Entrez le mot trouvé et transmettez-le à l’administrateur pour validation.</p>
           </div>
         </div>
 
@@ -1162,7 +1125,7 @@
   </div>
 
   <script>
-    const HASH_ATTENDU = "53e5e7c5a884893739c4cf64528572aeb846f8e4ca1986188287475c65900fab";
+    const WHATSAPP_NUMBER = "33637993778";
 
     const mysteryMessages = [
       "Certains ont déjà essayé… ils ont échoué.",
@@ -1180,17 +1143,6 @@
       "Et si ce n’était pas un mot ?",
       "Tu compliques peut-être quelque chose de simple…",
       "La réponse est peut-être déjà sous tes yeux…"
-    ];
-
-    const wrongMessages = [
-      "Tu étais proche…",
-      "Il te manque quelque chose.",
-      "Ce mot n’a aucun lien…",
-      "Tu t’éloignes…",
-      "Tu tournes autour…",
-      "Ce mot a déjà été tenté.",
-      "Tu réfléchis trop… ou pas assez.",
-      "Presque… mais non."
     ];
 
     const mobileStatusItems = [
@@ -1249,16 +1201,6 @@
       }, 90);
     }
 
-    function playSuccessSound() {
-      playTone({ frequency: 440, duration: 0.11, type: "triangle", volume: 0.03, sweepTo: 620 });
-      setTimeout(() => {
-        playTone({ frequency: 660, duration: 0.13, type: "triangle", volume: 0.035, sweepTo: 880 });
-      }, 90);
-      setTimeout(() => {
-        playTone({ frequency: 880, duration: 0.24, type: "sine", volume: 0.04, sweepTo: 1200 });
-      }, 180);
-    }
-
     function playSecretSound() {
       playTone({ frequency: 520, duration: 0.1, type: "sine", volume: 0.025, sweepTo: 660 });
       setTimeout(() => {
@@ -1266,35 +1208,16 @@
       }, 70);
     }
 
-    function normaliserTexte(texte) {
-      return (texte || "")
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "")
-        .trim()
-        .toLowerCase();
-    }
-
-    async function sha256(texte) {
-      const encoder = new TextEncoder();
-      const data = encoder.encode(texte);
-      const hashBuffer = await crypto.subtle.digest("SHA-256", data);
-      const hashArray = Array.from(new Uint8Array(hashBuffer));
-      return hashArray.map(b => b.toString(16).padStart(2, "0")).join("");
-    }
-
     function resetMessageStyles() {
       const message = document.getElementById("message");
-      message.classList.remove("error-state", "success-state", "secret-state");
+      message.classList.remove("error-state", "secret-state");
       message.style.color = "";
       message.innerHTML = "";
     }
 
     function showSecretMessage(text) {
       const message = document.getElementById("message");
-      const surprise = document.getElementById("surprise");
-
       resetMessageStyles();
-      surprise.style.display = "none";
       message.innerHTML = text;
       message.classList.add("secret-state");
       playSecretSound();
@@ -1305,59 +1228,6 @@
       coffre.classList.remove("shake");
       void coffre.offsetWidth;
       coffre.classList.add("shake");
-    }
-
-    function lancerConfettis() {
-      const canvas = document.getElementById("confetti-canvas");
-      const ctx = canvas.getContext("2d");
-
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-
-      const particles = [];
-      const colors = ["#f6c65a", "#ffffff", "#ff6b6b", "#ffd166", "#ffe8a3"];
-
-      for (let i = 0; i < 180; i++) {
-        particles.push({
-          x: Math.random() * canvas.width,
-          y: Math.random() * -canvas.height,
-          w: 6 + Math.random() * 8,
-          h: 10 + Math.random() * 12,
-          vx: -2 + Math.random() * 4,
-          vy: 2 + Math.random() * 4,
-          color: colors[Math.floor(Math.random() * colors.length)],
-          rotation: Math.random() * Math.PI,
-          vr: -0.2 + Math.random() * 0.4
-        });
-      }
-
-      let frame = 0;
-
-      function animate() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-        particles.forEach((p) => {
-          p.x += p.vx;
-          p.y += p.vy;
-          p.rotation += p.vr;
-
-          ctx.save();
-          ctx.translate(p.x, p.y);
-          ctx.rotate(p.rotation);
-          ctx.fillStyle = p.color;
-          ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
-          ctx.restore();
-        });
-
-        frame++;
-        if (frame < 180) {
-          requestAnimationFrame(animate);
-        } else {
-          ctx.clearRect(0, 0, canvas.width, canvas.height);
-        }
-      }
-
-      animate();
     }
 
     function afficherSection(section) {
@@ -1438,8 +1308,7 @@
       const day = now.getDate();
       const bucket = Math.floor(now.getHours() / 3);
       const seed = year * 10000 + month * 100 + day + bucket * 17;
-      const attempts = 5 + (seed % 19);
-      return attempts;
+      return 5 + (seed % 19);
     }
 
     function updateAttemptsText() {
@@ -1453,74 +1322,52 @@
       updateCompactStatus();
     }
 
-    async function verifier() {
+    function envoyerReponse() {
       ensureAudio();
 
       const inputEl = document.getElementById("mot");
-      const input = inputEl.value;
-      const normalizedInput = normaliserTexte(input);
+      const input = inputEl.value.trim();
       const message = document.getElementById("message");
-      const coffre = document.getElementById("coffre");
-      const surprise = document.getElementById("surprise");
-      const glow = document.getElementById("coffreGlow");
       const button = document.getElementById("mainButton");
 
       resetMessageStyles();
 
-      if (!input.trim()) {
-        message.innerHTML = "Entre un mot avant de tenter ta chance.";
+      if (!input) {
+        message.innerHTML = "Entre un mot avant d’envoyer ta tentative.";
         message.classList.add("error-state");
         shakeCoffre();
         playErrorSound();
         return;
       }
 
-      if (normalizedInput === "indice") {
-        showSecretMessage("🔎 Certains indices ne sont pas donnés… ils se remarquent.");
-        return;
-      }
-
       button.disabled = true;
       button.classList.add("loading");
-      button.textContent = "Vérification...";
+      button.textContent = "Préparation...";
 
       try {
-        const hashUtilisateur = await sha256(normalizedInput);
+        const maintenant = new Date();
+        const dateHeure = maintenant.toLocaleString("fr-FR");
 
-        if (hashUtilisateur === HASH_ATTENDU) {
-          message.innerHTML = "✨ INCROYABLE… LE COFFRE S’OUVRE ! ✨";
-          message.classList.add("success-state");
+        const texte = encodeURIComponent(
+          `🎯 Tentative coffre Wittenheim\nCode proposé : ${input}\nDate : ${dateHeure}\nPrénom : `
+        );
 
-          coffre.src = "coffre-ouvert.png";
-          coffre.classList.add("opened");
-          glow.classList.add("success");
+        window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${texte}`, "_blank");
 
-          surprise.style.display = "block";
+        message.innerHTML = "🕵️‍♂️ Code envoyé.<br>Il sera vérifié par l’administrateur.<br>Tu recevras la réponse sur WhatsApp. 😈";
+        message.classList.add("secret-state");
+        playSecretSound();
 
-          playSuccessSound();
-          lancerConfettis();
-        } else {
-          const randomWrongMessage = wrongMessages[Math.floor(Math.random() * wrongMessages.length)];
-          message.innerHTML = `${randomWrongMessage}<br><br>Obtiens un nouvel indice et retente ta chance. 👿`;
-          message.classList.add("error-state");
-
-          surprise.style.display = "none";
-          coffre.src = "coffre-ferme.png";
-          coffre.classList.remove("opened");
-          glow.classList.remove("success");
-
-          shakeCoffre();
-          playErrorSound();
-        }
+        inputEl.value = "";
       } catch (error) {
-        message.innerHTML = "Erreur de vérification. Réessaie dans un instant.";
+        message.innerHTML = "Impossible d’ouvrir WhatsApp. Réessaie dans un instant.";
         message.classList.add("error-state");
         shakeCoffre();
         playErrorSound();
       } finally {
         button.disabled = false;
         button.classList.remove("loading");
-        button.textContent = "Ouvrir le coffre";
+        button.textContent = "Envoyer le code";
       }
     }
 
@@ -1540,7 +1387,7 @@
 
       logo.addEventListener("dblclick", () => {
         ensureAudio();
-        showSecretMessage("👁 Indice : tu es déjà passé devant… sans le voir. Ah ah ah… 😈😈");
+        showSecretMessage("👁 Indice : tu es déjà passé devant… sans le voir. 😈");
       });
 
       badge.addEventListener("click", () => {
@@ -1574,7 +1421,7 @@
 
     document.getElementById("mot").addEventListener("keydown", function(event) {
       if (event.key === "Enter") {
-        verifier();
+        envoyerReponse();
       }
     });
 
