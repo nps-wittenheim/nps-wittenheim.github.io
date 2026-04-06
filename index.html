@@ -334,7 +334,8 @@
 
     .code-panel,
     .rules-box,
-    .game-panel{
+    .game-panel,
+    .tips-panel{
       position:relative;
       background:linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
       border:1px solid rgba(246,198,90,0.22);
@@ -393,7 +394,8 @@
     .level-btn,
     .answer-btn,
     .secondary-btn,
-    .whatsapp-btn{
+    .whatsapp-btn,
+    .copy-btn{
       width:100%;
       padding:18px;
       border:none;
@@ -406,7 +408,8 @@
 
     button.main-btn,
     .level-btn,
-    .whatsapp-btn{
+    .whatsapp-btn,
+    .copy-btn{
       background:linear-gradient(135deg, var(--gold-1), var(--gold-2));
       color:#24180b;
       box-shadow:0 16px 30px rgba(201,139,29,0.28);
@@ -414,7 +417,8 @@
 
     button.main-btn:hover,
     .level-btn:hover,
-    .whatsapp-btn:hover{
+    .whatsapp-btn:hover,
+    .copy-btn:hover{
       transform:translateY(-1px);
       box-shadow:0 20px 36px rgba(201,139,29,0.34);
     }
@@ -511,92 +515,78 @@
       padding-right:110px;
     }
 
-    .rule-intro,
-    .rule-end{
-      font-size:16px;
+    .rules-intro-main{
+      font-size:17px;
+      line-height:1.75;
+      color:var(--muted);
+      margin-bottom:20px;
+    }
+
+    .rules-subtitle{
+      font-size:18px;
+      font-weight:900;
+      color:var(--gold-1);
+      text-transform:uppercase;
+      letter-spacing:0.8px;
+      margin:18px 0 10px 0;
+    }
+
+    .rules-list{
+      list-style:none;
+      display:grid;
+      gap:10px;
+      margin-bottom:12px;
+    }
+
+    .rules-list li{
+      position:relative;
+      padding-left:20px;
+      color:var(--text);
+      font-size:15px;
+      line-height:1.7;
+    }
+
+    .rules-list li::before{
+      content:"•";
+      position:absolute;
+      left:0;
+      top:0;
+      color:var(--gold-1);
+      font-size:18px;
+      font-weight:900;
+    }
+
+    .rules-paragraph{
+      font-size:15px;
       line-height:1.7;
       color:var(--muted);
-      margin-bottom:18px;
+      margin-bottom:10px;
     }
 
-    .rule-card{
-      display:flex;
-      align-items:flex-start;
-      gap:14px;
-      background:linear-gradient(180deg, rgba(255,255,255,0.035), rgba(255,255,255,0.02));
-      border:1px solid rgba(255,255,255,0.06);
+    .mission-box{
+      margin-top:18px;
+      padding:16px 18px;
       border-radius:18px;
-      padding:16px;
-      margin-bottom:12px;
-      position:relative;
-      overflow:hidden;
-    }
-
-    .rule-card::before{
-      content:"";
-      position:absolute;
-      top:0;
-      left:0;
-      width:4px;
-      height:100%;
-      background:linear-gradient(180deg, var(--red-2), var(--gold-1));
-    }
-
-    .icon-mark{
-      flex:0 0 auto;
-      width:44px;
-      height:44px;
-      border-radius:15px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      background:
-        radial-gradient(circle at top, rgba(246,198,90,0.22), transparent 55%),
-        linear-gradient(135deg, rgba(138,32,48,0.98), rgba(48,12,22,0.98));
-      border:1px solid rgba(255,255,255,0.08);
-    }
-
-    .icon-mark svg{
-      width:22px;
-      height:22px;
-      stroke:#f7f1e7;
-      stroke-width:1.9;
-      fill:none;
-      stroke-linecap:round;
-      stroke-linejoin:round;
-    }
-
-    .rule-text strong{
-      display:block;
-      font-size:17px;
-      margin-bottom:8px;
+      background:linear-gradient(135deg, rgba(138,32,48,0.20), rgba(246,198,90,0.10));
+      border:1px solid rgba(246,198,90,0.18);
       color:var(--text);
+      font-size:15px;
+      line-height:1.7;
     }
 
-    .rule-text p{
-      font-size:15px;
-      line-height:1.6;
-      color:var(--muted);
+    .mission-box strong{
+      display:block;
+      color:var(--gold-1);
+      font-size:17px;
+      margin-bottom:6px;
+      text-transform:uppercase;
+      letter-spacing:0.6px;
     }
 
     .nps-hero{
       display:flex;
       flex-direction:column;
       gap:18px;
-    }
-
-    .nps-alert{
-      background:linear-gradient(135deg, rgba(192,47,69,0.20), rgba(246,198,90,0.10));
-      border:1px solid rgba(255,107,107,0.22);
-      color:#ffd5d5;
-      border-radius:18px;
-      padding:16px 18px;
-      font-size:16px;
-      line-height:1.6;
-    }
-
-    .nps-alert strong{
-      color:#ff8080;
     }
 
     .nps-quick-stats{
@@ -609,7 +599,7 @@
       background:linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
       border:1px solid rgba(255,255,255,0.08);
       border-radius:18px;
-      padding:16px;
+      padding:18px 16px;
       text-align:center;
     }
 
@@ -630,28 +620,44 @@
     .nps-mid{ color:#ffd166; }
     .nps-good{ color:#8ef0b0; }
 
-    .nps-image-wrap{
+    .tips-intro{
+      font-size:15px;
+      line-height:1.7;
+      color:var(--muted);
+      margin-bottom:18px;
+    }
+
+    .tips-grid{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:14px;
+    }
+
+    .tip-card{
       background:linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
       border:1px solid rgba(255,255,255,0.08);
-      border-radius:22px;
-      padding:14px;
+      border-radius:20px;
+      padding:18px;
     }
 
-    .nps-image{
-      display:block;
-      width:100%;
-      max-width:520px;
-      margin:0 auto;
-      border-radius:18px;
-      border:1px solid rgba(255,255,255,0.08);
+    .tip-title{
+      font-size:18px;
+      font-weight:900;
+      color:var(--gold-1);
+      margin-bottom:10px;
     }
 
-    .nps-caption{
-      margin-top:14px;
-      text-align:center;
-      color:rgba(247,241,231,0.78);
+    .tip-text{
+      color:var(--text);
       font-size:15px;
-      line-height:1.6;
+      line-height:1.75;
+      white-space:pre-line;
+      margin-bottom:14px;
+    }
+
+    .copy-btn{
+      padding:14px 16px;
+      font-size:15px;
     }
 
     .hidden{
@@ -823,13 +829,27 @@
 
       h1,
       .rules-title{
-        font-size:26px;
+        font-size:24px;
         padding-right:0;
       }
 
       .desc{
         font-size:14px;
         max-width:none;
+      }
+
+      .rules-intro-main,
+      .rules-paragraph,
+      .rules-list li,
+      .mission-box,
+      .tips-intro,
+      .tip-text{
+        font-size:14px;
+      }
+
+      .rules-subtitle,
+      .tip-title{
+        font-size:16px;
       }
 
       .level-grid,
@@ -843,6 +863,11 @@
 
       .answer-btn{
         font-size:15px;
+      }
+
+      .topbtn{
+        font-size:13px;
+        padding:10px 14px;
       }
     }
   </style>
@@ -876,6 +901,7 @@
         <button id="btnCoffre" class="topbtn active" onclick="afficherSection('coffre')">Le Coffre</button>
         <button id="btnRegles" class="topbtn" onclick="afficherSection('regles')">Règles du jeu</button>
         <button id="btnNps" class="topbtn" onclick="afficherSection('nps')">NPS actuel</button>
+        <button id="btnTips" class="topbtn" onclick="afficherSection('tips')">Tips pour obtenir des 9/10 ou 10/10</button>
         <button id="btnJeu" class="topbtn" onclick="afficherSection('jeu')">Jeu du jour</button>
       </div>
 
@@ -918,80 +944,32 @@
       <div id="sectionRegles" class="rules-box hidden">
         <div class="rules-title">Les règles du jeu</div>
 
-        <div class="rule-intro">
-          Le défi est lancé 😈.<br><br>
-          Le coffre est verrouillé… Un seul mot peut le débloquer.
-          Pour avancer, il faut réussir le jeu du jour.
+        <div class="rules-intro-main">
+          <strong>Le défi est lancé.</strong><br><br>
+          Le coffre est verrouillé. Un seul mot peut le débloquer.
         </div>
 
-        <div class="rule-card">
-          <div class="icon-mark">
-            <svg viewBox="0 0 24 24">
-              <path d="M7 11V8a5 5 0 0 1 10 0v3"/>
-              <rect x="5" y="11" width="14" height="10" rx="2"/>
-            </svg>
-          </div>
-          <div class="rule-text">
-            <strong>3 niveaux</strong>
-            <p>Niveau 1 = 1 indice • Niveau 2 = 2 indices • Niveau 3 = 3 indices.</p>
-          </div>
-        </div>
+        <div class="rules-subtitle">Pour avancer</div>
+        <ul class="rules-list">
+          <li>Un avis NPS positif à votre nom avec une note de 9 ou 10 = 2 indices</li>
+          <li>Un avis Google positif à votre nom = 1 indice</li>
+          <li>Le jeu du jour peut aussi vous faire gagner des indices</li>
+        </ul>
 
-        <div class="rule-card">
-          <div class="icon-mark">
-            <svg viewBox="0 0 24 24">
-              <path d="M12 8v5"/>
-              <path d="M12 16h.01"/>
-              <circle cx="12" cy="12" r="9"/>
-            </svg>
-          </div>
-          <div class="rule-text">
-            <strong>30 secondes et 10 questions</strong>
-            <p>À chaque clic, la question suivante s’affiche immédiatement. Aucune correction n’est donnée pendant le quiz.</p>
-          </div>
-        </div>
+        <div class="rules-subtitle">Pour tenter votre chance</div>
+        <p class="rules-paragraph">
+          Entrez votre mot dans <strong>Le Coffre</strong> puis cliquez sur <strong>Envoyer</strong>.
+        </p>
+        <p class="rules-paragraph">
+          Vous serez redirigé vers <strong>WhatsApp</strong> pour transmettre votre proposition avec votre prénom.
+        </p>
+        <p class="rules-paragraph">
+          Un administrateur du jeu vous confirmera ensuite si le mot est correct.
+        </p>
 
-        <div class="rule-card">
-          <div class="icon-mark">
-            <svg viewBox="0 0 24 24">
-              <path d="M6 12l4 4 8-8"/>
-            </svg>
-          </div>
-          <div class="rule-text">
-            <strong>Score final uniquement</strong>
-            <p>À la fin, tu vois seulement ta note. Pour gagner, il faut faire un sans-faute sur le niveau choisi.</p>
-          </div>
-        </div>
-
-        <div class="rule-card">
-          <div class="icon-mark">
-            <svg viewBox="0 0 24 24">
-              <path d="M12 3l2.8 5.7L21 9.6l-4.5 4.4 1.1 6.2L12 17.4 6.4 20.2 7.5 14 3 9.6l6.2-.9z"/>
-            </svg>
-          </div>
-          <div class="rule-text">
-            <strong>1 seul gain par jour</strong>
-            <p>Un joueur ne peut réclamer qu’un seul lot d’indices par jour depuis le même appareil.</p>
-          </div>
-        </div>
-
-        <div class="rule-card">
-          <div class="icon-mark">
-            <svg viewBox="0 0 24 24">
-              <path d="M8 8h8v8H8z"/>
-              <path d="M3 12h5"/>
-              <path d="M16 12h5"/>
-            </svg>
-          </div>
-          <div class="rule-text">
-            <strong>Validation sur WhatsApp</strong>
-            <p>Les indices ne sont pas affichés sur le site. Si tu gagnes, tu réclames ton lot sur WhatsApp pour validation.</p>
-          </div>
-        </div>
-
-        <div class="rule-end">
-          Chaque détail compte. Chaque bon choix peut te rapprocher du mot final.<br><br>
-          Bonne chance 😈
+        <div class="mission-box">
+          <strong>La mission</strong>
+          Trouver le mot secret, atteindre 64 % de NPS et conserver la prime.
         </div>
       </div>
 
@@ -999,15 +977,10 @@
         <div class="rules-title">NPS actuel</div>
 
         <div class="nps-hero">
-          <div class="nps-alert">
-            <strong>⚠️ Alerte NPS :</strong> le score actuel est nettement en dessous de l’objectif.
-            Chaque avis positif compte, et chaque neutre nous ralentit fortement.
-          </div>
-
           <div class="nps-quick-stats">
             <div class="nps-stat">
               <div class="nps-stat-label">NPS du moment</div>
-              <div class="nps-stat-value nps-bad">46 😟</div>
+              <div class="nps-stat-value nps-bad">46</div>
             </div>
 
             <div class="nps-stat">
@@ -1020,13 +993,61 @@
               <div class="nps-stat-value nps-mid">-18</div>
             </div>
           </div>
+        </div>
+      </div>
 
-          <div class="nps-image-wrap">
-            <img src="nps-actuel.png" alt="Affiche NPS actuel à 46 avec objectif 64" class="nps-image" />
-            <div class="nps-caption">
-              Nous sommes sous l’objectif. Il faut limiter les neutres et aller chercher un maximum de 9 et 10.
-            </div>
+      <div id="sectionTips" class="tips-panel hidden">
+        <div class="rules-title">Tips pour obtenir des 9/10 ou 10/10</div>
+
+        <p class="tips-intro">
+          Des phrases simples, naturelles et efficaces pour maximiser les 9/10 ou 10/10.
+        </p>
+
+        <div class="tips-grid">
+
+          <div class="tip-card">
+            <div class="tip-title">🛍️ VENDEUR</div>
+            <div id="tip-vendeur" class="tip-text">“Merci pour votre confiance.
+Vous allez recevoir une petite enquête sur votre passage aujourd’hui.
+Elle concerne mon accompagnement, pas le magasin.
+Si vous avez été satisfait, un 9 ou un 10 fait vraiment la différence pour moi 🙏”</div>
+            <button class="copy-btn" onclick="copyTip('tip-vendeur', this)">Copier la phrase</button>
           </div>
+
+          <div class="tip-card">
+            <div class="tip-title">💳 CAISSE</div>
+            <div id="tip-caisse" class="tip-text">“Merci beaucoup pour votre achat 😊
+Vous allez recevoir une enquête sur votre passage aujourd’hui, elle concerne notre accueil.
+Si tout s’est bien passé, un 9 ou un 10 nous aide énormément 🙏”</div>
+            <button class="copy-btn" onclick="copyTip('tip-caisse', this)">Copier la phrase</button>
+          </div>
+
+          <div class="tip-card">
+            <div class="tip-title">🔧 SAV</div>
+            <div id="tip-sav" class="tip-text">“Merci pour votre confiance.
+Je fais le nécessaire pour que votre produit soit pris en charge dans les meilleures conditions.
+Vous allez recevoir une enquête, elle concerne mon accueil, pas la panne.
+Si vous êtes satisfait de mon accompagnement, un 9 ou un 10 fait vraiment la différence pour moi 🙏”</div>
+            <button class="copy-btn" onclick="copyTip('tip-sav', this)">Copier la phrase</button>
+          </div>
+
+          <div class="tip-card">
+            <div class="tip-title">📦 STOCK / RETRAIT</div>
+            <div id="tip-stock" class="tip-text">“C’était un plaisir 😊
+Vous allez recevoir une enquête sur la remise de votre produit.
+Elle concerne mon accueil.
+Si tout s’est bien passé, un 9 ou un 10 m’aide énormément 🙏”</div>
+            <button class="copy-btn" onclick="copyTip('tip-stock', this)">Copier la phrase</button>
+          </div>
+
+          <div class="tip-card">
+            <div class="tip-title">🚚 LIVRAISON</div>
+            <div id="tip-livraison" class="tip-text">“C’était un plaisir de vous livrer 😊
+Vous allez recevoir une enquête sur notre intervention.
+Si tout s’est bien passé, un 9 ou un 10 valorise vraiment notre travail 🙏”</div>
+            <button class="copy-btn" onclick="copyTip('tip-livraison', this)">Copier la phrase</button>
+          </div>
+
         </div>
       </div>
 
@@ -1034,9 +1055,9 @@
         <div class="rules-title">Jeu du jour</div>
 
         <div id="gameStart">
-          <p class="rule-intro">
-            Choisis ton niveau. Tu auras 30 secondes pour répondre à 10 questions.
-            Aucun corrigé ne s’affiche pendant le jeu.
+          <p class="rules-paragraph" style="margin-bottom:18px;">
+            Choisis ton niveau. Tu as 30 secondes pour répondre à 10 questions.
+            Aucune correction ne s’affiche pendant le jeu.
           </p>
 
           <div class="level-grid">
@@ -1273,6 +1294,7 @@
         coffre: document.getElementById("sectionCoffre"),
         regles: document.getElementById("sectionRegles"),
         nps: document.getElementById("sectionNps"),
+        tips: document.getElementById("sectionTips"),
         jeu: document.getElementById("sectionJeu")
       };
 
@@ -1280,6 +1302,7 @@
         coffre: document.getElementById("btnCoffre"),
         regles: document.getElementById("btnRegles"),
         nps: document.getElementById("btnNps"),
+        tips: document.getElementById("btnTips"),
         jeu: document.getElementById("btnJeu")
       };
 
@@ -1500,6 +1523,23 @@
       document.getElementById("quizPlay").classList.add("hidden");
       document.getElementById("quizResult").classList.add("hidden");
       document.getElementById("gameStart").classList.remove("hidden");
+    }
+
+    function copyTip(id, button) {
+      const text = document.getElementById(id).innerText;
+      const originalText = button.innerText;
+
+      navigator.clipboard.writeText(text).then(() => {
+        button.innerText = "Copié ✅";
+        setTimeout(() => {
+          button.innerText = originalText;
+        }, 1200);
+      }).catch(() => {
+        button.innerText = "Copié ✅";
+        setTimeout(() => {
+          button.innerText = originalText;
+        }, 1200);
+      });
     }
 
     document.getElementById("mot").addEventListener("keydown", function(event) {
