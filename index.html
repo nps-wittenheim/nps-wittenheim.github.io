@@ -1056,7 +1056,7 @@ Si tout s’est bien passé, un 9 ou un 10 valorise vraiment notre travail 🙏�
 
         <div id="gameStart">
           <p class="rules-paragraph" style="margin-bottom:18px;">
-            Choisis ton niveau. Tu as 30 secondes pour répondre à 10 questions.
+            Choisis ton niveau. Tu as 50 secondes pour répondre à 10 questions.
             Aucune correction ne s’affiche pendant le jeu.
           </p>
 
@@ -1089,7 +1089,7 @@ Si tout s’est bien passé, un 9 ou un 10 valorise vraiment notre travail 🙏�
           <div class="quiz-top">
             <div id="quizLevel" class="quiz-pill">Niveau 1</div>
             <div id="quizProgress" class="quiz-pill">Question 1 / 10</div>
-            <div id="quizTimer" class="quiz-pill timer">30</div>
+            <div id="quizTimer" class="quiz-pill timer">50</div>
           </div>
 
           <div class="question-box">
@@ -1161,7 +1161,7 @@ Si tout s’est bien passé, un 9 ou un 10 valorise vraiment notre travail 🙏�
         },
         {
           question:"Combien de secondes dure ce jeu ?",
-          answers:["10","30","60"],
+          answers:["30","50","60"],
           correct:1
         },
         {
@@ -1285,7 +1285,7 @@ Si tout s’est bien passé, un 9 ou un 10 valorise vraiment notre travail 🙏�
     let currentQuestions = [];
     let currentQuestionIndex = 0;
     let currentScore = 0;
-    let timeLeft = 30;
+    let timeLeft = 50;
     let quizTimerInterval = null;
     let quizLocked = false;
 
@@ -1417,7 +1417,7 @@ Si tout s’est bien passé, un 9 ou un 10 valorise vraiment notre travail 🙏�
       currentQuestions = QUIZ_DATA[level];
       currentQuestionIndex = 0;
       currentScore = 0;
-      timeLeft = 30;
+      timeLeft = 50;
       quizLocked = false;
 
       document.getElementById("gameStart").classList.add("hidden");
