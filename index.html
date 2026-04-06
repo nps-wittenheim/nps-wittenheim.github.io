@@ -1,1556 +1,1694 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Le Coffre</title>
-
-  <style>
-    *{
-      margin:0;
-      padding:0;
-      box-sizing:border-box;
-      font-family:Arial, sans-serif;
-    }
-
-    :root{
-      --gold-1:#f6c65a;
-      --gold-2:#c98b1d;
-      --red-1:#8a2030;
-      --red-2:#c02f45;
-      --text:#f7f1e7;
-      --muted:rgba(247,241,231,0.82);
-      --success:#8ef0b0;
-      --danger:#ff6b6b;
-      --warning:#ffd166;
-      --dark:#080811;
-    }
-
-    body{
-      min-height:100vh;
-      background:url("boulanger.jpg") center/cover no-repeat;
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      padding:18px;
-      position:relative;
-      overflow-x:hidden;
-    }
-
-    body::before{
-      content:"";
-      position:absolute;
-      inset:0;
-      background:
-        radial-gradient(circle at top center, rgba(192,47,69,0.16), transparent 24%),
-        radial-gradient(circle at bottom left, rgba(246,198,90,0.10), transparent 22%),
-        rgba(6,6,14,0.82);
-      backdrop-filter:blur(9px);
-    }
-
-    body::after{
-      content:"";
-      position:absolute;
-      inset:0;
-      background:linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.02) 50%, transparent 100%);
-      opacity:0.16;
-      pointer-events:none;
-    }
-
-    .container{
-      position:relative;
-      z-index:2;
-      width:100%;
-      max-width:1180px;
-      background:linear-gradient(180deg, rgba(24,18,38,0.95), rgba(12,10,22,0.96));
-      border-radius:30px;
-      padding:28px;
-      box-shadow:0 30px 80px rgba(0,0,0,0.58);
-      display:flex;
-      gap:28px;
-      align-items:flex-start;
-      border:1px solid rgba(255,255,255,0.06);
-      overflow:hidden;
-    }
-
-    .container::before{
-      content:"";
-      position:absolute;
-      inset:0;
-      background:
-        radial-gradient(circle at 20% 20%, rgba(246,198,90,0.06), transparent 18%),
-        radial-gradient(circle at 80% 10%, rgba(192,47,69,0.08), transparent 16%);
-      pointer-events:none;
-    }
-
-    .left-side{
-      position:relative;
-      flex:0 0 340px;
-      max-width:340px;
-      min-width:340px;
-    }
-
-    .coffre-wrap{
-      position:relative;
-      width:100%;
-    }
-
-    .coffre-glow{
-      position:absolute;
-      inset:50% auto auto 50%;
-      transform:translate(-50%,-50%);
-      width:240px;
-      height:240px;
-      border-radius:50%;
-      background:radial-gradient(circle, rgba(246,198,90,0.22), transparent 65%);
-      filter:blur(24px);
-      z-index:1;
-      animation:pulseGlow 3.2s ease-in-out infinite;
-      pointer-events:none;
-      transition:0.4s ease;
-    }
-
-    @keyframes pulseGlow{
-      0%,100%{
-        opacity:0.65;
-        transform:translate(-50%,-50%) scale(1);
-      }
-      50%{
-        opacity:1;
-        transform:translate(-50%,-50%) scale(1.08);
-      }
-    }
-
-    .coffre{
-      position:relative;
-      z-index:2;
-      width:100%;
-      display:block;
-      border-radius:24px;
-      box-shadow:0 26px 60px rgba(0,0,0,0.45);
-      border:1px solid rgba(255,255,255,0.06);
-      transition:transform 0.35s ease, box-shadow 0.35s ease;
-      user-select:none;
-      -webkit-user-drag:none;
-    }
-
-    .coffre:hover{
-      transform:translateY(-2px) scale(1.01);
-      box-shadow:0 30px 70px rgba(0,0,0,0.52), 0 0 40px rgba(246,198,90,0.10);
-    }
-
-    .coffre.shake{
-      animation:shake 0.45s ease;
-    }
-
-    @keyframes shake{
-      0%{transform:translateX(0)}
-      20%{transform:translateX(-8px)}
-      40%{transform:translateX(8px)}
-      60%{transform:translateX(-6px)}
-      80%{transform:translateX(6px)}
-      100%{transform:translateX(0)}
-    }
-
-    .ritual-badge{
-      position:absolute;
-      top:14px;
-      left:14px;
-      z-index:3;
-      display:flex;
-      align-items:center;
-      gap:8px;
-      padding:9px 13px;
-      border-radius:999px;
-      font-size:12px;
-      font-weight:800;
-      letter-spacing:1px;
-      color:var(--text);
-      background:linear-gradient(135deg, rgba(138,32,48,0.96), rgba(63,15,25,0.96));
-      border:1px solid rgba(255,255,255,0.08);
-      box-shadow:0 10px 24px rgba(0,0,0,0.28);
-      backdrop-filter:blur(8px);
-      user-select:none;
-    }
-
-    .logo-badge{
-      width:22px;
-      height:22px;
-      border-radius:50%;
-      object-fit:cover;
-      background:#fff;
-      flex:0 0 auto;
-    }
-
-    .whisper{
-      margin-top:14px;
-      text-align:center;
-      color:rgba(247,241,231,0.58);
-      font-size:13px;
-      letter-spacing:0.6px;
-      text-transform:uppercase;
-    }
-
-    .right-side{
-      flex:1 1 0;
-      min-width:0;
-      color:var(--text);
-      position:relative;
-    }
-
-    .logo-top-right{
-      position:absolute;
-      top:0;
-      right:0;
-      z-index:5;
-      width:88px;
-      height:88px;
-      border-radius:50%;
-      padding:6px;
-      background:
-        radial-gradient(circle at 30% 30%, rgba(255,255,255,0.22), transparent 45%),
-        linear-gradient(135deg, rgba(246,198,90,0.25), rgba(138,32,48,0.22));
-      box-shadow:
-        0 0 24px rgba(255,140,0,0.25),
-        0 18px 30px rgba(0,0,0,0.28);
-      border:1px solid rgba(255,255,255,0.12);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      backdrop-filter:blur(8px);
-      animation:logoPulse 3.2s ease-in-out infinite;
-      user-select:none;
-    }
-
-    .logo-top-right img{
-      width:100%;
-      height:100%;
-      border-radius:50%;
-      object-fit:cover;
-      border:2px solid rgba(255,255,255,0.18);
-      background:#fff;
-      pointer-events:none;
-    }
-
-    @keyframes logoPulse{
-      0%,100%{transform:scale(1)}
-      50%{transform:scale(1.04)}
-    }
-
-    .topbar{
-      display:flex;
-      gap:12px;
-      flex-wrap:wrap;
-      margin-bottom:18px;
-      padding-right:110px;
-    }
-
-    .topbtn{
-      position:relative;
-      padding:12px 18px;
-      border:none;
-      border-radius:16px;
-      font-size:14px;
-      font-weight:800;
-      cursor:pointer;
-      color:var(--text);
-      background:linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
-      border:1px solid rgba(255,255,255,0.08);
-      transition:0.2s ease;
-      overflow:hidden;
-      box-shadow:0 10px 20px rgba(0,0,0,0.18);
-    }
-
-    .topbtn::before{
-      content:"";
-      position:absolute;
-      inset:0;
-      background:linear-gradient(135deg, rgba(246,198,90,0.20), rgba(192,47,69,0.14));
-      opacity:0;
-      transition:0.2s ease;
-    }
-
-    .topbtn:hover::before,
-    .topbtn.active::before{
-      opacity:1;
-    }
-
-    .topbtn:hover{
-      transform:translateY(-1px);
-    }
-
-    .topbtn.active{
-      background:linear-gradient(135deg, rgba(138,32,48,0.96), rgba(201,139,29,0.78));
-    }
-
-    .marquee-coffre{
-      width:calc(100% - 110px);
-      overflow:hidden;
-      margin-bottom:16px;
-      border-radius:14px;
-      background:linear-gradient(90deg, rgba(138,32,48,0.92), rgba(63,15,25,0.92));
-      border:1px solid rgba(255,255,255,0.08);
-      box-shadow:0 8px 20px rgba(0,0,0,0.25);
-    }
-
-    .marquee-track{
-      display:flex;
-      width:max-content;
-      animation:scrollLoop 18s linear infinite;
-      will-change:transform;
-    }
-
-    .marquee-track span{
-      white-space:nowrap;
-      padding:12px 28px;
-      font-weight:900;
-      font-size:16px;
-      color:#f6c65a;
-      letter-spacing:1px;
-    }
-
-    @keyframes scrollLoop{
-      0%{transform:translateX(0)}
-      100%{transform:translateX(-50%)}
-    }
-
-    h1{
-      font-size:44px;
-      margin-bottom:14px;
-      letter-spacing:0.6px;
-      line-height:1.02;
-      text-transform:uppercase;
-      text-shadow:0 6px 20px rgba(0,0,0,0.35);
-      padding-right:110px;
-    }
-
-    .desc{
-      font-size:18px;
-      line-height:1.6;
-      margin-bottom:18px;
-      color:var(--muted);
-      max-width:700px;
-    }
-
-    .code-panel,
-    .rules-box,
-    .game-panel,
-    .tips-panel{
-      position:relative;
-      background:linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
-      border:1px solid rgba(246,198,90,0.22);
-      border-radius:26px;
-      padding:22px;
-      box-shadow:
-        inset 0 1px 0 rgba(255,255,255,0.04),
-        0 18px 34px rgba(0,0,0,0.18);
-      margin-bottom:18px;
-    }
-
-    .code-panel::before{
-      content:"ZONE DE SAISIE";
-      position:absolute;
-      top:-12px;
-      left:18px;
-      font-size:11px;
-      font-weight:900;
-      letter-spacing:1px;
-      color:#24180b;
-      background:linear-gradient(135deg, var(--gold-1), var(--gold-2));
-      padding:6px 10px;
-      border-radius:999px;
-      box-shadow:0 8px 18px rgba(201,139,29,0.22);
-    }
-
-    .code-intro{
-      text-align:center;
-      font-size:14px;
-      color:rgba(247,241,231,0.78);
-      margin-bottom:14px;
-      line-height:1.5;
-      font-weight:700;
-    }
-
-    input{
-      width:100%;
-      padding:18px 16px;
-      border-radius:18px;
-      border:none;
-      margin-bottom:14px;
-      font-size:18px;
-      background:#f8f4ee;
-      color:#181818;
-      box-shadow:inset 0 2px 10px rgba(0,0,0,0.08);
-      font-weight:700;
-      text-align:center;
-    }
-
-    input::placeholder{
-      color:#8b8b8b;
-      font-weight:700;
-    }
-
-    button.main-btn,
-    .level-btn,
-    .answer-btn,
-    .secondary-btn,
-    .whatsapp-btn,
-    .copy-btn{
-      width:100%;
-      padding:18px;
-      border:none;
-      border-radius:18px;
-      font-size:18px;
-      font-weight:900;
-      cursor:pointer;
-      transition:0.18s ease;
-    }
-
-    button.main-btn,
-    .level-btn,
-    .whatsapp-btn,
-    .copy-btn{
-      background:linear-gradient(135deg, var(--gold-1), var(--gold-2));
-      color:#24180b;
-      box-shadow:0 16px 30px rgba(201,139,29,0.28);
-    }
-
-    button.main-btn:hover,
-    .level-btn:hover,
-    .whatsapp-btn:hover,
-    .copy-btn:hover{
-      transform:translateY(-1px);
-      box-shadow:0 20px 36px rgba(201,139,29,0.34);
-    }
-
-    .secondary-btn{
-      background:rgba(255,255,255,0.08);
-      color:var(--text);
-      border:1px solid rgba(255,255,255,0.08);
-    }
-
-    #message,
-    #quizResultMessage{
-      margin-top:14px;
-      min-height:42px;
-      font-weight:bold;
-      text-align:center;
-      line-height:1.5;
-      border-radius:14px;
-      transition:0.25s ease;
-    }
-
-    .error-state{
-      background:rgba(192,47,69,0.12);
-      border:1px solid rgba(255,107,107,0.18);
-      color:#ff5c5c !important;
-      padding:16px;
-      font-size:18px !important;
-      font-weight:800;
-      box-shadow:0 0 22px rgba(255,60,60,0.18);
-    }
-
-    .secret-state{
-      background:rgba(246,198,90,0.10);
-      border:1px solid rgba(246,198,90,0.18);
-      color:#ffe6a4 !important;
-      padding:16px;
-      font-size:17px !important;
-      font-weight:800;
-      box-shadow:0 0 20px rgba(246,198,90,0.14);
-    }
-
-    .surprise{
-      display:none;
-      margin-top:16px;
-      padding:18px;
-      border-radius:18px;
-      background:linear-gradient(135deg, rgba(138,32,48,0.22), rgba(246,198,90,0.16));
-      border:1px solid rgba(255,255,255,0.08);
-      line-height:1.6;
-      color:var(--text);
-      text-align:center;
-    }
-
-    .escape-box{
-      display:grid;
-      grid-template-columns:1fr;
-      gap:12px;
-      margin-bottom:18px;
-    }
-
-    .escape-chip{
-      background:linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
-      border:1px solid rgba(255,255,255,0.08);
-      border-radius:18px;
-      padding:16px;
-      box-shadow:0 10px 20px rgba(0,0,0,0.15);
-      min-height:78px;
-      display:flex;
-      flex-direction:column;
-      justify-content:center;
-    }
-
-    .escape-label{
-      font-size:11px;
-      text-transform:uppercase;
-      letter-spacing:1px;
-      color:rgba(247,241,231,0.56);
-      margin-bottom:8px;
-    }
-
-    .escape-value{
-      font-size:15px;
-      line-height:1.5;
-      color:var(--text);
-      font-weight:700;
-    }
-
-    .rules-title{
-      font-size:28px;
-      margin-bottom:18px;
-      font-weight:900;
-      letter-spacing:0.6px;
-      text-transform:uppercase;
-      padding-right:110px;
-    }
-
-    .rules-intro-main{
-      font-size:17px;
-      line-height:1.75;
-      color:var(--muted);
-      margin-bottom:20px;
-    }
-
-    .rules-subtitle{
-      font-size:18px;
-      font-weight:900;
-      color:var(--gold-1);
-      text-transform:uppercase;
-      letter-spacing:0.8px;
-      margin:18px 0 10px 0;
-    }
-
-    .rules-list{
-      list-style:none;
-      display:grid;
-      gap:10px;
-      margin-bottom:12px;
-    }
-
-    .rules-list li{
-      position:relative;
-      padding-left:20px;
-      color:var(--text);
-      font-size:15px;
-      line-height:1.7;
-    }
-
-    .rules-list li::before{
-      content:"•";
-      position:absolute;
-      left:0;
-      top:0;
-      color:var(--gold-1);
-      font-size:18px;
-      font-weight:900;
-    }
-
-    .rules-paragraph{
-      font-size:15px;
-      line-height:1.7;
-      color:var(--muted);
-      margin-bottom:10px;
-    }
-
-    .mission-box{
-      margin-top:18px;
-      padding:16px 18px;
-      border-radius:18px;
-      background:linear-gradient(135deg, rgba(138,32,48,0.20), rgba(246,198,90,0.10));
-      border:1px solid rgba(246,198,90,0.18);
-      color:var(--text);
-      font-size:15px;
-      line-height:1.7;
-    }
-
-    .mission-box strong{
-      display:block;
-      color:var(--gold-1);
-      font-size:17px;
-      margin-bottom:6px;
-      text-transform:uppercase;
-      letter-spacing:0.6px;
-    }
-
-    .nps-hero{
-      display:flex;
-      flex-direction:column;
-      gap:18px;
-    }
-
-    .nps-quick-stats{
-      display:grid;
-      grid-template-columns:repeat(3, minmax(0, 1fr));
-      gap:12px;
-    }
-
-    .nps-stat{
-      background:linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
-      border:1px solid rgba(255,255,255,0.08);
-      border-radius:18px;
-      padding:18px 16px;
-      text-align:center;
-    }
-
-    .nps-stat-label{
-      font-size:13px;
-      text-transform:uppercase;
-      letter-spacing:1px;
-      color:rgba(247,241,231,0.60);
-      margin-bottom:8px;
-    }
-
-    .nps-stat-value{
-      font-size:30px;
-      font-weight:900;
-    }
-
-    .nps-bad{ color:#ff6b6b; }
-    .nps-mid{ color:#ffd166; }
-    .nps-good{ color:#8ef0b0; }
-
-    .tips-intro{
-      font-size:15px;
-      line-height:1.7;
-      color:var(--muted);
-      margin-bottom:18px;
-    }
-
-    .tips-grid{
-      display:grid;
-      grid-template-columns:1fr;
-      gap:14px;
-    }
-
-    .tip-card{
-      background:linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
-      border:1px solid rgba(255,255,255,0.08);
-      border-radius:20px;
-      padding:18px;
-    }
-
-    .tip-title{
-      font-size:18px;
-      font-weight:900;
-      color:var(--gold-1);
-      margin-bottom:10px;
-    }
-
-    .tip-text{
-      color:var(--text);
-      font-size:15px;
-      line-height:1.75;
-      white-space:pre-line;
-      margin-bottom:14px;
-    }
-
-    .copy-btn{
-      padding:14px 16px;
-      font-size:15px;
-    }
-
-    .hidden{
-      display:none !important;
-    }
-
-    .level-grid{
-      display:grid;
-      grid-template-columns:repeat(3, minmax(0, 1fr));
-      gap:12px;
-      margin-top:10px;
-    }
-
-    .level-card{
-      background:linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
-      border:1px solid rgba(255,255,255,0.08);
-      border-radius:18px;
-      padding:16px;
-      text-align:center;
-    }
-
-    .level-card h3{
-      font-size:20px;
-      margin-bottom:8px;
-    }
-
-    .level-card p{
-      color:var(--muted);
-      line-height:1.5;
-      font-size:14px;
-      margin-bottom:12px;
-    }
-
-    .quiz-top{
-      display:flex;
-      gap:10px;
-      align-items:center;
-      justify-content:space-between;
-      flex-wrap:wrap;
-      margin-bottom:16px;
-    }
-
-    .quiz-pill{
-      padding:10px 14px;
-      border-radius:999px;
-      background:rgba(255,255,255,0.05);
-      border:1px solid rgba(255,255,255,0.08);
-      font-size:14px;
-      font-weight:800;
-    }
-
-    .timer{
-      background:linear-gradient(135deg, var(--gold-1), var(--gold-2));
-      color:#24180b;
-      min-width:74px;
-      text-align:center;
-    }
-
-    .question-box{
-      background:linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
-      border:1px solid rgba(255,255,255,0.08);
-      border-radius:20px;
-      padding:20px;
-      margin-bottom:16px;
-    }
-
-    .question-box h3{
-      font-size:22px;
-      line-height:1.45;
-    }
-
-    .answers-box{
-      display:grid;
-      gap:12px;
-    }
-
-    .answer-btn{
-      text-align:left;
-      font-size:16px;
-      background:rgba(255,255,255,0.07);
-      color:var(--text);
-      border:1px solid rgba(255,255,255,0.08);
-      box-shadow:none;
-    }
-
-    .answer-btn:hover{
-      transform:translateY(-1px);
-      background:rgba(255,255,255,0.11);
-    }
-
-    .result-actions{
-      display:flex;
-      gap:12px;
-      flex-wrap:wrap;
-      margin-top:16px;
-    }
-
-    .result-actions .secondary-btn,
-    .result-actions .whatsapp-btn{
-      flex:1 1 220px;
-      text-align:center;
-      text-decoration:none;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-    }
-
-    .small-note{
-      margin-top:10px;
-      color:rgba(247,241,231,0.65);
-      font-size:13px;
-      line-height:1.5;
-      text-align:center;
-    }
-
-    @media (max-width: 900px){
-      body{ padding:10px; }
-
-      .container{
-        flex-direction:column;
-        padding:14px;
-        gap:12px;
-        border-radius:22px;
-      }
-
-      .left-side{
-        flex:0 0 auto;
-        max-width:100%;
-        min-width:0;
-        width:100%;
-      }
-
-      .coffre{
-        max-width:100%;
-        max-height:180px;
-        object-fit:cover;
-        border-radius:20px;
-      }
-
-      .coffre-glow{
-        width:150px;
-        height:150px;
-      }
-
-      .right-side{
-        width:100%;
-        text-align:center;
-      }
-
-      .logo-top-right{
-        position:static;
-        margin:0 auto 10px auto;
-        width:56px;
-        height:56px;
-        padding:4px;
-      }
-
-      .topbar{
-        justify-content:center;
-        padding-right:0;
-        margin-bottom:12px;
-        gap:10px;
-      }
-
-      .marquee-coffre{
-        width:100%;
-        margin-bottom:12px;
-      }
-
-      h1,
-      .rules-title{
-        font-size:24px;
-        padding-right:0;
-      }
-
-      .desc{
-        font-size:14px;
-        max-width:none;
-      }
-
-      .rules-intro-main,
-      .rules-paragraph,
-      .rules-list li,
-      .mission-box,
-      .tips-intro,
-      .tip-text{
-        font-size:14px;
-      }
-
-      .rules-subtitle,
-      .tip-title{
-        font-size:16px;
-      }
-
-      .level-grid,
-      .nps-quick-stats{
-        grid-template-columns:1fr;
-      }
-
-      .question-box h3{
-        font-size:18px;
-      }
-
-      .answer-btn{
-        font-size:15px;
-      }
-
-      .topbtn{
-        font-size:13px;
-        padding:10px 14px;
-      }
-    }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Le Coffre</title>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial, sans-serif;
+}
+
+:root{
+--gold-1:#f6c65a;
+--gold-2:#c98b1d;
+--red-1:#8a2030;
+--red-2:#c02f45;
+--text:#f7f1e7;
+--muted:rgba(247,241,231,0.82);
+--success:#8ef0b0;
+--danger:#ff6b6b;
+--warning:#ffd166;
+--dark:#080811;
+}
+
+body{
+min-height:100vh;
+background:url("boulanger.jpg") center/cover no-repeat;
+display:flex;
+justify-content:center;
+align-items:center;
+padding:18px;
+position:relative;
+overflow-x:hidden;
+}
+
+body::before{
+content:"";
+position:absolute;
+inset:0;
+background:
+radial-gradient(circle at top center, rgba(192,47,69,0.16), transparent 24%),
+radial-gradient(circle at bottom left, rgba(246,198,90,0.10), transparent 22%),
+rgba(6,6,14,0.82);
+backdrop-filter:blur(9px);
+}
+
+body::after{
+content:"";
+position:absolute;
+inset:0;
+background:linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.02) 50%, transparent 100%);
+opacity:0.16;
+pointer-events:none;
+}
+
+.container{
+position:relative;
+z-index:2;
+width:100%;
+max-width:1180px;
+background:linear-gradient(180deg, rgba(24,18,38,0.95), rgba(12,10,22,0.96));
+border-radius:30px;
+padding:28px;
+box-shadow:0 30px 80px rgba(0,0,0,0.58);
+display:flex;
+gap:28px;
+align-items:flex-start;
+border:1px solid rgba(255,255,255,0.06);
+overflow:hidden;
+}
+
+.container::before{
+content:"";
+position:absolute;
+inset:0;
+background:
+radial-gradient(circle at 20% 20%, rgba(246,198,90,0.06), transparent 18%),
+radial-gradient(circle at 80% 10%, rgba(192,47,69,0.08), transparent 16%);
+pointer-events:none;
+}
+
+.left-side{
+position:relative;
+flex:0 0 340px;
+max-width:340px;
+min-width:340px;
+}
+
+.coffre-wrap{
+position:relative;
+width:100%;
+}
+
+.coffre-glow{
+position:absolute;
+inset:50% auto auto 50%;
+transform:translate(-50%,-50%);
+width:240px;
+height:240px;
+border-radius:50%;
+background:radial-gradient(circle, rgba(246,198,90,0.22), transparent 65%);
+filter:blur(24px);
+z-index:1;
+animation:pulseGlow 3.2s ease-in-out infinite;
+pointer-events:none;
+transition:0.4s ease;
+}
+
+@keyframes pulseGlow{
+0%,100%{
+opacity:0.65;
+transform:translate(-50%,-50%) scale(1);
+}
+50%{
+opacity:1;
+transform:translate(-50%,-50%) scale(1.08);
+}
+}
+
+.coffre{
+position:relative;
+z-index:2;
+width:100%;
+display:block;
+border-radius:24px;
+box-shadow:0 26px 60px rgba(0,0,0,0.45);
+border:1px solid rgba(255,255,255,0.06);
+transition:transform 0.35s ease, box-shadow 0.35s ease;
+user-select:none;
+-webkit-user-drag:none;
+}
+
+.coffre:hover{
+transform:translateY(-2px) scale(1.01);
+box-shadow:0 30px 70px rgba(0,0,0,0.52), 0 0 40px rgba(246,198,90,0.10);
+}
+
+.coffre.shake{
+animation:shake 0.45s ease;
+}
+
+@keyframes shake{
+0%{transform:translateX(0)}
+20%{transform:translateX(-8px)}
+40%{transform:translateX(8px)}
+60%{transform:translateX(-6px)}
+80%{transform:translateX(6px)}
+100%{transform:translateX(0)}
+}
+
+.ritual-badge{
+position:absolute;
+top:14px;
+left:14px;
+z-index:3;
+display:flex;
+align-items:center;
+gap:8px;
+padding:9px 13px;
+border-radius:999px;
+font-size:12px;
+font-weight:800;
+letter-spacing:1px;
+color:var(--text);
+background:linear-gradient(135deg, rgba(138,32,48,0.96), rgba(63,15,25,0.96));
+border:1px solid rgba(255,255,255,0.08);
+box-shadow:0 10px 24px rgba(0,0,0,0.28);
+backdrop-filter:blur(8px);
+user-select:none;
+}
+
+.logo-badge{
+width:22px;
+height:22px;
+border-radius:50%;
+object-fit:cover;
+background:#fff;
+flex:0 0 auto;
+}
+
+.whisper{
+margin-top:14px;
+text-align:center;
+color:rgba(247,241,231,0.58);
+font-size:13px;
+letter-spacing:0.6px;
+text-transform:uppercase;
+}
+
+.right-side{
+flex:1 1 0;
+min-width:0;
+color:var(--text);
+position:relative;
+}
+
+.logo-top-right{
+position:absolute;
+top:0;
+right:0;
+z-index:5;
+width:88px;
+height:88px;
+border-radius:50%;
+padding:6px;
+background:
+radial-gradient(circle at 30% 30%, rgba(255,255,255,0.22), transparent 45%),
+linear-gradient(135deg, rgba(246,198,90,0.25), rgba(138,32,48,0.22));
+box-shadow:
+0 0 24px rgba(255,140,0,0.25),
+0 18px 30px rgba(0,0,0,0.28);
+border:1px solid rgba(255,255,255,0.12);
+display:flex;
+align-items:center;
+justify-content:center;
+backdrop-filter:blur(8px);
+animation:logoPulse 3.2s ease-in-out infinite;
+user-select:none;
+}
+
+.logo-top-right img{
+width:100%;
+height:100%;
+border-radius:50%;
+object-fit:cover;
+border:2px solid rgba(255,255,255,0.18);
+background:#fff;
+pointer-events:none;
+}
+
+@keyframes logoPulse{
+0%,100%{transform:scale(1)}
+50%{transform:scale(1.04)}
+}
+
+.topbar{
+display:flex;
+gap:12px;
+flex-wrap:wrap;
+margin-bottom:18px;
+padding-right:110px;
+}
+
+.topbtn{
+position:relative;
+padding:12px 18px;
+border:none;
+border-radius:16px;
+font-size:14px;
+font-weight:800;
+cursor:pointer;
+color:var(--text);
+background:linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
+border:1px solid rgba(255,255,255,0.08);
+transition:0.2s ease;
+overflow:hidden;
+box-shadow:0 10px 20px rgba(0,0,0,0.18);
+}
+
+.topbtn::before{
+content:"";
+position:absolute;
+inset:0;
+background:linear-gradient(135deg, rgba(246,198,90,0.20), rgba(192,47,69,0.14));
+opacity:0;
+transition:0.2s ease;
+}
+
+.topbtn:hover::before,
+.topbtn.active::before{
+opacity:1;
+}
+
+.topbtn:hover{
+transform:translateY(-1px);
+}
+
+.topbtn.active{
+background:linear-gradient(135deg, rgba(138,32,48,0.96), rgba(201,139,29,0.78));
+}
+
+.marquee-coffre{
+width:calc(100% - 110px);
+overflow:hidden;
+margin-bottom:16px;
+border-radius:14px;
+background:linear-gradient(90deg, rgba(138,32,48,0.92), rgba(63,15,25,0.92));
+border:1px solid rgba(255,255,255,0.08);
+box-shadow:0 8px 20px rgba(0,0,0,0.25);
+}
+
+.marquee-track{
+display:flex;
+width:max-content;
+animation:scrollLoop 18s linear infinite;
+will-change:transform;
+}
+
+.marquee-track span{
+white-space:nowrap;
+padding:12px 28px;
+font-weight:900;
+font-size:16px;
+color:#f6c65a;
+letter-spacing:1px;
+}
+
+@keyframes scrollLoop{
+0%{transform:translateX(0)}
+100%{transform:translateX(-50%)}
+}
+
+h1{
+font-size:44px;
+margin-bottom:14px;
+letter-spacing:0.6px;
+line-height:1.02;
+text-transform:uppercase;
+text-shadow:0 6px 20px rgba(0,0,0,0.35);
+padding-right:110px;
+}
+
+.desc{
+font-size:18px;
+line-height:1.6;
+margin-bottom:18px;
+color:var(--muted);
+max-width:700px;
+}
+
+.code-panel,
+.rules-box,
+.game-panel,
+.tips-panel{
+position:relative;
+background:linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+border:1px solid rgba(246,198,90,0.22);
+border-radius:26px;
+padding:22px;
+box-shadow:
+inset 0 1px 0 rgba(255,255,255,0.04),
+0 18px 34px rgba(0,0,0,0.18);
+margin-bottom:18px;
+}
+
+.code-panel::before{
+content:"ZONE DE SAISIE";
+position:absolute;
+top:-12px;
+left:18px;
+font-size:11px;
+font-weight:900;
+letter-spacing:1px;
+color:#24180b;
+background:linear-gradient(135deg, var(--gold-1), var(--gold-2));
+padding:6px 10px;
+border-radius:999px;
+box-shadow:0 8px 18px rgba(201,139,29,0.22);
+}
+
+.code-intro{
+text-align:center;
+font-size:14px;
+color:rgba(247,241,231,0.78);
+margin-bottom:14px;
+line-height:1.5;
+font-weight:700;
+}
+
+input{
+width:100%;
+padding:18px 16px;
+border-radius:18px;
+border:none;
+margin-bottom:14px;
+font-size:18px;
+background:#f8f4ee;
+color:#181818;
+box-shadow:inset 0 2px 10px rgba(0,0,0,0.08);
+font-weight:700;
+text-align:center;
+}
+
+input::placeholder{
+color:#8b8b8b;
+font-weight:700;
+}
+
+button.main-btn,
+.level-btn,
+.answer-btn,
+.secondary-btn,
+.copy-btn{
+width:100%;
+padding:18px;
+border:none;
+border-radius:18px;
+font-size:18px;
+font-weight:900;
+cursor:pointer;
+transition:0.18s ease;
+}
+
+button.main-btn,
+.level-btn,
+.copy-btn{
+background:linear-gradient(135deg, var(--gold-1), var(--gold-2));
+color:#24180b;
+box-shadow:0 16px 30px rgba(201,139,29,0.28);
+}
+
+button.main-btn:hover,
+.level-btn:hover,
+.copy-btn:hover{
+transform:translateY(-1px);
+box-shadow:0 20px 36px rgba(201,139,29,0.34);
+}
+
+.secondary-btn{
+background:rgba(255,255,255,0.08);
+color:var(--text);
+border:1px solid rgba(255,255,255,0.08);
+}
+
+#message,
+#quizResultMessage{
+margin-top:14px;
+min-height:42px;
+font-weight:bold;
+text-align:center;
+line-height:1.5;
+border-radius:14px;
+transition:0.25s ease;
+}
+
+.error-state{
+background:rgba(192,47,69,0.12);
+border:1px solid rgba(255,107,107,0.18);
+color:#ff5c5c !important;
+padding:16px;
+font-size:18px !important;
+font-weight:800;
+box-shadow:0 0 22px rgba(255,60,60,0.18);
+}
+
+.secret-state{
+background:rgba(246,198,90,0.10);
+border:1px solid rgba(246,198,90,0.18);
+color:#ffe6a4 !important;
+padding:16px;
+font-size:17px !important;
+font-weight:800;
+box-shadow:0 0 20px rgba(246,198,90,0.14);
+}
+
+.escape-box{
+display:grid;
+grid-template-columns:1fr;
+gap:12px;
+margin-bottom:18px;
+}
+
+.escape-chip{
+background:linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+border:1px solid rgba(255,255,255,0.08);
+border-radius:18px;
+padding:16px;
+box-shadow:0 10px 20px rgba(0,0,0,0.15);
+min-height:78px;
+display:flex;
+flex-direction:column;
+justify-content:center;
+}
+
+.escape-label{
+font-size:11px;
+text-transform:uppercase;
+letter-spacing:1px;
+color:rgba(247,241,231,0.56);
+margin-bottom:8px;
+}
+
+.escape-value{
+font-size:15px;
+line-height:1.5;
+color:var(--text);
+font-weight:700;
+}
+
+.rules-title{
+font-size:28px;
+margin-bottom:18px;
+font-weight:900;
+letter-spacing:0.6px;
+text-transform:uppercase;
+padding-right:110px;
+}
+
+.rules-intro-main{
+font-size:17px;
+line-height:1.75;
+color:var(--muted);
+margin-bottom:20px;
+}
+
+.rules-subtitle{
+font-size:18px;
+font-weight:900;
+color:var(--gold-1);
+text-transform:uppercase;
+letter-spacing:0.8px;
+margin:18px 0 10px 0;
+}
+
+.rules-list{
+list-style:none;
+display:grid;
+gap:10px;
+margin-bottom:12px;
+}
+
+.rules-list li{
+position:relative;
+padding-left:20px;
+color:var(--text);
+font-size:15px;
+line-height:1.7;
+}
+
+.rules-list li::before{
+content:"•";
+position:absolute;
+left:0;
+top:0;
+color:var(--gold-1);
+font-size:18px;
+font-weight:900;
+}
+
+.rules-paragraph{
+font-size:15px;
+line-height:1.7;
+color:var(--muted);
+margin-bottom:10px;
+}
+
+.mission-box{
+margin-top:18px;
+padding:16px 18px;
+border-radius:18px;
+background:linear-gradient(135deg, rgba(138,32,48,0.20), rgba(246,198,90,0.10));
+border:1px solid rgba(246,198,90,0.18);
+color:var(--text);
+font-size:15px;
+line-height:1.7;
+}
+
+.mission-box strong{
+display:block;
+color:var(--gold-1);
+font-size:17px;
+margin-bottom:6px;
+text-transform:uppercase;
+letter-spacing:0.6px;
+}
+
+.nps-hero{
+display:flex;
+flex-direction:column;
+gap:18px;
+}
+
+.nps-quick-stats{
+display:grid;
+grid-template-columns:repeat(3, minmax(0, 1fr));
+gap:12px;
+}
+
+.nps-stat{
+background:linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+border:1px solid rgba(255,255,255,0.08);
+border-radius:18px;
+padding:18px 16px;
+text-align:center;
+}
+
+.nps-stat-label{
+font-size:13px;
+text-transform:uppercase;
+letter-spacing:1px;
+color:rgba(247,241,231,0.60);
+margin-bottom:8px;
+}
+
+.nps-stat-value{
+font-size:30px;
+font-weight:900;
+}
+
+.nps-bad{ color:#ff6b6b; }
+.nps-mid{ color:#ffd166; }
+.nps-good{ color:#8ef0b0; }
+
+.tips-intro{
+font-size:15px;
+line-height:1.7;
+color:var(--muted);
+margin-bottom:18px;
+}
+
+.tips-grid{
+display:grid;
+grid-template-columns:1fr;
+gap:14px;
+}
+
+.tip-card{
+background:linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+border:1px solid rgba(255,255,255,0.08);
+border-radius:20px;
+padding:18px;
+}
+
+.tip-title{
+font-size:18px;
+font-weight:900;
+color:var(--gold-1);
+margin-bottom:10px;
+}
+
+.tip-text{
+color:var(--text);
+font-size:15px;
+line-height:1.75;
+white-space:pre-line;
+margin-bottom:14px;
+}
+
+.copy-btn{
+padding:14px 16px;
+font-size:15px;
+}
+
+.hidden{
+display:none !important;
+}
+
+.level-grid{
+display:grid;
+grid-template-columns:repeat(3, minmax(0, 1fr));
+gap:12px;
+margin-top:10px;
+}
+
+.level-card{
+background:linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+border:1px solid rgba(255,255,255,0.08);
+border-radius:18px;
+padding:16px;
+text-align:center;
+}
+
+.level-card h3{
+font-size:20px;
+margin-bottom:8px;
+}
+
+.level-card p{
+color:var(--muted);
+line-height:1.5;
+font-size:14px;
+margin-bottom:12px;
+}
+
+.quiz-top{
+display:flex;
+gap:10px;
+align-items:center;
+justify-content:space-between;
+flex-wrap:wrap;
+margin-bottom:16px;
+}
+
+.quiz-pill{
+padding:10px 14px;
+border-radius:999px;
+background:rgba(255,255,255,0.05);
+border:1px solid rgba(255,255,255,0.08);
+font-size:14px;
+font-weight:800;
+}
+
+.timer{
+background:linear-gradient(135deg, var(--gold-1), var(--gold-2));
+color:#24180b;
+min-width:74px;
+text-align:center;
+}
+
+.question-box{
+background:linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+border:1px solid rgba(255,255,255,0.08);
+border-radius:20px;
+padding:20px;
+margin-bottom:16px;
+}
+
+.question-box h3{
+font-size:22px;
+line-height:1.45;
+}
+
+.answers-box{
+display:grid;
+gap:12px;
+}
+
+.answer-btn{
+text-align:left;
+font-size:16px;
+background:rgba(255,255,255,0.07);
+color:var(--text);
+border:1px solid rgba(255,255,255,0.08);
+box-shadow:none;
+}
+
+.answer-btn:hover{
+transform:translateY(-1px);
+background:rgba(255,255,255,0.11);
+}
+
+.result-actions{
+display:flex;
+gap:12px;
+flex-wrap:wrap;
+margin-top:16px;
+}
+
+.result-actions .secondary-btn{
+flex:1 1 220px;
+text-align:center;
+text-decoration:none;
+display:flex;
+align-items:center;
+justify-content:center;
+}
+
+.clue-box{
+margin-top:16px;
+padding:16px 18px;
+border-radius:18px;
+background:linear-gradient(135deg, rgba(246,198,90,0.12), rgba(138,32,48,0.10));
+border:1px solid rgba(246,198,90,0.18);
+}
+
+.clue-box-title{
+font-size:16px;
+font-weight:900;
+color:var(--gold-1);
+margin-bottom:10px;
+text-transform:uppercase;
+letter-spacing:0.5px;
+}
+
+.clue-item{
+font-size:15px;
+line-height:1.7;
+color:var(--text);
+margin-bottom:8px;
+}
+
+.small-note{
+margin-top:10px;
+color:rgba(247,241,231,0.65);
+font-size:13px;
+line-height:1.5;
+text-align:center;
+}
+
+@media (max-width: 900px){
+body{ padding:10px; }
+
+.container{
+flex-direction:column;
+padding:14px;
+gap:12px;
+border-radius:22px;
+}
+
+.left-side{
+flex:0 0 auto;
+max-width:100%;
+min-width:0;
+width:100%;
+}
+
+.coffre{
+max-width:100%;
+max-height:180px;
+object-fit:cover;
+border-radius:20px;
+}
+
+.coffre-glow{
+width:150px;
+height:150px;
+}
+
+.right-side{
+width:100%;
+text-align:center;
+}
+
+.logo-top-right{
+position:static;
+margin:0 auto 10px auto;
+width:56px;
+height:56px;
+padding:4px;
+}
+
+.topbar{
+justify-content:center;
+padding-right:0;
+margin-bottom:12px;
+gap:10px;
+}
+
+.marquee-coffre{
+width:100%;
+margin-bottom:12px;
+}
+
+h1,
+.rules-title{
+font-size:24px;
+padding-right:0;
+}
+
+.desc{
+font-size:14px;
+max-width:none;
+}
+
+.rules-intro-main,
+.rules-paragraph,
+.rules-list li,
+.mission-box,
+.tips-intro,
+.tip-text,
+.clue-item{
+font-size:14px;
+}
+
+.rules-subtitle,
+.tip-title,
+.clue-box-title{
+font-size:16px;
+}
+
+.level-grid,
+.nps-quick-stats{
+grid-template-columns:1fr;
+}
+
+.question-box h3{
+font-size:18px;
+}
+
+.answer-btn{
+font-size:15px;
+}
+
+.topbtn{
+font-size:13px;
+padding:10px 14px;
+}
+}
+</style>
 </head>
 <body>
 
-  <div class="container">
+<div class="container">
 
-    <div class="left-side">
-      <div class="coffre-wrap">
-        <div class="coffre-glow"></div>
+<div class="left-side">
+<div class="coffre-wrap">
+<div class="coffre-glow"></div>
 
-        <div class="ritual-badge">
-          <img src="logo.png" alt="Logo Wittenheim" class="logo-badge" />
-          <span>DÉFI STRATÉGIQUE</span>
-        </div>
+<div class="ritual-badge">
+<img src="logo.png" alt="Logo Wittenheim" class="logo-badge" />
+<span>DÉFI STRATÉGIQUE</span>
+</div>
 
-        <img id="coffre" src="coffre-ferme.png" class="coffre" alt="Coffre verrouillé" />
-      </div>
+<img id="coffre" src="coffre-ferme.png" class="coffre" alt="Coffre verrouillé" />
+</div>
 
-      <div class="whisper">Tous n’y arriveront pas.</div>
-    </div>
+<div class="whisper">Tous n’y arriveront pas.</div>
+</div>
 
-    <div class="right-side">
+<div class="right-side">
 
-      <div class="logo-top-right">
-        <img src="logo.png" alt="Logo du magasin" />
-      </div>
+<div class="logo-top-right">
+<img src="logo.png" alt="Logo du magasin" />
+</div>
 
-      <div class="topbar">
-        <button id="btnCoffre" class="topbtn active" onclick="afficherSection('coffre')">Le Coffre</button>
-        <button id="btnRegles" class="topbtn" onclick="afficherSection('regles')">Règles du jeu</button>
-        <button id="btnNps" class="topbtn" onclick="afficherSection('nps')">NPS actuel</button>
-        <button id="btnTips" class="topbtn" onclick="afficherSection('tips')">Tips pour obtenir des 9/10 ou 10/10</button>
-        <button id="btnJeu" class="topbtn" onclick="afficherSection('jeu')">Jeu du jour</button>
-      </div>
+<div class="topbar">
+<button id="btnCoffre" class="topbtn active" onclick="afficherSection('coffre')">Le Coffre</button>
+<button id="btnRegles" class="topbtn" onclick="afficherSection('regles')">Règles du jeu</button>
+<button id="btnNps" class="topbtn" onclick="afficherSection('nps')">NPS actuel</button>
+<button id="btnTips" class="topbtn" onclick="afficherSection('tips')">Tips pour obtenir des 9/10 ou 10/10</button>
+<button id="btnJeu" class="topbtn" onclick="afficherSection('jeu')">Jeu du jour</button>
+</div>
 
-      <div id="sectionCoffre">
-        <div class="marquee-coffre">
-          <div class="marquee-track">
-            <span>😈 CHALLENGE NPS EN COURS… • QUI TROUVERA LE MOT AVANT LES AUTRES ? 🔐 •</span>
-            <span>😈 CHALLENGE NPS EN COURS… • QUI TROUVERA LE MOT AVANT LES AUTRES ? 🔐 •</span>
-          </div>
-        </div>
+<div id="sectionCoffre">
+<div class="marquee-coffre">
+<div class="marquee-track">
+<span>😈 CHALLENGE NPS EN COURS… • QUI TROUVERA LE MOT AVANT LES AUTRES ? 🔐 •</span>
+<span>😈 CHALLENGE NPS EN COURS… • QUI TROUVERA LE MOT AVANT LES AUTRES ? 🔐 •</span>
+</div>
+</div>
 
-        <h1>Le Coffre</h1>
+<h1>Le Coffre</h1>
 
-        <p class="desc">
-          Le coffre est verrouillé 🤫.<br>
-          Un seul mot peut le débloquer…<br>
-          À vous de le découvrir 😈.
-        </p>
+<p class="desc">
+Le coffre est verrouillé 🤫.<br>
+Un seul mot peut le débloquer…<br>
+À vous de le découvrir 😈.
+</p>
 
-        <div class="code-panel">
-          <div class="code-intro">
-            Entre le mot ici pour envoyer ta proposition.
-          </div>
+<div class="code-panel">
+<div class="code-intro">
+Entre le mot ici pour envoyer ta proposition.
+</div>
 
-          <input type="text" id="mot" placeholder="ENTRE LE MOT ICI" autocomplete="off" />
-          <button id="mainButton" class="main-btn" onclick="envoyerReponse()">Envoyer le mot</button>
+<input type="text" id="mot" placeholder="ENTRE LE MOT ICI" autocomplete="off" />
+<button id="mainButton" class="main-btn" onclick="envoyerReponse()">Envoyer le mot</button>
 
-          <p id="message"></p>
-          <div id="surprise" class="surprise"></div>
-        </div>
+<p id="message"></p>
+</div>
 
-        <div class="escape-box">
-          <div class="escape-chip">
-            <div class="escape-label">Progression</div>
-            <div id="attemptsText" class="escape-value">🔎 3 tentatives restantes</div>
-          </div>
-        </div>
-      </div>
+<div class="escape-box">
+<div class="escape-chip">
+<div class="escape-label">Progression</div>
+<div id="attemptsText" class="escape-value">🔎 3 tentatives restantes</div>
+</div>
+</div>
+</div>
 
-      <div id="sectionRegles" class="rules-box hidden">
-        <div class="rules-title">Les règles du jeu</div>
+<div id="sectionRegles" class="rules-box hidden">
+<div class="rules-title">Les règles du jeu</div>
 
-        <div class="rules-intro-main">
-          <strong>Le défi est lancé.</strong><br><br>
-          Le coffre est verrouillé. Un seul mot peut le débloquer.
-        </div>
+<div class="rules-intro-main">
+<strong>Le défi est lancé.</strong><br><br>
+Le coffre est verrouillé. Un seul mot peut le débloquer.
+</div>
 
-        <div class="rules-subtitle">Pour avancer</div>
-        <ul class="rules-list">
-          <li>Un avis NPS positif à votre nom avec une note de 9 ou 10 = 2 indices</li>
-          <li>Un avis Google positif à votre nom = 1 indice</li>
-          <li>Le jeu du jour peut aussi vous faire gagner des indices</li>
-        </ul>
+<div class="rules-subtitle">Pour avancer</div>
+<ul class="rules-list">
+<li>Un avis NPS positif à votre nom avec une note de 9 ou 10 = 2 indices</li>
+<li>Un avis Google positif à votre nom = 1 indice</li>
+<li>Le jeu du jour peut aussi vous faire gagner des indices</li>
+</ul>
 
-        <div class="rules-subtitle">Pour tenter votre chance</div>
-        <p class="rules-paragraph">
-          Entrez votre mot dans <strong>Le Coffre</strong> puis cliquez sur <strong>Envoyer</strong>.
-        </p>
-        <p class="rules-paragraph">
-          Vous serez redirigé vers <strong>WhatsApp</strong> pour transmettre votre proposition avec votre prénom.
-        </p>
-        <p class="rules-paragraph">
-          Un administrateur du jeu vous confirmera ensuite si le mot est correct.
-        </p>
+<div class="rules-subtitle">Pour tenter votre chance</div>
+<p class="rules-paragraph">
+Entrez votre mot dans <strong>Le Coffre</strong> puis cliquez sur <strong>Envoyer</strong>.
+</p>
+<p class="rules-paragraph">
+Vous serez redirigé vers <strong>WhatsApp</strong> pour transmettre votre proposition avec votre prénom.
+</p>
+<p class="rules-paragraph">
+Un administrateur du jeu vous confirmera ensuite si le mot est correct.
+</p>
 
-        <div class="mission-box">
-          <strong>La mission</strong>
-          Trouver le mot secret, atteindre 64 % de NPS et conserver la prime.
-        </div>
-      </div>
+<div class="mission-box">
+<strong>La mission</strong>
+Trouver le mot secret, atteindre 64 % de NPS et conserver la prime.
+</div>
+</div>
 
-      <div id="sectionNps" class="rules-box hidden">
-        <div class="rules-title">NPS actuel</div>
+<div id="sectionNps" class="rules-box hidden">
+<div class="rules-title">NPS actuel</div>
 
-        <div class="nps-hero">
-          <div class="nps-quick-stats">
-            <div class="nps-stat">
-              <div class="nps-stat-label">NPS du moment</div>
-              <div class="nps-stat-value nps-bad">46</div>
-            </div>
+<div class="nps-hero">
+<div class="nps-quick-stats">
+<div class="nps-stat">
+<div class="nps-stat-label">NPS du moment</div>
+<div class="nps-stat-value nps-bad">46</div>
+</div>
 
-            <div class="nps-stat">
-              <div class="nps-stat-label">Objectif</div>
-              <div class="nps-stat-value nps-good">64</div>
-            </div>
+<div class="nps-stat">
+<div class="nps-stat-label">Objectif</div>
+<div class="nps-stat-value nps-good">64</div>
+</div>
 
-            <div class="nps-stat">
-              <div class="nps-stat-label">Écart</div>
-              <div class="nps-stat-value nps-mid">-18</div>
-            </div>
-          </div>
-        </div>
-      </div>
+<div class="nps-stat">
+<div class="nps-stat-label">Écart</div>
+<div class="nps-stat-value nps-mid">-18</div>
+</div>
+</div>
+</div>
+</div>
 
-      <div id="sectionTips" class="tips-panel hidden">
-        <div class="rules-title">Tips pour obtenir des 9/10 ou 10/10</div>
+<div id="sectionTips" class="tips-panel hidden">
+<div class="rules-title">Tips pour obtenir des 9/10 ou 10/10</div>
 
-        <p class="tips-intro">
-          Des phrases simples, naturelles et efficaces pour maximiser les 9/10 ou 10/10.
-        </p>
+<p class="tips-intro">
+Des phrases simples, naturelles et efficaces pour maximiser les 9/10 ou 10/10.
+</p>
 
-        <div class="tips-grid">
+<div class="tips-grid">
 
-          <div class="tip-card">
-            <div class="tip-title">🛍️ VENDEUR</div>
-            <div id="tip-vendeur" class="tip-text">“Merci pour votre confiance.
+<div class="tip-card">
+<div class="tip-title">🛍️ VENDEUR</div>
+<div id="tip-vendeur" class="tip-text">“Merci pour votre confiance.
 Vous allez recevoir une petite enquête sur votre passage aujourd’hui.
 Elle concerne mon accompagnement, pas le magasin.
 Si vous avez été satisfait, un 9 ou un 10 fait vraiment la différence pour moi 🙏”</div>
-            <button class="copy-btn" onclick="copyTip('tip-vendeur', this)">Copier la phrase</button>
-          </div>
+<button class="copy-btn" onclick="copyTip('tip-vendeur', this)">Copier la phrase</button>
+</div>
 
-          <div class="tip-card">
-            <div class="tip-title">💳 CAISSE</div>
-            <div id="tip-caisse" class="tip-text">“Merci beaucoup pour votre achat 😊
+<div class="tip-card">
+<div class="tip-title">💳 CAISSE</div>
+<div id="tip-caisse" class="tip-text">“Merci beaucoup pour votre achat 😊
 Vous allez recevoir une enquête sur votre passage aujourd’hui, elle concerne notre accueil.
 Si tout s’est bien passé, un 9 ou un 10 nous aide énormément 🙏”</div>
-            <button class="copy-btn" onclick="copyTip('tip-caisse', this)">Copier la phrase</button>
-          </div>
+<button class="copy-btn" onclick="copyTip('tip-caisse', this)">Copier la phrase</button>
+</div>
 
-          <div class="tip-card">
-            <div class="tip-title">🔧 SAV</div>
-            <div id="tip-sav" class="tip-text">“Merci pour votre confiance.
+<div class="tip-card">
+<div class="tip-title">🔧 SAV</div>
+<div id="tip-sav" class="tip-text">“Merci pour votre confiance.
 Je fais le nécessaire pour que votre produit soit pris en charge dans les meilleures conditions.
 Vous allez recevoir une enquête, elle concerne mon accueil, pas la panne.
 Si vous êtes satisfait de mon accompagnement, un 9 ou un 10 fait vraiment la différence pour moi 🙏”</div>
-            <button class="copy-btn" onclick="copyTip('tip-sav', this)">Copier la phrase</button>
-          </div>
+<button class="copy-btn" onclick="copyTip('tip-sav', this)">Copier la phrase</button>
+</div>
 
-          <div class="tip-card">
-            <div class="tip-title">📦 STOCK / RETRAIT</div>
-            <div id="tip-stock" class="tip-text">“C’était un plaisir 😊
+<div class="tip-card">
+<div class="tip-title">📦 STOCK / RETRAIT</div>
+<div id="tip-stock" class="tip-text">“C’était un plaisir 😊
 Vous allez recevoir une enquête sur la remise de votre produit.
 Elle concerne mon accueil.
 Si tout s’est bien passé, un 9 ou un 10 m’aide énormément 🙏”</div>
-            <button class="copy-btn" onclick="copyTip('tip-stock', this)">Copier la phrase</button>
-          </div>
+<button class="copy-btn" onclick="copyTip('tip-stock', this)">Copier la phrase</button>
+</div>
 
-          <div class="tip-card">
-            <div class="tip-title">🚚 LIVRAISON</div>
-            <div id="tip-livraison" class="tip-text">“C’était un plaisir de vous livrer 😊
+<div class="tip-card">
+<div class="tip-title">🚚 LIVRAISON</div>
+<div id="tip-livraison" class="tip-text">“C’était un plaisir de vous livrer 😊
 Vous allez recevoir une enquête sur notre intervention.
 Si tout s’est bien passé, un 9 ou un 10 valorise vraiment notre travail 🙏”</div>
-            <button class="copy-btn" onclick="copyTip('tip-livraison', this)">Copier la phrase</button>
-          </div>
-
-        </div>
-      </div>
-
-      <div id="sectionJeu" class="game-panel hidden">
-        <div class="rules-title">Jeu du jour</div>
-
-        <div id="gameStart">
-          <p class="rules-paragraph" style="margin-bottom:18px;">
-            Choisis ton niveau. Tu as 50 secondes pour répondre à 10 questions.
-            Aucune correction ne s’affiche pendant le jeu.
-          </p>
-
-          <div class="level-grid">
-            <div class="level-card">
-              <h3>Niveau 1</h3>
-              <p>Accessible mais piégeux.<br>Récompense : 1 indice.</p>
-              <button class="level-btn" onclick="startQuiz(1)">Lancer</button>
-            </div>
-
-            <div class="level-card">
-              <h3>Niveau 2</h3>
-              <p>Réflexion terrain.<br>Récompense : 2 indices.</p>
-              <button class="level-btn" onclick="startQuiz(2)">Lancer</button>
-            </div>
-
-            <div class="level-card">
-              <h3>Niveau 3</h3>
-              <p>Niveau expert.<br>Récompense : 3 indices.</p>
-              <button class="level-btn" onclick="startQuiz(3)">Lancer</button>
-            </div>
-          </div>
-
-          <div class="small-note">
-            Pour gagner le lot du niveau choisi, il faut faire <strong>10/10</strong>.
-          </div>
-        </div>
-
-        <div id="quizPlay" class="hidden">
-          <div class="quiz-top">
-            <div id="quizLevel" class="quiz-pill">Niveau 1</div>
-            <div id="quizProgress" class="quiz-pill">Question 1 / 10</div>
-            <div id="quizTimer" class="quiz-pill timer">50</div>
-          </div>
-
-          <div class="question-box">
-            <h3 id="quizQuestion">Question</h3>
-          </div>
-
-          <div id="quizAnswers" class="answers-box"></div>
-        </div>
-
-        <div id="quizResult" class="hidden">
-          <div class="question-box">
-            <h3 id="quizResultTitle">Résultat</h3>
-            <p id="quizResultMessage"></p>
-
-            <div class="result-actions">
-              <button class="secondary-btn" onclick="resetQuiz()">Revenir aux niveaux</button>
-              <a id="quizWhatsAppBtn" class="whatsapp-btn hidden" href="#" target="_blank" rel="noopener noreferrer">Réclamer mon lot sur WhatsApp</a>
-            </div>
-
-            <div class="small-note">
-              Le site ne montre pas les réponses correctes ni les indices.
-            </div>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-  <script>
-    const WHATSAPP_NUMBER = "33637993778";
-
-    const QUIZ_DATA = {
-      1: [
-        {
-          question:"Un client met 8 et dit “c’était top” :",
-          answers:["C’est un promoteur","C’est un neutre","C’est un détracteur"],
-          correct:1
-        },
-        {
-          question:"Le bon moment pour proposer l’enquête :",
-          answers:["Dès le début","À la fin, après satisfaction validée","À la caisse uniquement"],
-          correct:1
-        },
-        {
-          question:"Dire “notez le magasin” est une erreur car :",
-          answers:["Ça ne sert à rien","Ça fausse la réponse client","C’est interdit"],
-          correct:1
-        },
-        {
-          question:"Un client satisfait mais sans émotion forte devient souvent :",
-          answers:["Promoteur","Neutre","Détracteur"],
-          correct:1
-        },
-        {
-          question:"Le NPS mesure surtout :",
-          answers:["Le chiffre d’affaires","L’intention de recommander","Le temps passé"],
-          correct:1
-        },
-        {
-          question:"Un client met 9 mais ne recommande pas :",
-          answers:["Impossible","Rare mais possible","Faux"],
-          correct:1
-        },
-        {
-          question:"Le bouche-à-oreille vient surtout d’une expérience :",
-          answers:["Moyenne","Mémorable","Rapide"],
-          correct:1
-        },
-        {
-          question:"Combien de secondes dure ce jeu ?",
-          answers:["30","50","60"],
-          correct:1
-        },
-        {
-          question:"Un client satisfait mais pressé :",
-          answers:["Tu insistes","Tu adaptes et fais court","Tu abandonnes"],
-          correct:1
-        },
-        {
-          question:"Un client très satisfait peut devenir :",
-          answers:["Un relais positif","Un client classique","Un problème"],
-          correct:0
-        }
-      ],
-      2: [
-        {
-          question:"Le plus dangereux pour ton NPS :",
-          answers:["Les détracteurs","Les neutres en masse","Les promoteurs"],
-          correct:1
-        },
-        {
-          question:"Pourquoi un client satisfait ne recommande pas forcément :",
-          answers:["Il oublie","Il manque d’émotion forte","Il refuse"],
-          correct:1
-        },
-        {
-          question:"Le vrai levier pour passer de 8 à 10 :",
-          answers:["Le prix","L’émotion + expérience","La rapidité"],
-          correct:1
-        },
-        {
-          question:"Un client dit “c’était bien” :",
-          answers:["C’est gagné","Ce n’est pas suffisant pour recommander","C’est parfait"],
-          correct:1
-        },
-        {
-          question:"Une recommandation repose sur :",
-          answers:["Le hasard","La confiance","La pression"],
-          correct:1
-        },
-        {
-          question:"Une expérience fluide mais sans surprise donne souvent :",
-          answers:["10","8 ou 9","0"],
-          correct:1
-        },
-        {
-          question:"Un avis positif peut :",
-          answers:["Attirer un nouveau client","Ne rien changer","Bloquer une vente"],
-          correct:0
-        },
-        {
-          question:"Un client satisfait en vente mais déçu en caisse :",
-          answers:["Met 10","Met souvent neutre ou pire","Ne répond pas"],
-          correct:1
-        },
-        {
-          question:"Quel est le bon réflexe avant de proposer l’enquête :",
-          answers:["Vérifier la satisfaction","Aller vite","Demander au hasard"],
-          correct:0
-        },
-        {
-          question:"Combien fait 9 + 1 ?",
-          answers:["10","11","9"],
-          correct:0
-        }
-      ],
-      3: [
-        {
-          question:"Pourquoi dire “un 9 ou 10 ça m’aide” est puissant :",
-          answers:["Ça manipule","Ça donne du sens personnel à la note","Ça force"],
-          correct:1
-        },
-        {
-          question:"Le vrai problème si tu ne proposes pas l’enquête :",
-          answers:["Rien","Tu perds des promoteurs potentiels","Tu gagnes du temps"],
-          correct:1
-        },
-        {
-          question:"Pourquoi une équipe peut chuter malgré de bons vendeurs :",
-          answers:["Le hasard","Manque de régularité NPS","Trop de clients"],
-          correct:1
-        },
-        {
-          question:"Le NPS devient inutile si :",
-          answers:["On le suit","On ne comprend pas ce qu’on mesure","On l’analyse"],
-          correct:1
-        },
-        {
-          question:"Pourquoi certains clients satisfaits ne répondent pas :",
-          answers:["Ils n’ont pas reçu le mail","Ils oublient","Ils refusent"],
-          correct:0
-        },
-        {
-          question:"Le rôle clé de l’email dans le NPS :",
-          answers:["Publicité","Déclenche l’enquête","Facturation"],
-          correct:1
-        },
-        {
-          question:"Un vendeur dit “je ne m’y connais pas” :",
-          answers:["Normal","Doit être formé pour éviter perte de NPS","Pas grave"],
-          correct:1
-        },
-        {
-          question:"Pourquoi la cohérence équipe est essentielle :",
-          answers:["Organisation","Expérience client uniforme","Gain de temps"],
-          correct:1
-        },
-        {
-          question:"Le vrai objectif du NPS :",
-          answers:["Faire joli","Créer des clients ambassadeurs","Noter le magasin"],
-          correct:1
-        },
-        {
-          question:"Si 3 vendeurs font bien et 1 casse l’expérience :",
-          answers:["Ça ne change rien","Le client retient le pire moment","Il oublie"],
-          correct:1
-        }
-      ]
-    };
-
-    let currentLevel = 1;
-    let currentQuestions = [];
-    let currentQuestionIndex = 0;
-    let currentScore = 0;
-    let timeLeft = 50;
-    let quizTimerInterval = null;
-    let quizLocked = false;
-
-    function afficherSection(section) {
-      const sections = {
-        coffre: document.getElementById("sectionCoffre"),
-        regles: document.getElementById("sectionRegles"),
-        nps: document.getElementById("sectionNps"),
-        tips: document.getElementById("sectionTips"),
-        jeu: document.getElementById("sectionJeu")
-      };
-
-      const buttons = {
-        coffre: document.getElementById("btnCoffre"),
-        regles: document.getElementById("btnRegles"),
-        nps: document.getElementById("btnNps"),
-        tips: document.getElementById("btnTips"),
-        jeu: document.getElementById("btnJeu")
-      };
-
-      Object.values(sections).forEach(sectionEl => sectionEl.classList.add("hidden"));
-      Object.values(buttons).forEach(btn => btn.classList.remove("active"));
-
-      sections[section].classList.remove("hidden");
-      buttons[section].classList.add("active");
-    }
-
-    function resetMessageStyles() {
-      const message = document.getElementById("message");
-      message.classList.remove("error-state", "secret-state");
-      message.innerHTML = "";
-    }
-
-    function shakeCoffre() {
-      const coffre = document.getElementById("coffre");
-      coffre.classList.remove("shake");
-      void coffre.offsetWidth;
-      coffre.classList.add("shake");
-    }
-
-    function getParisDateKey() {
-      const parts = new Intl.DateTimeFormat("fr-FR", {
-        timeZone:"Europe/Paris",
-        year:"numeric",
-        month:"2-digit",
-        day:"2-digit"
-      }).formatToParts(new Date());
-
-      const day = parts.find(p => p.type === "day").value;
-      const month = parts.find(p => p.type === "month").value;
-      const year = parts.find(p => p.type === "year").value;
-
-      return `${year}-${month}-${day}`;
-    }
-
-    function getDailyAttempts() {
-      const pattern = [2,4,5,3,6,2,5,4,3,6,5,2];
-      const dateKey = getParisDateKey();
-      const parts = dateKey.split("-").map(Number);
-      const seed = (parts[0] * 372) + (parts[1] * 31) + parts[2];
-      return pattern[seed % pattern.length];
-    }
-
-    function updateAttemptsText() {
-      const attempts = getDailyAttempts();
-      const label = attempts > 1 ? "tentatives restantes" : "tentative restante";
-      document.getElementById("attemptsText").textContent = `🔎 ${attempts} ${label}`;
-    }
-
-    function envoyerReponse() {
-      const inputEl = document.getElementById("mot");
-      const input = inputEl.value.trim();
-      const message = document.getElementById("message");
-      const button = document.getElementById("mainButton");
-
-      resetMessageStyles();
-
-      if (!input) {
-        message.innerHTML = "Entre un mot avant d’envoyer ta tentative.";
-        message.classList.add("error-state");
-        shakeCoffre();
-        return;
-      }
-
-      button.disabled = true;
-      button.textContent = "Préparation...";
-
-      try {
-        const maintenant = new Date();
-        const dateHeure = maintenant.toLocaleString("fr-FR");
-
-        const texte = encodeURIComponent(
-          `🎯 Tentative coffre Wittenheim\nMot proposé : ${input}\nDate : ${dateHeure}\nPrénom : `
-        );
-
-        window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${texte}`, "_blank");
-
-        message.innerHTML = "🕵️‍♂️ Mot envoyé.<br>Il sera vérifié par l’administrateur sur WhatsApp.";
-        message.classList.add("secret-state");
-        inputEl.value = "";
-      } catch (error) {
-        message.innerHTML = "Impossible d’ouvrir WhatsApp. Réessaie dans un instant.";
-        message.classList.add("error-state");
-        shakeCoffre();
-      } finally {
-        button.disabled = false;
-        button.textContent = "Envoyer le mot";
-      }
-    }
-
-    function getRewardCount(level) {
-      if (level === 1) return 1;
-      if (level === 2) return 2;
-      return 3;
-    }
-
-    function hasAlreadyClaimedToday() {
-      return localStorage.getItem("nps_reward_claim_date") === getParisDateKey();
-    }
-
-    function markClaimedToday(level, score) {
-      localStorage.setItem("nps_reward_claim_date", getParisDateKey());
-      localStorage.setItem("nps_reward_claim_level", String(level));
-      localStorage.setItem("nps_reward_claim_score", String(score));
-    }
-
-    function startQuiz(level) {
-      currentLevel = level;
-      currentQuestions = QUIZ_DATA[level];
-      currentQuestionIndex = 0;
-      currentScore = 0;
-      timeLeft = 50;
-      quizLocked = false;
-
-      document.getElementById("gameStart").classList.add("hidden");
-      document.getElementById("quizResult").classList.add("hidden");
-      document.getElementById("quizPlay").classList.remove("hidden");
-
-      document.getElementById("quizLevel").textContent = `Niveau ${level}`;
-      document.getElementById("quizTimer").textContent = timeLeft;
-
-      renderQuestion();
-      clearInterval(quizTimerInterval);
-
-      quizTimerInterval = setInterval(() => {
-        timeLeft--;
-        document.getElementById("quizTimer").textContent = timeLeft;
-
-        if (timeLeft <= 0) {
-          finishQuiz();
-        }
-      }, 1000);
-    }
-
-    function renderQuestion() {
-      const questionData = currentQuestions[currentQuestionIndex];
-      document.getElementById("quizProgress").textContent = `Question ${currentQuestionIndex + 1} / ${currentQuestions.length}`;
-      document.getElementById("quizQuestion").textContent = questionData.question;
-
-      const answersBox = document.getElementById("quizAnswers");
-      answersBox.innerHTML = "";
-
-      questionData.answers.forEach((answer, index) => {
-        const btn = document.createElement("button");
-        btn.className = "answer-btn";
-        btn.textContent = answer;
-        btn.onclick = () => selectAnswer(index);
-        answersBox.appendChild(btn);
-      });
-    }
-
-    function selectAnswer(index) {
-      if (quizLocked) return;
-      quizLocked = true;
-
-      const questionData = currentQuestions[currentQuestionIndex];
-      if (index === questionData.correct) {
-        currentScore++;
-      }
-
-      currentQuestionIndex++;
-
-      if (currentQuestionIndex >= currentQuestions.length) {
-        finishQuiz();
-      } else {
-        renderQuestion();
-        quizLocked = false;
-      }
-    }
-
-    function finishQuiz() {
-      clearInterval(quizTimerInterval);
-
-      document.getElementById("quizPlay").classList.add("hidden");
-      document.getElementById("quizResult").classList.remove("hidden");
-
-      const resultTitle = document.getElementById("quizResultTitle");
-      const resultMessage = document.getElementById("quizResultMessage");
-      const whatsappBtn = document.getElementById("quizWhatsAppBtn");
-
-      whatsappBtn.classList.add("hidden");
-      whatsappBtn.href = "#";
-
-      const rewardCount = getRewardCount(currentLevel);
-      const perfectScore = currentScore === currentQuestions.length;
-
-      if (!perfectScore) {
-        resultTitle.textContent = "Résultat";
-        resultMessage.innerHTML = `Tu as obtenu <strong>${currentScore}/10</strong> au niveau ${currentLevel}.<br>Aucun indice débloqué cette fois.`;
-        return;
-      }
-
-      if (hasAlreadyClaimedToday()) {
-        resultTitle.textContent = "Résultat";
-        resultMessage.innerHTML = `Tu as obtenu <strong>10/10</strong> au niveau ${currentLevel}.<br>Tu as déjà validé un gain aujourd’hui sur cet appareil.`;
-        return;
-      }
-
-      markClaimedToday(currentLevel, currentScore);
-
-      resultTitle.textContent = "Sans-faute";
-      resultMessage.innerHTML = `Tu as obtenu <strong>10/10</strong> au niveau ${currentLevel}.<br>Tu peux réclamer <strong>${rewardCount} indice${rewardCount > 1 ? "s" : ""}</strong> sur WhatsApp.`;
-
-      const maintenant = new Date().toLocaleString("fr-FR");
-      const texte = encodeURIComponent(
-        `🏆 Gain validé sur le jeu du jour\nNiveau : ${currentLevel}\nScore : ${currentScore}/10\nLot à réclamer : ${rewardCount} indice${rewardCount > 1 ? "s" : ""}\nDate : ${maintenant}\nPrénom : `
-      );
-
-      whatsappBtn.href = `https://wa.me/${WHATSAPP_NUMBER}?text=${texte}`;
-      whatsappBtn.classList.remove("hidden");
-    }
-
-    function resetQuiz() {
-      clearInterval(quizTimerInterval);
-      document.getElementById("quizPlay").classList.add("hidden");
-      document.getElementById("quizResult").classList.add("hidden");
-      document.getElementById("gameStart").classList.remove("hidden");
-    }
-
-    function copyTip(id, button) {
-      const text = document.getElementById(id).innerText;
-      const originalText = button.innerText;
-
-      navigator.clipboard.writeText(text).then(() => {
-        button.innerText = "Copié ✅";
-        setTimeout(() => {
-          button.innerText = originalText;
-        }, 1200);
-      }).catch(() => {
-        button.innerText = "Copié ✅";
-        setTimeout(() => {
-          button.innerText = originalText;
-        }, 1200);
-      });
-    }
-
-    document.getElementById("mot").addEventListener("keydown", function(event) {
-      if (event.key === "Enter") {
-        envoyerReponse();
-      }
-    });
-
-    updateAttemptsText();
-    afficherSection("coffre");
-  </script>
+<button class="copy-btn" onclick="copyTip('tip-livraison', this)">Copier la phrase</button>
+</div>
+
+</div>
+</div>
+
+<div id="sectionJeu" class="game-panel hidden">
+<div class="rules-title">Jeu du jour</div>
+
+<div id="gameStart">
+<p class="rules-paragraph" style="margin-bottom:18px;">
+Choisis ton niveau. Tu as 50 secondes pour répondre à 10 questions.
+Aucune correction ne s’affiche pendant le jeu.
+</p>
+
+<div class="level-grid">
+<div class="level-card">
+<h3>Niveau 1</h3>
+<p>Accessible mais piégeux.<br>Récompense : 1 indice.</p>
+<button class="level-btn" onclick="startQuiz(1)">Lancer</button>
+</div>
+
+<div class="level-card">
+<h3>Niveau 2</h3>
+<p>Réflexion terrain.<br>Récompense : 2 indices.</p>
+<button class="level-btn" onclick="startQuiz(2)">Lancer</button>
+</div>
+
+<div class="level-card">
+<h3>Niveau 3</h3>
+<p>Niveau expert.<br>Récompense : 3 indices.</p>
+<button class="level-btn" onclick="startQuiz(3)">Lancer</button>
+</div>
+</div>
+
+<div class="small-note">
+Pour gagner les indices du niveau choisi, il faut faire <strong>10/10</strong>.
+</div>
+</div>
+
+<div id="quizPlay" class="hidden">
+<div class="quiz-top">
+<div id="quizLevel" class="quiz-pill">Niveau 1</div>
+<div id="quizProgress" class="quiz-pill">Question 1 / 10</div>
+<div id="quizTimer" class="quiz-pill timer">50</div>
+</div>
+
+<div class="question-box">
+<h3 id="quizQuestion">Question</h3>
+</div>
+
+<div id="quizAnswers" class="answers-box"></div>
+</div>
+
+<div id="quizResult" class="hidden">
+<div class="question-box">
+<h3 id="quizResultTitle">Résultat</h3>
+<p id="quizResultMessage"></p>
+
+<div id="clueBox" class="clue-box hidden">
+<div class="clue-box-title">Indice(s) du moment</div>
+<div id="clueContent"></div>
+</div>
+
+<div class="result-actions">
+<button class="secondary-btn" onclick="resetQuiz()">Revenir aux niveaux</button>
+</div>
+
+<div class="small-note">
+Les réponses sont mélangées à chaque lancement. Les indices changent toutes les 60 secondes.
+</div>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+
+<script>
+const WHATSAPP_NUMBER = "33637993778";
+
+const QUIZ_DATA = {
+1: [
+{
+question:"Un client met 8 et dit “c’était top” :",
+answers:["C’est un promoteur","C’est un neutre","C’est un détracteur"],
+correct:"C’est un neutre"
+},
+{
+question:"Le bon moment pour proposer l’enquête :",
+answers:["Dès le début","À la fin, après satisfaction validée","À la caisse uniquement"],
+correct:"À la fin, après satisfaction validée"
+},
+{
+question:"Dire “notez le magasin” est une erreur car :",
+answers:["Ça ne sert à rien","Ça fausse la réponse client","C’est interdit"],
+correct:"Ça fausse la réponse client"
+},
+{
+question:"Un client satisfait mais sans émotion forte devient souvent :",
+answers:["Promoteur","Neutre","Détracteur"],
+correct:"Neutre"
+},
+{
+question:"Le NPS mesure surtout :",
+answers:["Le chiffre d’affaires","L’intention de recommander","Le temps passé"],
+correct:"L’intention de recommander"
+},
+{
+question:"Un client met 9 mais ne recommande pas :",
+answers:["Impossible","Rare mais possible","Faux"],
+correct:"Rare mais possible"
+},
+{
+question:"Le bouche-à-oreille vient surtout d’une expérience :",
+answers:["Moyenne","Mémorable","Rapide"],
+correct:"Mémorable"
+},
+{
+question:"Combien de secondes dure ce jeu ?",
+answers:["30","50","60"],
+correct:"50"
+},
+{
+question:"Un client satisfait mais pressé :",
+answers:["Tu insistes","Tu adaptes et fais court","Tu abandonnes"],
+correct:"Tu adaptes et fais court"
+},
+{
+question:"Un client très satisfait peut devenir :",
+answers:["Un relais positif","Un client classique","Un problème"],
+correct:"Un relais positif"
+}
+],
+2: [
+{
+question:"Le plus dangereux pour ton NPS :",
+answers:["Les détracteurs","Les neutres en masse","Les promoteurs"],
+correct:"Les neutres en masse"
+},
+{
+question:"Pourquoi un client satisfait ne recommande pas forcément :",
+answers:["Il oublie","Il manque d’émotion forte","Il refuse"],
+correct:"Il manque d’émotion forte"
+},
+{
+question:"Le vrai levier pour passer de 8 à 10 :",
+answers:["Le prix","L’émotion + expérience","La rapidité"],
+correct:"L’émotion + expérience"
+},
+{
+question:"Un client dit “c’était bien” :",
+answers:["C’est gagné","Ce n’est pas suffisant pour recommander","C’est parfait"],
+correct:"Ce n’est pas suffisant pour recommander"
+},
+{
+question:"Une recommandation repose sur :",
+answers:["Le hasard","La confiance","La pression"],
+correct:"La confiance"
+},
+{
+question:"Une expérience fluide mais sans surprise donne souvent :",
+answers:["10","8 ou 9","0"],
+correct:"8 ou 9"
+},
+{
+question:"Un avis positif peut :",
+answers:["Attirer un nouveau client","Ne rien changer","Bloquer une vente"],
+correct:"Attirer un nouveau client"
+},
+{
+question:"Un client satisfait en vente mais déçu en caisse :",
+answers:["Met 10","Met souvent neutre ou pire","Ne répond pas"],
+correct:"Met souvent neutre ou pire"
+},
+{
+question:"Quel est le bon réflexe avant de proposer l’enquête :",
+answers:["Vérifier la satisfaction","Aller vite","Demander au hasard"],
+correct:"Vérifier la satisfaction"
+},
+{
+question:"Combien fait 9 + 1 ?",
+answers:["10","11","9"],
+correct:"10"
+}
+],
+3: [
+{
+question:"Pourquoi dire “un 9 ou 10 ça m’aide” est puissant :",
+answers:["Ça manipule","Ça donne du sens personnel à la note","Ça force"],
+correct:"Ça donne du sens personnel à la note"
+},
+{
+question:"Le vrai problème si tu ne proposes pas l’enquête :",
+answers:["Rien","Tu perds des promoteurs potentiels","Tu gagnes du temps"],
+correct:"Tu perds des promoteurs potentiels"
+},
+{
+question:"Pourquoi une équipe peut chuter malgré de bons vendeurs :",
+answers:["Le hasard","Manque de régularité NPS","Trop de clients"],
+correct:"Manque de régularité NPS"
+},
+{
+question:"Le NPS devient inutile si :",
+answers:["On le suit","On ne comprend pas ce qu’on mesure","On l’analyse"],
+correct:"On ne comprend pas ce qu’on mesure"
+},
+{
+question:"Pourquoi certains clients satisfaits ne répondent pas :",
+answers:["Ils n’ont pas reçu le mail","Ils oublient","Ils refusent"],
+correct:"Ils n’ont pas reçu le mail"
+},
+{
+question:"Le rôle clé de l’email dans le NPS :",
+answers:["Publicité","Déclenche l’enquête","Facturation"],
+correct:"Déclenche l’enquête"
+},
+{
+question:"Un vendeur dit “je ne m’y connais pas” :",
+answers:["Normal","Doit être formé pour éviter perte de NPS","Pas grave"],
+correct:"Doit être formé pour éviter perte de NPS"
+},
+{
+question:"Pourquoi la cohérence équipe est essentielle :",
+answers:["Organisation","Expérience client uniforme","Gain de temps"],
+correct:"Expérience client uniforme"
+},
+{
+question:"Le vrai objectif du NPS :",
+answers:["Faire joli","Créer des clients ambassadeurs","Noter le magasin"],
+correct:"Créer des clients ambassadeurs"
+},
+{
+question:"Si 3 vendeurs font bien et 1 casse l’expérience :",
+answers:["Ça ne change rien","Le client retient le pire moment","Il oublie"],
+correct:"Le client retient le pire moment"
+}
+]
+};
+
+let currentLevel = 1;
+let currentQuestions = [];
+let currentQuestionIndex = 0;
+let currentScore = 0;
+let timeLeft = 50;
+let quizTimerInterval = null;
+let quizLocked = false;
+
+function afficherSection(section) {
+const sections = {
+coffre: document.getElementById("sectionCoffre"),
+regles: document.getElementById("sectionRegles"),
+nps: document.getElementById("sectionNps"),
+tips: document.getElementById("sectionTips"),
+jeu: document.getElementById("sectionJeu")
+};
+
+const buttons = {
+coffre: document.getElementById("btnCoffre"),
+regles: document.getElementById("btnRegles"),
+nps: document.getElementById("btnNps"),
+tips: document.getElementById("btnTips"),
+jeu: document.getElementById("btnJeu")
+};
+
+Object.values(sections).forEach(sectionEl => sectionEl.classList.add("hidden"));
+Object.values(buttons).forEach(btn => btn.classList.remove("active"));
+
+sections[section].classList.remove("hidden");
+buttons[section].classList.add("active");
+}
+
+function resetMessageStyles() {
+const message = document.getElementById("message");
+message.classList.remove("error-state", "secret-state");
+message.innerHTML = "";
+}
+
+function shakeCoffre() {
+const coffre = document.getElementById("coffre");
+coffre.classList.remove("shake");
+void coffre.offsetWidth;
+coffre.classList.add("shake");
+}
+
+function getParisDateKey() {
+const parts = new Intl.DateTimeFormat("fr-FR", {
+timeZone:"Europe/Paris",
+year:"numeric",
+month:"2-digit",
+day:"2-digit"
+}).formatToParts(new Date());
+
+const day = parts.find(p => p.type === "day").value;
+const month = parts.find(p => p.type === "month").value;
+const year = parts.find(p => p.type === "year").value;
+
+return `${year}-${month}-${day}`;
+}
+
+function getDailyAttempts() {
+const pattern = [2,4,5,3,6,2,5,4,3,6,5,2];
+const dateKey = getParisDateKey();
+const parts = dateKey.split("-").map(Number);
+const seed = (parts[0] * 372) + (parts[1] * 31) + parts[2];
+return pattern[seed % pattern.length];
+}
+
+function updateAttemptsText() {
+const attempts = getDailyAttempts();
+const label = attempts > 1 ? "tentatives restantes" : "tentative restante";
+document.getElementById("attemptsText").textContent = `🔎 ${attempts} ${label}`;
+}
+
+function envoyerReponse() {
+const inputEl = document.getElementById("mot");
+const input = inputEl.value.trim();
+const message = document.getElementById("message");
+const button = document.getElementById("mainButton");
+
+resetMessageStyles();
+
+if (!input) {
+message.innerHTML = "Entre un mot avant d’envoyer ta tentative.";
+message.classList.add("error-state");
+shakeCoffre();
+return;
+}
+
+button.disabled = true;
+button.textContent = "Préparation...";
+
+try {
+const maintenant = new Date();
+const dateHeure = maintenant.toLocaleString("fr-FR");
+
+const texte = encodeURIComponent(
+`🎯 Tentative coffre Wittenheim\nMot proposé : ${input}\nDate : ${dateHeure}\nPrénom : `
+);
+
+window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${texte}`, "_blank");
+
+message.innerHTML = "🕵️‍♂️ Mot envoyé.<br>Il sera vérifié par l’administrateur sur WhatsApp.";
+message.classList.add("secret-state");
+inputEl.value = "";
+} catch (error) {
+message.innerHTML = "Impossible d’ouvrir WhatsApp. Réessaie dans un instant.";
+message.classList.add("error-state");
+shakeCoffre();
+} finally {
+button.disabled = false;
+button.textContent = "Envoyer le mot";
+}
+}
+
+function shuffleArray(array) {
+const arr = [...array];
+for (let i = arr.length - 1; i > 0; i--) {
+const j = Math.floor(Math.random() * (i + 1));
+[arr[i], arr[j]] = [arr[j], arr[i]];
+}
+return arr;
+}
+
+function startQuiz(level) {
+currentLevel = level;
+currentQuestions = QUIZ_DATA[level].map(q => ({
+question: q.question,
+answers: shuffleArray(q.answers),
+correct: q.correct
+}));
+currentQuestionIndex = 0;
+currentScore = 0;
+timeLeft = 50;
+quizLocked = false;
+
+document.getElementById("gameStart").classList.add("hidden");
+document.getElementById("quizResult").classList.add("hidden");
+document.getElementById("quizPlay").classList.remove("hidden");
+document.getElementById("clueBox").classList.add("hidden");
+document.getElementById("clueContent").innerHTML = "";
+
+document.getElementById("quizLevel").textContent = `Niveau ${level}`;
+document.getElementById("quizTimer").textContent = timeLeft;
+
+renderQuestion();
+clearInterval(quizTimerInterval);
+
+quizTimerInterval = setInterval(() => {
+timeLeft--;
+document.getElementById("quizTimer").textContent = timeLeft;
+
+if (timeLeft <= 0) {
+finishQuiz();
+}
+}, 1000);
+}
+
+function renderQuestion() {
+const questionData = currentQuestions[currentQuestionIndex];
+document.getElementById("quizProgress").textContent = `Question ${currentQuestionIndex + 1} / ${currentQuestions.length}`;
+document.getElementById("quizQuestion").textContent = questionData.question;
+
+const answersBox = document.getElementById("quizAnswers");
+answersBox.innerHTML = "";
+
+questionData.answers.forEach((answer) => {
+const btn = document.createElement("button");
+btn.className = "answer-btn";
+btn.textContent = answer;
+btn.onclick = () => selectAnswer(answer);
+answersBox.appendChild(btn);
+});
+}
+
+function selectAnswer(answer) {
+if (quizLocked) return;
+quizLocked = true;
+
+const questionData = currentQuestions[currentQuestionIndex];
+if (answer === questionData.correct) {
+currentScore++;
+}
+
+currentQuestionIndex++;
+
+if (currentQuestionIndex >= currentQuestions.length) {
+finishQuiz();
+} else {
+renderQuestion();
+quizLocked = false;
+}
+}
+
+function getRewardCount(level) {
+if (level === 1) return 1;
+if (level === 2) return 2;
+return 3;
+}
+
+function finishQuiz() {
+clearInterval(quizTimerInterval);
+
+document.getElementById("quizPlay").classList.add("hidden");
+document.getElementById("quizResult").classList.remove("hidden");
+
+const resultTitle = document.getElementById("quizResultTitle");
+const resultMessage = document.getElementById("quizResultMessage");
+const clueBox = document.getElementById("clueBox");
+const clueContent = document.getElementById("clueContent");
+
+clueBox.classList.add("hidden");
+clueContent.innerHTML = "";
+
+const rewardCount = getRewardCount(currentLevel);
+const perfectScore = currentScore === currentQuestions.length;
+
+if (!perfectScore) {
+resultTitle.textContent = "Résultat";
+resultMessage.innerHTML = `Tu as obtenu <strong>${currentScore}/10</strong> au niveau ${currentLevel}.<br>Aucun indice débloqué cette fois.`;
+return;
+}
+
+resultTitle.textContent = "Sans-faute";
+resultMessage.innerHTML = `Tu as obtenu <strong>10/10</strong> au niveau ${currentLevel}.<br>Voici ${rewardCount} indice${rewardCount > 1 ? "s" : ""} du moment :`;
+
+const clues = getRotatingClues(currentLevel, rewardCount);
+clueContent.innerHTML = clues.map((c, i) => `<div class="clue-item"><strong>${i + 1}.</strong> ${c}</div>`).join("");
+clueBox.classList.remove("hidden");
+}
+
+function resetQuiz() {
+clearInterval(quizTimerInterval);
+document.getElementById("quizPlay").classList.add("hidden");
+document.getElementById("quizResult").classList.add("hidden");
+document.getElementById("gameStart").classList.remove("hidden");
+document.getElementById("clueBox").classList.add("hidden");
+document.getElementById("clueContent").innerHTML = "";
+}
+
+function copyTip(id, button) {
+const text = document.getElementById(id).innerText;
+const originalText = button.innerText;
+
+navigator.clipboard.writeText(text).then(() => {
+button.innerText = "Copié ✅";
+setTimeout(() => {
+button.innerText = originalText;
+}, 1200);
+}).catch(() => {
+button.innerText = "Copié ✅";
+setTimeout(() => {
+button.innerText = originalText;
+}, 1200);
+});
+}
+
+function _u(v){
+return decodeURIComponent(escape(atob(v.split("").reverse().join(""))));
+}
+
+/* Indices obfusqués : base64 inversé, sans texte lisible en clair */
+const _p = [
+"uVXmAKedxxWZ1FHI05WZtVmdpRXaz9Gcgk6w1Fnch1GIhBSZj5WZpJXqDDHelBSZuVHIpNHI05WZtVWdxlmb1BSZ0NXa4VGI09WbgU2Q",
+"=k6wyl6wwNXZgMnc19ma19GdgMXah1GIsQnbl1WZ0NWZylGZgk6wk5WYtVGZgMXah1WYqBCdzVWmAKubgwWS",
+"=42bpR3YhNnbhJHdgUmb1BycoOscwFGIzFGcgwibvlGdv1WqDDSZuVHIzh6wyBXYgQnrDHmbgwWS",
+"==wchBHIlR3cphXZZCo4uBCdv1GIlNGIsU2YuFWam52bjBycuF2U",
+"=UGbil2cpZnbpBycpFGblJHIuVGI05WZpx2YgUGbw1WazBib1BSZtJ3bmNnbhJHdgwWS",
+"pOMdpNWasJWdwBSYsBichBHIyV2czFGcgMnbhNHIlxGbpVmcvBCoDDSZoNWdvJGIlRGIldWY59mdgwWS",
+"==gbvlGdv12byBHIlxGblVXcgUGdy9GctlWmAKubgUWdxBic1VGbhZHIlRGIzVHbwBSYgwWS",
+"==AdpFmZyFGcgk6w0l6wgEGI0V3b0BCZuFWdxBSqD7WY052bwNHI0NXZgwWS",
+"=UGbiFmcv1WqD3GI05WZt9Wbg4WdZCo4kBSZj5WZ1FXqDPnbvNGIhxGI0NXZgwWS",
+"==Abhl2YyVWbt92YgQnbl1WdnJXYgwWZ1FHIlRncvBXbplJgi7GIlVXcgMXdsBHIlNmblVHbm5WagwWS",
+"6VWayRnbvNmblJHIlxGIzV3b2BSZ1FHIz5WYzBCduVWasNGI1FWZ2V3buBib1Bicp5WZ2BSZylWYmBCd1VGcgwWS",
+"==QZoN2byBHIuVHIgOMIpOsbu9GZgQnblZXdvNHI0NXZgwWS",
+"pOMdpxWailGZpOscjBSYsBic1NHIlN3bwVmcgwWS",
+"pOMdpxWqDTWamBSZkBycll2ZpOMdhJHdzByclRGIyV3kFPGI1FGI0NXZgwWS",
+"==QZ1FXa0lmcjBSYsBSZ1FHI05WZtVGbpNWYmByc1xGcgQXZtNnbhJHdgU2cgwWS",
+"==AbhRXanlGZgU3bgwWYiJXZ2BSZyRnqDDCd1VGcgwWS",
+"=Umbu92cyVGcgUmb1BCoDDSZpOMZy92YjFGIlNmbhlmZu92YgEGbgA6wgk6wpxGI0NXZgwWS",
+"==QqDTXajlGbiVHcgMnbhNHIlNXayBXZyRnblBSZuVHIylGZuFmcnBCdpFmZgwWS",
+"=42bpR3YhZ2cpRXYzBSZ0J3bmBSZuVHIyFGcgk6woNmblx2YpOMZgQnblZXdvNHI0NXZgwWS",
+"==QZsJWYyV3cl1GIzlWYtBSZsJWazlmdulGI0NXZgwWS",
+"TBlTgUHZg42bpR3clVXcgEGbgA6wgk6wpxGI05WZtVGdjVmcpRGI0NXZgwWS",
+"=4WdZCo41FHblVXcgIXZsxWalNnbvNGI0VXZ2BibvBCZuFWdxBSqD7mbvRGI0NXZgwWS",
+"dCo4mCo4lxGbpV2cu92YgUGdgUmacCo4gIXYwBCduVmd192cgU2YuVWbt92YgwWS",
+"==QZyVHdh5GIyFGcgYWa0l2cvBHI0NXZgwWS",
+"mlGdhdWqD7GIzlmdhBib1lJgiTGIpO8cvBHcvlJgizGI0NXZgwWS",
+"lNWa2JXZzBib1BSdvBCdpVHZvJHcg4WdgwSZu52bzJXZwBSZuVHIyVmcpO8ZnV3cgA6wgUGdzl2cu92YgwWS",
+"lV3ZoOMbs92Yg4WdgA6wgU3bgkWbhBib1BCoDDSZylWYmBSZsBCd1VGcg42T",
+"wEDI19GI5ACdl1GI05WZpx2Yg4WdgQmbhVXcgUHZuVGd0FGI0NXZgwWS",
+"dCo4lxGbpVmcv1CoD3SZoNWdvJGnAKOI09WbgUXYgk6wpN2bzNXYgQnblZXdvNHI056whJXYwBXYgwWS",
+"==QZ0V3bkBSZsBycuFGZgQnbllWYyVGdzVmcgMnbvl2cpNWqDTGIlRGIwV3bjVXYlJGIskWdsBycuF2U",
+"lVXcyFWbgUmb1BSdvBSZjlmdyV2cg4Wdgwic1VGZuVmdg4WdgIXZuJXZj52bjBCd1VGcgwWS",
+"05WZtVGbpNWYmByc1xGcgIXazl2boNGIgOMIzVmc0VXYgMXZsBSZklWYgwWS",
+"==QZj5WZpJXqDDHelBSZu52biBSZuVHIzh6wyBXYgQnblZXdvNHI056whJXYwBXYgwWS",
+"==Abhl2YyVWbt92YgMnc192YzlGZgMnbhNHIlJ3YulWY252bjBCd1VGcgwWS",
+"==Adhh2YhBib1BCduFmdhBSZyV3czFmcgwWS",
+"=IXdvRHIu92cgA6wgIXZ5F2czVWmAKOZgUWa25WZgUmbu9GZgwWS",
+"=k6w0l2YpxmY1BHIl5WdZCo41FHI0J3bmByc1xGcgQnblZXdvNHI0NXZgwWS",
+"==QZ2lGdpN3bwBibvlmbpB3bgUmb1Bic1NHIlN3bwVmcgwWS",
+"05WZtVGbsVmc1RXYuBCduVWa2BCbpBCZuFWdxBCe1VWajl6wyBHI0NXZgwWS",
+"=UnblRnYvBycyV3bqV3b0BSZyRnqDDycuF2cgMXZzlmcwVmc05WZgMXZsByclRXdvRHIyFGcgk6woNmclh2YlJHI0NXZgwWS",
+"==QZoN2byBHIuVXmAKOZgQnbllmdgwWagQmbhVXcgQ3YhBXbplJgiTGIzVHbwBSYgwWS",
+"=Umc0RXZtNnbhJHdgU2cgUGZgQnbhZXYgQnbllGbjBSdkBCdpJHczVWmAKObgMnbhRGI0lWdyR3cu92YgU2cgwWS",
+"=UGbsVmbu9Wa09WbvJHcgUmcmZ2bgMnbhNHIl1mqD3GIyVGdzlGelBCd1VGcgwWS",
+"lxmYpRWqDL3YgQ3clBCbplJgiXXcgU2YyFGcgIXdlxWY2BSYsBSZkBSYgwWS",
+"ll2czVXqDLHIlNmbhlmZu92YgUGZg42bpRXYsVmcgUmb1lJgiTGI0FGdsV3cpOscgUGbgQnblZXdvNHI0NXZgwWS",
+"=Q3YlJXakBCdjFGdu92YgMnbhNHI0FGajFGIuVHI19GIlRXazlmdgUmb1Biclh2YuVGbjl6wkBCd1VGcgwWS",
+"=42bpNXajl6wkBSZkBic1VGdhJXqDzWqDP2YhBib1BSZt12bjBCdpdWYgwWS",
+"pO8Yy9mZgMXYwBCdzVWmAKubgwWagQmbhVXcgQnbhN3cpVHcgMXdsBHI0NXZgwWS",
+"=UGbslWbhZGI19GIzlWbhBCLzVWdnh6wsx2bjBSZyRnblBiclxWdjJXajBCd1VGcgwWS",
+"lZXa0NWZsx2bjBSZj5WZ1xmZulGIuVGIlxGblVHZpZXak5WagU2YuVWayl6wwhXZgUmb1BSZtJ3bmNnbhJHdgwWS",
+"lRmbh1WZkBSZzBSZuBCbplJgiXXcgU2ZhRnbhZXYkBSZ0lmcpOcbgU2cgwWS",
+"lxmYhVXcyFWblJHIlNmbllmcpOMc4VGIl5WdgIXYwBSZpO8czlWYsBSZsJWazlmdulGIlNWYyRHIhxGI0NXZgwWS",
+"=42bpN3cp12cuFmc0BSYsBycuFGZgQXaulmZgQXZg42bpR3btl6wZCo4sBycuFGZgU2YuVWbt92YgwWS",
+"==QYpRWqD3GI0V2ZkVnYgMnbhNHIu9Wa0FGd1BXqDLHIl5WdgA6wgU2Yy9mZgEGbgUGZgUmbu9GZgwWS",
+"slWZ1N2YhBCduVGbsV2Y4VGIuVXmAKOZgwWZyVHdh5GI05WZtV2Zu9GbvJHcgUGbgQnblZXdvNHI0NXZgwWS",
+"=UmcoO8Yul2cgQ3clBCbplJgiXXczJ3bsBSZ0lmdgMXdsBHIldWY59mdgwWS",
+"yVGbpOsdpOscgUGbgQXdlBHIlR3buBSYsBycpFWbgwSZ09mbgMnbhNHIyVGdzlGelBCd1VGcgwWS",
+"ll6wuVWbg4WZpJGIu9Wa0FGblJHIl5WdZCo4kBiZpRXaz9GcgUmcpFGZu92YlNHI0VmZmVGIuVHI0NXZgwWS",
+"lNmblVHbm5WagQXZgU2YuFWam52bjBCLu9Wa0NWYmNXa0F2cgQnbl1WZ0NWZylGZgUWasVmcgwWS",
+"==QZj5WYpZmbvNGIlRGI0VGIpOMdpJXdjl6wzBSZkBCduVWbpRnblNHIuVHIyFGcgk6woNmblx2YpOMZgQnblZXdvNHI0NXZgwWS",
+"==QZ0h6wyNmbvNGIlNmblVHbm5Wag4WZg42bpR3YhZ2cpRXYzBSYsBSZtJ3bmNnbhJHdgwWS",
+"==QZjlmdyV2cg4WdZCo4kBCduVGdu92YgMHqDLHdgk6w0l6wgIXavZXYgMHqDLHchBSZylWYmBSZsBCd1VGcg42T",
+"slWZz52bjBib1BSZoNmclh2YgkWdxBib1lJgiXXcsVWdxBCoDDSqDP3clJHZhBSZyRnqDDCd1VGcgwWS",
+"0l2bnOcZyBSZsBSa1FHIpVHblNGIgOMIlNmbhlmZu92YgUmbu9GZgwWS",
+"=UGdpNXqDjGIpVXcgkWdsV2YgA6wgMHctVGdgUHZgIXZudWYnBCdpFmZgwWS",
+"==gbvlGdhR3clJHcgUmb1BSdvBibpNXYnFWbg4WdgwSZu52bzJXZwBSZuVHIyV3cgIXZ0J3bwBCd1VGcgwWS",
+"=UmdpRXaz9Gcg42bpRnblRnbpBSZuVHI05WZ2V3bzBSYgwWS",
+"==Aep9GajBibvJGIlxGIzJXZ2Bib1lJgiXXcsVWdxBSZ05WZpJ3bgwWS",
+"05WZtVGdjVmcpRGIlJHZuVmdgMnbhNHIlNmblVHbm5WagwWS",
+"==QZj5WYpZmbvNGIlRGI0VGIpOMdpJXdjl6wzBSZkBCduVWbpRnblNHIuVHIyFGcgk6woNmblx2YpOMZgQnblZXdvNHI0NXZgwWS",
+"==QZ0h6wyNmbvNGIlNmblVHbm5Wag4WZg42bpR3YhZ2cpRXYzBSYsBSZtJ3bmNnbhJHdgwWS",
+"==QZjlmdyV2cg4WdZCo4kBCduVGdu92YgMHqDLHdgk6w0l6wgIXavZXYgMHqDLHchBSZylWYmBSZsBCd1VGcg42T",
+"slWZz52bjBib1BSZoNmclh2YgkWdxBib1lJgiXXcsVWdxBCoDDSqDP3clJHZhBSZyRnqDDCd1VGcgwWS",
+"0l2bnOcZyBSZsBSa1FHIpVHblNGIgOMIlNmbhlmZu92YgUmbu9GZgwWS",
+"=UGdpNXqDjGIpVXcgkWdsV2YgA6wgMHctVGdgUHZgIXZudWYnBCdpFmZgwWS",
+"==gbvlGdhR3clJHcgUmb1BSdvBibpNXYnFWbg4WdgwSZu52bzJXZwBSZuVHIyV3cgIXZ0J3bwBCd1VGcgwWS",
+"=UmdpRXaz9Gcg42bpRnblRnbpBSZuVHI05WZ2V3bzBSYgwWS",
+"==Aep9GajBibvJGIlxGIzJXZ2Bib1lJgiXXcsVWdxBSZ05WZpJ3bgwWS",
+"05WZtVGdjVmcpRGIlJHZuVmdgMnbhNHIlNmblVHbm5WagwWS",
+"==Abhl2YyVWbt92YgIXahlJgizGIzFGcgEWmAKubgwWaZCo41FHIlNmchBHI05WYzNXa1BHI0NXZgwWS",
+"=YWa0l2cvBHIlRGIlN3boNGIlVXcsVWdxBSdjl6w2Bicp9mdhlJgiTGIu9Wa0NWa252bjBSYsBic1NHIlN3bwVmcgwWS",
+"=YWa0NWZsx2bjBCdjFGctlGIuVGIsVWdklmdpRmbpBSa05WZzNXZyBib1BSZtJ3bmNnbhJHdgwWS",
+"=0JgiPXqD3mclZGI4VXZ5ByclxGIyVGbsFGI5BCe1VGcgUHdcCo4goDI05WZtVmcoO8Yul2cgU2cuVGcg4WdZCo41FHblVXcgQmbhVXcgQnrDHmbgwWS",
+"==QZpOcbpJHc4VGIlNmbhlmZu92YgUGZgMXZ0J3bmByc1xGcgMXZsBycl1mcvZGIzVGZgUmb1lJgizGI0NXZgwWS",
+"==AMxAib1BSdvBSOg4WdgMHqDLHchBSZyh6wwNXZg42bZCo41FHIlNGI05WZtVGdpFmZyFGcgUWb1NXqDLHI09WbgU2Q"
+];
+
+/* Décodage */
+function getDecodedClues() {
+return _p.map(_u);
+}
+
+/* Pools différents selon le niveau */
+function getPoolForLevel(level) {
+const decoded = getDecodedClues();
+
+if (level === 1) {
+return decoded.slice(25); // plus accessibles
+}
+if (level === 2) {
+return decoded.slice(10, 90); // intermédiaires
+}
+return decoded.slice(0, 70); // plus difficiles
+}
+
+function getRotatingClues(level, count) {
+const pool = getPoolForLevel(level);
+const tick = Math.floor(Date.now() / 60000); // rotation toutes les 60 secondes
+const start = (tick * (level + 2)) % pool.length;
+const used = [];
+let i = 0;
+
+while (used.length < count && i < pool.length * 2) {
+const idx = (start + i * 7 + level * 3) % pool.length;
+const candidate = pool[idx];
+if (!used.includes(candidate)) {
+used.push(candidate);
+}
+i++;
+}
+return used;
+}
+
+document.getElementById("mot").addEventListener("keydown", function(event) {
+if (event.key === "Enter") {
+envoyerReponse();
+}
+});
+
+updateAttemptsText();
+afficherSection("coffre");
+</script>
 
 </body>
 </html>
