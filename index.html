@@ -57,20 +57,11 @@
       pointer-events:none;
     }
 
-    #confetti-canvas{
-      position:fixed;
-      inset:0;
-      width:100%;
-      height:100%;
-      pointer-events:none;
-      z-index:999;
-    }
-
     .container{
       position:relative;
       z-index:2;
       width:100%;
-      max-width:1120px;
+      max-width:1180px;
       background:linear-gradient(180deg, rgba(24,18,38,0.95), rgba(12,10,22,0.96));
       border-radius:30px;
       padding:28px;
@@ -138,7 +129,7 @@
       border-radius:24px;
       box-shadow:0 26px 60px rgba(0,0,0,0.45);
       border:1px solid rgba(255,255,255,0.06);
-      transition:transform 0.35s ease, box-shadow 0.35s ease, filter 0.35s ease;
+      transition:transform 0.35s ease, box-shadow 0.35s ease;
       user-select:none;
       -webkit-user-drag:none;
     }
@@ -179,7 +170,6 @@
       border:1px solid rgba(255,255,255,0.08);
       box-shadow:0 10px 24px rgba(0,0,0,0.28);
       backdrop-filter:blur(8px);
-      cursor:pointer;
       user-select:none;
     }
 
@@ -188,7 +178,6 @@
       height:22px;
       border-radius:50%;
       object-fit:cover;
-      box-shadow:0 0 10px rgba(255,120,0,0.7);
       background:#fff;
       flex:0 0 auto;
     }
@@ -230,7 +219,6 @@
       justify-content:center;
       backdrop-filter:blur(8px);
       animation:logoPulse 3.2s ease-in-out infinite;
-      cursor:pointer;
       user-select:none;
     }
 
@@ -241,7 +229,6 @@
       object-fit:cover;
       border:2px solid rgba(255,255,255,0.18);
       background:#fff;
-      box-shadow:0 0 18px rgba(255,120,0,0.38);
       pointer-events:none;
     }
 
@@ -342,69 +329,20 @@
       line-height:1.6;
       margin-bottom:18px;
       color:var(--muted);
-      max-width:680px;
+      max-width:700px;
     }
 
-    .compact-status{
-      display:none;
-    }
-
-    .escape-box{
-      display:grid;
-      grid-template-columns:repeat(2, minmax(0, 1fr));
-      gap:10px;
-      margin-bottom:18px;
-    }
-
-    .escape-chip{
-      background:linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
-      border:1px solid rgba(255,255,255,0.08);
-      border-radius:16px;
-      padding:12px 14px;
-      box-shadow:0 10px 20px rgba(0,0,0,0.15);
-      min-height:64px;
-      display:flex;
-      flex-direction:column;
-      justify-content:center;
-    }
-
-    .escape-label{
-      font-size:11px;
-      text-transform:uppercase;
-      letter-spacing:1px;
-      color:rgba(247,241,231,0.56);
-      margin-bottom:5px;
-    }
-
-    .escape-value{
-      font-size:14px;
-      line-height:1.45;
-      color:var(--text);
-      font-weight:700;
-    }
-
-    .deadline{
-      color:#ffd166;
-    }
-
-    .danger-value{
-      color:#ffb0b0;
-    }
-
-    .warning-value{
-      color:#ffe4a0;
-    }
-
-    .code-panel{
+    .code-panel,
+    .rules-box,
+    .game-panel{
       position:relative;
       background:linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
-      border:1px solid rgba(246,198,90,0.28);
+      border:1px solid rgba(246,198,90,0.22);
       border-radius:26px;
       padding:22px;
       box-shadow:
         inset 0 1px 0 rgba(255,255,255,0.04),
-        0 18px 34px rgba(0,0,0,0.18),
-        0 0 0 2px rgba(246,198,90,0.06);
+        0 18px 34px rgba(0,0,0,0.18);
       margin-bottom:18px;
     }
 
@@ -451,73 +389,71 @@
       font-weight:700;
     }
 
-    button.main-btn{
+    button.main-btn,
+    .level-btn,
+    .answer-btn,
+    .secondary-btn,
+    .whatsapp-btn{
       width:100%;
       padding:18px;
       border:none;
       border-radius:18px;
-      font-size:19px;
+      font-size:18px;
       font-weight:900;
-      background:linear-gradient(135deg, var(--gold-1), var(--gold-2));
-      color:#24180b;
       cursor:pointer;
-      box-shadow:0 16px 30px rgba(201,139,29,0.28);
       transition:0.18s ease;
     }
 
-    button.main-btn:hover{
+    button.main-btn,
+    .level-btn,
+    .whatsapp-btn{
+      background:linear-gradient(135deg, var(--gold-1), var(--gold-2));
+      color:#24180b;
+      box-shadow:0 16px 30px rgba(201,139,29,0.28);
+    }
+
+    button.main-btn:hover,
+    .level-btn:hover,
+    .whatsapp-btn:hover{
       transform:translateY(-1px);
       box-shadow:0 20px 36px rgba(201,139,29,0.34);
     }
 
-    button.main-btn:active{
-      transform:scale(0.99);
+    .secondary-btn{
+      background:rgba(255,255,255,0.08);
+      color:var(--text);
+      border:1px solid rgba(255,255,255,0.08);
     }
 
-    #message{
+    #message,
+    #quizResultMessage{
       margin-top:14px;
       min-height:42px;
       font-weight:bold;
       text-align:center;
       line-height:1.5;
       border-radius:14px;
-      padding:0;
       transition:0.25s ease;
     }
 
-    #message.error-state{
+    .error-state{
       background:rgba(192,47,69,0.12);
       border:1px solid rgba(255,107,107,0.18);
       color:#ff5c5c !important;
       padding:16px;
-      font-size:20px !important;
+      font-size:18px !important;
       font-weight:800;
-      animation:redAlert 0.45s ease;
       box-shadow:0 0 22px rgba(255,60,60,0.18);
     }
 
-    #message.secret-state{
+    .secret-state{
       background:rgba(246,198,90,0.10);
       border:1px solid rgba(246,198,90,0.18);
       color:#ffe6a4 !important;
       padding:16px;
-      font-size:18px !important;
+      font-size:17px !important;
       font-weight:800;
-      animation:successPop 0.35s ease;
       box-shadow:0 0 20px rgba(246,198,90,0.14);
-    }
-
-    @keyframes redAlert{
-      0%{transform:scale(0.96); opacity:0.4}
-      25%{transform:translateX(-6px)}
-      50%{transform:translateX(6px)}
-      75%{transform:translateX(-4px)}
-      100%{transform:scale(1); opacity:1}
-    }
-
-    @keyframes successPop{
-      0%{transform:scale(0.92); opacity:0}
-      100%{transform:scale(1); opacity:1}
     }
 
     .surprise{
@@ -529,18 +465,41 @@
       border:1px solid rgba(255,255,255,0.08);
       line-height:1.6;
       color:var(--text);
-      box-shadow:0 14px 24px rgba(0,0,0,0.16);
       text-align:center;
-      animation:successPop 0.45s ease;
     }
 
-    .rules-box{
-      display:none;
+    .escape-box{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:12px;
+      margin-bottom:18px;
+    }
+
+    .escape-chip{
       background:linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
       border:1px solid rgba(255,255,255,0.08);
-      border-radius:22px;
-      padding:22px;
-      box-shadow:inset 0 1px 0 rgba(255,255,255,0.03);
+      border-radius:18px;
+      padding:16px;
+      box-shadow:0 10px 20px rgba(0,0,0,0.15);
+      min-height:78px;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+    }
+
+    .escape-label{
+      font-size:11px;
+      text-transform:uppercase;
+      letter-spacing:1px;
+      color:rgba(247,241,231,0.56);
+      margin-bottom:8px;
+    }
+
+    .escape-value{
+      font-size:15px;
+      line-height:1.5;
+      color:var(--text);
+      font-weight:700;
     }
 
     .rules-title{
@@ -552,11 +511,12 @@
       padding-right:110px;
     }
 
-    .rule-intro{
-      font-size:17px;
+    .rule-intro,
+    .rule-end{
+      font-size:16px;
       line-height:1.7;
       color:var(--muted);
-      margin-bottom:20px;
+      margin-bottom:18px;
     }
 
     .rule-card{
@@ -570,13 +530,6 @@
       margin-bottom:12px;
       position:relative;
       overflow:hidden;
-      transition:0.2s ease;
-    }
-
-    .rule-card:hover{
-      transform:translateY(-1px);
-      border-color:rgba(246,198,90,0.18);
-      box-shadow:0 14px 24px rgba(0,0,0,0.12);
     }
 
     .rule-card::before{
@@ -587,30 +540,6 @@
       width:4px;
       height:100%;
       background:linear-gradient(180deg, var(--red-2), var(--gold-1));
-    }
-
-    .rule-text{
-      flex:1;
-    }
-
-    .rule-text strong{
-      display:block;
-      font-size:17px;
-      margin-bottom:8px;
-      color:var(--text);
-    }
-
-    .rule-text p{
-      font-size:15px;
-      line-height:1.6;
-      color:var(--muted);
-    }
-
-    .rule-end{
-      margin-top:18px;
-      font-size:16px;
-      line-height:1.7;
-      color:var(--muted);
     }
 
     .icon-mark{
@@ -625,7 +554,6 @@
         radial-gradient(circle at top, rgba(246,198,90,0.22), transparent 55%),
         linear-gradient(135deg, rgba(138,32,48,0.98), rgba(48,12,22,0.98));
       border:1px solid rgba(255,255,255,0.08);
-      box-shadow:0 12px 24px rgba(0,0,0,0.24);
     }
 
     .icon-mark svg{
@@ -638,9 +566,17 @@
       stroke-linejoin:round;
     }
 
-    .loading{
-      opacity:0.75;
-      pointer-events:none;
+    .rule-text strong{
+      display:block;
+      font-size:17px;
+      margin-bottom:8px;
+      color:var(--text);
+    }
+
+    .rule-text p{
+      font-size:15px;
+      line-height:1.6;
+      color:var(--muted);
     }
 
     .nps-hero{
@@ -657,7 +593,6 @@
       padding:16px 18px;
       font-size:16px;
       line-height:1.6;
-      box-shadow:0 14px 24px rgba(0,0,0,0.16);
     }
 
     .nps-alert strong{
@@ -676,7 +611,6 @@
       border-radius:18px;
       padding:16px;
       text-align:center;
-      box-shadow:0 12px 24px rgba(0,0,0,0.16);
     }
 
     .nps-stat-label{
@@ -692,24 +626,15 @@
       font-weight:900;
     }
 
-    .nps-bad{
-      color:#ff6b6b;
-    }
-
-    .nps-mid{
-      color:#ffd166;
-    }
-
-    .nps-good{
-      color:#8ef0b0;
-    }
+    .nps-bad{ color:#ff6b6b; }
+    .nps-mid{ color:#ffd166; }
+    .nps-good{ color:#8ef0b0; }
 
     .nps-image-wrap{
       background:linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
       border:1px solid rgba(255,255,255,0.08);
       border-radius:22px;
       padding:14px;
-      box-shadow:0 18px 34px rgba(0,0,0,0.18);
     }
 
     .nps-image{
@@ -719,7 +644,6 @@
       margin:0 auto;
       border-radius:18px;
       border:1px solid rgba(255,255,255,0.08);
-      box-shadow:0 18px 40px rgba(0,0,0,0.28);
     }
 
     .nps-caption{
@@ -730,10 +654,121 @@
       line-height:1.6;
     }
 
+    .hidden{
+      display:none !important;
+    }
+
+    .level-grid{
+      display:grid;
+      grid-template-columns:repeat(3, minmax(0, 1fr));
+      gap:12px;
+      margin-top:10px;
+    }
+
+    .level-card{
+      background:linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+      border:1px solid rgba(255,255,255,0.08);
+      border-radius:18px;
+      padding:16px;
+      text-align:center;
+    }
+
+    .level-card h3{
+      font-size:20px;
+      margin-bottom:8px;
+    }
+
+    .level-card p{
+      color:var(--muted);
+      line-height:1.5;
+      font-size:14px;
+      margin-bottom:12px;
+    }
+
+    .quiz-top{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      justify-content:space-between;
+      flex-wrap:wrap;
+      margin-bottom:16px;
+    }
+
+    .quiz-pill{
+      padding:10px 14px;
+      border-radius:999px;
+      background:rgba(255,255,255,0.05);
+      border:1px solid rgba(255,255,255,0.08);
+      font-size:14px;
+      font-weight:800;
+    }
+
+    .timer{
+      background:linear-gradient(135deg, var(--gold-1), var(--gold-2));
+      color:#24180b;
+      min-width:74px;
+      text-align:center;
+    }
+
+    .question-box{
+      background:linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+      border:1px solid rgba(255,255,255,0.08);
+      border-radius:20px;
+      padding:20px;
+      margin-bottom:16px;
+    }
+
+    .question-box h3{
+      font-size:22px;
+      line-height:1.45;
+    }
+
+    .answers-box{
+      display:grid;
+      gap:12px;
+    }
+
+    .answer-btn{
+      text-align:left;
+      font-size:16px;
+      background:rgba(255,255,255,0.07);
+      color:var(--text);
+      border:1px solid rgba(255,255,255,0.08);
+      box-shadow:none;
+    }
+
+    .answer-btn:hover{
+      transform:translateY(-1px);
+      background:rgba(255,255,255,0.11);
+    }
+
+    .result-actions{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-top:16px;
+    }
+
+    .result-actions .secondary-btn,
+    .result-actions .whatsapp-btn{
+      flex:1 1 220px;
+      text-align:center;
+      text-decoration:none;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+    .small-note{
+      margin-top:10px;
+      color:rgba(247,241,231,0.65);
+      font-size:13px;
+      line-height:1.5;
+      text-align:center;
+    }
+
     @media (max-width: 900px){
-      body{
-        padding:10px;
-      }
+      body{ padding:10px; }
 
       .container{
         flex-direction:column;
@@ -751,7 +786,7 @@
 
       .coffre{
         max-width:100%;
-        max-height:165px;
+        max-height:180px;
         object-fit:cover;
         border-radius:20px;
       }
@@ -759,11 +794,6 @@
       .coffre-glow{
         width:150px;
         height:150px;
-      }
-
-      .whisper{
-        margin-top:8px;
-        font-size:11px;
       }
 
       .right-side{
@@ -786,19 +816,9 @@
         gap:10px;
       }
 
-      .topbtn{
-        padding:10px 14px;
-        font-size:13px;
-      }
-
       .marquee-coffre{
         width:100%;
         margin-bottom:12px;
-      }
-
-      .marquee-track span{
-        font-size:12px;
-        padding:9px 20px;
       }
 
       h1,
@@ -809,117 +829,33 @@
 
       .desc{
         font-size:14px;
-        margin-bottom:12px;
         max-width:none;
       }
 
-      .code-panel{
-        padding:18px 14px 16px 14px;
-        margin-bottom:12px;
-      }
-
-      .code-panel::before{
-        font-size:10px;
-        padding:5px 9px;
-      }
-
-      .code-intro{
-        font-size:13px;
-        margin-bottom:12px;
-      }
-
-      input{
-        padding:17px 14px;
-        font-size:18px;
-        margin-bottom:12px;
-      }
-
-      button.main-btn{
-        padding:17px;
-        font-size:18px;
-      }
-
-      .compact-status{
-        display:block;
-        margin-bottom:12px;
-      }
-
-      .compact-status .escape-chip{
-        min-height:auto;
-        padding:12px 14px;
-      }
-
-      .escape-box{
-        display:none;
-      }
-
-      .panel,
-      .rules-box{
-        padding:16px;
-        text-align:left;
-      }
-
-      .rules-title{
-        font-size:22px;
-        text-align:center;
-      }
-
-      .rule-intro{
-        font-size:15px;
-      }
-
-      .rule-text strong{
-        font-size:15px;
-      }
-
-      .rule-text p,
-      .rule-end{
-        font-size:14px;
-      }
-
-      .ritual-badge{
-        font-size:10px;
-        padding:7px 9px;
-        top:10px;
-        left:10px;
-      }
-
-      .logo-badge{
-        width:18px;
-        height:18px;
-      }
-
-      #message.error-state{
-        font-size:17px !important;
-        padding:14px;
-      }
-
-      #message.secret-state{
-        font-size:15px !important;
-        padding:14px;
-      }
-
+      .level-grid,
       .nps-quick-stats{
         grid-template-columns:1fr;
       }
 
-      .nps-image{
-        max-width:100%;
+      .question-box h3{
+        font-size:18px;
+      }
+
+      .answer-btn{
+        font-size:15px;
       }
     }
   </style>
 </head>
 <body>
 
-  <canvas id="confetti-canvas"></canvas>
-
   <div class="container">
 
     <div class="left-side">
       <div class="coffre-wrap">
-        <div id="coffreGlow" class="coffre-glow"></div>
+        <div class="coffre-glow"></div>
 
-        <div id="ritualBadge" class="ritual-badge">
+        <div class="ritual-badge">
           <img src="logo.png" alt="Logo Wittenheim" class="logo-badge" />
           <span>DÉFI STRATÉGIQUE</span>
         </div>
@@ -932,7 +868,7 @@
 
     <div class="right-side">
 
-      <div id="logoTopRight" class="logo-top-right">
+      <div class="logo-top-right">
         <img src="logo.png" alt="Logo du magasin" />
       </div>
 
@@ -940,13 +876,14 @@
         <button id="btnCoffre" class="topbtn active" onclick="afficherSection('coffre')">Le Coffre</button>
         <button id="btnRegles" class="topbtn" onclick="afficherSection('regles')">Règles du jeu</button>
         <button id="btnNps" class="topbtn" onclick="afficherSection('nps')">NPS actuel</button>
+        <button id="btnJeu" class="topbtn" onclick="afficherSection('jeu')">Jeu du jour</button>
       </div>
 
       <div id="sectionCoffre">
         <div class="marquee-coffre">
           <div class="marquee-track">
-            <span>😈 CHALLENGE NPS EN COURS… • QUI TROUVERA LE CODE AVANT LES AUTRES ? 🔐 •</span>
-            <span>😈 CHALLENGE NPS EN COURS… • QUI TROUVERA LE CODE AVANT LES AUTRES ? 🔐 •</span>
+            <span>😈 CHALLENGE NPS EN COURS… • QUI TROUVERA LE MOT AVANT LES AUTRES ? 🔐 •</span>
+            <span>😈 CHALLENGE NPS EN COURS… • QUI TROUVERA LE MOT AVANT LES AUTRES ? 🔐 •</span>
           </div>
         </div>
 
@@ -963,51 +900,28 @@
             Entre le mot ici pour envoyer ta proposition.
           </div>
 
-          <input type="text" id="mot" placeholder="ENTRE LE CODE ICI" autocomplete="off" />
-          <button id="mainButton" class="main-btn" onclick="envoyerReponse()">Envoyer le code</button>
+          <input type="text" id="mot" placeholder="ENTRE LE MOT ICI" autocomplete="off" />
+          <button id="mainButton" class="main-btn" onclick="envoyerReponse()">Envoyer le mot</button>
 
           <p id="message"></p>
-
           <div id="surprise" class="surprise"></div>
-        </div>
-
-        <div class="compact-status">
-          <div class="escape-chip">
-            <div class="escape-label" id="compactLabel">Pression</div>
-            <div class="escape-value deadline" id="compactValue">⏳ Le coffre disparaît le 30 avril.</div>
-          </div>
         </div>
 
         <div class="escape-box">
           <div class="escape-chip">
-            <div class="escape-label">Pression</div>
-            <div class="escape-value deadline">⏳ Le coffre disparaît le 30 avril.</div>
-          </div>
-
-          <div class="escape-chip">
-            <div class="escape-label">Murmure</div>
-            <div id="mysteryText" class="escape-value danger-value">Certains ont déjà essayé… ils ont échoué.</div>
-          </div>
-
-          <div class="escape-chip">
-            <div class="escape-label">Doute</div>
-            <div id="doubtText" class="escape-value warning-value">Le mot est peut-être plus simple que tu ne le penses…</div>
-          </div>
-
-          <div class="escape-chip">
             <div class="escape-label">Progression</div>
-            <div id="attemptsText" class="escape-value">🔎 7 tentatives aujourd’hui</div>
+            <div id="attemptsText" class="escape-value">🔎 3 tentatives restantes</div>
           </div>
         </div>
       </div>
 
-      <div id="sectionRegles" class="rules-box">
+      <div id="sectionRegles" class="rules-box hidden">
         <div class="rules-title">Les règles du jeu</div>
 
         <div class="rule-intro">
           Le défi est lancé 😈.<br><br>
           Le coffre est verrouillé… Un seul mot peut le débloquer.
-          Mais ce mot ne s’obtient pas par hasard.
+          Pour avancer, il faut réussir le jeu du jour.
         </div>
 
         <div class="rule-card">
@@ -1015,26 +929,37 @@
             <svg viewBox="0 0 24 24">
               <path d="M7 11V8a5 5 0 0 1 10 0v3"/>
               <rect x="5" y="11" width="14" height="10" rx="2"/>
-              <circle cx="12" cy="16" r="1.2"/>
             </svg>
           </div>
           <div class="rule-text">
-            <strong>Offrez une expérience client irréprochable</strong>
-            <p>Soyez cité dans un avis NPS ou GOOGLE positif pour entrer dans le jeu.</p>
+            <strong>3 niveaux</strong>
+            <p>Niveau 1 = 1 indice • Niveau 2 = 2 indices • Niveau 3 = 3 indices.</p>
           </div>
         </div>
 
         <div class="rule-card">
           <div class="icon-mark">
             <svg viewBox="0 0 24 24">
-              <path d="M6 8l6-4 6 4"/>
-              <path d="M6 8v8l6 4 6-4V8"/>
-              <path d="M12 4v8"/>
+              <path d="M12 8v5"/>
+              <path d="M12 16h.01"/>
+              <circle cx="12" cy="12" r="9"/>
             </svg>
           </div>
           <div class="rule-text">
-            <strong>Recevez un indice</strong>
-            <p>Citation NPS avec votre prénom = 2 indices 🔥<br>Avis Google = 1 indice ⭐<br>Les indices vous sont envoyés directement sur WhatsApp.</p>
+            <strong>30 secondes et 10 questions</strong>
+            <p>À chaque clic, la question suivante s’affiche immédiatement. Aucune correction n’est donnée pendant le quiz.</p>
+          </div>
+        </div>
+
+        <div class="rule-card">
+          <div class="icon-mark">
+            <svg viewBox="0 0 24 24">
+              <path d="M6 12l4 4 8-8"/>
+            </svg>
+          </div>
+          <div class="rule-text">
+            <strong>Score final uniquement</strong>
+            <p>À la fin, tu vois seulement ta note. Pour gagner, il faut faire un sans-faute sur le niveau choisi.</p>
           </div>
         </div>
 
@@ -1045,8 +970,8 @@
             </svg>
           </div>
           <div class="rule-text">
-            <strong>Faites votre choix</strong>
-            <p>À vous de garder vos indices… ou de les partager avec l’équipe 😈.</p>
+            <strong>1 seul gain par jour</strong>
+            <p>Un joueur ne peut réclamer qu’un seul lot d’indices par jour depuis le même appareil.</p>
           </div>
         </div>
 
@@ -1056,37 +981,21 @@
               <path d="M8 8h8v8H8z"/>
               <path d="M3 12h5"/>
               <path d="M16 12h5"/>
-              <path d="M12 3v5"/>
-              <path d="M12 16v5"/>
             </svg>
           </div>
           <div class="rule-text">
-            <strong>Reconstituez le mot secret</strong>
-            <p>Assemblez les indices pour découvrir le mot complet.</p>
-          </div>
-        </div>
-
-        <div class="rule-card">
-          <div class="icon-mark">
-            <svg viewBox="0 0 24 24">
-              <path d="M7 14l5-9 5 9"/>
-              <path d="M8.5 11H15.5"/>
-              <path d="M6 19h12"/>
-            </svg>
-          </div>
-          <div class="rule-text">
-            <strong>Envoyez votre proposition</strong>
-            <p>Entrez le mot trouvé et transmettez-le à l’administrateur pour validation.</p>
+            <strong>Validation sur WhatsApp</strong>
+            <p>Les indices ne sont pas affichés sur le site. Si tu gagnes, tu réclames ton lot sur WhatsApp pour validation.</p>
           </div>
         </div>
 
         <div class="rule-end">
-          Chaque détail compte. Chaque indice peut faire la différence.<br><br>
-          Bonne chance 😈.
+          Chaque détail compte. Chaque bon choix peut te rapprocher du mot final.<br><br>
+          Bonne chance 😈
         </div>
       </div>
 
-      <div id="sectionNps" class="rules-box">
+      <div id="sectionNps" class="rules-box hidden">
         <div class="rules-title">NPS actuel</div>
 
         <div class="nps-hero">
@@ -1121,106 +1030,270 @@
         </div>
       </div>
 
+      <div id="sectionJeu" class="game-panel hidden">
+        <div class="rules-title">Jeu du jour</div>
+
+        <div id="gameStart">
+          <p class="rule-intro">
+            Choisis ton niveau. Tu auras 30 secondes pour répondre à 10 questions.
+            Aucun corrigé ne s’affiche pendant le jeu.
+          </p>
+
+          <div class="level-grid">
+            <div class="level-card">
+              <h3>Niveau 1</h3>
+              <p>Accessible mais piégeux.<br>Récompense : 1 indice.</p>
+              <button class="level-btn" onclick="startQuiz(1)">Lancer</button>
+            </div>
+
+            <div class="level-card">
+              <h3>Niveau 2</h3>
+              <p>Réflexion terrain.<br>Récompense : 2 indices.</p>
+              <button class="level-btn" onclick="startQuiz(2)">Lancer</button>
+            </div>
+
+            <div class="level-card">
+              <h3>Niveau 3</h3>
+              <p>Niveau expert.<br>Récompense : 3 indices.</p>
+              <button class="level-btn" onclick="startQuiz(3)">Lancer</button>
+            </div>
+          </div>
+
+          <div class="small-note">
+            Pour gagner le lot du niveau choisi, il faut faire <strong>10/10</strong>.
+          </div>
+        </div>
+
+        <div id="quizPlay" class="hidden">
+          <div class="quiz-top">
+            <div id="quizLevel" class="quiz-pill">Niveau 1</div>
+            <div id="quizProgress" class="quiz-pill">Question 1 / 10</div>
+            <div id="quizTimer" class="quiz-pill timer">30</div>
+          </div>
+
+          <div class="question-box">
+            <h3 id="quizQuestion">Question</h3>
+          </div>
+
+          <div id="quizAnswers" class="answers-box"></div>
+        </div>
+
+        <div id="quizResult" class="hidden">
+          <div class="question-box">
+            <h3 id="quizResultTitle">Résultat</h3>
+            <p id="quizResultMessage"></p>
+
+            <div class="result-actions">
+              <button class="secondary-btn" onclick="resetQuiz()">Revenir aux niveaux</button>
+              <a id="quizWhatsAppBtn" class="whatsapp-btn hidden" href="#" target="_blank" rel="noopener noreferrer">Réclamer mon lot sur WhatsApp</a>
+            </div>
+
+            <div class="small-note">
+              Le site ne montre pas les réponses correctes ni les indices.
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 
   <script>
     const WHATSAPP_NUMBER = "33637993778";
 
-    const mysteryMessages = [
-      "Certains ont déjà essayé… ils ont échoué.",
-      "Un vendeur est proche… très proche.",
-      "Tu penses être le premier ?",
-      "Quelqu’un a déjà compris une partie du mot.",
-      "Le coffre ne s’ouvre pas par hasard.",
-      "Tu passes peut-être à côté…",
-      "Ce jeu est plus simple que tu ne le crois… ou pas.",
-      "Un indice a déjà été donné aujourd’hui."
-    ];
+    const QUIZ_DATA = {
+      1: [
+        {
+          question:"Un client met 8 et dit “c’était top” :",
+          answers:["C’est un promoteur","C’est un neutre","C’est un détracteur"],
+          correct:1
+        },
+        {
+          question:"Le bon moment pour proposer l’enquête :",
+          answers:["Dès le début","À la fin, après satisfaction validée","À la caisse uniquement"],
+          correct:1
+        },
+        {
+          question:"Dire “notez le magasin” est une erreur car :",
+          answers:["Ça ne sert à rien","Ça fausse la réponse client","C’est interdit"],
+          correct:1
+        },
+        {
+          question:"Un client satisfait mais sans émotion forte devient souvent :",
+          answers:["Promoteur","Neutre","Détracteur"],
+          correct:1
+        },
+        {
+          question:"Le NPS mesure surtout :",
+          answers:["Le chiffre d’affaires","L’intention de recommander","Le temps passé"],
+          correct:1
+        },
+        {
+          question:"Un client met 9 mais ne recommande pas :",
+          answers:["Impossible","Rare mais possible","Faux"],
+          correct:1
+        },
+        {
+          question:"Le bouche-à-oreille vient surtout d’une expérience :",
+          answers:["Moyenne","Mémorable","Rapide"],
+          correct:1
+        },
+        {
+          question:"Combien de secondes dure ce jeu ?",
+          answers:["10","30","60"],
+          correct:1
+        },
+        {
+          question:"Un client satisfait mais pressé :",
+          answers:["Tu insistes","Tu adaptes et fais court","Tu abandonnes"],
+          correct:1
+        },
+        {
+          question:"Un client très satisfait peut devenir :",
+          answers:["Un relais positif","Un client classique","Un problème"],
+          correct:0
+        }
+      ],
+      2: [
+        {
+          question:"Le plus dangereux pour ton NPS :",
+          answers:["Les détracteurs","Les neutres en masse","Les promoteurs"],
+          correct:1
+        },
+        {
+          question:"Pourquoi un client satisfait ne recommande pas forcément :",
+          answers:["Il oublie","Il manque d’émotion forte","Il refuse"],
+          correct:1
+        },
+        {
+          question:"Le vrai levier pour passer de 8 à 10 :",
+          answers:["Le prix","L’émotion + expérience","La rapidité"],
+          correct:1
+        },
+        {
+          question:"Un client dit “c’était bien” :",
+          answers:["C’est gagné","Ce n’est pas suffisant pour recommander","C’est parfait"],
+          correct:1
+        },
+        {
+          question:"Une recommandation repose sur :",
+          answers:["Le hasard","La confiance","La pression"],
+          correct:1
+        },
+        {
+          question:"Une expérience fluide mais sans surprise donne souvent :",
+          answers:["10","8 ou 9","0"],
+          correct:1
+        },
+        {
+          question:"Un avis positif peut :",
+          answers:["Attirer un nouveau client","Ne rien changer","Bloquer une vente"],
+          correct:0
+        },
+        {
+          question:"Un client satisfait en vente mais déçu en caisse :",
+          answers:["Met 10","Met souvent neutre ou pire","Ne répond pas"],
+          correct:1
+        },
+        {
+          question:"Quel est le bon réflexe avant de proposer l’enquête :",
+          answers:["Vérifier la satisfaction","Aller vite","Demander au hasard"],
+          correct:0
+        },
+        {
+          question:"Combien fait 9 + 1 ?",
+          answers:["10","11","9"],
+          correct:0
+        }
+      ],
+      3: [
+        {
+          question:"Pourquoi dire “un 9 ou 10 ça m’aide” est puissant :",
+          answers:["Ça manipule","Ça donne du sens personnel à la note","Ça force"],
+          correct:1
+        },
+        {
+          question:"Le vrai problème si tu ne proposes pas l’enquête :",
+          answers:["Rien","Tu perds des promoteurs potentiels","Tu gagnes du temps"],
+          correct:1
+        },
+        {
+          question:"Pourquoi une équipe peut chuter malgré de bons vendeurs :",
+          answers:["Le hasard","Manque de régularité NPS","Trop de clients"],
+          correct:1
+        },
+        {
+          question:"Le NPS devient inutile si :",
+          answers:["On le suit","On ne comprend pas ce qu’on mesure","On l’analyse"],
+          correct:1
+        },
+        {
+          question:"Pourquoi certains clients satisfaits ne répondent pas :",
+          answers:["Ils n’ont pas reçu le mail","Ils oublient","Ils refusent"],
+          correct:0
+        },
+        {
+          question:"Le rôle clé de l’email dans le NPS :",
+          answers:["Publicité","Déclenche l’enquête","Facturation"],
+          correct:1
+        },
+        {
+          question:"Un vendeur dit “je ne m’y connais pas” :",
+          answers:["Normal","Doit être formé pour éviter perte de NPS","Pas grave"],
+          correct:1
+        },
+        {
+          question:"Pourquoi la cohérence équipe est essentielle :",
+          answers:["Organisation","Expérience client uniforme","Gain de temps"],
+          correct:1
+        },
+        {
+          question:"Le vrai objectif du NPS :",
+          answers:["Faire joli","Créer des clients ambassadeurs","Noter le magasin"],
+          correct:1
+        },
+        {
+          question:"Si 3 vendeurs font bien et 1 casse l’expérience :",
+          answers:["Ça ne change rien","Le client retient le pire moment","Il oublie"],
+          correct:1
+        }
+      ]
+    };
 
-    const doubtMessages = [
-      "Le mot est peut-être plus simple que tu ne le penses…",
-      "Et si ce n’était pas un mot ?",
-      "Tu compliques peut-être quelque chose de simple…",
-      "La réponse est peut-être déjà sous tes yeux…"
-    ];
+    let currentLevel = 1;
+    let currentQuestions = [];
+    let currentQuestionIndex = 0;
+    let currentScore = 0;
+    let timeLeft = 30;
+    let quizTimerInterval = null;
+    let quizLocked = false;
 
-    const mobileStatusItems = [
-      { label: "Pression", value: "⏳ Le coffre disparaît le 30 avril.", className: "deadline" },
-      { label: "Murmure", dynamic: "mystery", className: "danger-value" },
-      { label: "Doute", dynamic: "doubt", className: "warning-value" },
-      { label: "Progression", dynamic: "attempts", className: "" }
-    ];
+    function afficherSection(section) {
+      const sections = {
+        coffre: document.getElementById("sectionCoffre"),
+        regles: document.getElementById("sectionRegles"),
+        nps: document.getElementById("sectionNps"),
+        jeu: document.getElementById("sectionJeu")
+      };
 
-    let audioContext;
-    let coffreClickCount = 0;
-    let badgeClickCount = 0;
-    let longPressTimer = null;
-    let currentMysteryMessage = mysteryMessages[0];
-    let currentDoubtMessage = doubtMessages[0];
-    let currentAttemptsMessage = "🔎 7 tentatives aujourd’hui";
-    let mobileStatusIndex = 0;
+      const buttons = {
+        coffre: document.getElementById("btnCoffre"),
+        regles: document.getElementById("btnRegles"),
+        nps: document.getElementById("btnNps"),
+        jeu: document.getElementById("btnJeu")
+      };
 
-    function ensureAudio() {
-      if (!audioContext) {
-        audioContext = new (window.AudioContext || window.webkitAudioContext)();
-      }
-      if (audioContext.state === "suspended") {
-        audioContext.resume();
-      }
-      return audioContext;
-    }
+      Object.values(sections).forEach(sectionEl => sectionEl.classList.add("hidden"));
+      Object.values(buttons).forEach(btn => btn.classList.remove("active"));
 
-    function playTone({ frequency = 440, duration = 0.15, type = "sine", volume = 0.03, sweepTo = null }) {
-      const ctx = ensureAudio();
-      const oscillator = ctx.createOscillator();
-      const gain = ctx.createGain();
-
-      oscillator.type = type;
-      oscillator.frequency.setValueAtTime(frequency, ctx.currentTime);
-
-      if (sweepTo) {
-        oscillator.frequency.exponentialRampToValueAtTime(sweepTo, ctx.currentTime + duration);
-      }
-
-      gain.gain.setValueAtTime(0.0001, ctx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(volume, ctx.currentTime + 0.01);
-      gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + duration);
-
-      oscillator.connect(gain);
-      gain.connect(ctx.destination);
-
-      oscillator.start();
-      oscillator.stop(ctx.currentTime + duration + 0.02);
-    }
-
-    function playErrorSound() {
-      playTone({ frequency: 170, duration: 0.12, type: "sawtooth", volume: 0.035, sweepTo: 120 });
-      setTimeout(() => {
-        playTone({ frequency: 120, duration: 0.16, type: "square", volume: 0.025, sweepTo: 90 });
-      }, 90);
-    }
-
-    function playSecretSound() {
-      playTone({ frequency: 520, duration: 0.1, type: "sine", volume: 0.025, sweepTo: 660 });
-      setTimeout(() => {
-        playTone({ frequency: 780, duration: 0.14, type: "triangle", volume: 0.028, sweepTo: 980 });
-      }, 70);
+      sections[section].classList.remove("hidden");
+      buttons[section].classList.add("active");
     }
 
     function resetMessageStyles() {
       const message = document.getElementById("message");
       message.classList.remove("error-state", "secret-state");
-      message.style.color = "";
       message.innerHTML = "";
-    }
-
-    function showSecretMessage(text) {
-      const message = document.getElementById("message");
-      resetMessageStyles();
-      message.innerHTML = text;
-      message.classList.add("secret-state");
-      playSecretSound();
     }
 
     function shakeCoffre() {
@@ -1230,101 +1303,36 @@
       coffre.classList.add("shake");
     }
 
-    function afficherSection(section) {
-      const sectionCoffre = document.getElementById("sectionCoffre");
-      const sectionRegles = document.getElementById("sectionRegles");
-      const sectionNps = document.getElementById("sectionNps");
+    function getParisDateKey() {
+      const parts = new Intl.DateTimeFormat("fr-FR", {
+        timeZone:"Europe/Paris",
+        year:"numeric",
+        month:"2-digit",
+        day:"2-digit"
+      }).formatToParts(new Date());
 
-      const btnCoffre = document.getElementById("btnCoffre");
-      const btnRegles = document.getElementById("btnRegles");
-      const btnNps = document.getElementById("btnNps");
+      const day = parts.find(p => p.type === "day").value;
+      const month = parts.find(p => p.type === "month").value;
+      const year = parts.find(p => p.type === "year").value;
 
-      sectionCoffre.style.display = "none";
-      sectionRegles.style.display = "none";
-      sectionNps.style.display = "none";
-
-      btnCoffre.classList.remove("active");
-      btnRegles.classList.remove("active");
-      btnNps.classList.remove("active");
-
-      if (section === "coffre") {
-        sectionCoffre.style.display = "block";
-        btnCoffre.classList.add("active");
-      } else if (section === "regles") {
-        sectionRegles.style.display = "block";
-        btnRegles.classList.add("active");
-      } else if (section === "nps") {
-        sectionNps.style.display = "block";
-        btnNps.classList.add("active");
-      }
+      return `${year}-${month}-${day}`;
     }
 
-    function updateCompactStatus() {
-      const compactLabel = document.getElementById("compactLabel");
-      const compactValue = document.getElementById("compactValue");
-      if (!compactLabel || !compactValue) return;
-
-      const item = mobileStatusItems[mobileStatusIndex];
-      compactLabel.textContent = item.label;
-
-      let valueText = item.value || "";
-      if (item.dynamic === "mystery") valueText = currentMysteryMessage;
-      if (item.dynamic === "doubt") valueText = currentDoubtMessage;
-      if (item.dynamic === "attempts") valueText = currentAttemptsMessage;
-
-      compactValue.textContent = valueText;
-      compactValue.className = "escape-value";
-      if (item.className) compactValue.classList.add(item.className);
-    }
-
-    function rotateCompactStatus() {
-      mobileStatusIndex = (mobileStatusIndex + 1) % mobileStatusItems.length;
-      updateCompactStatus();
-    }
-
-    function rotateText(targetId, messages, delay, type) {
-      const el = document.getElementById(targetId);
-      let index = Math.floor(Math.random() * messages.length);
-      el.textContent = messages[index];
-
-      if (type === "mystery") currentMysteryMessage = messages[index];
-      if (type === "doubt") currentDoubtMessage = messages[index];
-      updateCompactStatus();
-
-      setInterval(() => {
-        index = (index + 1) % messages.length;
-        el.textContent = messages[index];
-
-        if (type === "mystery") currentMysteryMessage = messages[index];
-        if (type === "doubt") currentDoubtMessage = messages[index];
-        updateCompactStatus();
-      }, delay);
-    }
-
-    function getPseudoAttempts() {
-      const now = new Date();
-      const year = now.getFullYear();
-      const month = now.getMonth() + 1;
-      const day = now.getDate();
-      const bucket = Math.floor(now.getHours() / 3);
-      const seed = year * 10000 + month * 100 + day + bucket * 17;
-      return 5 + (seed % 19);
+    function getDailyAttempts() {
+      const pattern = [2,4,5,3,6,2,5,4,3,6,5,2];
+      const dateKey = getParisDateKey();
+      const parts = dateKey.split("-").map(Number);
+      const seed = (parts[0] * 372) + (parts[1] * 31) + parts[2];
+      return pattern[seed % pattern.length];
     }
 
     function updateAttemptsText() {
-      const attempts = getPseudoAttempts();
-      const text = attempts > 1
-        ? `🔎 ${attempts} tentatives aujourd’hui`
-        : `🔎 ${attempts} tentative aujourd’hui`;
-
-      currentAttemptsMessage = text;
-      document.getElementById("attemptsText").textContent = text;
-      updateCompactStatus();
+      const attempts = getDailyAttempts();
+      const label = attempts > 1 ? "tentatives restantes" : "tentative restante";
+      document.getElementById("attemptsText").textContent = `🔎 ${attempts} ${label}`;
     }
 
     function envoyerReponse() {
-      ensureAudio();
-
       const inputEl = document.getElementById("mot");
       const input = inputEl.value.trim();
       const message = document.getElementById("message");
@@ -1336,12 +1344,10 @@
         message.innerHTML = "Entre un mot avant d’envoyer ta tentative.";
         message.classList.add("error-state");
         shakeCoffre();
-        playErrorSound();
         return;
       }
 
       button.disabled = true;
-      button.classList.add("loading");
       button.textContent = "Préparation...";
 
       try {
@@ -1349,74 +1355,151 @@
         const dateHeure = maintenant.toLocaleString("fr-FR");
 
         const texte = encodeURIComponent(
-          `🎯 Tentative coffre Wittenheim\nCode proposé : ${input}\nDate : ${dateHeure}\nPrénom : `
+          `🎯 Tentative coffre Wittenheim\nMot proposé : ${input}\nDate : ${dateHeure}\nPrénom : `
         );
 
         window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${texte}`, "_blank");
 
-        message.innerHTML = "🕵️‍♂️ Code envoyé.<br>Il sera vérifié par l’administrateur.<br>Tu recevras la réponse sur WhatsApp. 😈";
+        message.innerHTML = "🕵️‍♂️ Mot envoyé.<br>Il sera vérifié par l’administrateur sur WhatsApp.";
         message.classList.add("secret-state");
-        playSecretSound();
-
         inputEl.value = "";
       } catch (error) {
         message.innerHTML = "Impossible d’ouvrir WhatsApp. Réessaie dans un instant.";
         message.classList.add("error-state");
         shakeCoffre();
-        playErrorSound();
       } finally {
         button.disabled = false;
-        button.classList.remove("loading");
-        button.textContent = "Envoyer le code";
+        button.textContent = "Envoyer le mot";
       }
     }
 
-    function setupSecrets() {
-      const coffre = document.getElementById("coffre");
-      const logo = document.getElementById("logoTopRight");
-      const badge = document.getElementById("ritualBadge");
+    function getRewardCount(level) {
+      if (level === 1) return 1;
+      if (level === 2) return 2;
+      return 3;
+    }
 
-      coffre.addEventListener("click", () => {
-        ensureAudio();
-        coffreClickCount++;
-        if (coffreClickCount >= 5) {
-          coffreClickCount = 0;
-          showSecretMessage("🎁 Indice gratuit : le client est roi. 😈");
+    function hasAlreadyClaimedToday() {
+      return localStorage.getItem("nps_reward_claim_date") === getParisDateKey();
+    }
+
+    function markClaimedToday(level, score) {
+      localStorage.setItem("nps_reward_claim_date", getParisDateKey());
+      localStorage.setItem("nps_reward_claim_level", String(level));
+      localStorage.setItem("nps_reward_claim_score", String(score));
+    }
+
+    function startQuiz(level) {
+      currentLevel = level;
+      currentQuestions = QUIZ_DATA[level];
+      currentQuestionIndex = 0;
+      currentScore = 0;
+      timeLeft = 30;
+      quizLocked = false;
+
+      document.getElementById("gameStart").classList.add("hidden");
+      document.getElementById("quizResult").classList.add("hidden");
+      document.getElementById("quizPlay").classList.remove("hidden");
+
+      document.getElementById("quizLevel").textContent = `Niveau ${level}`;
+      document.getElementById("quizTimer").textContent = timeLeft;
+
+      renderQuestion();
+      clearInterval(quizTimerInterval);
+
+      quizTimerInterval = setInterval(() => {
+        timeLeft--;
+        document.getElementById("quizTimer").textContent = timeLeft;
+
+        if (timeLeft <= 0) {
+          finishQuiz();
         }
+      }, 1000);
+    }
+
+    function renderQuestion() {
+      const questionData = currentQuestions[currentQuestionIndex];
+      document.getElementById("quizProgress").textContent = `Question ${currentQuestionIndex + 1} / ${currentQuestions.length}`;
+      document.getElementById("quizQuestion").textContent = questionData.question;
+
+      const answersBox = document.getElementById("quizAnswers");
+      answersBox.innerHTML = "";
+
+      questionData.answers.forEach((answer, index) => {
+        const btn = document.createElement("button");
+        btn.className = "answer-btn";
+        btn.textContent = answer;
+        btn.onclick = () => selectAnswer(index);
+        answersBox.appendChild(btn);
       });
+    }
 
-      logo.addEventListener("dblclick", () => {
-        ensureAudio();
-        showSecretMessage("👁 Indice : tu es déjà passé devant… sans le voir. 😈");
-      });
+    function selectAnswer(index) {
+      if (quizLocked) return;
+      quizLocked = true;
 
-      badge.addEventListener("click", () => {
-        ensureAudio();
-        badgeClickCount++;
-        if (badgeClickCount >= 4) {
-          badgeClickCount = 0;
-          showSecretMessage("⚠️ Un détail peut valoir plus qu’un long discours. Observe mieux. 😈");
-        }
-      });
+      const questionData = currentQuestions[currentQuestionIndex];
+      if (index === questionData.correct) {
+        currentScore++;
+      }
 
-      const startLongPress = () => {
-        ensureAudio();
-        clearTimeout(longPressTimer);
-        longPressTimer = setTimeout(() => {
-          showSecretMessage("⏳ Tu forces… mais ce n’est pas comme ça que ça marche.");
-        }, 1800);
-      };
+      currentQuestionIndex++;
 
-      const cancelLongPress = () => {
-        clearTimeout(longPressTimer);
-      };
+      if (currentQuestionIndex >= currentQuestions.length) {
+        finishQuiz();
+      } else {
+        renderQuestion();
+        quizLocked = false;
+      }
+    }
 
-      coffre.addEventListener("mousedown", startLongPress);
-      coffre.addEventListener("mouseup", cancelLongPress);
-      coffre.addEventListener("mouseleave", cancelLongPress);
-      coffre.addEventListener("touchstart", startLongPress, { passive: true });
-      coffre.addEventListener("touchend", cancelLongPress);
-      coffre.addEventListener("touchcancel", cancelLongPress);
+    function finishQuiz() {
+      clearInterval(quizTimerInterval);
+
+      document.getElementById("quizPlay").classList.add("hidden");
+      document.getElementById("quizResult").classList.remove("hidden");
+
+      const resultTitle = document.getElementById("quizResultTitle");
+      const resultMessage = document.getElementById("quizResultMessage");
+      const whatsappBtn = document.getElementById("quizWhatsAppBtn");
+
+      whatsappBtn.classList.add("hidden");
+      whatsappBtn.href = "#";
+
+      const rewardCount = getRewardCount(currentLevel);
+      const perfectScore = currentScore === currentQuestions.length;
+
+      if (!perfectScore) {
+        resultTitle.textContent = "Résultat";
+        resultMessage.innerHTML = `Tu as obtenu <strong>${currentScore}/10</strong> au niveau ${currentLevel}.<br>Aucun indice débloqué cette fois.`;
+        return;
+      }
+
+      if (hasAlreadyClaimedToday()) {
+        resultTitle.textContent = "Résultat";
+        resultMessage.innerHTML = `Tu as obtenu <strong>10/10</strong> au niveau ${currentLevel}.<br>Tu as déjà validé un gain aujourd’hui sur cet appareil.`;
+        return;
+      }
+
+      markClaimedToday(currentLevel, currentScore);
+
+      resultTitle.textContent = "Sans-faute";
+      resultMessage.innerHTML = `Tu as obtenu <strong>10/10</strong> au niveau ${currentLevel}.<br>Tu peux réclamer <strong>${rewardCount} indice${rewardCount > 1 ? "s" : ""}</strong> sur WhatsApp.`;
+
+      const maintenant = new Date().toLocaleString("fr-FR");
+      const texte = encodeURIComponent(
+        `🏆 Gain validé sur le jeu du jour\nNiveau : ${currentLevel}\nScore : ${currentScore}/10\nLot à réclamer : ${rewardCount} indice${rewardCount > 1 ? "s" : ""}\nDate : ${maintenant}\nPrénom : `
+      );
+
+      whatsappBtn.href = `https://wa.me/${WHATSAPP_NUMBER}?text=${texte}`;
+      whatsappBtn.classList.remove("hidden");
+    }
+
+    function resetQuiz() {
+      clearInterval(quizTimerInterval);
+      document.getElementById("quizPlay").classList.add("hidden");
+      document.getElementById("quizResult").classList.add("hidden");
+      document.getElementById("gameStart").classList.remove("hidden");
     }
 
     document.getElementById("mot").addEventListener("keydown", function(event) {
@@ -1425,19 +1508,8 @@
       }
     });
 
-    window.addEventListener("resize", () => {
-      const canvas = document.getElementById("confetti-canvas");
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    });
-
-    rotateText("mysteryText", mysteryMessages, 4200, "mystery");
-    rotateText("doubtText", doubtMessages, 5600, "doubt");
     updateAttemptsText();
-    setInterval(updateAttemptsText, 180000);
-    setupSecrets();
-    updateCompactStatus();
-    setInterval(rotateCompactStatus, 3200);
+    afficherSection("coffre");
   </script>
 
 </body>
