@@ -989,7 +989,7 @@ Trouver le mot secret, atteindre 64 % de NPS et conserver la prime.
 <div class="nps-quick-stats">
 <div class="nps-stat">
 <div class="nps-stat-label">NPS du moment</div>
-<div class="nps-stat-value nps-bad">46</div>
+<div class="nps-stat-value nps-bad">52,5</div>
 </div>
 
 <div class="nps-stat">
@@ -999,7 +999,7 @@ Trouver le mot secret, atteindre 64 % de NPS et conserver la prime.
 
 <div class="nps-stat">
 <div class="nps-stat-label">Écart</div>
-<div class="nps-stat-value nps-mid">-18</div>
+<div class="nps-stat-value nps-mid">-11,5</div>
 </div>
 </div>
 </div>
@@ -1654,17 +1654,17 @@ function getPoolForLevel(level) {
 const decoded = getDecodedClues();
 
 if (level === 1) {
-return decoded.slice(25); // plus accessibles
+return decoded.slice(25);
 }
 if (level === 2) {
-return decoded.slice(10, 90); // intermédiaires
+return decoded.slice(10, 90);
 }
-return decoded.slice(0, 70); // plus difficiles
+return decoded.slice(0, 70);
 }
 
 function getRotatingClues(level, count) {
 const pool = getPoolForLevel(level);
-const tick = Math.floor(Date.now() / 60000); // rotation toutes les 60 secondes
+const tick = Math.floor(Date.now() / 60000);
 const start = (tick * (level + 2)) % pool.length;
 const used = [];
 let i = 0;
