@@ -3,439 +3,927 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<title>Les Masqués — Mission NPS</title>
+<title>Masqué VS Loyal</title>
 <style>
 :root{
-  --bg:#06070b;
-  --bg-2:#0c1018;
-  --panel:#111522;
-  --panel-2:#171c2c;
+  --bg:#07070b;
+  --bg-soft:#101119;
+  --panel:#12131c;
+  --panel-2:#171927;
   --line:rgba(255,255,255,.08);
-  --text:#f7f3eb;
-  --muted:rgba(247,243,235,.68);
-  --gold:#f6c65a;
-  --gold-2:#c98b1d;
+  --line-strong:rgba(255,255,255,.14);
+  --text:#f7f1e8;
+  --muted:rgba(247,241,232,.74);
+  --muted-2:rgba(247,241,232,.56);
+
+  --gold:#f4c965;
+  --gold-2:#c99124;
   --orange:#ff9f43;
-  --orange-2:#ffb36b;
+  --orange-2:#ffb86c;
   --green:#8ef0b0;
+  --green-2:#63d78d;
   --red:#ff6b6b;
   --red-2:#c02f45;
-  --cyan:#6fe7ff;
-  --shadow:0 20px 40px rgba(0,0,0,.35);
-  --radius:24px;
+
+  --shadow-xl:0 28px 60px rgba(0,0,0,.46);
+  --shadow-lg:0 18px 36px rgba(0,0,0,.32);
+  --shadow-md:0 12px 24px rgba(0,0,0,.24);
+
+  --radius-xl:28px;
+  --radius-lg:22px;
+  --radius-md:18px;
+
+  --safe-top:env(safe-area-inset-top, 0px);
   --safe-bottom:env(safe-area-inset-bottom, 0px);
+
+  --maxw:1240px;
+  --header-h:86px;
 }
-*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+
+*{
+  box-sizing:border-box;
+  -webkit-tap-highlight-color:transparent;
+}
+
 html,body{
   margin:0;
   padding:0;
-  background:
-    radial-gradient(circle at top right, rgba(255,159,67,.10), transparent 24%),
-    radial-gradient(circle at bottom left, rgba(111,231,255,.10), transparent 20%),
-    linear-gradient(180deg, #05060a 0%, #090b12 40%, #0d1019 100%);
-  color:var(--text);
-  font-family:Arial,Helvetica,sans-serif;
   min-height:100%;
-}
-body{padding-bottom:94px}
-button,input{font:inherit}
-a{text-decoration:none;color:inherit}
-.app{max-width:520px;margin:0 auto;min-height:100vh;position:relative}
-
-.top-hero{
-  position:sticky;
-  top:0;
-  z-index:15;
-  padding:14px 14px 10px 14px;
-  background:linear-gradient(180deg, rgba(6,7,11,.95), rgba(6,7,11,.72), transparent);
-  backdrop-filter:blur(10px);
-}
-.hero-card{
-  border:1px solid var(--line);
+  font-family:Arial, Helvetica, sans-serif;
+  color:var(--text);
   background:
-    radial-gradient(circle at 85% 15%, rgba(255,159,67,.16), transparent 25%),
-    radial-gradient(circle at 15% 85%, rgba(111,231,255,.12), transparent 28%),
-    linear-gradient(145deg, rgba(23,28,44,.96), rgba(12,16,24,.96));
-  border-radius:28px;
-  padding:16px;
-  box-shadow:var(--shadow);
-  overflow:hidden;
+    radial-gradient(circle at top right, rgba(255,159,67,.08), transparent 20%),
+    radial-gradient(circle at bottom left, rgba(192,47,69,.08), transparent 18%),
+    linear-gradient(180deg, #05060a 0%, #090a11 52%, #0d1018 100%);
+}
+
+body{
+  overflow-x:hidden;
+}
+
+button,input,textarea{
+  font:inherit;
+}
+
+img{
+  display:block;
+  max-width:100%;
+}
+
+a{
+  color:inherit;
+  text-decoration:none;
+}
+
+.app{
+  min-height:100vh;
   position:relative;
 }
+
+/* =========================
+   TOP NAV
+========================= */
+.top-shell{
+  position:sticky;
+  top:0;
+  z-index:60;
+  padding-top:var(--safe-top);
+  background:linear-gradient(180deg, rgba(6,7,11,.98), rgba(6,7,11,.86), rgba(6,7,11,.26));
+  backdrop-filter:blur(14px);
+  border-bottom:1px solid rgba(255,255,255,.05);
+}
+
+.top-nav{
+  max-width:var(--maxw);
+  margin:0 auto;
+  min-height:var(--header-h);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:14px;
+  padding:14px 18px;
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  min-width:0;
+}
+
+.brand-mark{
+  width:54px;
+  height:54px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:
+    radial-gradient(circle at 30% 30%, rgba(255,255,255,.18), transparent 40%),
+    linear-gradient(145deg, rgba(196,46,69,.96), rgba(92,20,31,.98));
+  border:1px solid rgba(255,255,255,.14);
+  box-shadow:0 10px 24px rgba(0,0,0,.28);
+  font-size:22px;
+  flex:0 0 auto;
+}
+
+.brand-text{
+  min-width:0;
+}
+
+.brand-title{
+  font-size:20px;
+  font-weight:900;
+  text-transform:uppercase;
+  letter-spacing:.8px;
+  line-height:1.05;
+}
+
+.brand-sub{
+  margin-top:4px;
+  font-size:11px;
+  letter-spacing:1.2px;
+  text-transform:uppercase;
+  color:var(--muted);
+}
+
+.nav-links{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  flex-wrap:wrap;
+  justify-content:flex-end;
+}
+
+.nav-btn{
+  border:none;
+  color:var(--text);
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:999px;
+  padding:11px 14px;
+  font-size:13px;
+  font-weight:900;
+  cursor:pointer;
+  transition:.18s ease;
+  white-space:nowrap;
+}
+
+.nav-btn:hover{
+  transform:translateY(-1px);
+  background:rgba(255,255,255,.08);
+}
+
+.nav-btn.active{
+  background:linear-gradient(135deg, rgba(244,201,101,.24), rgba(201,47,69,.20));
+  border-color:rgba(244,201,101,.36);
+  box-shadow:0 10px 22px rgba(0,0,0,.20);
+}
+
+/* =========================
+   GENERIC
+========================= */
+.main{
+  max-width:var(--maxw);
+  margin:0 auto;
+  padding:18px;
+}
+
+.section{
+  display:none;
+}
+
+.section.active{
+  display:block;
+}
+
+.card{
+  position:relative;
+  overflow:hidden;
+  border:1px solid var(--line);
+  border-radius:var(--radius-xl);
+  background:linear-gradient(180deg, rgba(20,22,33,.96), rgba(11,13,21,.96));
+  box-shadow:var(--shadow-xl);
+}
+
+.card + .card{
+  margin-top:18px;
+}
+
+.card-inner{
+  padding:22px;
+}
+
+.section-title{
+  margin:0 0 12px 0;
+  font-size:28px;
+  font-weight:900;
+  text-transform:uppercase;
+  letter-spacing:.7px;
+}
+
+.section-sub{
+  font-size:15px;
+  line-height:1.75;
+  color:var(--muted);
+}
+
+.pills{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+
+.pill{
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,.08);
+  background:rgba(255,255,255,.05);
+  padding:10px 14px;
+  font-size:12px;
+  font-weight:900;
+  text-transform:uppercase;
+  letter-spacing:1px;
+}
+
+.btn{
+  border:none;
+  border-radius:18px;
+  padding:15px 18px;
+  font-size:15px;
+  font-weight:900;
+  cursor:pointer;
+  transition:.16s ease;
+}
+
+.btn:active{
+  transform:scale(.99);
+}
+
+.btn-primary{
+  color:#271908;
+  background:linear-gradient(135deg, var(--gold), var(--gold-2));
+  box-shadow:0 14px 32px rgba(201,145,36,.28);
+}
+
+.btn-orange{
+  color:#271507;
+  background:linear-gradient(135deg, var(--orange-2), var(--orange));
+  box-shadow:0 14px 32px rgba(255,159,67,.22);
+}
+
+.btn-green{
+  color:#07150e;
+  background:linear-gradient(135deg, #aef8c7, var(--green-2));
+  box-shadow:0 14px 32px rgba(99,215,141,.20);
+}
+
+.btn-ghost{
+  color:var(--text);
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.10);
+}
+
+.btn-red{
+  color:#fff;
+  background:linear-gradient(135deg, #ff8a8a, #d84242);
+}
+
+.grid-2{
+  display:grid;
+  grid-template-columns:repeat(2, minmax(0,1fr));
+  gap:16px;
+}
+
+/* =========================
+   MISSION
+========================= */
+.mission-hero{
+  min-height:calc(100vh - var(--header-h) - 44px);
+  background:
+    linear-gradient(90deg, rgba(6,7,11,.90) 0%, rgba(6,7,11,.70) 42%, rgba(6,7,11,.26) 100%),
+    url("chateau.jpg") center/cover no-repeat;
+}
+
+.mission-hero::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(circle at top center, rgba(244,201,101,.10), transparent 20%),
+    linear-gradient(180deg, rgba(255,255,255,.03), transparent 20%);
+  pointer-events:none;
+}
+
+.mission-layout{
+  position:relative;
+  z-index:2;
+  display:grid;
+  grid-template-columns:1.12fr .88fr;
+  gap:24px;
+  align-items:stretch;
+}
+
+.mission-panel{
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  min-height:100%;
+}
+
 .hero-badge{
   display:inline-flex;
   align-items:center;
   gap:8px;
-  border:1px solid rgba(255,255,255,.10);
-  background:rgba(255,255,255,.06);
+  width:max-content;
   border-radius:999px;
-  padding:8px 12px;
-  font-size:11px;
+  padding:10px 14px;
+  border:1px solid rgba(255,255,255,.10);
+  background:rgba(255,255,255,.05);
+  font-size:12px;
   font-weight:900;
   letter-spacing:1px;
   text-transform:uppercase;
 }
-.hero-title{
-  margin:12px 0 8px 0;
-  font-size:28px;
-  line-height:1.02;
+
+.mission-title{
+  margin:18px 0 14px 0;
+  font-size:68px;
+  line-height:.93;
   text-transform:uppercase;
   font-weight:900;
-  letter-spacing:.5px;
+  letter-spacing:1px;
+  text-shadow:0 10px 30px rgba(0,0,0,.34);
 }
-.hero-sub{
+
+.mission-text{
+  max-width:740px;
   color:var(--muted);
-  font-size:14px;
-  line-height:1.55;
-  margin-bottom:14px;
+  font-size:17px;
+  line-height:1.8;
 }
-.hero-grid{
+
+.mission-cta{
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+  margin-top:24px;
+}
+
+.mission-cta .btn{
+  min-width:190px;
+}
+
+.mission-stat-row{
   display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:10px;
+  grid-template-columns:repeat(3, minmax(0,1fr));
+  gap:14px;
+  margin-top:26px;
 }
-.mini-chip{
-  border:1px solid var(--line);
+
+.mission-stat{
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:22px;
   background:rgba(255,255,255,.04);
-  border-radius:18px;
-  padding:12px;
+  padding:18px 16px;
+  box-shadow:var(--shadow-md);
 }
-.mini-chip-label{
+
+.mission-stat-label{
+  color:var(--muted-2);
   font-size:11px;
-  text-transform:uppercase;
   letter-spacing:1px;
-  color:var(--muted);
-  margin-bottom:6px;
-}
-.mini-chip-value{
-  font-weight:900;
-  font-size:18px;
-}
-.neon-line{
-  position:absolute;
-  right:-40px;
-  top:-30px;
-  width:160px;
-  height:160px;
-  border-radius:50%;
-  background:radial-gradient(circle, rgba(255,159,67,.15), transparent 60%);
-  filter:blur(16px);
-  pointer-events:none;
-}
-
-.screen{
-  display:none;
-  padding:8px 14px 20px 14px;
-}
-.screen.active{display:block}
-.stack{display:grid;gap:14px}
-
-.card{
-  border:1px solid var(--line);
-  background:linear-gradient(180deg, rgba(18,22,34,.94), rgba(13,17,27,.94));
-  border-radius:24px;
-  padding:16px;
-  box-shadow:var(--shadow);
-}
-.card-title{
-  font-size:18px;
-  font-weight:900;
   text-transform:uppercase;
-  letter-spacing:.6px;
-  margin:0 0 12px 0;
-}
-.card-sub{
-  color:var(--muted);
-  font-size:14px;
-  line-height:1.6;
-}
-.row{display:flex;gap:10px;align-items:center}
-.row.wrap{flex-wrap:wrap}
-.space{justify-content:space-between}
-.muted{color:var(--muted)}
-.orange{color:var(--orange)}
-.green{color:var(--green)}
-.gold{color:var(--gold)}
-.red{color:var(--red)}
-
-.kpi-grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:10px;
-}
-.kpi{
-  border:1px solid var(--line);
-  border-radius:18px;
-  padding:14px 10px;
-  text-align:center;
-  background:rgba(255,255,255,.04);
-}
-.kpi-label{
-  font-size:10px;
-  text-transform:uppercase;
-  letter-spacing:1px;
-  color:var(--muted);
   margin-bottom:8px;
 }
-.kpi-value{
-  font-size:28px;
+
+.mission-stat-value{
+  font-size:34px;
   font-weight:900;
   line-height:1;
 }
 
-.stat-banner{
-  border:1px solid rgba(255,255,255,.09);
-  background:linear-gradient(135deg, rgba(255,159,67,.10), rgba(111,231,255,.08));
-  border-radius:20px;
-  padding:14px;
-  font-size:14px;
-  line-height:1.6;
+.orange{color:var(--orange)}
+.green{color:var(--green)}
+.gold{color:var(--gold)}
+
+.mission-side{
+  display:flex;
+  flex-direction:column;
+  gap:16px;
 }
 
-.btn{
+.roles-card{
+  overflow:hidden;
+  border-radius:24px;
+  border:1px solid rgba(255,255,255,.08);
+  background:rgba(255,255,255,.03);
+  box-shadow:var(--shadow-lg);
+}
+
+.roles-card img{
   width:100%;
-  border:none;
-  border-radius:18px;
-  padding:15px 16px;
-  font-weight:900;
-  font-size:15px;
-  cursor:pointer;
-  transition:.16s ease;
-}
-.btn:active{transform:scale(.99)}
-.btn-primary{
-  color:#23180a;
-  background:linear-gradient(135deg, var(--gold), var(--gold-2));
-  box-shadow:0 14px 30px rgba(201,139,29,.28);
-}
-.btn-ghost{
-  color:var(--text);
-  background:rgba(255,255,255,.06);
-  border:1px solid var(--line);
-}
-.btn-orange{
-  color:#24170a;
-  background:linear-gradient(135deg, var(--orange-2), var(--orange));
-  box-shadow:0 14px 30px rgba(255,159,67,.22);
-}
-.btn-green{
-  color:#06150d;
-  background:linear-gradient(135deg, #a6f6c0, #66d28c);
-  box-shadow:0 14px 30px rgba(102,210,140,.20);
-}
-.btn-red{
-  color:#fff;
-  background:linear-gradient(135deg, #ff7c7c, #d94343);
+  height:100%;
+  object-fit:cover;
+  min-height:420px;
 }
 
-.pills{display:flex;gap:8px;flex-wrap:wrap}
-.pill{
-  border:1px solid var(--line);
-  background:rgba(255,255,255,.05);
-  border-radius:999px;
-  padding:8px 12px;
-  font-size:12px;
-  font-weight:800;
+.roles-caption{
+  padding:14px 16px;
+  border-top:1px solid rgba(255,255,255,.08);
+  font-size:14px;
+  line-height:1.65;
+  color:var(--muted);
+  background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
 }
 
-.game-grid{
+.quick-actions{
   display:grid;
   grid-template-columns:1fr 1fr;
-  gap:10px;
+  gap:12px;
 }
-.game-card{
-  border:1px solid var(--line);
-  background:
-   radial-gradient(circle at top right, rgba(111,231,255,.10), transparent 30%),
-   linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
-  border-radius:20px;
-  padding:14px;
+
+.quick-box{
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:22px;
+  background:rgba(255,255,255,.04);
+  padding:16px;
 }
-.game-icon{font-size:24px;margin-bottom:8px}
-.game-name{font-size:15px;font-weight:900;margin-bottom:6px}
-.game-desc{font-size:12px;line-height:1.5;color:var(--muted);min-height:54px}
-.game-diff{
-  font-size:11px;
+
+.quick-box-title{
+  font-size:12px;
+  text-transform:uppercase;
+  letter-spacing:1px;
+  color:var(--muted-2);
+  margin-bottom:8px;
+}
+
+.quick-box-value{
+  font-size:20px;
   font-weight:900;
+}
+
+/* =========================
+   RULES
+========================= */
+.rules-banner{
+  min-height:260px;
+  background:
+    linear-gradient(90deg, rgba(6,7,11,.82), rgba(6,7,11,.34)),
+    url("roles.png") center/cover no-repeat;
+}
+
+.rules-boxes{
+  display:grid;
+  grid-template-columns:repeat(2, minmax(0,1fr));
+  gap:16px;
+}
+
+.rule-box{
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:22px;
+  background:rgba(255,255,255,.04);
+  padding:18px;
+}
+
+.rule-top{
+  font-size:13px;
+  letter-spacing:1px;
+  text-transform:uppercase;
+  color:var(--gold);
+  font-weight:900;
+  margin-bottom:10px;
+}
+
+.rule-body{
+  font-size:15px;
+  line-height:1.75;
+  color:var(--text);
+}
+
+.rule-note{
+  margin-top:18px;
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:22px;
+  background:linear-gradient(135deg, rgba(201,47,69,.14), rgba(244,201,101,.08));
+  padding:18px;
+  font-size:15px;
+  line-height:1.75;
+}
+
+/* =========================
+   GAMES
+========================= */
+.games-hero{
+  min-height:280px;
+  background:
+    linear-gradient(90deg, rgba(6,7,11,.84), rgba(6,7,11,.38)),
+    url("epreuves.jpg") center/cover no-repeat;
+}
+
+.games-grid{
+  display:grid;
+  grid-template-columns:repeat(5, minmax(0,1fr));
+  gap:14px;
+}
+
+.game-tile{
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:22px;
+  background:
+    radial-gradient(circle at top right, rgba(244,201,101,.08), transparent 34%),
+    linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.03));
+  padding:16px;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  gap:14px;
+  min-height:255px;
+  box-shadow:var(--shadow-md);
+}
+
+.game-emoji{
+  font-size:32px;
+}
+
+.game-name{
+  font-size:18px;
+  font-weight:900;
+  line-height:1.1;
+}
+
+.game-desc{
+  font-size:13px;
+  line-height:1.6;
+  color:var(--muted);
+  min-height:66px;
+}
+
+.game-tag{
+  font-size:11px;
   text-transform:uppercase;
   letter-spacing:1px;
   color:var(--orange);
-  margin:10px 0;
+  font-weight:900;
 }
 
-.rule-list,.tip-list{display:grid;gap:10px}
-.rule-item,.tip-item{
-  border:1px solid var(--line);
-  background:rgba(255,255,255,.04);
-  border-radius:18px;
-  padding:14px;
+.launch-note{
+  margin-top:18px;
+  font-size:14px;
+  line-height:1.7;
+  color:var(--muted);
 }
-.rule-top{font-weight:900;margin-bottom:6px}
+
+/* =========================
+   TABLE RONDE
+========================= */
+.vote-hero{
+  min-height:320px;
+  background:
+    linear-gradient(90deg, rgba(6,7,11,.86), rgba(6,7,11,.34)),
+    url("table-ronde.jpg") center/cover no-repeat;
+}
+
+.vote-layout{
+  display:grid;
+  grid-template-columns:1.05fr .95fr;
+  gap:18px;
+}
+
+.vote-box{
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:22px;
+  background:rgba(255,255,255,.04);
+  padding:18px;
+}
+
+.vote-title{
+  font-size:16px;
+  font-weight:900;
+  text-transform:uppercase;
+  letter-spacing:.8px;
+  margin-bottom:10px;
+}
+
+.vote-text{
+  font-size:15px;
+  line-height:1.75;
+  color:var(--muted);
+}
+
+.input-stack{
+  display:grid;
+  gap:12px;
+}
+
+.input{
+  width:100%;
+  border:none;
+  border-radius:18px;
+  padding:16px 16px;
+  background:#f4ede4;
+  color:#1b1b1b;
+  font-size:16px;
+  font-weight:800;
+}
+
+.vote-note{
+  font-size:12px;
+  line-height:1.55;
+  color:var(--muted);
+}
+
+.whatsapp-preview{
+  border:1px dashed rgba(255,255,255,.16);
+  border-radius:18px;
+  padding:16px;
+  background:rgba(255,255,255,.03);
+  font-size:14px;
+  line-height:1.7;
+  color:var(--text);
+  white-space:pre-line;
+}
+
+/* =========================
+   NPS
+========================= */
+.nps-grid{
+  display:grid;
+  grid-template-columns:repeat(3, minmax(0,1fr));
+  gap:14px;
+}
+
+.nps-box{
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:22px;
+  background:rgba(255,255,255,.04);
+  padding:18px;
+  text-align:center;
+}
+
+.nps-label{
+  font-size:11px;
+  letter-spacing:1px;
+  text-transform:uppercase;
+  color:var(--muted-2);
+  margin-bottom:10px;
+}
+
+.nps-value{
+  font-size:40px;
+  font-weight:900;
+  line-height:1;
+}
+
+.chart-card{
+  margin-top:18px;
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:24px;
+  background:rgba(255,255,255,.04);
+  padding:16px;
+}
+
+.chart-title{
+  font-size:16px;
+  font-weight:900;
+  text-transform:uppercase;
+  letter-spacing:.8px;
+  margin-bottom:10px;
+}
+
+.chart-card svg{
+  width:100%;
+  height:auto;
+  display:block;
+}
+
+.chart-legend{
+  display:flex;
+  gap:16px;
+  flex-wrap:wrap;
+  margin-top:10px;
+}
+
+.legend-item{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  font-size:13px;
+}
+
+.legend-dot{
+  width:10px;
+  height:10px;
+  border-radius:50%;
+}
+
+.status-editor{
+  margin-top:18px;
+  display:grid;
+  grid-template-columns:repeat(3, minmax(0,1fr));
+  gap:12px;
+}
+
+.status-text{
+  margin-top:12px;
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:18px;
+  background:linear-gradient(135deg, rgba(244,201,101,.10), rgba(201,47,69,.10));
+  padding:14px;
+  font-size:14px;
+  line-height:1.7;
+}
+
+/* =========================
+   TIPS
+========================= */
+.tips-grid{
+  display:grid;
+  grid-template-columns:repeat(2, minmax(0,1fr));
+  gap:16px;
+}
+
+.tip-card{
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:22px;
+  background:rgba(255,255,255,.04);
+  padding:18px;
+}
+
 .tip-role{
   font-size:12px;
   text-transform:uppercase;
   letter-spacing:1px;
   color:var(--gold);
   font-weight:900;
-  margin-bottom:8px;
+  margin-bottom:10px;
 }
-.copy-btn{margin-top:10px}
 
-.bottom-nav{
-  position:fixed;
-  left:0;
-  right:0;
-  bottom:0;
-  z-index:40;
-  padding:10px 12px calc(10px + var(--safe-bottom)) 12px;
-  background:linear-gradient(180deg, transparent, rgba(6,7,11,.92) 28%, rgba(6,7,11,.98));
-  backdrop-filter:blur(12px);
-}
-.bottom-nav-inner{
-  max-width:520px;
-  margin:0 auto;
-  border:1px solid var(--line);
-  background:rgba(17,21,34,.96);
-  border-radius:22px;
-  padding:8px;
-  display:grid;
-  grid-template-columns:repeat(5,1fr);
-  gap:6px;
-  box-shadow:var(--shadow);
-}
-.nav-btn{
-  border:none;
-  background:transparent;
-  color:var(--muted);
-  border-radius:16px;
-  padding:10px 4px;
-  font-size:11px;
-  font-weight:900;
-  display:grid;
-  justify-items:center;
-  gap:5px;
-  cursor:pointer;
-}
-.nav-btn.active{
+.tip-text{
+  font-size:15px;
+  line-height:1.75;
   color:var(--text);
-  background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
-}
-.nav-ico{font-size:18px;line-height:1}
-
-.player-box{display:grid;gap:10px}
-.input{
-  width:100%;
-  border:none;
-  border-radius:18px;
-  padding:15px 16px;
-  background:#f5efe6;
-  color:#161616;
-  font-size:16px;
-  font-weight:800;
-}
-.helper{
-  font-size:12px;
-  color:var(--muted);
-  line-height:1.5;
+  white-space:pre-line;
 }
 
-.chart{
-  border:1px solid var(--line);
-  background:rgba(255,255,255,.04);
-  border-radius:20px;
-  padding:12px;
-  overflow:hidden;
-}
-.chart svg{width:100%;height:auto;display:block}
-.legend{
-  display:flex;
-  gap:12px;
-  flex-wrap:wrap;
-  margin-top:10px;
-}
-.legend-item{
-  display:flex;
-  align-items:center;
-  gap:8px;
-  font-size:12px;
-}
-.dot{
-  width:10px;
-  height:10px;
-  border-radius:50%;
+.tip-card .btn{
+  margin-top:14px;
 }
 
-/* Overlay de jeu */
-.game-overlay{
+/* =========================
+   OVERLAYS
+========================= */
+.launch-overlay,
+.play-overlay,
+.ticket-overlay{
   position:fixed;
   inset:0;
-  z-index:80;
-  background:rgba(4,5,9,.90);
+  z-index:90;
+  background:rgba(4,5,8,.86);
   backdrop-filter:blur(14px);
   display:none;
-  padding:14px;
+  padding:16px;
   overflow:auto;
 }
-.game-overlay.show{display:block}
-.overlay-shell{
-  max-width:520px;
+
+.launch-overlay.show,
+.play-overlay.show,
+.ticket-overlay.show{
+  display:block;
+}
+
+.launch-shell,
+.play-shell,
+.ticket-shell{
+  max-width:560px;
   margin:0 auto;
-  min-height:calc(100vh - 28px);
+  min-height:calc(100vh - 32px);
   display:flex;
   flex-direction:column;
+  justify-content:center;
 }
-.game-shell{
+
+.launch-card,
+.play-card,
+.ticket-card{
   border:1px solid rgba(255,255,255,.10);
+  border-radius:28px;
+  overflow:hidden;
+  box-shadow:var(--shadow-xl);
+  background:linear-gradient(180deg, rgba(21,24,36,.98), rgba(10,13,20,.98));
+}
+
+.launch-top{
+  min-height:220px;
   background:
-    radial-gradient(circle at top center, rgba(255,159,67,.09), transparent 24%),
-    linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
-  border-radius:26px;
-  padding:16px;
-  margin:auto 0;
+    linear-gradient(90deg, rgba(6,7,11,.76), rgba(6,7,11,.34)),
+    url("epreuves.jpg") center/cover no-repeat;
 }
-.game-head{
-  display:flex;
-  justify-content:space-between;
-  gap:8px;
+
+.launch-content,
+.play-content,
+.ticket-content{
+  padding:20px;
+}
+
+.launch-badge{
+  display:inline-flex;
   align-items:center;
-  flex-wrap:wrap;
-  margin-bottom:12px;
-}
-.game-title{font-size:18px;font-weight:900}
-.timer{
-  min-width:76px;
-  text-align:center;
-  padding:10px 12px;
+  gap:8px;
   border-radius:999px;
-  font-size:15px;
-  font-weight:900;
-  color:#251608;
-  background:linear-gradient(135deg, var(--orange-2), var(--orange));
-}
-.goal{
-  font-size:12px;
-  color:var(--muted);
-  font-weight:800;
+  padding:9px 12px;
+  border:1px solid rgba(255,255,255,.10);
+  background:rgba(255,255,255,.06);
+  font-size:11px;
   text-transform:uppercase;
   letter-spacing:1px;
+  font-weight:900;
 }
-.game-zone{
-  min-height:300px;
+
+.launch-title{
+  margin:14px 0 8px 0;
+  font-size:30px;
+  line-height:1;
+  text-transform:uppercase;
+  font-weight:900;
+}
+
+.launch-text{
+  color:var(--muted);
+  font-size:14px;
+  line-height:1.7;
+}
+
+.launch-actions{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+  margin-top:16px;
+}
+
+.play-head{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:12px;
+  margin-bottom:16px;
+  flex-wrap:wrap;
+}
+
+.play-title{
+  font-size:28px;
+  line-height:1;
+  font-weight:900;
+  text-transform:uppercase;
+}
+
+.play-goal{
+  margin-top:8px;
+  font-size:12px;
+  letter-spacing:1px;
+  text-transform:uppercase;
+  color:var(--muted);
+  font-weight:900;
+}
+
+.timer{
+  min-width:84px;
+  text-align:center;
+  border-radius:999px;
+  padding:11px 14px;
+  font-weight:900;
+  font-size:16px;
+  color:#231507;
+  background:linear-gradient(135deg, var(--orange-2), var(--orange));
+}
+
+.play-zone{
+  min-height:340px;
   display:flex;
   flex-direction:column;
   justify-content:center;
   gap:14px;
 }
-.result-box{
+
+.play-result{
+  display:none;
+  margin-top:12px;
   border:1px solid rgba(255,255,255,.10);
-  background:rgba(255,255,255,.04);
   border-radius:18px;
-  padding:14px;
-  font-size:14px;
-  line-height:1.6;
+  background:rgba(255,255,255,.04);
+  padding:16px;
+  font-size:15px;
+  line-height:1.7;
 }
 
-/* Jeux */
+.play-actions{
+  margin-top:14px;
+  display:grid;
+  gap:12px;
+}
+
+/* =========================
+   GAME UI
+========================= */
 .tap-drum{
   width:220px;
   height:220px;
@@ -447,115 +935,154 @@ a{text-decoration:none;color:inherit}
   text-align:center;
   padding:20px;
   font-weight:900;
-  font-size:26px;
+  font-size:28px;
   line-height:1.15;
   user-select:none;
   cursor:pointer;
   background:
     radial-gradient(circle at 30% 30%, rgba(255,255,255,.10), transparent 35%),
-    linear-gradient(145deg, rgba(255,159,67,.30), rgba(192,47,69,.30));
+    linear-gradient(145deg, rgba(255,159,67,.30), rgba(192,47,69,.28));
   border:1px solid rgba(255,255,255,.12);
   box-shadow:0 18px 34px rgba(0,0,0,.28), 0 0 30px rgba(255,159,67,.08);
 }
-.tap-count{text-align:center;font-size:15px;font-weight:900}
-.bar{
+
+.game-counter{
+  text-align:center;
+  font-size:16px;
+  font-weight:900;
+}
+
+.progress{
   width:100%;
   height:18px;
   border-radius:999px;
+  border:1px solid rgba(255,255,255,.08);
   background:rgba(255,255,255,.08);
   overflow:hidden;
-  border:1px solid var(--line);
 }
-.bar-fill{
+
+.progress-fill{
   height:100%;
-  width:0;
-  background:linear-gradient(90deg, var(--orange), var(--gold));
+  width:0%;
   border-radius:999px;
+  background:linear-gradient(90deg, var(--orange), var(--gold));
   transition:width .08s linear;
 }
 
-.balance-track{
-  position:relative;
-  width:100%;
-  height:26px;
-  border-radius:999px;
-  background:rgba(255,255,255,.08);
-  overflow:hidden;
-  border:1px solid var(--line);
-}
-.balance-safe{
-  position:absolute;
-  top:0;
-  height:100%;
-  width:13%;
-  background:rgba(142,240,176,.28);
-  border-left:2px solid rgba(142,240,176,.96);
-  border-right:2px solid rgba(142,240,176,.96);
-}
-.balance-marker{
-  position:absolute;
-  top:50%;
-  left:50%;
-  transform:translate(-50%,-50%);
-  width:34px;
-  height:34px;
-  border-radius:50%;
-  background:linear-gradient(135deg, var(--gold), var(--gold-2));
-  border:2px solid rgba(255,255,255,.16);
-  box-shadow:0 10px 20px rgba(0,0,0,.28);
-}
-.control-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-
-.pad-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.pad{
-  height:110px;
-  border:none;
-  border-radius:22px;
-  cursor:pointer;
-  color:#1d1408;
-  font-size:22px;
-  font-weight:900;
-  background:linear-gradient(145deg, #ffd37d, #f0a832);
-  box-shadow:0 12px 22px rgba(0,0,0,.20);
-  transition:transform .1s ease, filter .1s ease;
-}
-.pad.dim{filter:brightness(.62)}
-.pad.active{transform:scale(1.03);filter:brightness(1.15)}
-
-.flash-code{
-  text-align:center;
-  font-size:40px;
-  font-weight:900;
-  letter-spacing:8px;
-  padding:18px;
-  border-radius:20px;
-  border:1px dashed rgba(255,255,255,.18);
-  background:rgba(255,255,255,.04);
+.memory-grid{
+  display:grid;
+  grid-template-columns:repeat(2, minmax(0,1fr));
+  gap:12px;
 }
 
-.alt-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.alt-btn{
+.memory-pad{
   height:120px;
   border:none;
-  border-radius:24px;
-  cursor:pointer;
+  border-radius:22px;
   font-size:24px;
   font-weight:900;
-  color:#241709;
-  background:linear-gradient(145deg, var(--orange-2), var(--orange));
+  color:#23180a;
+  background:linear-gradient(145deg, #ffd37d, #f0a832);
+  cursor:pointer;
+  box-shadow:0 12px 24px rgba(0,0,0,.22);
+  transition:transform .1s ease, filter .1s ease;
 }
 
-.hunter-board{
+.memory-pad.dim{
+  filter:brightness(.62);
+}
+
+.memory-pad.active{
+  transform:scale(1.03);
+  filter:brightness(1.12);
+}
+
+.reaction-box{
+  height:180px;
+  border-radius:24px;
+  border:1px solid rgba(255,255,255,.08);
+  background:rgba(255,255,255,.04);
+  display:grid;
+  place-items:center;
+  text-align:center;
+  padding:20px;
+  font-size:30px;
+  font-weight:900;
+}
+
+.reaction-box.wait{
+  color:var(--muted);
+}
+
+.reaction-box.go{
+  color:#06150e;
+  background:linear-gradient(145deg, #aef8c7, var(--green-2));
+}
+
+.reaction-box.fail{
+  color:#fff;
+  background:linear-gradient(145deg, #ff8a8a, #d84242);
+}
+
+.runner-board{
+  position:relative;
+  height:320px;
+  border-radius:22px;
+  border:1px solid rgba(255,255,255,.08);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.03)),
+    linear-gradient(90deg, rgba(255,255,255,.03) 32%, transparent 32%, transparent 34%, rgba(255,255,255,.03) 34%, rgba(255,255,255,.03) 66%, transparent 66%, transparent 68%, rgba(255,255,255,.03) 68%);
+  overflow:hidden;
+}
+
+.runner-player{
+  position:absolute;
+  bottom:18px;
+  width:54px;
+  height:54px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:linear-gradient(145deg, var(--gold), var(--gold-2));
+  color:#221608;
+  font-size:26px;
+  font-weight:900;
+  box-shadow:0 12px 24px rgba(0,0,0,.24);
+  transition:left .12s ease, bottom .12s ease;
+}
+
+.runner-obstacle{
+  position:absolute;
+  width:50px;
+  height:50px;
+  border-radius:16px;
+  background:linear-gradient(145deg, #ff8a8a, #d84242);
+  box-shadow:0 10px 18px rgba(0,0,0,.22);
+}
+
+.runner-controls{
+  display:grid;
+  grid-template-columns:repeat(3, minmax(0,1fr));
+  gap:10px;
+}
+
+.runner-empty{
+  visibility:hidden;
+}
+
+.symbol-board{
   position:relative;
   height:300px;
   border-radius:22px;
-  border:1px solid var(--line);
+  border:1px solid rgba(255,255,255,.08);
   background:
-    radial-gradient(circle at 50% 50%, rgba(111,231,255,.08), transparent 55%),
-    linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01));
+    radial-gradient(circle at 50% 50%, rgba(244,201,101,.08), transparent 55%),
+    linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.03));
   overflow:hidden;
 }
-.target{
+
+.symbol-target{
   position:absolute;
   width:58px;
   height:58px;
@@ -568,179 +1095,286 @@ a{text-decoration:none;color:inherit}
   font-size:22px;
   font-weight:900;
 }
-.target.good{
+
+.symbol-target.good{
   background:linear-gradient(145deg, #ffd37d, #f0a832);
   color:#241709;
 }
-.target.bad{
-  background:linear-gradient(145deg, #ff8c8c, #d94343);
+
+.symbol-target.bad{
+  background:linear-gradient(145deg, #ff8a8a, #d84242);
   color:#fff;
 }
 
-.precision-wrap{display:grid;gap:14px}
-.precision-ring{
-  width:220px;
-  height:220px;
-  border-radius:50%;
-  margin:0 auto;
+.jump-board{
   position:relative;
-  background:conic-gradient(var(--orange) 0deg, rgba(255,255,255,.08) 0deg);
-  display:grid;
-  place-items:center;
-  border:1px solid rgba(255,255,255,.10);
-}
-.precision-ring::after{
-  content:"";
-  width:138px;
-  height:138px;
-  border-radius:50%;
-  background:var(--panel);
-  border:1px solid var(--line);
-}
-.precision-center{
-  position:absolute;
-  inset:0;
-  display:grid;
-  place-items:center;
-  font-weight:900;
-  font-size:24px;
-  z-index:2;
-}
-.precision-window{text-align:center;font-size:13px;color:var(--muted)}
-
-.reaction-box{
-  height:180px;
-  border-radius:24px;
-  border:1px solid var(--line);
-  display:grid;
-  place-items:center;
-  text-align:center;
-  padding:20px;
-  background:rgba(255,255,255,.04);
-  font-size:24px;
-  font-weight:900;
-}
-.reaction-box.wait{color:var(--muted)}
-.reaction-box.go{
-  color:#08140d;
-  background:linear-gradient(145deg, #a6f6c0, #66d28c);
-}
-.reaction-box.fail{
-  color:#fff;
-  background:linear-gradient(145deg, #ff8c8c, #d94343);
-}
-
-/* Ticket */
-.ticket-overlay{
-  position:fixed;
-  inset:0;
-  z-index:90;
-  background:rgba(4,5,9,.82);
-  backdrop-filter:blur(12px);
-  display:none;
-  padding:18px;
-  overflow:auto;
-}
-.ticket-overlay.show{display:block}
-.ticket{
-  max-width:520px;
-  margin:20px auto;
-  padding:18px;
-  border-radius:28px;
-  border:1px solid rgba(255,255,255,.10);
+  height:300px;
+  border-radius:22px;
+  border:1px solid rgba(255,255,255,.08);
+  overflow:hidden;
   background:
-    radial-gradient(circle at top right, rgba(255,159,67,.18), transparent 24%),
-    radial-gradient(circle at bottom left, rgba(111,231,255,.10), transparent 20%),
-    linear-gradient(180deg, rgba(22,27,42,.98), rgba(10,13,21,.98));
-  box-shadow:0 28px 60px rgba(0,0,0,.42);
+    linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02)),
+    linear-gradient(0deg, rgba(255,159,67,.12) 0 18%, transparent 18%);
 }
-.ticket-head{
+
+.jump-player{
+  position:absolute;
+  left:48px;
+  bottom:54px;
+  width:54px;
+  height:54px;
+  border-radius:50%;
+  background:linear-gradient(145deg, var(--gold), var(--gold-2));
   display:flex;
-  justify-content:space-between;
-  gap:10px;
-  align-items:flex-start;
-  margin-bottom:14px;
-}
-.ticket-title{
+  align-items:center;
+  justify-content:center;
+  color:#241608;
   font-size:24px;
-  line-height:1.02;
   font-weight:900;
+}
+
+.jump-obstacle{
+  position:absolute;
+  right:-50px;
+  bottom:54px;
+  width:34px;
+  height:60px;
+  border-radius:10px;
+  background:linear-gradient(145deg, #ff8a8a, #d84242);
+}
+
+.jump-btn-row{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:10px;
+}
+
+.game-help{
+  text-align:center;
+  font-size:13px;
+  line-height:1.6;
+  color:var(--muted);
+}
+
+/* =========================
+   TICKET
+========================= */
+.ticket-card{
+  overflow:hidden;
+}
+
+.ticket-head{
+  min-height:180px;
+  background:
+    linear-gradient(90deg, rgba(6,7,11,.76), rgba(6,7,11,.28)),
+    url("table-ronde.jpg") center/cover no-repeat;
+}
+
+.ticket-content{
+  padding:20px;
+}
+
+.ticket-title{
+  font-size:30px;
+  font-weight:900;
+  line-height:1;
   text-transform:uppercase;
 }
+
+.ticket-sub{
+  margin-top:8px;
+  font-size:13px;
+  color:var(--muted);
+  line-height:1.6;
+}
+
 .ticket-badge{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  margin-top:14px;
   border-radius:999px;
-  padding:8px 12px;
+  padding:9px 12px;
   font-size:11px;
-  font-weight:900;
   letter-spacing:1px;
   text-transform:uppercase;
-  background:linear-gradient(135deg, #a6f6c0, #66d28c);
-  color:#06140d;
+  font-weight:900;
+  background:linear-gradient(135deg, #aef8c7, var(--green-2));
+  color:#06150e;
 }
+
+.ticket-game{
+  margin:18px 0 12px 0;
+  border:1px solid rgba(255,255,255,.10);
+  border-radius:20px;
+  background:rgba(255,255,255,.04);
+  padding:16px;
+  text-align:center;
+}
+
+.ticket-game strong{
+  display:block;
+  font-size:32px;
+  line-height:1;
+  color:var(--gold);
+  margin-bottom:8px;
+}
+
 .ticket-grid{
   display:grid;
   grid-template-columns:1fr 1fr;
-  gap:10px;
-  margin:14px 0;
+  gap:12px;
+  margin-top:16px;
 }
-.ticket-cell{
-  border:1px solid var(--line);
+
+.ticket-box{
+  border:1px solid rgba(255,255,255,.08);
   border-radius:18px;
-  padding:12px;
   background:rgba(255,255,255,.04);
+  padding:14px;
 }
+
 .ticket-label{
   font-size:10px;
   text-transform:uppercase;
   letter-spacing:1px;
-  color:var(--muted);
-  margin-bottom:6px;
+  color:var(--muted-2);
+  margin-bottom:8px;
 }
+
 .ticket-value{
   font-size:16px;
   font-weight:900;
   word-break:break-word;
 }
-.ticket-big{
-  text-align:center;
-  padding:16px;
-  border-radius:20px;
-  margin:14px 0;
-  border:1px solid rgba(255,255,255,.10);
-  background:rgba(255,255,255,.05);
-}
-.ticket-big strong{
-  display:block;
-  font-size:30px;
-  color:var(--gold);
-  margin-bottom:6px;
-}
+
 .ticket-note{
+  margin-top:14px;
   font-size:12px;
   line-height:1.55;
   color:var(--muted);
   text-align:center;
 }
+
 .ticket-actions{
+  margin-top:16px;
   display:grid;
-  gap:10px;
-  margin-top:14px;
+  gap:12px;
 }
 
-@media (min-width:521px){
-  body{padding-bottom:24px}
-  .bottom-nav{
-    position:static;
-    padding:0;
-    background:none;
-    backdrop-filter:none;
+/* =========================
+   RESPONSIVE
+========================= */
+@media (max-width: 1100px){
+  .mission-layout{
+    grid-template-columns:1fr;
   }
-  .bottom-nav-inner{margin:0 auto 20px auto}
-  .game-overlay{
-    padding:24px;
+  .roles-card img{
+    min-height:340px;
   }
-  .overlay-shell{
-    min-height:calc(100vh - 48px);
+  .games-grid{
+    grid-template-columns:repeat(3, minmax(0,1fr));
+  }
+  .vote-layout{
+    grid-template-columns:1fr;
+  }
+}
+
+@media (max-width: 900px){
+  .top-nav{
+    align-items:flex-start;
+    flex-direction:column;
+    min-height:auto;
+  }
+  .nav-links{
+    width:100%;
+    justify-content:flex-start;
+  }
+  .mission-title{
+    font-size:46px;
+  }
+  .mission-stat-row,
+  .rules-boxes,
+  .tips-grid,
+  .status-editor,
+  .nps-grid,
+  .grid-2{
+    grid-template-columns:1fr;
+  }
+}
+
+@media (max-width: 680px){
+  :root{
+    --header-h:72px;
+  }
+  .main{
+    padding:10px;
+  }
+  .top-nav{
+    padding:10px;
+  }
+  .brand-title{
+    font-size:16px;
+  }
+  .brand-sub{
+    font-size:10px;
+  }
+  .brand-mark{
+    width:44px;
+    height:44px;
+    font-size:18px;
+  }
+  .nav-links{
+    overflow-x:auto;
+    flex-wrap:nowrap;
+    padding-bottom:2px;
+    width:100%;
+  }
+  .nav-btn{
+    font-size:12px;
+    padding:10px 12px;
+  }
+  .card-inner{
+    padding:16px;
+  }
+  .mission-title{
+    font-size:34px;
+  }
+  .mission-text{
+    font-size:14px;
+    line-height:1.7;
+  }
+  .section-title{
+    font-size:22px;
+  }
+  .section-sub{
+    font-size:14px;
+  }
+  .games-grid{
+    grid-template-columns:1fr;
+  }
+  .game-tile{
+    min-height:auto;
+  }
+  .game-desc{
+    min-height:auto;
+  }
+  .launch-title,
+  .play-title,
+  .ticket-title{
+    font-size:24px;
+  }
+  .ticket-grid{
+    grid-template-columns:1fr;
+  }
+  .tap-drum{
+    width:190px;
+    height:190px;
+    font-size:24px;
+  }
+  .memory-pad{
+    height:100px;
+    font-size:20px;
   }
 }
 </style>
@@ -748,252 +1382,1264 @@ a{text-decoration:none;color:inherit}
 <body>
 <div class="app">
 
-  <div class="top-hero">
-    <div class="hero-card">
-      <div class="neon-line"></div>
-      <div class="hero-badge">🎭 Mission active</div>
-      <div class="hero-title">Les Masqués</div>
-      <div class="hero-sub">
-        Version smartphone. Plus propre, plus directe. Les jeux s’ouvrent maintenant immédiatement en plein écran.
+  <header class="top-shell">
+    <div class="top-nav">
+      <div class="brand">
+        <div class="brand-mark">🎭</div>
+        <div class="brand-text">
+          <div class="brand-title">Masqué VS Loyal</div>
+          <div class="brand-sub">Mission stratégique — château</div>
+        </div>
       </div>
-      <div class="hero-grid">
-        <div class="mini-chip">
-          <div class="mini-chip-label">NPS actuel</div>
-          <div class="mini-chip-value orange">61,4</div>
+
+      <nav class="nav-links">
+        <button class="nav-btn active" data-section="mission">Mission</button>
+        <button class="nav-btn" data-section="regles">Règles</button>
+        <button class="nav-btn" data-section="epreuves">Épreuves</button>
+        <button class="nav-btn" data-section="table-ronde">Table ronde</button>
+        <button class="nav-btn" data-section="nps">NPS actuel</button>
+        <button class="nav-btn" data-section="tips">Phrases tips</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="main">
+
+    <section id="section-mission" class="section active">
+      <div class="card mission-hero">
+        <div class="card-inner mission-layout">
+
+          <div class="mission-panel">
+            <div>
+              <div class="hero-badge">🏰 La mission est lancée</div>
+
+              <h1 class="mission-title">Masqué<br>VS Loyal</h1>
+
+              <div class="mission-text">
+                Trois joueurs avancent dans l’ombre sous la cape des <strong>Masqués</strong>.
+                Le reste de l’équipe forme le camp des <strong>Loyaux</strong>.
+                Chaque avis obtenu peut faire basculer la semaine.
+                Après un avis, chacun devra choisir entre <strong>sécuriser</strong> son gain ou <strong>tenter une épreuve</strong>.
+                Le lundi, l’<strong>Enquêteur de la semaine</strong> pourra ouvrir la table ronde et tenter de démasquer un suspect.
+              </div>
+
+              <div class="mission-cta">
+                <button class="btn btn-primary" onclick="openSection('epreuves')">Entrer dans les épreuves</button>
+                <button class="btn btn-ghost" onclick="openSection('table-ronde')">Ouvrir la table ronde</button>
+              </div>
+
+              <div class="mission-stat-row">
+                <div class="mission-stat">
+                  <div class="mission-stat-label">NPS du moment</div>
+                  <div class="mission-stat-value orange">61,4</div>
+                </div>
+                <div class="mission-stat">
+                  <div class="mission-stat-label">Objectif</div>
+                  <div class="mission-stat-value green">64</div>
+                </div>
+                <div class="mission-stat">
+                  <div class="mission-stat-label">Écart</div>
+                  <div class="mission-stat-value orange">-2,6</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mission-side">
+            <div class="roles-card">
+              <img src="roles.png" alt="Masqué et Loyal" />
+              <div class="roles-caption">
+                Les Masqués avancent sous la cape rouge. Les Loyaux se tiennent sous la cape blanche.
+                Une seule erreur peut envoyer l’équipe sur une mauvaise piste.
+              </div>
+            </div>
+
+            <div class="quick-actions">
+              <div class="quick-box">
+                <div class="quick-box-title">Vote hebdomadaire</div>
+                <div class="quick-box-value">1 seule accusation</div>
+              </div>
+              <div class="quick-box">
+                <div class="quick-box-title">Validation jeux</div>
+                <div class="quick-box-value">Réussite parfaite</div>
+              </div>
+            </div>
+          </div>
+
         </div>
-        <div class="mini-chip">
-          <div class="mini-chip-label">Objectif</div>
-          <div class="mini-chip-value green">64</div>
+      </div>
+    </section>
+
+    <section id="section-regles" class="section">
+      <div class="card rules-banner">
+        <div class="card-inner">
+          <h2 class="section-title">Règles du jeu</h2>
+          <div class="section-sub">
+            Une lecture rapide, claire et sans perte de temps.
+          </div>
         </div>
-        <div class="mini-chip">
-          <div class="mini-chip-label">Écart</div>
-          <div class="mini-chip-value orange">-2,6</div>
+      </div>
+
+      <div class="card">
+        <div class="card-inner">
+          <div class="rules-boxes">
+            <div class="rule-box">
+              <div class="rule-top">Masqués</div>
+              <div class="rule-body">
+                Il y a <strong>3 Masqués</strong> dans le magasin.
+                Un avis positif obtenu à leur nom vaut <strong>2 points</strong>.
+              </div>
+            </div>
+
+            <div class="rule-box">
+              <div class="rule-top">Loyaux</div>
+              <div class="rule-body">
+                Tous les autres joueurs sont <strong>Loyaux</strong>.
+                Un avis positif obtenu à leur nom vaut <strong>1 point</strong>.
+              </div>
+            </div>
+
+            <div class="rule-box">
+              <div class="rule-top">Après chaque avis</div>
+              <div class="rule-body">
+                Le joueur choisit :
+                <strong>sécuriser</strong> pour prendre <strong>+1 point garanti</strong>,
+                ou <strong>tenter une épreuve</strong>.
+              </div>
+            </div>
+
+            <div class="rule-box">
+              <div class="rule-top">Épreuves</div>
+              <div class="rule-body">
+                Une épreuve réussie de manière <strong>parfaite</strong> rapporte <strong>+3 points</strong>.
+                En cas d’échec, le joueur repart avec <strong>0 point</strong>.
+              </div>
+            </div>
+
+            <div class="rule-box">
+              <div class="rule-top">Enquêteur de la semaine</div>
+              <div class="rule-body">
+                La personne ayant obtenu le plus d’avis positifs à son nom devient
+                <strong>Enquêteur de la semaine</strong>.
+              </div>
+            </div>
+
+            <div class="rule-box">
+              <div class="rule-top">Table ronde</div>
+              <div class="rule-body">
+                Le lundi, l’Enquêteur peut ouvrir la table ronde et envoyer son accusation par
+                <strong>WhatsApp</strong>.
+                Une seule tentative de démasquage est autorisée.
+              </div>
+            </div>
+          </div>
+
+          <div class="rule-note">
+            <strong>Important :</strong> l’équipe peut se concerter avant le vote, mais les Masqués sont présents dans le groupe.
+            Une mauvaise influence peut donc envoyer l’Enquêteur sur un faux suspect.
+          </div>
         </div>
-        <div class="mini-chip">
-          <div class="mini-chip-label">Épreuves</div>
-          <div class="mini-chip-value gold">8</div>
+      </div>
+    </section>
+
+    <section id="section-epreuves" class="section">
+      <div class="card games-hero">
+        <div class="card-inner">
+          <h2 class="section-title">Les épreuves</h2>
+          <div class="section-sub">
+            Clique sur une épreuve, entre ton prénom, puis lance.
+            Le jeu s’ouvre immédiatement, sans scroll inutile.
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-inner">
+          <div class="games-grid">
+            <div class="game-tile">
+              <div>
+                <div class="game-emoji">🏃</div>
+                <div class="game-name">Temple Jump</div>
+                <div class="game-desc">Saute au bon moment pour éviter tous les obstacles. Une seule collision et c’est fini.</div>
+                <div class="game-tag">Runner / timing parfait</div>
+              </div>
+              <button class="btn btn-primary" onclick="openLaunch('jump')">Lancer</button>
+            </div>
+
+            <div class="game-tile">
+              <div>
+                <div class="game-emoji">🧠</div>
+                <div class="game-name">Mémoire des cases</div>
+                <div class="game-desc">Observe la séquence puis reproduis-la parfaitement.</div>
+                <div class="game-tag">Mémoire / sans-faute</div>
+              </div>
+              <button class="btn btn-primary" onclick="openLaunch('memory')">Lancer</button>
+            </div>
+
+            <div class="game-tile">
+              <div>
+                <div class="game-emoji">🚦</div>
+                <div class="game-name">Réflexe royal</div>
+                <div class="game-desc">Attends le bon signal, tape vite, sans faux départ. Il faut tenir toutes les manches.</div>
+                <div class="game-tag">Réflexe / zéro faute</div>
+              </div>
+              <button class="btn btn-primary" onclick="openLaunch('reaction')">Lancer</button>
+            </div>
+
+            <div class="game-tile">
+              <div>
+                <div class="game-emoji">🛣️</div>
+                <div class="game-name">Temple Run</div>
+                <div class="game-desc">Évite les obstacles en changeant de voie au bon moment.</div>
+                <div class="game-tag">Runner / concentration</div>
+              </div>
+              <button class="btn btn-primary" onclick="openLaunch('runner')">Lancer</button>
+            </div>
+
+            <div class="game-tile">
+              <div>
+                <div class="game-emoji">✨</div>
+                <div class="game-name">Attrape-symboles</div>
+                <div class="game-desc">Clique uniquement sur les symboles or. Une erreur rouge et tout s’arrête.</div>
+                <div class="game-tag">Précision / vitesse</div>
+              </div>
+              <button class="btn btn-primary" onclick="openLaunch('symbols')">Lancer</button>
+            </div>
+          </div>
+
+          <div class="launch-note">
+            Chaque épreuve doit être validée <strong>parfaitement</strong>.
+            En cas de réussite, un ticket de capture s’affiche avec le prénom, la date, l’heure, le nom du jeu, le score et un code unique.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="section-table-ronde" class="section">
+      <div class="card vote-hero">
+        <div class="card-inner">
+          <h2 class="section-title">Table ronde</h2>
+          <div class="section-sub">
+            Ouverte uniquement le lundi. L’Enquêteur de la semaine peut envoyer son accusation.
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-inner vote-layout">
+          <div class="vote-box">
+            <div class="vote-title">La règle du lundi</div>
+            <div class="vote-text">
+              La table ronde n’est ouverte qu’une fois par semaine.
+              La personne ayant obtenu le plus d’avis positifs à son nom peut voter.
+              Elle peut se concerter avec l’équipe avant d’envoyer le nom du suspect, mais les Masqués sont présents dans le groupe et peuvent pousser sur une mauvaise piste.
+            </div>
+
+            <div class="vote-title" style="margin-top:18px;">Accusation</div>
+            <div class="input-stack">
+              <input id="suspectName" class="input" type="text" placeholder="Nom du suspect" autocomplete="off" />
+              <input id="senderName" class="input" type="text" placeholder="Envoyé par" autocomplete="off" />
+              <button class="btn btn-primary" onclick="sendVoteWhatsApp()">Envoyer sur WhatsApp</button>
+            </div>
+
+            <div class="vote-note" style="margin-top:12px;">
+              Le message sera envoyé directement sur ton WhatsApp.
+            </div>
+          </div>
+
+          <div class="vote-box">
+            <div class="vote-title">Aperçu du message</div>
+            <div id="votePreview" class="whatsapp-preview">🎭 Table ronde — Vote de démasquage
+
+Prénom du suspect : 
+Envoyé par : </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="section-nps" class="section">
+      <div class="card">
+        <div class="card-inner">
+          <h2 class="section-title">NPS actuel</h2>
+
+          <div class="nps-grid">
+            <div class="nps-box">
+              <div class="nps-label">NPS du moment</div>
+              <div class="nps-value orange">61,4</div>
+            </div>
+            <div class="nps-box">
+              <div class="nps-label">Objectif</div>
+              <div class="nps-value green">64</div>
+            </div>
+            <div class="nps-box">
+              <div class="nps-label">Écart</div>
+              <div class="nps-value orange">-2,6</div>
+            </div>
+          </div>
+
+          <div class="chart-card">
+            <div class="chart-title">Progression du NPS</div>
+            <svg viewBox="0 0 760 280" xmlns="http://www.w3.org/2000/svg" aria-label="Courbe NPS">
+              <defs>
+                <linearGradient id="lineGradientNps" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="#ff6b6b"/>
+                  <stop offset="45%" stop-color="#ff9f43"/>
+                  <stop offset="100%" stop-color="#8ef0b0"/>
+                </linearGradient>
+                <linearGradient id="areaGradientNps" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stop-color="rgba(255,159,67,.26)" />
+                  <stop offset="100%" stop-color="rgba(255,159,67,.02)" />
+                </linearGradient>
+              </defs>
+
+              <line x1="54" y1="40" x2="710" y2="40" stroke="rgba(255,255,255,.08)"/>
+              <line x1="54" y1="92" x2="710" y2="92" stroke="rgba(255,255,255,.06)"/>
+              <line x1="54" y1="144" x2="710" y2="144" stroke="rgba(255,255,255,.06)"/>
+              <line x1="54" y1="196" x2="710" y2="196" stroke="rgba(255,255,255,.06)"/>
+
+              <line x1="54" y1="96" x2="710" y2="96" stroke="#8ef0b0" stroke-width="2" stroke-dasharray="8 8"/>
+              <text x="720" y="100" fill="#8ef0b0" font-size="14" font-weight="900">Objectif 64</text>
+
+              <path d="M54 198 L150 184 L245 168 L340 148 L440 126 L540 110 L640 101 L700 95 L700 198 Z"
+                    fill="url(#areaGradientNps)"/>
+              <path d="M54 198 C92 192,118 188,150 184 C184 178,213 173,245 168 C279 162,308 153,340 148 C374 141,405 131,440 126 C474 121,507 114,540 110 C575 106,608 103,640 101 C662 99,682 97,700 95"
+                    fill="none" stroke="url(#lineGradientNps)" stroke-width="5" stroke-linecap="round"/>
+
+              <circle cx="54" cy="198" r="6" fill="#ff6b6b"/>
+              <circle cx="150" cy="184" r="6" fill="#ff845b"/>
+              <circle cx="245" cy="168" r="6" fill="#ff9b4b"/>
+              <circle cx="340" cy="148" r="6" fill="#ffad57"/>
+              <circle cx="440" cy="126" r="6" fill="#ffb86c"/>
+              <circle cx="540" cy="110" r="6" fill="#f4c965"/>
+              <circle cx="640" cy="101" r="6" fill="#f4c965"/>
+              <circle cx="700" cy="95" r="10" fill="#ff9f43" stroke="rgba(255,255,255,.22)" stroke-width="3"/>
+
+              <text x="24" y="44" fill="rgba(247,241,232,.72)" font-size="12" font-weight="700">70</text>
+              <text x="24" y="96" fill="rgba(247,241,232,.72)" font-size="12" font-weight="700">64</text>
+              <text x="24" y="148" fill="rgba(247,241,232,.72)" font-size="12" font-weight="700">58</text>
+              <text x="24" y="200" fill="rgba(247,241,232,.72)" font-size="12" font-weight="700">52</text>
+
+              <text x="54" y="228" fill="rgba(247,241,232,.62)" font-size="12" font-weight="700">Départ</text>
+              <text x="248" y="228" fill="rgba(247,241,232,.62)" font-size="12" font-weight="700">Progression</text>
+              <text x="610" y="228" fill="#ff9f43" font-size="13" font-weight="900">Aujourd’hui : 61,4</text>
+            </svg>
+
+            <div class="chart-legend">
+              <div class="legend-item"><span class="legend-dot" style="background:#ff9f43;"></span>NPS du moment</div>
+              <div class="legend-item"><span class="legend-dot" style="background:#8ef0b0;"></span>Objectif</div>
+              <div class="legend-item"><span class="legend-dot" style="background:#ff6b6b;"></span>Départ plus bas</div>
+            </div>
+          </div>
+
+          <div class="status-editor">
+            <input id="scoreLoyaux" class="input" type="number" value="18" />
+            <input id="scoreMasques" class="input" type="number" value="14" />
+            <input id="weeklyLead" class="input" type="text" value="À venir" />
+          </div>
+
+          <button class="btn btn-primary" style="margin-top:12px;" onclick="updateStatusText()">Mettre à jour le statut mission</button>
+
+          <div id="statusText" class="status-text">
+            Les Loyaux gardent actuellement l’avantage. Une bonne série d’avis ou une réussite parfaite dans les épreuves peut encore faire basculer la semaine.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="section-tips" class="section">
+      <div class="card">
+        <div class="card-inner">
+          <h2 class="section-title">Phrases tips</h2>
+          <div class="section-sub">
+            Des phrases simples, naturelles, copiables en un clic.
+          </div>
+
+          <div class="tips-grid" style="margin-top:18px;">
+            <div class="tip-card">
+              <div class="tip-role">Vente</div>
+              <div id="tip-vente" class="tip-text">Merci pour votre confiance.
+Vous allez recevoir une petite enquête sur votre passage aujourd’hui.
+Elle concerne mon accompagnement, pas le magasin.
+Si vous avez été satisfait, un 9 ou un 10 fait vraiment la différence pour moi.</div>
+              <button class="btn btn-ghost" onclick="copyTip('tip-vente', this)">Copier la phrase</button>
+            </div>
+
+            <div class="tip-card">
+              <div class="tip-role">Caisse</div>
+              <div id="tip-caisse" class="tip-text">Merci beaucoup pour votre achat.
+Vous allez recevoir une enquête sur votre passage aujourd’hui, elle concerne notre accueil.
+Si tout s’est bien passé, un 9 ou un 10 nous aide énormément.</div>
+              <button class="btn btn-ghost" onclick="copyTip('tip-caisse', this)">Copier la phrase</button>
+            </div>
+
+            <div class="tip-card">
+              <div class="tip-role">SAV</div>
+              <div id="tip-sav" class="tip-text">Merci pour votre confiance.
+Je fais le nécessaire pour que votre produit soit pris en charge dans les meilleures conditions.
+Vous allez recevoir une enquête, elle concerne mon accueil, pas la panne.
+Si vous êtes satisfait de mon accompagnement, un 9 ou un 10 fait vraiment la différence pour moi.</div>
+              <button class="btn btn-ghost" onclick="copyTip('tip-sav', this)">Copier la phrase</button>
+            </div>
+
+            <div class="tip-card">
+              <div class="tip-role">Stock / Retrait</div>
+              <div id="tip-stock" class="tip-text">C’était un plaisir.
+Vous allez recevoir une enquête sur la remise de votre produit.
+Elle concerne mon accueil.
+Si tout s’est bien passé, un 9 ou un 10 m’aide énormément.</div>
+              <button class="btn btn-ghost" onclick="copyTip('tip-stock', this)">Copier la phrase</button>
+            </div>
+
+            <div class="tip-card">
+              <div class="tip-role">Livraison</div>
+              <div id="tip-livraison" class="tip-text">C’était un plaisir de vous livrer.
+Vous allez recevoir une enquête sur notre intervention.
+Si tout s’est bien passé, un 9 ou un 10 valorise vraiment notre travail.</div>
+              <button class="btn btn-ghost" onclick="copyTip('tip-livraison', this)">Copier la phrase</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- OVERLAY LANCEMENT -->
+  <div id="launchOverlay" class="launch-overlay">
+    <div class="launch-shell">
+      <div class="launch-card">
+        <div class="launch-top"></div>
+        <div class="launch-content">
+          <div class="launch-badge">🎮 Salle des épreuves</div>
+          <div id="launchTitle" class="launch-title">Épreuve</div>
+          <div id="launchText" class="launch-text">Description</div>
+
+          <div style="margin-top:16px;display:grid;gap:12px;">
+            <input id="launchPlayerName" class="input" type="text" placeholder="Entre ton prénom" autocomplete="off" />
+          </div>
+
+          <div class="launch-actions">
+            <button class="btn btn-ghost" onclick="closeLaunch()">Fermer</button>
+            <button class="btn btn-primary" onclick="startSelectedGame()">Lancer le jeu</button>
+          </div>
         </div>
       </div>
     </div>
   </div>
 
-  <main>
-    <section id="screen-home" class="screen active">
-      <div class="stack">
-        <div class="card">
-          <h2 class="card-title">Mission</h2>
-          <div class="card-sub">
-            Trois Masqués avancent dans l’ombre. Les Loyaux doivent faire progresser leur camp, tenter les épreuves et réussir le bon démasquage en fin de semaine.
-          </div>
-          <div class="pills" style="margin-top:12px">
-            <div class="pill">3 Masqués</div>
-            <div class="pill">1 tentative de démasquage / semaine</div>
-            <div class="pill">+3 points si épreuve réussie</div>
-          </div>
-        </div>
-
-        <div class="card">
-          <h2 class="card-title">Joueur</h2>
-          <div class="player-box">
-            <input id="playerName" class="input" type="text" placeholder="Entre ton prénom avant de lancer une épreuve" autocomplete="off" />
-            <div class="helper">
-              Le prénom sera intégré dans le ticket de réussite. La capture affichera la date, l’heure et un code unique.
+  <!-- OVERLAY JEU -->
+  <div id="playOverlay" class="play-overlay">
+    <div class="play-shell">
+      <div class="play-card">
+        <div class="play-content">
+          <div class="play-head">
+            <div>
+              <div id="playTitle" class="play-title">Épreuve</div>
+              <div id="playGoal" class="play-goal">Objectif</div>
             </div>
-            <button class="btn btn-orange" onclick="goTo('lab')">Entrer dans la salle des épreuves</button>
+            <div id="playTimer" class="timer">0</div>
+          </div>
+
+          <div id="playZone" class="play-zone"></div>
+
+          <div id="playResult" class="play-result"></div>
+
+          <div class="play-actions">
+            <button class="btn btn-ghost" onclick="closePlay()">Fermer le jeu</button>
           </div>
         </div>
       </div>
-    </section>
+    </div>
+  </div>
 
-    <section id="screen-mission" class="screen">
-      <div class="stack">
-        <div class="card">
-          <h2 class="card-title">Règles essentielles</h2>
-          <div class="rule-list">
-            <div class="rule-item">
-              <div class="rule-top">Masqués</div>
-              3 joueurs cachés. Chaque avis NPS à leur nom vaut <strong>2 points</strong>.
+  <!-- TICKET -->
+  <div id="ticketOverlay" class="ticket-overlay">
+    <div class="ticket-shell">
+      <div class="ticket-card">
+        <div class="ticket-head"></div>
+        <div class="ticket-content">
+          <div class="ticket-title">Mission validée</div>
+          <div class="ticket-sub">Capture d’écran à envoyer immédiatement.</div>
+          <div class="ticket-badge">+3 points</div>
+
+          <div class="ticket-game">
+            <strong id="ticketGameName">Temple Jump</strong>
+            Épreuve réussie
+          </div>
+
+          <div class="ticket-grid">
+            <div class="ticket-box">
+              <div class="ticket-label">Joueur</div>
+              <div id="ticketPlayer" class="ticket-value">Prénom</div>
             </div>
-            <div class="rule-item">
-              <div class="rule-top">Loyaux</div>
-              Tous les autres joueurs. Chaque avis NPS à leur nom vaut <strong>1 point</strong>.
+            <div class="ticket-box">
+              <div class="ticket-label">Date</div>
+              <div id="ticketDate" class="ticket-value">--/--/----</div>
             </div>
-            <div class="rule-item">
-              <div class="rule-top">Après un avis</div>
-              Le joueur choisit soit <strong>sécuriser</strong> pour prendre <strong>+1 point garanti</strong>, soit <strong>tenter une épreuve</strong>.
+            <div class="ticket-box">
+              <div class="ticket-label">Heure</div>
+              <div id="ticketTime" class="ticket-value">--:--:--</div>
             </div>
-            <div class="rule-item">
-              <div class="rule-top">Épreuve réussie</div>
-              Si le mini-jeu est validé, le joueur prend <strong>+3 points</strong>. En cas d’échec : <strong>0 point</strong>.
+            <div class="ticket-box">
+              <div class="ticket-label">Score</div>
+              <div id="ticketScore" class="ticket-value">0</div>
             </div>
-            <div class="rule-item">
-              <div class="rule-top">Enquêteur de la semaine</div>
-              Le joueur avec le plus d’avis devient <strong>Enquêteur</strong> et obtient <strong>1 tentative de démasquage</strong>.
-            </div>
-            <div class="rule-item">
-              <div class="rule-top">Démasquage réussi</div>
-              Si le bon Masqué est trouvé, le camp des Masqués perd <strong>1 point</strong>. Sinon, rien ne se passe.
+            <div class="ticket-box" style="grid-column:1 / -1;">
+              <div class="ticket-label">Code session</div>
+              <div id="ticketCode" class="ticket-value">XXXX</div>
             </div>
           </div>
-        </div>
 
-        <div class="card">
-          <h2 class="card-title">Choix après un avis</h2>
-          <div class="game-grid" style="grid-template-columns:1fr 1fr">
-            <div class="game-card">
-              <div class="game-icon">🛡️</div>
-              <div class="game-name">Sécuriser</div>
-              <div class="game-desc">Gain garanti, sans risque. À utiliser si le joueur ne veut pas tenter sa chance.</div>
-              <div class="game-diff">+1 point sûr</div>
-              <button class="btn btn-green" onclick="showSecureMessage()">Valider la sécurisation</button>
-            </div>
-            <div class="game-card">
-              <div class="game-icon">⚔️</div>
-              <div class="game-name">Tenter une épreuve</div>
-              <div class="game-desc">Accès à la salle des épreuves. Les jeux s’ouvrent maintenant directement en overlay.</div>
-              <div class="game-diff">+3 si réussite / 0 si échec</div>
-              <button class="btn btn-primary" onclick="goTo('lab')">Accéder aux épreuves</button>
-            </div>
+          <div class="ticket-note">
+            Capture valable uniquement si la date, l’heure, le score et le code correspondent à la session affichée.
           </div>
-          <div id="secureMessage" class="result-box" style="display:none;margin-top:12px"></div>
-        </div>
-      </div>
-    </section>
 
-    <section id="screen-nps" class="screen">
-      <div class="stack">
-        <div class="card">
-          <h2 class="card-title">NPS actuel</h2>
-          <div class="kpi-grid">
-            <div class="kpi">
-              <div class="kpi-label">NPS du moment</div>
-              <div class="kpi-value orange">61,4</div>
-            </div>
-            <div class="kpi">
-              <div class="kpi-label">Objectif</div>
-              <div class="kpi-value green">64</div>
-            </div>
-            <div class="kpi">
-              <div class="kpi-label">Écart</div>
-              <div class="kpi-value orange">-2,6</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="card chart">
-          <div class="row space">
-            <h2 class="card-title" style="margin:0">Progression</h2>
-            <div class="pill">En hausse</div>
-          </div>
-          <svg viewBox="0 0 360 210" xmlns="http://www.w3.org/2000/svg" aria-label="Courbe NPS">
-            <defs>
-              <linearGradient id="lineGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stop-color="#ff6b6b"/>
-                <stop offset="45%" stop-color="#ff9f43"/>
-                <stop offset="100%" stop-color="#8ef0b0"/>
-              </linearGradient>
-              <linearGradient id="areaGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stop-color="rgba(255,159,67,.28)"/>
-                <stop offset="100%" stop-color="rgba(255,159,67,.02)"/>
-              </linearGradient>
-            </defs>
-
-            <line x1="34" y1="36" x2="336" y2="36" stroke="rgba(255,255,255,.07)"/>
-            <line x1="34" y1="82" x2="336" y2="82" stroke="rgba(255,255,255,.06)"/>
-            <line x1="34" y1="128" x2="336" y2="128" stroke="rgba(255,255,255,.06)"/>
-            <line x1="34" y1="174" x2="336" y2="174" stroke="rgba(255,255,255,.06)"/>
-
-            <line x1="34" y1="88" x2="336" y2="88" stroke="#8ef0b0" stroke-width="2" stroke-dasharray="6 6"/>
-            <text x="284" y="80" fill="#8ef0b0" font-size="11" font-weight="900">Objectif 64</text>
-
-            <path d="M34 170 L84 158 L138 145 L192 122 L246 104 L300 95 L336 92 L336 174 L34 174 Z"
-                  fill="url(#areaGrad)"/>
-            <path d="M34 170 C56 166,66 160,84 158 C102 154,118 148,138 145 C160 140,176 128,192 122 C210 114,228 108,246 104 C266 99,284 97,300 95 C315 94,325 93,336 92"
-                  fill="none" stroke="url(#lineGrad)" stroke-width="4.5" stroke-linecap="round"/>
-
-            <circle cx="34" cy="170" r="4" fill="#ff6b6b"/>
-            <circle cx="84" cy="158" r="4" fill="#ff8156"/>
-            <circle cx="138" cy="145" r="4" fill="#ff9951"/>
-            <circle cx="192" cy="122" r="4" fill="#ff9f43"/>
-            <circle cx="246" cy="104" r="4" fill="#ffb36b"/>
-            <circle cx="300" cy="95" r="4" fill="#f6c65a"/>
-            <circle cx="336" cy="92" r="7" fill="#ff9f43" stroke="rgba(255,255,255,.25)" stroke-width="2.5"/>
-
-            <text x="20" y="39" fill="rgba(247,243,235,.72)" font-size="10" font-weight="700">70</text>
-            <text x="20" y="85" fill="rgba(247,243,235,.72)" font-size="10" font-weight="700">64</text>
-            <text x="20" y="131" fill="rgba(247,243,235,.72)" font-size="10" font-weight="700">58</text>
-            <text x="20" y="177" fill="rgba(247,243,235,.72)" font-size="10" font-weight="700">52</text>
-
-            <text x="34" y="195" fill="rgba(247,243,235,.62)" font-size="10" font-weight="700">Départ</text>
-            <text x="122" y="195" fill="rgba(247,243,235,.62)" font-size="10" font-weight="700">Étapes</text>
-            <text x="270" y="195" fill="#ff9f43" font-size="10" font-weight="900">Aujourd’hui 61,4</text>
-          </svg>
-          <div class="legend">
-            <div class="legend-item"><span class="dot" style="background:#ff9f43"></span>NPS du moment</div>
-            <div class="legend-item"><span class="dot" style="background:#8ef0b0"></span>Objectif</div>
-            <div class="legend-item"><span class="dot" style="background:#ff6b6b"></span>Départ plus bas</div>
-          </div>
-          <div class="card-sub" style="margin-top:10px">
-            Le magasin progresse et se rapproche de l’objectif. Il manque 2,6 points pour toucher 64.
-          </div>
-        </div>
-
-        <div class="card">
-          <h2 class="card-title">Statut mission</h2>
-          <div class="player-box">
-            <input id="scoreLoyaux" class="input" type="number" value="18" />
-            <input id="scoreMasques" class="input" type="number" value="14" />
-            <input id="weeklyLead" class="input" type="text" value="À venir" />
-            <button class="btn btn-primary" onclick="updateStatus()">Mettre à jour le statut</button>
-            <div class="helper">Ordre des champs : score Loyaux, score Masqués, Enquêteur de la semaine.</div>
-            <div id="statusBanner" class="stat-banner">Les Loyaux mènent avec 4 points d’avance. Rien n’est figé.</div>
+          <div class="ticket-actions">
+            <button class="btn btn-primary" onclick="closeTicket()">Fermer</button>
           </div>
         </div>
       </div>
-    </section>
+    </div>
+  </div>
 
-    <section id="screen-tips" class="screen">
-      <div class="stack">
-        <div class="card">
-          <h2 class="card-title">Répliques terrain</h2>
-          <div class="tip-list">
-            <div class="tip-item">
-              <div class="tip-role">Vente</div>
-              <div id="tip-vente">Merci pour votre confiance. Vous allez recevoir une petite enquête sur votre passage aujourd’hui. Elle concerne mon accompagnement, pas le magasin. Si vous avez été satisfait, un 9 ou un 10 fait vraiment la différence pour moi.</div>
-              <button class="btn btn-ghost copy-btn" onclick="copyTip('tip-vente', this)">Copier</button>
-            </div>
-            <div class="tip-item">
-              <div class="tip-role">Caisse</div>
-              <div id="tip-caisse">Merci beaucoup pour votre achat. Vous allez recevoir une enquête sur votre passage aujourd’hui, elle concerne notre accueil. Si tout s’est bien passé, un 9 ou un 10 nous aide énormément.</div>
-              <button class="btn btn-ghost copy-btn" onclick="copyTip('tip-caisse', this)">Copier</button>
-            </div>
-            <div class="tip-item">
-              <div class="tip-role">SAV</div>
-              <div id="tip-sav">Merci pour votre confiance. Je fais le nécessaire pour que votre produit soit pris en charge dans les meilleures conditions. Vous allez recevoir une enquête, elle concerne mon accueil, pas la panne. Si vous êtes satisfait de mon accompagnement, un 9 ou un 10 fait vraiment la différence pour moi.</div>
-              <button class="btn btn-ghost copy-btn" onclick="copyTip('tip-sav', this)">Copier</button>
-            </div>
-            <div class="tip-item">
-              <div class="tip-role">Stock / Retrait</div>
-              <div id="tip-stock">C’était un plaisir. Vous allez recevoir une enquête sur la remise de votre produit. Elle concerne mon accueil. Si tout s’est bien passé, un 9 ou un 10 m’aide énormément.</div>
-              <button class="btn btn-ghost copy-btn" onclick="copyTip('tip-stock', this)">Copier</button>
-            </div>
-            <div class="tip-item">
-              <div class="tip-role">Livraison</div>
-              <div id="tip-livraison">C’était un plaisir de vous livrer. Vous allez recevoir une enquête sur notre intervention. Si tout s’est bien passé, un 9 ou un 10 valorise vraiment notre travail.</div>
-              <button class="btn btn-ghost copy-btn" onclick="copyTip('tip-livraison', this)">Copier</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+</div>
 
-    <section id="screen-lab" class="screen">
-      <div class="stack">
-        <div class="card">
-          <h2 class="card-title">Salle des épreuves</h2>
-          <div class="card-sub">
-            Quand tu appuies sur <strong>Lancer</strong>, le jeu s’ouvre maintenant immédiatement en plein écran. Plus besoin de scroller pour le trouver.
-          </div>
-          <div class="pills" style="margin-top:12px">
-            <div class="pill">Réussite = +3</div>
-            <div class="pill">Échec
+<script>
+const WHATSAPP_NUMBER = "33637993778";
+
+const GAME_DATA = {
+  jump: {
+    title: "Temple Jump",
+    description: "Saute au bon moment pour éviter tous les obstacles. Il faut tenir jusqu’au bout sans collision.",
+    goal: "Éviter 8 obstacles sans faute"
+  },
+  memory: {
+    title: "Mémoire des cases",
+    description: "Observe la séquence puis reproduis-la parfaitement.",
+    goal: "Reproduire 6 cases sans erreur"
+  },
+  reaction: {
+    title: "Réflexe royal",
+    description: "Attends le bon signal, tape vite, sans faux départ.",
+    goal: "Réussir 5 manches parfaites"
+  },
+  runner: {
+    title: "Temple Run",
+    description: "Évite les obstacles en changeant de voie au bon moment.",
+    goal: "Passer 10 obstacles sans collision"
+  },
+  symbols: {
+    title: "Attrape-symboles",
+    description: "Clique uniquement sur les symboles or. Une erreur rouge et tout s’arrête.",
+    goal: "Valider 10 bons symboles sans faute"
+  }
+};
+
+let selectedGameKey = null;
+let currentPlayerName = "";
+let activeGame = null;
+let gameTimerInterval = null;
+let gameFrameInterval = null;
+let gameTimeLeft = 0;
+let gameScore = 0;
+
+/* =========================
+   NAVIGATION
+========================= */
+const navButtons = document.querySelectorAll(".nav-btn");
+
+navButtons.forEach(btn=>{
+  btn.addEventListener("click", ()=>{
+    const section = btn.getAttribute("data-section");
+    openSection(section);
+  });
+});
+
+function openSection(section){
+  document.querySelectorAll(".section").forEach(el=>el.classList.remove("active"));
+  const target = document.getElementById("section-" + section);
+  if(target) target.classList.add("active");
+
+  navButtons.forEach(btn=>btn.classList.remove("active"));
+  const activeBtn = document.querySelector(`.nav-btn[data-section="${section}"]`);
+  if(activeBtn) activeBtn.classList.add("active");
+
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+/* =========================
+   COPY TIPS
+========================= */
+function copyTip(id, button){
+  const text = document.getElementById(id).innerText;
+  const original = button.innerText;
+
+  navigator.clipboard.writeText(text).then(()=>{
+    button.innerText = "Copié ✅";
+    setTimeout(()=>button.innerText = original, 1200);
+  }).catch(()=>{
+    button.innerText = "Copié ✅";
+    setTimeout(()=>button.innerText = original, 1200);
+  });
+}
+
+/* =========================
+   STATUS / NPS
+========================= */
+function updateStatusText(){
+  const loyaux = parseInt(document.getElementById("scoreLoyaux").value || "0", 10);
+  const masques = parseInt(document.getElementById("scoreMasques").value || "0", 10);
+  const lead = (document.getElementById("weeklyLead").value || "À venir").trim() || "À venir";
+
+  const gap = loyaux - masques;
+  let text = `Enquêteur de la semaine : ${lead}. `;
+
+  if(gap > 0){
+    text += `Les Loyaux mènent avec ${gap} point${gap > 1 ? "s" : ""} d’avance. Une victoire parfaite dans les épreuves peut encore creuser l’écart.`;
+  }else if(gap < 0){
+    text += `Les Masqués avancent dans l’ombre avec ${Math.abs(gap)} point${Math.abs(gap) > 1 ? "s" : ""} d’avance. Rien n’est encore verrouillé.`;
+  }else{
+    text += `Égalité parfaite entre les deux camps. La prochaine série d’avis ou la prochaine réussite peut tout faire basculer.`;
+  }
+
+  document.getElementById("statusText").innerText = text;
+}
+
+/* =========================
+   TABLE RONDE
+========================= */
+const suspectInput = document.getElementById("suspectName");
+const senderInput = document.getElementById("senderName");
+const votePreview = document.getElementById("votePreview");
+
+function updateVotePreview(){
+  const suspect = suspectInput.value.trim();
+  const sender = senderInput.value.trim();
+
+  votePreview.innerText =
+`🎭 Table ronde — Vote de démasquage
+
+Prénom du suspect : ${suspect}
+Envoyé par : ${sender}`;
+}
+
+suspectInput.addEventListener("input", updateVotePreview);
+senderInput.addEventListener("input", updateVotePreview);
+
+function sendVoteWhatsApp(){
+  const suspect = suspectInput.value.trim();
+  const sender = senderInput.value.trim();
+
+  if(!suspect){
+    alert("Entre le nom du suspect avant d’envoyer.");
+    return;
+  }
+
+  const msg =
+`🎭 Table ronde — Vote de démasquage
+
+Prénom du suspect : ${suspect}
+Envoyé par : ${sender}`;
+
+  window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, "_blank");
+}
+
+/* =========================
+   UTILITAIRES
+========================= */
+function nowParis(){
+  const now = new Date();
+  const date = new Intl.DateTimeFormat("fr-FR", {
+    timeZone:"Europe/Paris",
+    year:"numeric",
+    month:"2-digit",
+    day:"2-digit"
+  }).format(now);
+
+  const time = new Intl.DateTimeFormat("fr-FR", {
+    timeZone:"Europe/Paris",
+    hour:"2-digit",
+    minute:"2-digit",
+    second:"2-digit",
+    hour12:false
+  }).format(now);
+
+  return { date, time, raw: now };
+}
+
+function makeTicketCode(player, game, score){
+  const t = Date.now().toString().slice(-6);
+  const p = (player || "XX").toUpperCase().replace(/[^A-Z0-9]/g, "").slice(0,3).padEnd(3,"X");
+  const g = (game || "GM").toUpperCase().replace(/[^A-Z0-9]/g, "").slice(0,3).padEnd(3,"X");
+  const s = String(score || 0).padStart(3, "0");
+  const r = Math.random().toString(36).toUpperCase().replace(/[^A-Z0-9]/g, "").slice(2,6);
+  return `${p}-${g}-${s}-${t}-${r}`;
+}
+
+function clearGameIntervals(){
+  clearInterval(gameTimerInterval);
+  clearInterval(gameFrameInterval);
+  gameTimerInterval = null;
+  gameFrameInterval = null;
+}
+
+/* =========================
+   LAUNCH OVERLAY
+========================= */
+const launchOverlay = document.getElementById("launchOverlay");
+const launchTitle = document.getElementById("launchTitle");
+const launchText = document.getElementById("launchText");
+const launchPlayerName = document.getElementById("launchPlayerName");
+
+function openLaunch(gameKey){
+  selectedGameKey = gameKey;
+  const game = GAME_DATA[gameKey];
+  launchTitle.innerText = game.title;
+  launchText.innerText = `${game.description} — ${game.goal}`;
+  launchPlayerName.value = currentPlayerName || "";
+  launchOverlay.classList.add("show");
+  document.body.style.overflow = "hidden";
+}
+
+function closeLaunch(){
+  launchOverlay.classList.remove("show");
+  document.body.style.overflow = "";
+}
+
+function startSelectedGame(){
+  const name = launchPlayerName.value.trim();
+  if(!name){
+    alert("Entre ton prénom avant de lancer l’épreuve.");
+    return;
+  }
+
+  currentPlayerName = name;
+  closeLaunch();
+  startGame(selectedGameKey);
+}
+
+/* =========================
+   PLAY OVERLAY
+========================= */
+const playOverlay = document.getElementById("playOverlay");
+const playTitle = document.getElementById("playTitle");
+const playGoal = document.getElementById("playGoal");
+const playTimer = document.getElementById("playTimer");
+const playZone = document.getElementById("playZone");
+const playResult = document.getElementById("playResult");
+
+function openPlay(){
+  playOverlay.classList.add("show");
+  document.body.style.overflow = "hidden";
+}
+
+function closePlay(){
+  clearGameIntervals();
+  activeGame = null;
+  playOverlay.classList.remove("show");
+  playZone.innerHTML = "";
+  playResult.style.display = "none";
+  playResult.innerHTML = "";
+  document.body.style.overflow = "";
+}
+
+function setupPlay(title, goal, seconds){
+  clearGameIntervals();
+  playTitle.innerText = title;
+  playGoal.innerText = goal;
+  playTimer.innerText = seconds;
+  playZone.innerHTML = "";
+  playResult.style.display = "none";
+  playResult.innerHTML = "";
+  gameTimeLeft = seconds;
+  gameScore = 0;
+  openPlay();
+}
+
+function startCountdown(onEnd){
+  clearInterval(gameTimerInterval);
+  gameTimerInterval = setInterval(()=>{
+    gameTimeLeft--;
+    playTimer.innerText = gameTimeLeft;
+    if(gameTimeLeft <= 0){
+      clearInterval(gameTimerInterval);
+      onEnd();
+    }
+  },1000);
+}
+
+function showFail(message){
+  clearGameIntervals();
+  activeGame = null;
+  playResult.style.display = "block";
+  playResult.innerHTML = `<span style="color:#ff8c8c;font-weight:900;">Échec.</span><br>${message}`;
+}
+
+function showSuccess(message, gameName, score){
+  clearGameIntervals();
+  activeGame = null;
+  gameScore = score;
+  playResult.style.display = "block";
+  playResult.innerHTML = `
+    <span style="color:#aef8c7;font-weight:900;">Réussite parfaite.</span><br>
+    ${message}<br><br>
+    <button class="btn btn-green" onclick="openTicket('${gameName.replace(/'/g, "\\'")}', ${score})">Afficher le ticket de capture</button>
+  `;
+}
+
+/* =========================
+   TICKET
+========================= */
+const ticketOverlay = document.getElementById("ticketOverlay");
+const ticketGameName = document.getElementById("ticketGameName");
+const ticketPlayer = document.getElementById("ticketPlayer");
+const ticketDate = document.getElementById("ticketDate");
+const ticketTime = document.getElementById("ticketTime");
+const ticketScore = document.getElementById("ticketScore");
+const ticketCode = document.getElementById("ticketCode");
+
+function openTicket(gameName, score){
+  const info = nowParis();
+  ticketGameName.innerText = gameName;
+  ticketPlayer.innerText = currentPlayerName;
+  ticketDate.innerText = info.date;
+  ticketTime.innerText = info.time;
+  ticketScore.innerText = score;
+  ticketCode.innerText = makeTicketCode(currentPlayerName, gameName, score);
+
+  ticketOverlay.classList.add("show");
+}
+
+function closeTicket(){
+  ticketOverlay.classList.remove("show");
+}
+
+/* =========================
+   START GAME
+========================= */
+function startGame(gameKey){
+  if(!currentPlayerName){
+    alert("Prénom obligatoire avant de lancer.");
+    return;
+  }
+
+  activeGame = gameKey;
+
+  if(gameKey === "memory") return launchMemoryGame();
+  if(gameKey === "reaction") return launchReactionGame();
+  if(gameKey === "runner") return launchRunnerGame();
+  if(gameKey === "symbols") return launchSymbolsGame();
+  if(gameKey === "jump") return launchJumpGame();
+}
+
+/* =========================
+   GAME 1 - MEMORY
+========================= */
+function launchMemoryGame(){
+  setupPlay("Mémoire des cases", "Reproduire 6 cases sans erreur", 18);
+
+  const sequence = Array.from({length:6}, ()=>Math.floor(Math.random() * 4));
+  let userIndex = 0;
+  let canPlay = false;
+
+  playZone.innerHTML = `
+    <div class="game-help" id="memoryPhase">Observe la séquence…</div>
+    <div class="memory-grid">
+      <button class="memory-pad dim" data-index="0">A</button>
+      <button class="memory-pad dim" data-index="1">B</button>
+      <button class="memory-pad dim" data-index="2">C</button>
+      <button class="memory-pad dim" data-index="3">D</button>
+    </div>
+    <div id="memoryCounter" class="game-counter">Progression : 0 / 6</div>
+  `;
+
+  const pads = Array.from(document.querySelectorAll(".memory-pad"));
+  const phase = document.getElementById("memoryPhase");
+  const counter = document.getElementById("memoryCounter");
+
+  pads.forEach((pad, index)=>{
+    pad.addEventListener("click", ()=>{
+      if(activeGame !== "memory" || !canPlay) return;
+
+      pad.classList.add("active");
+      setTimeout(()=>pad.classList.remove("active"), 160);
+
+      if(index === sequence[userIndex]){
+        userIndex++;
+        counter.innerText = `Progression : ${userIndex} / 6`;
+        if(userIndex >= sequence.length){
+          showSuccess("Séquence reproduite sans erreur. Le joueur gagne +3 points.", "Mémoire des cases", 6);
+        }
+      }else{
+        showFail("Mauvaise case. Le joueur repart avec 0 point.");
+      }
+    });
+  });
+
+  let step = 0;
+  function showStep(){
+    if(activeGame !== "memory") return;
+
+    if(step > 0){
+      pads[sequence[step - 1]].classList.remove("active");
+      pads[sequence[step - 1]].classList.add("dim");
+    }
+
+    if(step >= sequence.length){
+      phase.innerText = "À toi de jouer.";
+      canPlay = true;
+      return;
+    }
+
+    pads[sequence[step]].classList.remove("dim");
+    pads[sequence[step]].classList.add("active");
+    step++;
+    setTimeout(showStep, 520);
+  }
+
+  setTimeout(showStep, 500);
+
+  startCountdown(()=>{
+    if(userIndex >= sequence.length){
+      showSuccess("Séquence reproduite sans erreur. Le joueur gagne +3 points.", "Mémoire des cases", 6);
+    } else {
+      showFail("Temps écoulé avant la fin de la séquence.");
+    }
+  });
+}
+
+/* =========================
+   GAME 2 - REACTION
+========================= */
+function launchReactionGame(){
+  setupPlay("Réflexe royal", "Réussir 5 manches parfaites", 18);
+
+  let round = 0;
+  let waiting = false;
+  let canTap = false;
+  let startAt = 0;
+  let totalMs = 0;
+
+  playZone.innerHTML = `
+    <div id="reactionBox" class="reaction-box wait">Attends le vert</div>
+    <div id="reactionCounter" class="game-counter">Manche 0 / 5</div>
+    <button id="reactionBtn" class="btn btn-primary">Taper ici</button>
+    <div class="game-help">Taper trop tôt = échec immédiat.</div>
+  `;
+
+  const box = document.getElementById("reactionBox");
+  const counter = document.getElementById("reactionCounter");
+  const btn = document.getElementById("reactionBtn");
+
+  function nextRound(){
+    if(activeGame !== "reaction") return;
+
+    if(round >= 5){
+      const avg = Math.round(totalMs / 5);
+      if(avg <= 420){
+        showSuccess(`Réussite sur 5 manches. Temps moyen : ${avg} ms.`, "Réflexe royal", avg);
+      }else{
+        showFail(`Temps moyen trop lent : ${avg} ms. Il fallait rester plus rapide.`);
+      }
+      return;
+    }
+
+    round++;
+    counter.innerText = `Manche ${round} / 5`;
+    box.className = "reaction-box wait";
+    box.innerText = "Attends…";
+    waiting = true;
+    canTap = false;
+
+    const delay = 1200 + Math.random() * 2200;
+    setTimeout(()=>{
+      if(activeGame !== "reaction") return;
+      waiting = false;
+      canTap = true;
+      startAt = performance.now();
+      box.className = "reaction-box go";
+      box.innerText = "TAPE !";
+    }, delay);
+  }
+
+  btn.addEventListener("click", ()=>{
+    if(activeGame !== "reaction") return;
+
+    if(waiting){
+      box.className = "reaction-box fail";
+      box.innerText = "Trop tôt";
+      showFail("Faux départ. Le joueur repart avec 0 point.");
+      return;
+    }
+
+    if(canTap){
+      const rt = performance.now() - startAt;
+      totalMs += rt;
+      canTap = false;
+      box.className = "reaction-box";
+      box.innerText = `${Math.round(rt)} ms`;
+      setTimeout(nextRound, 650);
+    }
+  });
+
+  nextRound();
+
+  startCountdown(()=>{
+    if(round >= 5){
+      const avg = Math.round(totalMs / 5);
+      if(avg <= 420){
+        showSuccess(`Réussite sur 5 manches. Temps moyen : ${avg} ms.`, "Réflexe royal", avg);
+      }else{
+        showFail(`Temps moyen trop lent : ${avg} ms.`);
+      }
+    }else{
+      showFail("Temps écoulé avant la fin des 5 manches.");
+    }
+  });
+}
+
+/* =========================
+   GAME 3 - RUNNER
+========================= */
+function launchRunnerGame(){
+  setupPlay("Temple Run", "Passer 10 obstacles sans collision", 16);
+
+  let lane = 1; /* 0 gauche, 1 centre, 2 droite */
+  let passed = 0;
+  let obstacleY = -70;
+  let obstacleLane = Math.floor(Math.random() * 3);
+  let speed = 7;
+
+  playZone.innerHTML = `
+    <div id="runnerBoard" class="runner-board">
+      <div id="runnerPlayer" class="runner-player">🜂</div>
+      <div id="runnerObstacle" class="runner-obstacle"></div>
+    </div>
+    <div id="runnerCounter" class="game-counter">Obstacles passés : 0 / 10</div>
+    <div class="runner-controls">
+      <button class="btn btn-orange" onclick="moveRunner(0)">Gauche</button>
+      <button class="btn btn-orange" onclick="moveRunner(1)">Centre</button>
+      <button class="btn btn-orange" onclick="moveRunner(2)">Droite</button>
+    </div>
+    <div class="game-help">Déplace-toi avant que l’obstacle n’arrive en bas.</div>
+  `;
+
+  const board = document.getElementById("runnerBoard");
+  const player = document.getElementById("runnerPlayer");
+  const obstacle = document.getElementById("runnerObstacle");
+  const counter = document.getElementById("runnerCounter");
+
+  const laneLefts = [13, 45, 77];
+
+  window.moveRunner = function(newLane){
+    if(activeGame !== "runner") return;
+    lane = newLane;
+    player.style.left = laneLefts[lane] + "%";
+  };
+
+  player.style.left = laneLefts[lane] + "%";
+  obstacle.style.left = laneLefts[obstacleLane] + "%";
+  obstacle.style.top = obstacleY + "px";
+
+  gameFrameInterval = setInterval(()=>{
+    if(activeGame !== "runner") return;
+
+    obstacleY += speed;
+    obstacle.style.top = obstacleY + "px";
+
+    if(obstacleY >= 235 && obstacleY <= 285 && obstacleLane === lane){
+      showFail("Collision détectée. Le joueur repart avec 0 point.");
+      return;
+    }
+
+    if(obstacleY > 320){
+      passed++;
+      counter.innerText = `Obstacles passés : ${passed} / 10`;
+
+      if(passed >= 10){
+        showSuccess("Tous les obstacles ont été évités. Le joueur gagne +3 points.", "Temple Run", passed);
+        return;
+      }
+
+      obstacleY = -70;
+      obstacleLane = Math.floor(Math.random() * 3);
+      obstacle.style.left = laneLefts[obstacleLane] + "%";
+      speed += 0.25;
+    }
+  }, 35);
+
+  startCountdown(()=>{
+    if(passed >= 10){
+      showSuccess("Tous les obstacles ont été évités. Le joueur gagne +3 points.", "Temple Run", passed);
+    }else{
+      showFail(`Objectif non atteint : ${passed} / 10.`);
+    }
+  });
+}
+
+/* =========================
+   GAME 4 - SYMBOLS
+========================= */
+function launchSymbolsGame(){
+  setupPlay("Attrape-symboles", "Valider 10 bons symboles sans faute", 14);
+
+  let goodCount = 0;
+  const goal = 10;
+
+  playZone.innerHTML = `
+    <div id="symbolBoard" class="symbol-board"></div>
+    <div id="symbolCounter" class="game-counter">Symboles validés : 0 / 10</div>
+    <div class="game-help">Clique uniquement sur les symboles or. Le rouge fait perdre immédiatement.</div>
+  `;
+
+  const board = document.getElementById("symbolBoard");
+  const counter = document.getElementById("symbolCounter");
+
+  function spawnSymbol(){
+    if(activeGame !== "symbols") return;
+
+    const isGood = Math.random() > 0.30;
+    const btn = document.createElement("button");
+    btn.className = "symbol-target " + (isGood ? "good" : "bad");
+    btn.textContent = isGood ? "✦" : "✕";
+
+    btn.style.left = Math.random() * (board.clientWidth - 58) + "px";
+    btn.style.top = Math.random() * (board.clientHeight - 58) + "px";
+
+    const life = setTimeout(()=>btn.remove(), 800);
+
+    btn.addEventListener("click", ()=>{
+      if(activeGame !== "symbols") return;
+      clearTimeout(life);
+
+      if(isGood){
+        goodCount++;
+        counter.innerText = `Symboles validés : ${goodCount} / 10`;
+        btn.remove();
+
+        if(goodCount >= goal){
+          showSuccess("Tous les bons symboles ont été validés sans erreur.", "Attrape-symboles", goodCount);
+        }
+      }else{
+        btn.remove();
+        showFail("Symbole rouge touché. Le joueur repart avec 0 point.");
+      }
+    });
+
+    board.appendChild(btn);
+  }
+
+  gameFrameInterval = setInterval(spawnSymbol, 500);
+
+  startCountdown(()=>{
+    if(goodCount >= goal){
+      showSuccess("Tous les bons symboles ont été validés sans erreur.", "Attrape-symboles", goodCount);
+    }else{
+      showFail(`Objectif non atteint : ${goodCount} / 10.`);
+    }
+  });
+}
+
+/* =========================
+   GAME 5 - JUMP
+========================= */
+function launchJumpGame(){
+  setupPlay("Temple Jump", "Éviter 8 obstacles sans faute", 16);
+
+  let obstacleX = 520;
+  let passed = 0;
+  let isJumping = false;
+  let jumpY = 54;
+  let obstacleSpeed = 8;
+
+  playZone.innerHTML = `
+    <div id="jumpBoard" class="jump-board">
+      <div id="jumpPlayer" class="jump-player">▲</div>
+      <div id="jumpObstacle" class="jump-obstacle"></div>
+    </div>
+    <div id="jumpCounter" class="game-counter">Obstacles évités : 0 / 8</div>
+    <div class="jump-btn-row">
+      <button class="btn btn-orange" id="jumpBtn">Sauter</button>
+    </div>
+    <div class="game-help">Un seul mauvais saut et la partie est perdue.</div>
+  `;
+
+  const player = document.getElementById("jumpPlayer");
+  const obstacle = document.getElementById("jumpObstacle");
+  const counter = document.getElementById("jumpCounter");
+  const jumpBtn = document.getElementById("jumpBtn");
+
+  function doJump(){
+    if(activeGame !== "jump" || isJumping) return;
+
+    isJumping = true;
+    let up = true;
+    let current = 54;
+
+    const jumpInterval = setInterval(()=>{
+      if(activeGame !== "jump"){
+        clearInterval(jumpInterval);
+        return;
+      }
+
+      if(up){
+        current += 10;
+        if(current >= 150){
+          up = false;
+        }
+      }else{
+        current -= 10;
+        if(current <= 54){
+          current = 54;
+          isJumping = false;
+          clearInterval(jumpInterval);
+        }
+      }
+
+      jumpY = current;
+      player.style.bottom = jumpY + "px";
+    }, 20);
+  }
+
+  jumpBtn.addEventListener("click", doJump);
+
+  gameFrameInterval = setInterval(()=>{
+    if(activeGame !== "jump") return;
+
+    obstacleX -= obstacleSpeed;
+    obstacle.style.right = obstacleX + "px";
+
+    const obstacleNear = obstacleX <= 410 && obstacleX >= 350;
+    const playerLow = jumpY <= 76;
+
+    if(obstacleNear && playerLow){
+      showFail("Obstacle touché. Le joueur repart avec 0 point.");
+      return;
+    }
+
+    if(obstacleX < -50){
+      passed++;
+      counter.innerText = `Obstacles évités : ${passed} / 8`;
+
+      if(passed >= 8){
+        showSuccess("Tous les obstacles ont été évités. Le joueur gagne +3 points.", "Temple Jump", passed);
+        return;
+      }
+
+      obstacleX = 520 + Math.random() * 120;
+      obstacleSpeed += 0.25;
+    }
+  }, 25);
+
+  startCountdown(()=>{
+    if(passed >= 8){
+      showSuccess("Tous les obstacles ont été évités. Le joueur gagne +3 points.", "Temple Jump", passed);
+    }else{
+      showFail(`Objectif non atteint : ${passed} / 8.`);
+    }
+  });
+}
+</script>
+</body>
+</html>
