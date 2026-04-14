@@ -3,30 +3,31 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<title>Masqué VS Loyal</title>
+<title>Masqué VS Loyal — Tour du château</title>
+
 <style>
 :root{
   --bg:#07080d;
-  --bg-2:#0d1018;
+  --bg-2:#0c1018;
   --panel:#121722;
-  --panel-2:#171d2a;
+  --panel-2:#181d2a;
   --line:rgba(255,255,255,.08);
   --line-strong:rgba(255,255,255,.14);
   --text:#f7f1e8;
   --muted:rgba(247,241,232,.72);
-  --muted-2:rgba(247,241,232,.52);
+  --muted-2:rgba(247,241,232,.54);
 
   --gold:#f4c965;
   --gold-2:#c99124;
+  --gold-3:#ffbe61;
   --orange:#ff9f43;
   --orange-2:#ffbe7b;
   --green:#8ef0b0;
   --green-2:#63d78d;
   --red:#ff6b6b;
   --red-2:#c02f45;
-  --blue:#7fb6ff;
 
-  --shadow-xl:0 30px 70px rgba(0,0,0,.48);
+  --shadow-xl:0 30px 70px rgba(0,0,0,.50);
   --shadow-lg:0 18px 36px rgba(0,0,0,.32);
   --shadow-md:0 12px 24px rgba(0,0,0,.24);
 
@@ -38,7 +39,7 @@
   --safe-bottom:env(safe-area-inset-bottom, 0px);
 
   --maxw:1260px;
-  --header-h:86px;
+  --header-h:84px;
 }
 
 *{
@@ -87,9 +88,9 @@ a{
 .top-shell{
   position:sticky;
   top:0;
-  z-index:80;
+  z-index:90;
   padding-top:var(--safe-top);
-  background:linear-gradient(180deg, rgba(6,7,11,.98), rgba(6,7,11,.90), rgba(6,7,11,.46));
+  background:linear-gradient(180deg, rgba(6,7,11,.98), rgba(6,7,11,.92), rgba(6,7,11,.46));
   backdrop-filter:blur(16px);
   border-bottom:1px solid rgba(255,255,255,.05);
 }
@@ -297,8 +298,8 @@ a{
 .mission-hero{
   min-height:calc(100vh - var(--header-h) - 44px);
   background:
-    linear-gradient(90deg, rgba(6,7,11,.92) 0%, rgba(6,7,11,.74) 44%, rgba(6,7,11,.30) 100%),
-    url("chateau.jpg") center/cover no-repeat;
+    linear-gradient(90deg, rgba(6,7,11,.90) 0%, rgba(6,7,11,.72) 44%, rgba(6,7,11,.28) 100%),
+    url("bg-chateau.jpg") center/cover no-repeat;
 }
 
 .mission-hero::before{
@@ -405,7 +406,7 @@ a{
   gap:16px;
 }
 
-.roles-card{
+.visual-card{
   overflow:hidden;
   border-radius:24px;
   border:1px solid rgba(255,255,255,.08);
@@ -413,45 +414,14 @@ a{
   box-shadow:var(--shadow-lg);
 }
 
-.roles-visual{
-  position:relative;
-  min-height:420px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:18px;
-  background:linear-gradient(180deg, rgba(7,8,13,.65), rgba(7,8,13,.86));
-}
-
-.roles-visual img{
+.visual-card img{
   width:100%;
   height:100%;
-  max-height:520px;
-  object-fit:contain;
-  object-position:center center;
+  min-height:420px;
+  object-fit:cover;
 }
 
-.roles-vs{
-  position:absolute;
-  left:50%;
-  top:50%;
-  transform:translate(-50%,-50%);
-  width:88px;
-  height:88px;
-  border-radius:50%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:28px;
-  font-weight:900;
-  letter-spacing:1px;
-  color:#241608;
-  background:linear-gradient(145deg, var(--gold), var(--gold-2));
-  border:3px solid rgba(255,255,255,.12);
-  box-shadow:0 14px 34px rgba(0,0,0,.36);
-}
-
-.roles-caption{
+.visual-caption{
   padding:14px 16px;
   border-top:1px solid rgba(255,255,255,.08);
   font-size:14px;
@@ -493,8 +463,7 @@ a{
   min-height:260px;
   background:
     linear-gradient(90deg, rgba(6,7,11,.84), rgba(6,7,11,.34)),
-    url("roles.png") center/contain no-repeat,
-    linear-gradient(180deg, rgba(7,8,13,.94), rgba(7,8,13,.94));
+    url("ref-tower.jpg") center/cover no-repeat;
 }
 
 .rules-grid{
@@ -536,66 +505,72 @@ a{
 }
 
 /* =========================
-   GAMES
+   GAME CARD
 ========================= */
-.games-hero{
+.game-hero{
   min-height:280px;
   background:
     linear-gradient(90deg, rgba(6,7,11,.84), rgba(6,7,11,.38)),
-    url("epreuves.jpg") center/cover no-repeat;
+    url("ref-tower.jpg") center/cover no-repeat;
 }
 
-.games-grid{
+.single-game-wrap{
   display:grid;
-  grid-template-columns:repeat(5, minmax(0,1fr));
-  gap:14px;
+  grid-template-columns:1fr;
+  gap:18px;
 }
 
-.game-tile{
+.single-game-card{
   border:1px solid rgba(255,255,255,.08);
-  border-radius:22px;
+  border-radius:24px;
   background:
     radial-gradient(circle at top right, rgba(244,201,101,.08), transparent 34%),
     linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.03));
-  padding:16px;
-  display:flex;
-  flex-direction:column;
-  justify-content:space-between;
-  gap:14px;
-  min-height:260px;
+  padding:20px;
   box-shadow:var(--shadow-md);
 }
 
-.game-emoji{
-  font-size:32px;
+.single-game-top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:18px;
+  flex-wrap:wrap;
 }
 
-.game-name{
-  font-size:18px;
+.single-game-name{
+  font-size:24px;
   font-weight:900;
-  line-height:1.1;
-}
-
-.game-desc{
-  font-size:13px;
-  line-height:1.6;
-  color:var(--muted);
-  min-height:72px;
-}
-
-.game-tag{
-  font-size:11px;
   text-transform:uppercase;
-  letter-spacing:1px;
-  color:var(--orange);
-  font-weight:900;
+  letter-spacing:.5px;
 }
 
-.launch-note{
-  margin-top:18px;
-  font-size:14px;
-  line-height:1.7;
+.single-game-desc{
+  font-size:15px;
+  line-height:1.75;
   color:var(--muted);
+}
+
+.single-game-badges{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top:14px;
+}
+
+.single-game-pill{
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,.10);
+  background:rgba(255,255,255,.05);
+  padding:10px 14px;
+  font-size:12px;
+  font-weight:900;
+  letter-spacing:1px;
+  text-transform:uppercase;
+}
+
+.game-cta{
+  margin-top:18px;
 }
 
 /* =========================
@@ -605,7 +580,7 @@ a{
   min-height:320px;
   background:
     linear-gradient(90deg, rgba(6,7,11,.86), rgba(6,7,11,.34)),
-    url("table-ronde.jpg") center/cover no-repeat;
+    url("bg-chateau.jpg") center/cover no-repeat;
 }
 
 .vote-layout{
@@ -791,9 +766,9 @@ a{
 .ticket-overlay{
   position:fixed;
   inset:0;
-  z-index:90;
+  z-index:100;
   background:rgba(4,5,8,.88);
-  backdrop-filter:blur(14px);
+  backdrop-filter:blur(16px);
   display:none;
   padding:16px;
   overflow:auto;
@@ -808,7 +783,7 @@ a{
 .launch-shell,
 .play-shell,
 .ticket-shell{
-  max-width:720px;
+  max-width:820px;
   margin:0 auto;
   min-height:calc(100vh - 32px);
   display:flex;
@@ -830,7 +805,7 @@ a{
   min-height:220px;
   background:
     linear-gradient(90deg, rgba(6,7,11,.76), rgba(6,7,11,.34)),
-    url("epreuves.jpg") center/cover no-repeat;
+    url("ref-tower.jpg") center/cover no-repeat;
 }
 
 .launch-content,
@@ -858,8 +833,7 @@ a{
   font-size:30px;
   line-height:1;
   text-transform:uppercase;
-  font-weight:
-    900;
+  font-weight:900;
 }
 
 .launch-text{
@@ -874,8 +848,7 @@ a{
   gap:12px;
   margin-top:16px;
 }
-
-.play-head{
+  .play-head{
   display:flex;
   align-items:flex-start;
   justify-content:space-between;
@@ -900,22 +873,45 @@ a{
   font-weight:900;
 }
 
-.timer{
-  min-width:84px;
+.timer-chip{
+  min-width:92px;
+  min-height:92px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
   text-align:center;
-  border-radius:999px;
-  padding:11px 14px;
+  font-size:28px;
   font-weight:900;
-  font-size:16px;
   color:#231507;
-  background:linear-gradient(135deg, var(--orange-2), var(--orange));
+  background:
+    radial-gradient(circle at 35% 35%, rgba(255,255,255,.55), transparent 28%),
+    conic-gradient(var(--gold) 0deg, var(--gold-3) 220deg, rgba(255,255,255,.10) 220deg);
+  box-shadow:
+    0 0 0 8px rgba(255,190,123,.06),
+    0 16px 32px rgba(0,0,0,.30);
+  position:relative;
+}
+
+.timer-chip::after{
+  content:"";
+  position:absolute;
+  inset:10px;
+  border-radius:50%;
+  background:linear-gradient(180deg, #fff1ca, #ffd574);
+  z-index:0;
+}
+
+.timer-chip span{
+  position:relative;
+  z-index:1;
 }
 
 .play-zone{
-  min-height:420px;
+  min-height:620px;
   display:flex;
   flex-direction:column;
-  justify-content:center;
+  justify-content:flex-start;
   gap:14px;
 }
 
@@ -937,53 +933,95 @@ a{
 }
 
 /* =========================
-   GAME UI
+   TOWER GAME
 ========================= */
-.game-help{
-  text-align:center;
-  font-size:13px;
-  line-height:1.6;
-  color:var(--muted);
-}
-
-.game-counter{
-  text-align:center;
-  font-size:16px;
-  font-weight:900;
-}
-
-.progress{
-  width:100%;
-  height:18px;
-  border-radius:999px;
-  border:1px solid rgba(255,255,255,.08);
-  background:rgba(255,255,255,.08);
+.tower-app{
+  position:relative;
+  border-radius:26px;
   overflow:hidden;
+  border:1px solid rgba(255,255,255,.10);
+  background:
+    linear-gradient(180deg, rgba(8,10,16,.26), rgba(8,10,16,.54)),
+    url("bg-chateau.jpg") center/cover no-repeat;
+  min-height:620px;
+  box-shadow:var(--shadow-xl);
 }
 
-.progress-fill{
-  height:100%;
-  width:0%;
-  border-radius:999px;
-  background:linear-gradient(90deg, var(--orange), var(--gold));
-  transition:width .08s linear;
+.tower-app::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(circle at center, rgba(255,190,97,.14), transparent 45%),
+    linear-gradient(180deg, rgba(255,255,255,.03), transparent 16%);
+  pointer-events:none;
 }
 
-/* TOWER */
-.tower-wrap{
+.tower-head{
+  position:relative;
+  z-index:2;
   display:grid;
-  gap:14px;
+  grid-template-columns:1fr auto;
+  gap:16px;
+  align-items:start;
+  padding:22px 22px 14px;
+  background:linear-gradient(180deg, rgba(8,10,16,.58), rgba(8,10,16,.18));
+  border-bottom:1px solid rgba(255,255,255,.08);
+}
+
+.tower-head-text h2{
+  margin:0;
+  font-size:34px;
+  text-transform:uppercase;
+  letter-spacing:.6px;
+  line-height:1;
+}
+
+.tower-head-text p{
+  margin:10px 0 0;
+  font-size:14px;
+  font-weight:900;
+  letter-spacing:1px;
+  text-transform:uppercase;
+  color:rgba(247,241,232,.84);
+}
+
+.tower-stage-wrap{
+  position:relative;
+  z-index:2;
+  padding:0 18px;
 }
 
 .tower-stage{
   position:relative;
-  height:340px;
-  border-radius:22px;
+  height:430px;
+  border-radius:26px;
   overflow:hidden;
-  border:1px solid rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.10);
   background:
-    linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.02)),
-    radial-gradient(circle at bottom center, rgba(244,201,101,.08), transparent 40%);
+    linear-gradient(180deg, rgba(12,14,22,.12), rgba(12,14,22,.28)),
+    radial-gradient(circle at center, rgba(255,190,97,.16), transparent 56%);
+  box-shadow:inset 0 0 60px rgba(0,0,0,.18);
+}
+
+.tower-stage::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    linear-gradient(180deg, transparent 0 82%, rgba(255,255,255,.05) 82%, transparent 82%);
+  opacity:.35;
+  pointer-events:none;
+}
+
+.tower-world{
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:0;
+  height:760px;
+  will-change:transform;
+  transition:transform .24s ease;
 }
 
 .tower-base{
@@ -991,209 +1029,139 @@ a{
   left:50%;
   transform:translateX(-50%);
   bottom:0;
-  width:220px;
-  height:24px;
-  border-radius:10px 10px 0 0;
-  background:linear-gradient(145deg, rgba(255,255,255,.18), rgba(255,255,255,.07));
-}
-
-.tower-moving{
-  position:absolute;
-  height:22px;
-  border-radius:8px;
-  background:linear-gradient(145deg, var(--gold), var(--gold-2));
-  box-shadow:0 8px 16px rgba(0,0,0,.25);
-}
-
-.tower-fixed{
-  position:absolute;
-  height:22px;
-  border-radius:8px;
-  background:linear-gradient(145deg, rgba(255,190,123,.96), rgba(201,145,36,.96));
-  box-shadow:0 8px 16px rgba(0,0,0,.25);
-}
-
-/* MEMORY */
-.memory-grid-play{
-  display:grid;
-  grid-template-columns:repeat(2, minmax(0,1fr));
-  gap:12px;
-}
-
-.memory-pad-play{
-  height:120px;
-  border:none;
-  border-radius:22px;
-  font-size:24px;
-  font-weight:900;
-  color:#23180a;
-  background:linear-gradient(145deg, #ffd37d, #f0a832);
-  cursor:pointer;
-  box-shadow:0 12px 24px rgba(0,0,0,.22);
-  transition:transform .1s ease, filter .1s ease;
-}
-
-.memory-pad-play.dim{
-  filter:brightness(.62);
-}
-
-.memory-pad-play.active{
-  transform:scale(1.03);
-  filter:brightness(1.12);
-}
-
-/* REACTION */
-.reaction-box{
-  height:180px;
-  border-radius:24px;
-  border:1px solid rgba(255,255,255,.08);
-  background:rgba(255,255,255,.04);
-  display:grid;
-  place-items:center;
-  text-align:center;
-  padding:20px;
-  font-size:30px;
-  font-weight:900;
-}
-
-.reaction-box.wait{
-  color:var(--muted);
-}
-
-.reaction-box.go{
-  color:#06150e;
-  background:linear-gradient(145deg, #aef8c7, var(--green-2));
-}
-
-.reaction-box.fail{
-  color:#fff;
-  background:linear-gradient(145deg, #ff8a8a, #d84242);
-}
-
-.reaction-stats{
-  display:grid;
-  grid-template-columns:repeat(2, minmax(0,1fr));
-  gap:12px;
-}
-
-.reaction-stat{
-  border:1px solid rgba(255,255,255,.08);
-  border-radius:18px;
-  background:rgba(255,255,255,.04);
-  padding:14px;
-  text-align:center;
-}
-
-.reaction-stat-label{
-  font-size:11px;
-  text-transform:uppercase;
-  letter-spacing:1px;
-  color:var(--muted-2);
-  margin-bottom:8px;
-}
-
-.reaction-stat-value{
-  font-size:24px;
-  font-weight:900;
-}
-
-/* TETRIS */
-.tetris-shell{
-  display:grid;
-  grid-template-columns:auto 180px;
-  gap:16px;
-  align-items:start;
-}
-
-.tetris-board{
-  display:grid;
-  grid-template-columns:repeat(10, 24px);
-  grid-template-rows:repeat(18, 24px);
-  gap:2px;
-  justify-content:center;
-  padding:14px;
-  border-radius:20px;
-  border:1px solid rgba(255,255,255,.08);
-  background:rgba(255,255,255,.04);
-}
-
-.tetris-cell{
-  width:24px;
-  height:24px;
-  border-radius:6px;
-  background:rgba(255,255,255,.04);
-}
-
-.tetris-side{
-  display:grid;
-  gap:12px;
-}
-
-.tetris-stat{
-  border:1px solid rgba(255,255,255,.08);
-  border-radius:18px;
-  background:rgba(255,255,255,.04);
-  padding:14px;
-  text-align:center;
-}
-
-.tetris-stat-label{
-  font-size:11px;
-  text-transform:uppercase;
-  letter-spacing:1px;
-  color:var(--muted-2);
-  margin-bottom:8px;
-}
-
-.tetris-stat-value{
-  font-size:24px;
-  font-weight:900;
-}
-
-.tetris-controls{
-  display:grid;
-  grid-template-columns:repeat(3, minmax(0,1fr));
-  gap:10px;
-}
-
-.tetris-controls .btn{
-  padding:13px 10px;
-}
-
-/* SYMBOLS */
-.symbol-board{
-  position:relative;
-  height:320px;
-  border-radius:22px;
-  border:1px solid rgba(255,255,255,.08);
+  width:340px;
+  height:94px;
+  border-radius:22px 22px 10px 10px;
   background:
-    radial-gradient(circle at 50% 50%, rgba(244,201,101,.08), transparent 55%),
-    linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.03));
-  overflow:hidden;
+    linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.03)),
+    linear-gradient(145deg, #383a46, #1d202a);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.10),
+    0 20px 30px rgba(0,0,0,.34);
+  border:1px solid rgba(255,255,255,.08);
 }
 
-.symbol-target{
+.tower-step{
   position:absolute;
-  width:58px;
-  height:58px;
-  border-radius:50%;
+  left:50%;
+  transform:translateX(-50%);
+  height:18px;
+  width:420px;
+  bottom:0;
+  background:linear-gradient(180deg, rgba(255,255,255,.18), rgba(255,255,255,.05));
+  opacity:.12;
+}
+
+.tower-block{
+  position:absolute;
+  height:40px;
+  border-radius:14px;
+  background:
+    radial-gradient(circle at 30% 30%, rgba(255,255,255,.30), transparent 24%),
+    linear-gradient(145deg, #ffcb6d, #d38f19);
+  box-shadow:
+    0 0 26px rgba(255,190,97,.24),
+    0 12px 24px rgba(0,0,0,.24),
+    inset 0 1px 0 rgba(255,255,255,.22);
+  border:1px solid rgba(255,240,210,.24);
+}
+
+.tower-block.fixed{
+  transition:box-shadow .18s ease;
+}
+
+.tower-block.moving{
+  z-index:5;
+}
+
+.tower-bottom-ui{
+  position:relative;
+  z-index:2;
+  padding:18px 22px 22px;
+  background:linear-gradient(180deg, rgba(8,10,16,.14), rgba(8,10,16,.60));
+}
+
+.tower-counter{
+  text-align:center;
+  font-size:18px;
+  font-weight:900;
+  margin-bottom:14px;
+}
+
+.progress{
+  width:100%;
+  height:18px;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,.10);
+  background:rgba(255,255,255,.08);
+  overflow:hidden;
+  box-shadow:inset 0 2px 8px rgba(0,0,0,.24);
+}
+
+.progress-fill{
+  height:100%;
+  width:0%;
+  border-radius:999px;
+  background:
+    linear-gradient(90deg, var(--orange), var(--gold), #ffe08a);
+  box-shadow:0 0 18px rgba(255,190,97,.24);
+  transition:width .15s linear;
+}
+
+.tower-button{
+  width:100%;
+  margin-top:18px;
   border:none;
+  border-radius:22px;
+  padding:22px 18px;
+  font-size:22px;
+  font-weight:900;
   cursor:pointer;
+  color:#241507;
+  background:
+    radial-gradient(circle at 30% 30%, rgba(255,255,255,.35), transparent 26%),
+    linear-gradient(145deg, #ffc66a, #ee9627);
+  box-shadow:
+    0 0 28px rgba(255,190,97,.18),
+    0 18px 34px rgba(0,0,0,.28);
+  border:1px solid rgba(255,255,255,.14);
+}
+
+.tower-button:active{
+  transform:scale(.99);
+}
+
+.tower-help{
+  text-align:center;
+  margin-top:14px;
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.6;
+}
+
+.tower-meta{
   display:flex;
   align-items:center;
   justify-content:center;
-  font-size:22px;
+  gap:14px;
+  flex-wrap:wrap;
+  margin-top:14px;
+}
+
+.tower-pill{
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,.10);
+  background:rgba(255,255,255,.06);
+  padding:10px 14px;
+  font-size:12px;
   font-weight:900;
+  text-transform:uppercase;
+  letter-spacing:1px;
 }
 
-.symbol-target.good{
-  background:linear-gradient(145deg, #ffd37d, #f0a832);
-  color:#241709;
-}
-
-.symbol-target.bad{
-  background:linear-gradient(145deg, #ff8a8a, #d84242);
-  color:#fff;
+.tower-score-glow{
+  color:#fff2cd;
+  text-shadow:0 0 20px rgba(255,190,97,.22);
 }
 
 /* =========================
@@ -1207,7 +1175,7 @@ a{
   min-height:180px;
   background:
     linear-gradient(90deg, rgba(6,7,11,.76), rgba(6,7,11,.28)),
-    url("table-ronde.jpg") center/cover no-repeat;
+    url("ref-tower.jpg") center/cover no-repeat;
 }
 
 .ticket-content{
@@ -1309,9 +1277,6 @@ a{
   .mission-layout{
     grid-template-columns:1fr;
   }
-  .games-grid{
-    grid-template-columns:repeat(3, minmax(0,1fr));
-  }
   .vote-layout{
     grid-template-columns:1fr;
   }
@@ -1323,13 +1288,16 @@ a{
     flex-direction:column;
     min-height:auto;
   }
+
   .nav-links{
     width:100%;
     justify-content:flex-start;
   }
+
   .mission-title{
     font-size:46px;
   }
+
   .mission-stat-row,
   .rules-grid,
   .tips-grid,
@@ -1337,14 +1305,18 @@ a{
   .nps-grid{
     grid-template-columns:1fr;
   }
+
   .quick-actions{
     grid-template-columns:1fr;
   }
-  .games-grid{
-    grid-template-columns:repeat(2, minmax(0,1fr));
-  }
-  .tetris-shell{
+
+  .tower-head{
     grid-template-columns:1fr;
+  }
+
+  .timer-chip{
+    width:92px;
+    height:92px;
   }
 }
 
@@ -1407,31 +1379,9 @@ a{
     font-size:14px;
   }
 
-  .games-grid{
-    grid-template-columns:1fr;
-  }
-
-  .game-tile{
-    min-height:auto;
-  }
-
-  .game-desc{
-    min-height:auto;
-  }
-
-  .roles-visual{
+  .visual-card img{
     min-height:280px;
-    padding:10px;
-  }
-
-  .roles-visual img{
-    max-height:300px;
-  }
-
-  .roles-vs{
-    width:64px;
-    height:64px;
-    font-size:22px;
+    object-fit:cover;
   }
 
   .launch-title,
@@ -1444,19 +1394,48 @@ a{
     grid-template-columns:1fr;
   }
 
-  .memory-pad-play{
-    height:100px;
-    font-size:20px;
+  .play-zone{
+    min-height:560px;
   }
 
-  .reaction-box{
-    font-size:24px;
-    height:160px;
+  .tower-app{
+    min-height:560px;
   }
 
-  .symbol-board,
   .tower-stage{
-    height:300px;
+    height:340px;
+  }
+
+  .tower-head-text h2{
+    font-size:24px;
+  }
+
+  .tower-head-text p{
+    font-size:12px;
+  }
+
+  .tower-counter{
+    font-size:16px;
+  }
+
+  .tower-button{
+    font-size:18px;
+    padding:18px 14px;
+  }
+
+  .timer-chip{
+    min-width:78px;
+    min-height:78px;
+    font-size:24px;
+  }
+
+  .tower-base{
+    width:250px;
+    height:80px;
+  }
+
+  .tower-world{
+    height:700px;
   }
 }
 </style>
@@ -1479,7 +1458,7 @@ a{
       <nav class="nav-links">
         <button class="nav-btn active" data-section="mission">Mission</button>
         <button class="nav-btn" data-section="regles">Règles</button>
-        <button class="nav-btn" data-section="epreuves">Épreuves</button>
+        <button class="nav-btn" data-section="epreuve">Épreuve</button>
         <button class="nav-btn" data-section="table-ronde">Table ronde</button>
         <button class="nav-btn" data-section="nps">NPS actuel</button>
         <button class="nav-btn" data-section="tips">Phrases tips</button>
@@ -1501,12 +1480,12 @@ a{
               <div class="mission-text">
                 Deux camps s’affrontent dans le magasin : les <strong>Masqués</strong> et les <strong>Loyaux</strong>.
                 Les Masqués marquent plus vite, les Loyaux sont plus nombreux.
-                Après chaque avis NPS positif, le joueur choisit entre <strong>sécuriser</strong> son gain ou <strong>tenter une épreuve</strong>.
+                Après chaque avis NPS positif, le joueur choisit entre <strong>sécuriser</strong> son gain ou <strong>tenter l’épreuve de la Tour du château</strong>.
                 Le lundi, l’<strong>Enquêteur de la semaine</strong> ouvre la table ronde et peut envoyer une accusation.
               </div>
 
               <div class="mission-cta">
-                <button class="btn btn-primary" onclick="openSection('epreuves')">Entrer dans les épreuves</button>
+                <button class="btn btn-primary" onclick="openSection('epreuve')">Entrer dans l’épreuve</button>
                 <button class="btn btn-ghost" onclick="openSection('table-ronde')">Ouvrir la table ronde</button>
               </div>
 
@@ -1528,14 +1507,11 @@ a{
           </div>
 
           <div class="mission-side">
-            <div class="roles-card">
-              <div class="roles-visual">
-                <img src="roles.png" alt="Masqué VS Loyal">
-                <div class="roles-vs">VS</div>
-              </div>
-              <div class="roles-caption">
-                Les Masqués jouent sous la cape rouge. Les Loyaux se tiennent sous la cape blanche.
-                Le camp qui termine devant remporte la semaine. Ensuite, le meilleur joueur du camp gagnant remporte le cadeau.
+            <div class="visual-card">
+              <img src="ref-tower.jpg" alt="Tour du château">
+              <div class="visual-caption">
+                Une seule épreuve. Un seul objectif. Empiler 20 étages avant la fin du temps.
+                Plus la tour monte, plus les blocs deviennent petits et plus la vitesse augmente.
               </div>
             </div>
 
@@ -1545,8 +1521,8 @@ a{
                 <div class="quick-box-value">1 seule accusation</div>
               </div>
               <div class="quick-box">
-                <div class="quick-box-title">Épreuves</div>
-                <div class="quick-box-value">Réussite parfaite</div>
+                <div class="quick-box-title">Épreuve</div>
+                <div class="quick-box-value">20 étages à valider</div>
               </div>
             </div>
           </div>
@@ -1558,7 +1534,7 @@ a{
       <div class="card rules-banner">
         <div class="card-inner">
           <h2 class="section-title">Règles du jeu</h2>
-          <div class="section-sub">Deux camps. Une concurrence directe. Un seul objectif : finir devant l’autre.</div>
+          <div class="section-sub">Une lecture rapide, claire et sans perte de temps.</div>
         </div>
       </div>
 
@@ -1586,16 +1562,16 @@ a{
               <div class="rule-body">
                 Le joueur choisit entre :
                 <strong>sécuriser</strong> pour prendre <strong>+1 point garanti</strong>,
-                ou <strong>tenter une épreuve</strong>.
+                ou <strong>tenter l’épreuve</strong>.
               </div>
             </div>
 
             <div class="rule-box">
-              <div class="rule-top">Les épreuves</div>
+              <div class="rule-top">L’épreuve unique</div>
               <div class="rule-body">
-                Les épreuves durent environ <strong>1 minute</strong>.
-                Elles deviennent plus difficiles au fil du temps.
-                Si l’objectif affiché est atteint, la victoire est validée.
+                La seule épreuve du site est <strong>Tour du château</strong>.
+                Elle dure <strong>1 minute</strong>.
+                Si l’objectif des <strong>20 étages</strong> est atteint, la victoire est validée.
               </div>
             </div>
 
@@ -1633,80 +1609,47 @@ a{
           </div>
 
           <div class="rule-note">
-            <strong>But du jeu :</strong> il faut que tout le monde comprenne vite qu’il y a une vraie concurrence entre le score total des Masqués et le score total des Loyaux.
+            <strong>But du jeu :</strong> il faut que tout le monde comprenne vite qu’il y a une vraie concurrence entre le score total des Masqués et le score total des Loyaux, mais que le mini-jeu sert uniquement à récupérer des points.
           </div>
         </div>
       </div>
     </section>
 
-    <section id="section-epreuves" class="section">
-      <div class="card games-hero">
+    <section id="section-epreuve" class="section">
+      <div class="card game-hero">
         <div class="card-inner">
-          <h2 class="section-title">Les épreuves</h2>
+          <h2 class="section-title">L’épreuve du château</h2>
           <div class="section-sub">
-            Clique sur une épreuve, entre ton prénom, puis lance.
-            Le jeu s’ouvre immédiatement en plein écran, sans scroll inutile.
+            Une seule épreuve. Une seule chance de montrer sa précision. Plus tu avances, plus la tour devient difficile.
           </div>
         </div>
       </div>
 
       <div class="card">
-        <div class="card-inner">
-          <div class="games-grid">
-            <div class="game-tile">
+        <div class="card-inner single-game-wrap">
+          <div class="single-game-card">
+            <div class="single-game-top">
               <div>
-                <div class="game-emoji">🏗️</div>
-                <div class="game-name">Tour du château</div>
-                <div class="game-desc">Empile les étages avec précision. Plus tu avances, plus la vitesse augmente.</div>
-                <div class="game-tag">1 min — Objectif : 15 étages</div>
+                <div class="single-game-name">Tour du château</div>
+                <div class="single-game-desc">
+                  Empile les blocs au bon moment. Les derniers étages deviennent plus petits et plus rapides.
+                  L’épreuve est conçue pour ressembler à une vraie application mobile : tout reste visible, même en haut de la tour.
+                </div>
+                <div class="single-game-badges">
+                  <div class="single-game-pill">1 minute</div>
+                  <div class="single-game-pill">20 étages</div>
+                  <div class="single-game-pill">Difficulté progressive</div>
+                </div>
               </div>
-              <button class="btn btn-primary" onclick="openLaunch('tower')">Lancer</button>
-            </div>
 
-            <div class="game-tile">
-              <div>
-                <div class="game-emoji">🧱</div>
-                <div class="game-name">Tetris</div>
-                <div class="game-desc">Les pièces tombent de plus en plus vite. Il faut atteindre le score demandé avant la fin.</div>
-                <div class="game-tag">1 min — Objectif : 300 points</div>
+              <div class="game-cta">
+                <button class="btn btn-primary" onclick="openLaunch()">Lancer l’épreuve</button>
               </div>
-              <button class="btn btn-primary" onclick="openLaunch('tetris')">Lancer</button>
-            </div>
-
-            <div class="game-tile">
-              <div>
-                <div class="game-emoji">🧠</div>
-                <div class="game-name">Mémoire des cases</div>
-                <div class="game-desc">Retiens les séquences de plus en plus longues et fais le score demandé.</div>
-                <div class="game-tag">1 min — Objectif : 7 séquences</div>
-              </div>
-              <button class="btn btn-primary" onclick="openLaunch('memory')">Lancer</button>
-            </div>
-
-            <div class="game-tile">
-              <div>
-                <div class="game-emoji">⚡</div>
-                <div class="game-name">Réflexe royal</div>
-                <div class="game-desc">Réagis vite quand le vert apparaît. Il faut rester sous la moyenne affichée.</div>
-                <div class="game-tag">1 min — Objectif : moyenne ≤ 450 ms</div>
-              </div>
-              <button class="btn btn-primary" onclick="openLaunch('reaction')">Lancer</button>
-            </div>
-
-            <div class="game-tile">
-              <div>
-                <div class="game-emoji">✨</div>
-                <div class="game-name">Attrape-symboles</div>
-                <div class="game-desc">Attrape les symboles or, évite les rouges. Le rythme augmente progressivement.</div>
-                <div class="game-tag">1 min — Objectif : 20 points</div>
-              </div>
-              <button class="btn btn-primary" onclick="openLaunch('symbols')">Lancer</button>
             </div>
           </div>
 
-          <div class="launch-note">
-            Quand l’objectif affiché est atteint, la mission est réussie.
-            Pas de faux “presque réussi”.
+          <div class="helper">
+            À la fin, si l’épreuve est réussie, un ticket de validation s’affiche avec le prénom, la date, l’heure, le score et un code unique.
           </div>
         </div>
       </div>
@@ -1748,8 +1691,8 @@ a{
             <div class="vote-title">Aperçu du message</div>
             <div id="votePreview" class="whatsapp-preview">🎭 Table ronde — Vote de démasquage
 
-Prénom du suspect : 
-Envoyé par : </div>
+Prénom du suspect :
+Envoyé par :</div>
           </div>
         </div>
       </div>
@@ -1838,7 +1781,7 @@ Envoyé par : </div>
           <button class="btn btn-primary" style="margin-top:12px;" onclick="updateStatusText()">Mettre à jour le statut mission</button>
 
           <div id="statusText" class="status-text">
-            Les Loyaux gardent actuellement l’avantage. Une réussite parfaite dans les épreuves peut encore faire basculer la semaine.
+            Les Loyaux gardent actuellement l’avantage. Une réussite parfaite dans l’épreuve peut encore faire basculer la semaine.
           </div>
         </div>
       </div>
@@ -1905,9 +1848,12 @@ Si tout s’est bien passé, un 9 ou un 10 valorise vraiment notre travail.</div
       <div class="launch-card">
         <div class="launch-top"></div>
         <div class="launch-content">
-          <div class="launch-badge">🎮 Salle des épreuves</div>
-          <div id="launchTitle" class="launch-title">Épreuve</div>
-          <div id="launchText" class="launch-text">Description</div>
+          <div class="launch-badge">🎮 Salle de l’épreuve</div>
+          <div class="launch-title">Tour du château</div>
+          <div class="launch-text">
+            Empile les blocs au bon moment. L’objectif est d’atteindre 20 étages en 1 minute.
+            Plus tu avances, plus les blocs deviennent fins et rapides.
+          </div>
 
           <div style="margin-top:16px;display:grid;gap:12px;">
             <input id="launchPlayerName" class="input" type="text" placeholder="Entre ton prénom" autocomplete="off" />
@@ -1915,7 +1861,7 @@ Si tout s’est bien passé, un 9 ou un 10 valorise vraiment notre travail.</div
 
           <div class="launch-actions">
             <button class="btn btn-ghost" onclick="closeLaunch()">Fermer</button>
-            <button class="btn btn-primary" onclick="startSelectedGame()">Lancer le jeu</button>
+            <button class="btn btn-primary" onclick="startTowerGame()">Lancer le jeu</button>
           </div>
         </div>
       </div>
@@ -1928,10 +1874,10 @@ Si tout s’est bien passé, un 9 ou un 10 valorise vraiment notre travail.</div
         <div class="play-content">
           <div class="play-head">
             <div>
-              <div id="playTitle" class="play-title">Épreuve</div>
-              <div id="playGoal" class="play-goal">Objectif</div>
+              <div id="playTitle" class="play-title">Tour du château</div>
+              <div id="playGoal" class="play-goal">Atteindre 20 étages en 1 minute</div>
             </div>
-            <div id="playTimer" class="timer">60</div>
+            <div id="playTimer" class="timer-chip"><span>60</span></div>
           </div>
 
           <div id="playZone" class="play-zone"></div>
@@ -1999,43 +1945,14 @@ Si tout s’est bien passé, un 9 ou un 10 valorise vraiment notre travail.</div
 <script>
 const WHATSAPP_NUMBER = "33637993778";
 
-const GAME_DATA = {
-  tower: {
-    title: "Tour du château",
-    description: "Empile les étages avec précision. La vitesse augmente progressivement.",
-    goal: "Atteindre 15 étages en 1 minute"
-  },
-  tetris: {
-    title: "Tetris",
-    description: "Les pièces tombent de plus en plus vite. Il faut atteindre le score demandé.",
-    goal: "Atteindre 300 points en 1 minute"
-  },
-  memory: {
-    title: "Mémoire des cases",
-    description: "Retiens les séquences de plus en plus longues et fais le score demandé.",
-    goal: "Atteindre 7 séquences réussies en 1 minute"
-  },
-  reaction: {
-    title: "Réflexe royal",
-    description: "Réagis vite au signal vert. Il faut tenir la bonne moyenne.",
-    goal: "Atteindre 8 réactions validées avec moyenne ≤ 450 ms"
-  },
-  symbols: {
-    title: "Attrape-symboles",
-    description: "Attrape les symboles or, évite les rouges. Le rythme devient plus dur.",
-    goal: "Atteindre 20 points en 1 minute"
-  }
-};
-
 const navButtons = document.querySelectorAll(".nav-btn");
-let selectedGameKey = null;
+
 let currentPlayerName = "";
-let activeGame = null;
 let gameTimerInterval = null;
 let gameFrameInterval = null;
+let activeTimeouts = [];
 let gameTimeLeft = 60;
-let gameScore = 0;
-let cleanupFns = [];
+let towerState = null;
 
 /* =========================
    NAVIGATION
@@ -2087,7 +2004,7 @@ function updateStatusText(){
   let text = `Enquêteur de la semaine : ${lead}. `;
 
   if(gap > 0){
-    text += `Les Loyaux mènent avec ${gap} point${gap > 1 ? "s" : ""} d’avance. Une réussite parfaite peut encore creuser l’écart.`;
+    text += `Les Loyaux mènent avec ${gap} point${gap > 1 ? "s" : ""} d’avance. Une réussite parfaite dans l’épreuve peut encore creuser l’écart.`;
   }else if(gap < 0){
     text += `Les Masqués avancent dans l’ombre avec ${Math.abs(gap)} point${Math.abs(gap) > 1 ? "s" : ""} d’avance. Rien n’est encore verrouillé.`;
   }else{
@@ -2169,36 +2086,32 @@ function makeTicketCode(player, game, score){
   return `${p}-${g}-${s}-${t}-${r}`;
 }
 
-function clearGameIntervals(){
+function clearAllTimers(){
   clearInterval(gameTimerInterval);
   clearInterval(gameFrameInterval);
   gameTimerInterval = null;
   gameFrameInterval = null;
+  activeTimeouts.forEach(t=>clearTimeout(t));
+  activeTimeouts = [];
 }
 
-function cleanupGame(){
-  cleanupFns.forEach(fn=>{
-    try{ fn(); }catch(e){}
-  });
-  cleanupFns = [];
+function schedule(fn, delay){
+  const t = setTimeout(fn, delay);
+  activeTimeouts.push(t);
+  return t;
 }
 
 /* =========================
    OVERLAYS
 ========================= */
 const launchOverlay = document.getElementById("launchOverlay");
-const launchTitle = document.getElementById("launchTitle");
-const launchText = document.getElementById("launchText");
-const launchPlayerName = document.getElementById("launchPlayerName");
-
 const playOverlay = document.getElementById("playOverlay");
-const playTitle = document.getElementById("playTitle");
-const playGoal = document.getElementById("playGoal");
-const playTimer = document.getElementById("playTimer");
+const ticketOverlay = document.getElementById("ticketOverlay");
+
 const playZone = document.getElementById("playZone");
 const playResult = document.getElementById("playResult");
+const playTimer = document.getElementById("playTimer").querySelector("span");
 
-const ticketOverlay = document.getElementById("ticketOverlay");
 const ticketGameName = document.getElementById("ticketGameName");
 const ticketPlayer = document.getElementById("ticketPlayer");
 const ticketDate = document.getElementById("ticketDate");
@@ -2206,14 +2119,9 @@ const ticketTime = document.getElementById("ticketTime");
 const ticketScore = document.getElementById("ticketScore");
 const ticketCode = document.getElementById("ticketCode");
 
-function openLaunch(gameKey){
-  selectedGameKey = gameKey;
-  const game = GAME_DATA[gameKey];
-  launchTitle.innerText = game.title;
-  launchText.innerText = `${game.description} — ${game.goal}`;
-  launchPlayerName.value = currentPlayerName || "";
+function openLaunch(){
   launchOverlay.classList.add("show");
-  document.body.style.overflow = "hidden";
+   document.body.style.overflow = "hidden";
 }
 
 function closeLaunch(){
@@ -2229,9 +2137,8 @@ function openPlay(){
 }
 
 function closePlay(){
-  clearGameIntervals();
-  cleanupGame();
-  activeGame = null;
+  clearAllTimers();
+  towerState = null;
   playOverlay.classList.remove("show");
   playZone.innerHTML = "";
   playResult.style.display = "none";
@@ -2241,14 +2148,14 @@ function closePlay(){
   }
 }
 
-function openTicket(gameName, score){
+function openTicket(score){
   const info = nowParis();
-  ticketGameName.innerText = gameName;
+  ticketGameName.innerText = "Tour du château";
   ticketPlayer.innerText = currentPlayerName;
   ticketDate.innerText = info.date;
   ticketTime.innerText = info.time;
   ticketScore.innerText = score;
-  ticketCode.innerText = makeTicketCode(currentPlayerName, gameName, score);
+  ticketCode.innerText = makeTicketCode(currentPlayerName, "Tour du château", score);
   ticketOverlay.classList.add("show");
   document.body.style.overflow = "hidden";
 }
@@ -2260,25 +2167,37 @@ function closeTicket(){
   }
 }
 
-function setupPlay(title, goal, seconds){
-  clearGameIntervals();
-  cleanupGame();
-  playTitle.innerText = title;
-  playGoal.innerText = goal;
-  playTimer.innerText = seconds;
-  playZone.innerHTML = "";
-  playResult.style.display = "none";
-  playResult.innerHTML = "";
-  gameTimeLeft = seconds;
-  gameScore = 0;
-  openPlay();
+/* =========================
+   RESULT / TIMER
+========================= */
+function showFail(message){
+  clearAllTimers();
+  towerState = null;
+  playResult.style.display = "block";
+  playResult.innerHTML = `<span style="color:#ff8c8c;font-weight:900;">Échec.</span><br>${message}`;
+}
+
+function showSuccess(message, score){
+  clearAllTimers();
+  towerState = null;
+  playResult.style.display = "block";
+  playResult.innerHTML = `
+    <span style="color:#aef8c7;font-weight:900;">Réussite parfaite.</span><br>
+    ${message}<br><br>
+    <button class="btn btn-green" onclick="openTicket(${score})">Afficher le ticket de capture</button>
+  `;
 }
 
 function startCountdown(onEnd){
   clearInterval(gameTimerInterval);
   gameTimerInterval = setInterval(()=>{
     gameTimeLeft--;
-    playTimer.innerText = gameTimeLeft;
+    playTimer.textContent = gameTimeLeft;
+
+    if(towerState){
+      updateTimerRing(gameTimeLeft, towerState.totalTime);
+    }
+
     if(gameTimeLeft <= 0){
       clearInterval(gameTimerInterval);
       onEnd();
@@ -2286,32 +2205,20 @@ function startCountdown(onEnd){
   },1000);
 }
 
-function showFail(message){
-  clearGameIntervals();
-  cleanupGame();
-  activeGame = null;
-  playResult.style.display = "block";
-  playResult.innerHTML = `<span style="color:#ff8c8c;font-weight:900;">Échec.</span><br>${message}`;
-}
-
-function showSuccess(message, gameName, score){
-  clearGameIntervals();
-  cleanupGame();
-  activeGame = null;
-  gameScore = score;
-  playResult.style.display = "block";
-  playResult.innerHTML = `
-    <span style="color:#aef8c7;font-weight:900;">Réussite parfaite.</span><br>
-    ${message}<br><br>
-    <button class="btn btn-green" onclick="openTicket('${gameName.replace(/'/g, "\\'")}', ${score})">Afficher le ticket de capture</button>
-  `;
+function updateTimerRing(timeLeft, total){
+  const chip = document.getElementById("playTimer");
+  if(!chip) return;
+  const ratio = Math.max(0, Math.min(1, timeLeft / total));
+  const deg = Math.round(ratio * 360);
+  chip.style.background =
+    `radial-gradient(circle at 35% 35%, rgba(255,255,255,.55), transparent 28%), conic-gradient(var(--gold) 0deg, var(--gold-3) ${deg}deg, rgba(255,255,255,.10) ${deg}deg)`;
 }
 
 /* =========================
-   START GAME
+   START TOWER GAME
 ========================= */
-function startSelectedGame(){
-  const name = launchPlayerName.value.trim();
+function startTowerGame(){
+  const name = document.getElementById("launchPlayerName").value.trim();
   if(!name){
     alert("Entre ton prénom avant de lancer l’épreuve.");
     return;
@@ -2319,694 +2226,229 @@ function startSelectedGame(){
 
   currentPlayerName = name;
   closeLaunch();
-  startGame(selectedGameKey);
+  launchTowerGame();
 }
 
-function startGame(gameKey){
-  if(!currentPlayerName){
-    alert("Prénom obligatoire avant de lancer.");
-    return;
-  }
-
-  activeGame = gameKey;
-
-  if(gameKey === "tower") return launchTowerGame();
-  if(gameKey === "tetris") return launchTetrisGame();
-  if(gameKey === "memory") return launchMemoryGame();
-  if(gameKey === "reaction") return launchReactionGame();
-  if(gameKey === "symbols") return launchSymbolsGame();
-}
-
-/* =========================
-   GAME 1 - TOWER
-========================= */
 function launchTowerGame(){
-  setupPlay("Tour du château", "Atteindre 15 étages en 1 minute", 60);
+  clearAllTimers();
+  towerState = null;
+  playResult.style.display = "none";
+  playResult.innerHTML = "";
 
-  let towerScore = 0;
-  const goal = 15;
-  let baseWidth = 220;
-  let baseLeft = 50;
-  let movingLeft = 10;
-  let movingDir = 1;
-  let speed = 1.8;
-  let level = 0;
+  gameTimeLeft = 60;
+  playTimer.textContent = "60";
+  updateTimerRing(60, 60);
 
   playZone.innerHTML = `
-    <div class="tower-wrap">
-      <div id="towerStage" class="tower-stage">
-        <div class="tower-base"></div>
+    <div class="tower-app">
+      <div class="tower-head">
+        <div class="tower-head-text">
+          <h2>Tour du château</h2>
+          <p>Atteindre 20 étages en 1 minute</p>
+        </div>
       </div>
-      <div id="towerCounter" class="game-counter">Étages validés : 0 / 15</div>
-      <div class="progress"><div id="towerFill" class="progress-fill"></div></div>
-      <button id="towerButton" class="btn btn-orange">Poser le bloc</button>
-      <div class="game-help">Le bloc se déplace tout seul. Il faut le poser au bon moment.</div>
+
+      <div class="tower-stage-wrap">
+        <div id="towerStage" class="tower-stage">
+          <div id="towerWorld" class="tower-world">
+            <div class="tower-step"></div>
+            <div class="tower-base"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tower-bottom-ui">
+        <div id="towerCounter" class="tower-counter">Étages validés : 0 / 20</div>
+        <div class="progress"><div id="towerFill" class="progress-fill"></div></div>
+
+        <button id="towerButton" class="tower-button">Poser le bloc</button>
+
+        <div class="tower-help">
+          Le bloc se déplace tout seul. Il faut le poser au bon moment.
+        </div>
+
+        <div class="tower-meta">
+          <div class="tower-pill">1 minute</div>
+          <div class="tower-pill">20 étages</div>
+          <div class="tower-pill tower-score-glow">Difficulté progressive</div>
+        </div>
+      </div>
     </div>
   `;
 
+  openPlay();
+
   const stage = document.getElementById("towerStage");
+  const world = document.getElementById("towerWorld");
+  const button = document.getElementById("towerButton");
   const counter = document.getElementById("towerCounter");
   const fill = document.getElementById("towerFill");
-  const button = document.getElementById("towerButton");
 
-  const movingBlock = document.createElement("div");
-  movingBlock.className = "tower-moving";
-  movingBlock.style.width = baseWidth + "px";
-  movingBlock.style.left = movingLeft + "px";
-  movingBlock.style.bottom = "26px";
-  stage.appendChild(movingBlock);
+  const totalGoal = 20;
+  const totalTime = 60;
+  const blockHeight = 40;
+  const gap = 8;
+  const baseBottom = 82;
 
-  function renderFixed(width, left, bottom){
+  towerState = {
+    totalGoal,
+    totalTime,
+    score: 0,
+    blockHeight,
+    gap,
+    baseBottom,
+    stage,
+    world,
+    button,
+    counter,
+    fill,
+    movingBlock: null,
+    currentWidth: 460,
+    previousLeft: null,
+    movingLeft: 20,
+    movingDir: 1,
+    speed: 2.1,
+    levelBottom: baseBottom + 18,
+    minWidth: 68,
+    isLocked: false
+  };
+
+  function updateUI(){
+    towerState.counter.textContent = `Étages validés : ${towerState.score} / ${towerState.totalGoal}`;
+    towerState.fill.style.width = `${(towerState.score / towerState.totalGoal) * 100}%`;
+  }
+
+  function computeCamera(){
+    const topY = towerState.levelBottom + towerState.score * (towerState.blockHeight + towerState.gap) + 120;
+    const stageHeight = towerState.stage.clientHeight;
+    const worldHeight = towerState.world.clientHeight;
+    const desiredOffset = Math.max(0, topY - (stageHeight - 120));
+    const maxOffset = Math.max(0, worldHeight - stageHeight);
+    const finalOffset = Math.min(desiredOffset, maxOffset);
+    towerState.world.style.transform = `translateY(${finalOffset}px)`;
+  }
+
+  function addFixedBlock(width, left, bottom){
     const block = document.createElement("div");
-    block.className = "tower-fixed";
-    block.style.width = width + "px";
-    block.style.left = left + "px";
-    block.style.bottom = bottom + "px";
-    stage.appendChild(block);
+    block.className = "tower-block fixed";
+    block.style.width = `${width}px`;
+    block.style.left = `${left}px`;
+    block.style.bottom = `${bottom}px`;
+    towerState.world.appendChild(block);
   }
 
-  function placeBlock(){
-    if(activeGame !== "tower") return;
+  function spawnMovingBlock(){
+    if(towerState.movingBlock){
+      towerState.movingBlock.remove();
+    }
 
-    const overlapLeft = Math.max(movingLeft, baseLeft);
-    const overlapRight = Math.min(movingLeft + baseWidth, baseLeft + baseWidth);
-    const overlapWidth = overlapRight - overlapLeft;
+    const widthDecay = Math.max(
+      towerState.minWidth,
+      Math.round(460 - (towerState.score * 18) - Math.max(0, towerState.score - 10) * 12)
+    );
 
-    if(overlapWidth <= 18){
-      showFail(`Bloc mal aligné. Score final : ${towerScore} / ${goal}.`);
+    towerState.currentWidth = Math.max(towerState.minWidth, widthDecay);
+    towerState.movingLeft = 18;
+    towerState.movingDir = 1;
+    towerState.speed = 2.1 + towerState.score * 0.18 + Math.max(0, towerState.score - 12) * 0.08;
+
+    const block = document.createElement("div");
+    block.className = "tower-block moving";
+    block.style.width = `${towerState.currentWidth}px`;
+    block.style.left = `${towerState.movingLeft}px`;
+    block.style.bottom = `${towerState.levelBottom + towerState.score * (towerState.blockHeight + towerState.gap)}px`;
+
+    towerState.world.appendChild(block);
+    towerState.movingBlock = block;
+  }
+
+  function finalizeBlock(){
+    if(!towerState || towerState.isLocked || !towerState.movingBlock) return;
+    towerState.isLocked = true;
+
+    const currentLeft = towerState.movingLeft;
+    const currentWidth = towerState.currentWidth;
+
+    let finalWidth = currentWidth;
+    let finalLeft = currentLeft;
+
+    if(towerState.score === 0){
+      finalLeft = Math.round((towerState.stage.clientWidth - currentWidth) / 2);
+      finalWidth = currentWidth;
+    }else{
+      const prevLeft = towerState.previousLeft;
+      const prevWidth = parseFloat(towerState.lastWidth);
+      const overlapLeft = Math.max(currentLeft, prevLeft);
+      const overlapRight = Math.min(currentLeft + currentWidth, prevLeft + prevWidth);
+      const overlap = overlapRight - overlapLeft;
+
+      if(overlap <= 18){
+        showFail(`Bloc mal aligné. Score final : ${towerState.score} / ${towerState.totalGoal}.`);
+        return;
+      }
+
+      finalLeft = overlapLeft;
+      finalWidth = overlap;
+    }
+
+    towerState.movingBlock.remove();
+    towerState.movingBlock = null;
+
+    const bottom = towerState.levelBottom + towerState.score * (towerState.blockHeight + towerState.gap);
+    addFixedBlock(finalWidth, finalLeft, bottom);
+
+    towerState.previousLeft = finalLeft;
+    towerState.lastWidth = finalWidth;
+    towerState.score++;
+    updateUI();
+    computeCamera();
+
+    if(towerState.score >= towerState.totalGoal){
+      showSuccess("Les 20 étages ont été validés. L’épreuve est remportée.", towerState.score);
       return;
     }
 
-    renderFixed(overlapWidth, overlapLeft, 26 + level * 24);
-    level++;
-    towerScore = level;
-    counter.innerText = `Étages validés : ${towerScore} / ${goal}`;
-    fill.style.width = Math.min((towerScore / goal) * 100, 100) + "%";
-
-    if(towerScore >= goal){
-      showSuccess("La tour a atteint la hauteur demandée.", "Tour du château", towerScore);
-      return;
-    }
-
-    baseWidth = overlapWidth;
-    baseLeft = overlapLeft;
-    movingLeft = 10;
-    movingDir = 1;
-    speed += 0.22;
-
-    movingBlock.style.width = baseWidth + "px";
-    movingBlock.style.bottom = (26 + level * 24) + "px";
+    schedule(()=>{
+      if(!towerState) return;
+      spawnMovingBlock();
+      towerState.isLocked = false;
+    }, 120);
   }
 
-  button.addEventListener("click", placeBlock);
-  cleanupFns.push(()=>button.removeEventListener("click", placeBlock));
+  button.addEventListener("click", finalizeBlock);
+
+  spawnMovingBlock();
+  updateUI();
+  computeCamera();
 
   gameFrameInterval = setInterval(()=>{
-    if(activeGame !== "tower") return;
-    movingLeft += movingDir * speed;
-    const maxLeft = stage.clientWidth - baseWidth - 10;
+    if(!towerState || !towerState.movingBlock) return;
 
-    if(movingLeft <= 10){
-      movingLeft = 10;
-      movingDir = 1;
-    }
-    if(movingLeft >= maxLeft){
-      movingLeft = maxLeft;
-      movingDir = -1;
+    towerState.movingLeft += towerState.movingDir * towerState.speed;
+
+    const maxLeft = towerState.stage.clientWidth - towerState.currentWidth - 18;
+
+    if(towerState.movingLeft <= 18){
+      towerState.movingLeft = 18;
+      towerState.movingDir = 1;
     }
 
-    movingBlock.style.left = movingLeft + "px";
+    if(towerState.movingLeft >= maxLeft){
+      towerState.movingLeft = maxLeft;
+      towerState.movingDir = -1;
+    }
+
+    towerState.movingBlock.style.left = `${towerState.movingLeft}px`;
   }, 16);
 
   startCountdown(()=>{
-    if(towerScore >= goal){
-      showSuccess("La tour a atteint la hauteur demandée.", "Tour du château", towerScore);
+    if(towerState && towerState.score >= towerState.totalGoal){
+      showSuccess("Les 20 étages ont été validés. L’épreuve est remportée.", towerState.score);
     }else{
-      showFail(`Objectif non atteint : ${towerScore} / ${goal}.`);
+      const score = towerState ? towerState.score : 0;
+      showFail(`Temps écoulé. Objectif non atteint : ${score} / 20 étages.`);
     }
   });
-}
-
-/* =========================
-   GAME 2 - TETRIS
-========================= */
-function launchTetrisGame(){
-  setupPlay("Tetris", "Atteindre 300 points en 1 minute", 60);
-
-  const rows = 18;
-  const cols = 10;
-  const targetScore = 300;
-  let score = 0;
-  let lines = 0;
-
-  playZone.innerHTML = `
-    <div class="tetris-shell">
-      <div id="tetrisBoard" class="tetris-board"></div>
-      <div class="tetris-side">
-        <div class="tetris-stat">
-          <div class="tetris-stat-label">Score</div>
-          <div id="tetrisScore" class="tetris-stat-value">0</div>
-        </div>
-        <div class="tetris-stat">
-          <div class="tetris-stat-label">Lignes</div>
-          <div id="tetrisLines" class="tetris-stat-value">0</div>
-        </div>
-        <div class="tetris-stat">
-          <div class="tetris-stat-label">Objectif</div>
-          <div class="tetris-stat-value">300</div>
-        </div>
-      </div>
-    </div>
-    <div class="tetris-controls">
-      <button id="tetrisLeft" class="btn btn-orange">◀</button>
-      <button id="tetrisRotate" class="btn btn-orange">⟳</button>
-      <button id="tetrisRight" class="btn btn-orange">▶</button>
-      <button id="tetrisDown" class="btn btn-ghost" style="grid-column:1 / -1;">Descendre</button>
-    </div>
-    <div class="game-help">Les pièces tombent de plus en plus vite. Score à atteindre : 300.</div>
-  `;
-
-  const boardEl = document.getElementById("tetrisBoard");
-  const scoreEl = document.getElementById("tetrisScore");
-  const linesEl = document.getElementById("tetrisLines");
-
-  const cells = [];
-  for(let i = 0; i < rows * cols; i++){
-    const cell = document.createElement("div");
-    cell.className = "tetris-cell";
-    boardEl.appendChild(cell);
-    cells.push(cell);
-  }
-
-  const colors = {
-    I:"#6fe7ff",
-    O:"#ffd37d",
-    T:"#c998ff",
-    L:"#ffbe7b",
-    J:"#7fb6ff",
-    S:"#8ef0b0",
-    Z:"#ff8c8c"
-  };
-
-  const shapes = [
-    { type:"I", blocks:[[0,1],[1,1],[2,1],[3,1]] },
-    { type:"O", blocks:[[1,0],[2,0],[1,1],[2,1]] },
-    { type:"T", blocks:[[1,0],[0,1],[1,1],[2,1]] },
-    { type:"L", blocks:[[2,0],[0,1],[1,1],[2,1]] },
-    { type:"J", blocks:[[0,0],[0,1],[1,1],[2,1]] },
-    { type:"S", blocks:[[1,0],[2,0],[0,1],[1,1]] },
-    { type:"Z", blocks:[[0,0],[1,0],[1,1],[2,1]] }
-  ];
-
-  const board = Array.from({length:rows}, ()=>Array(cols).fill(null));
-
-  function randomPiece(){
-    const base = JSON.parse(JSON.stringify(shapes[Math.floor(Math.random() * shapes.length)]));
-    return { type:base.type, blocks:base.blocks, x:3, y:0 };
-  }
-
-  let piece = randomPiece();
-
-  function draw(){
-    cells.forEach(cell=>cell.style.background = "rgba(255,255,255,.04)");
-
-    for(let y=0;y<rows;y++){
-      for(let x=0;x<cols;x++){
-        if(board[y][x]){
-          cells[y * cols + x].style.background = board[y][x];
-        }
-      }
-    }
-
-    piece.blocks.forEach(([bx, by])=>{
-      const x = piece.x + bx;
-      const y = piece.y + by;
-      if(y >= 0 && y < rows && x >= 0 && x < cols){
-        cells[y * cols + x].style.background = colors[piece.type];
-      }
-    });
-  }
-
-  function validMove(nx, ny, nBlocks){
-    return nBlocks.every(([bx, by])=>{
-      const x = nx + bx;
-      const y = ny + by;
-      return x >= 0 && x < cols && y >= 0 && y < rows && !board[y][x];
-    });
-  }
-
-  function rotateBlocks(blocks){
-    return blocks.map(([x, y])=>[-y + 1, x]);
-  }
-
-  function mergePiece(){
-    piece.blocks.forEach(([bx, by])=>{
-      const x = piece.x + bx;
-      const y = piece.y + by;
-      if(y >= 0 && y < rows && x >= 0 && x < cols){
-        board[y][x] = colors[piece.type];
-      }
-    });
-  }
-
-  function clearLinesBoard(){
-    let cleared = 0;
-    for(let y = rows - 1; y >= 0; y--){
-      if(board[y].every(Boolean)){
-        board.splice(y, 1);
-        board.unshift(Array(cols).fill(null));
-        cleared++;
-        y++;
-      }
-    }
-
-    if(cleared > 0){
-      lines += cleared;
-      score += cleared * 100;
-      scoreEl.innerText = score;
-      linesEl.innerText = lines;
-    }
-  }
-
-  function spawnPiece(){
-    piece = randomPiece();
-    if(!validMove(piece.x, piece.y, piece.blocks)){
-      if(score >= targetScore){
-        showSuccess("Score atteint. La partie est validée.", "Tetris", score);
-      }else{
-        showFail(`La grille est bloquée. Score final : ${score}.`);
-      }
-    }
-  }
-
-  function stepDown(){
-    if(activeGame !== "tetris") return;
-
-    if(validMove(piece.x, piece.y + 1, piece.blocks)){
-      piece.y++;
-    }else{
-      mergePiece();
-      clearLinesBoard();
-      if(score >= targetScore){
-        showSuccess("Score atteint. La partie est validée.", "Tetris", score);
-        return;
-      }
-      spawnPiece();
-    }
-    draw();
-  }
-
-  const leftBtn = document.getElementById("tetrisLeft");
-  const rightBtn = document.getElementById("tetrisRight");
-  const rotateBtn = document.getElementById("tetrisRotate");
-  const downBtn = document.getElementById("tetrisDown");
-
-  function onLeft(){
-    if(activeGame !== "tetris") return;
-    if(validMove(piece.x - 1, piece.y, piece.blocks)){
-      piece.x--;
-      draw();
-    }
-  }
-
-  function onRight(){
-    if(activeGame !== "tetris") return;
-    if(validMove(piece.x + 1, piece.y, piece.blocks)){
-      piece.x++;
-      draw();
-    }
-  }
-
-  function onRotate(){
-    if(activeGame !== "tetris") return;
-    const rotated = rotateBlocks(piece.blocks);
-    if(validMove(piece.x, piece.y, rotated)){
-      piece.blocks = rotated;
-      draw();
-    }
-  }
-
-  function onDown(){
-    if(activeGame !== "tetris") return;
-    stepDown();
-  }
-
-  leftBtn.addEventListener("click", onLeft);
-  rightBtn.addEventListener("click", onRight);
-  rotateBtn.addEventListener("click", onRotate);
-  downBtn.addEventListener("click", onDown);
-
-  cleanupFns.push(()=>{
-    leftBtn.removeEventListener("click", onLeft);
-    rightBtn.removeEventListener("click", onRight);
-    rotateBtn.removeEventListener("click", onRotate);
-    downBtn.removeEventListener("click", onDown);
-  });
-
-  function setDropInterval(){
-    clearInterval(gameFrameInterval);
-    const elapsed = 60 - gameTimeLeft;
-    const speed = Math.max(180, 650 - elapsed * 7);
-    gameFrameInterval = setInterval(stepDown, speed);
-  }
-
-  draw();
-  setDropInterval();
-
-  gameTimerInterval = setInterval(()=>{
-    gameTimeLeft--;
-    playTimer.innerText = gameTimeLeft;
-    setDropInterval();
-
-    if(gameTimeLeft <= 0){
-      clearInterval(gameTimerInterval);
-      clearInterval(gameFrameInterval);
-
-      if(score >= targetScore){
-        showSuccess("Score atteint dans le temps imparti.", "Tetris", score);
-      }else{
-        showFail(`Objectif non atteint : ${score} / ${targetScore}.`);
-      }
-    }
-  }, 1000);
-}
-
-/* =========================
-   GAME 3 - MEMORY
-========================= */
-function launchMemoryGame(){
-  setupPlay("Mémoire des cases", "Atteindre 7 séquences réussies en 1 minute", 60);
-
-  let memoryScore = 0;
-  let level = 3;
-  let canPlay = false;
-  let sequence = [];
-  let userIndex = 0;
-  let flashDelay = 520;
-  const goal = 7;
-
-  playZone.innerHTML = `
-    <div class="game-help" id="memoryPhase">Observe la séquence…</div>
-    <div class="memory-grid-play">
-      <button class="memory-pad-play dim" data-index="0">A</button>
-      <button class="memory-pad-play dim" data-index="1">B</button>
-      <button class="memory-pad-play dim" data-index="2">C</button>
-      <button class="memory-pad-play dim" data-index="3">D</button>
-    </div>
-    <div id="memoryCounter" class="game-counter">Séquences validées : 0 / 7</div>
-    <div class="progress"><div id="memoryFill" class="progress-fill"></div></div>
-    <div class="game-help">Chaque séquence réussie augmente la difficulté.</div>
-  `;
-
-  const pads = Array.from(document.querySelectorAll(".memory-pad-play"));
-  const phase = document.getElementById("memoryPhase");
-  const counter = document.getElementById("memoryCounter");
-  const fill = document.getElementById("memoryFill");
-
-  function updateUI(){
-    counter.innerText = `Séquences validées : ${memoryScore} / ${goal}`;
-    fill.style.width = Math.min((memoryScore / goal) * 100, 100) + "%";
-  }
-
-  function showSequence(step){
-    if(activeGame !== "memory") return;
-
-    pads.forEach(p=>p.classList.add("dim"));
-
-    if(step > 0){
-      pads[sequence[step - 1]].classList.remove("active");
-      pads[sequence[step - 1]].classList.add("dim");
-    }
-
-    if(step >= sequence.length){
-      phase.innerText = "À toi de jouer.";
-      canPlay = true;
-      return;
-    }
-
-    const pad = pads[sequence[step]];
-    pad.classList.remove("dim");
-    pad.classList.add("active");
-
-    setTimeout(()=>{
-      pad.classList.remove("active");
-      showSequence(step + 1);
-    }, flashDelay);
-  }
-
-  function newSequence(){
-    sequence = Array.from({length:level}, ()=>Math.floor(Math.random() * 4));
-    userIndex = 0;
-    canPlay = false;
-    phase.innerText = "Observe la séquence…";
-    showSequence(0);
-  }
-
-  const listeners = pads.map((pad, index)=>{
-    const handler = ()=>{
-      if(activeGame !== "memory" || !canPlay) return;
-
-      pad.classList.add("active");
-      setTimeout(()=>pad.classList.remove("active"), 120);
-
-      if(index === sequence[userIndex]){
-        userIndex++;
-        if(userIndex >= sequence.length){
-          memoryScore++;
-          updateUI();
-
-          if(memoryScore >= goal){
-            showSuccess("Objectif atteint. Toutes les séquences demandées ont été validées.", "Mémoire des cases", memoryScore);
-            return;
-          }
-
-          level = Math.min(level + 1, 8);
-          flashDelay = Math.max(250, flashDelay - 25);
-          setTimeout(newSequence, 500);
-        }
-      }else{
-        phase.innerText = "Erreur. Nouvelle séquence…";
-        level = Math.max(3, level - 1);
-        setTimeout(newSequence, 700);
-      }
-    };
-
-    pad.addEventListener("click", handler);
-    return { pad, handler };
-  });
-
-  cleanupFns.push(()=>{
-    listeners.forEach(({pad, handler})=>pad.removeEventListener("click", handler));
-  });
-
-  newSequence();
-
-  startCountdown(()=>{
-    if(memoryScore >= goal){
-      showSuccess("Objectif atteint. Toutes les séquences demandées ont été validées.", "Mémoire des cases", memoryScore);
-    }else{
-      showFail(`Objectif non atteint : ${memoryScore} / ${goal}.`);
-    }
-  });
-}
-
-/* =========================
-   GAME 4 - REACTION
-========================= */
-function launchReactionGame(){
-  setupPlay("Réflexe royal", "Atteindre 8 réactions validées avec moyenne ≤ 450 ms", 60);
-
-  let validReactions = 0;
-  let totalMs = 0;
-  let penalties = 0;
-  let waiting = false;
-  let canTap = false;
-  let startAt = 0;
-  const goalCount = 8;
-  const targetAverage = 450;
-
-  playZone.innerHTML = `
-    <div id="reactionBox" class="reaction-box wait">Attends le vert</div>
-    <div class="reaction-stats">
-      <div class="reaction-stat">
-        <div class="reaction-stat-label">Réactions validées</div>
-        <div id="reactionCount" class="reaction-stat-value">0 / 8</div>
-      </div>
-      <div class="reaction-stat">
-        <div class="reaction-stat-label">Moyenne actuelle</div>
-        <div id="reactionAvg" class="reaction-stat-value">0 ms</div>
-      </div>
-    </div>
-    <button id="reactionBtn" class="btn btn-primary">Taper ici</button>
-    <div class="game-help">Objectif : 8 réactions validées avec une moyenne de 450 ms maximum. Faux départ = pénalité.</div>
-  `;
-
-  const box = document.getElementById("reactionBox");
-  const countEl = document.getElementById("reactionCount");
-  const avgEl = document.getElementById("reactionAvg");
-  const btn = document.getElementById("reactionBtn");
-
-  function updateStats(){
-    const avg = validReactions > 0 ? Math.round((totalMs + penalties) / validReactions) : 0;
-    countEl.innerText = `${validReactions} / ${goalCount}`;
-    avgEl.innerText = `${avg} ms`;
-  }
-
-  function nextSignal(){
-    if(activeGame !== "reaction") return;
-
-    box.className = "reaction-box wait";
-    box.innerText = "Attends…";
-    waiting = true;
-    canTap = false;
-
-    const delay = 1000 + Math.random() * 2400;
-    const timeout = setTimeout(()=>{
-      if(activeGame !== "reaction") return;
-      waiting = false;
-      canTap = true;
-      startAt = performance.now();
-      box.className = "reaction-box go";
-      box.innerText = "TAPE !";
-    }, delay);
-
-    cleanupFns.push(()=>clearTimeout(timeout));
-  }
-
-  function onTap(){
-    if(activeGame !== "reaction") return;
-
-    if(waiting){
-      penalties += 800;
-      box.className = "reaction-box fail";
-      box.innerText = "Trop tôt";
-      updateStats();
-      const timeout = setTimeout(nextSignal, 700);
-      cleanupFns.push(()=>clearTimeout(timeout));
-      return;
-    }
-
-    if(canTap){
-      const rt = Math.round(performance.now() - startAt);
-      canTap = false;
-      validReactions++;
-      totalMs += rt;
-      updateStats();
-      box.className = "reaction-box";
-      box.innerText = `${rt} ms`;
-      const timeout = setTimeout(nextSignal, 700);
-      cleanupFns.push(()=>clearTimeout(timeout));
-    }
-  }
-
-  btn.addEventListener("click", onTap);
-  cleanupFns.push(()=>btn.removeEventListener("click", onTap));
-
-  nextSignal();
-
-  startCountdown(()=>{
-    const avg = validReactions > 0 ? Math.round((totalMs + penalties) / validReactions) : 9999;
-    if(validReactions >= goalCount && avg <= targetAverage){
-      showSuccess(`Objectif atteint avec ${validReactions} réactions validées et ${avg} ms de moyenne.`, "Réflexe royal", avg);
-    }else{
-      showFail(`Objectif non atteint. Réactions validées : ${validReactions}/8 — Moyenne : ${avg} ms. Il fallait être plus rapide.`);
-    }
-  });
-}
-
-/* =========================
-   GAME 5 - SYMBOLS
-========================= */
-function launchSymbolsGame(){
-  setupPlay("Attrape-symboles", "Atteindre 20 points en 1 minute", 60);
-
-  let symbolScore = 0;
-  const goal = 20;
-  let spawnEvery = 900;
-  const timeouts = [];
-
-  playZone.innerHTML = `
-    <div id="symbolBoard" class="symbol-board"></div>
-    <div id="symbolCounter" class="game-counter">Score : 0 / 20</div>
-    <div class="progress"><div id="symbolFill" class="progress-fill"></div></div>
-    <div class="game-help">Le départ est plus lent, puis la vitesse augmente. Bon symbole = +1, mauvais = -1.</div>
-  `;
-
-  const board = document.getElementById("symbolBoard");
-  const counter = document.getElementById("symbolCounter");
-  const fill = document.getElementById("symbolFill");
-
-  function updateUI(){
-    counter.innerText = `Score : ${symbolScore} / ${goal}`;
-    fill.style.width = Math.min((symbolScore / goal) * 100, 100) + "%";
-  }
-
-  function spawn(){
-    if(activeGame !== "symbols") return;
-
-    const isGood = Math.random() > 0.28;
-    const target = document.createElement("button");
-    target.className = "symbol-target " + (isGood ? "good" : "bad");
-    target.textContent = isGood ? "✦" : "✕";
-    target.style.left = Math.random() * (board.clientWidth - 58) + "px";
-    target.style.top = Math.random() * (board.clientHeight - 58) + "px";
-
-    const life = setTimeout(()=>target.remove(), Math.max(480, spawnEvery - 180));
-    timeouts.push(life);
-
-    const onClick = ()=>{
-      if(activeGame !== "symbols") return;
-      clearTimeout(life);
-      target.remove();
-
-      if(isGood){
-        symbolScore++;
-      }else{
-        symbolScore = Math.max(0, symbolScore - 1);
-      }
-
-      updateUI();
-
-      if(symbolScore >= goal){
-        showSuccess("Objectif atteint. Le bon score a été réalisé.", "Attrape-symboles", symbolScore);
-      }
-    };
-
-    target.addEventListener("click", onClick);
-    board.appendChild(target);
-  }
-
-  function reschedule(){
-    clearInterval(gameFrameInterval);
-    gameFrameInterval = setInterval(spawn, spawnEvery);
-  }
-
-  cleanupFns.push(()=>{
-    timeouts.forEach(t=>clearTimeout(t));
-  });
-
-  updateUI();
-  reschedule();
-
-  gameTimerInterval = setInterval(()=>{
-    gameTimeLeft--;
-    playTimer.innerText = gameTimeLeft;
-
-    const elapsed = 60 - gameTimeLeft;
-    spawnEvery = Math.max(350, 900 - elapsed * 8);
-    reschedule();
-
-    if(gameTimeLeft <= 0){
-      clearInterval(gameTimerInterval);
-      clearInterval(gameFrameInterval);
-
-      if(symbolScore >= goal){
-        showSuccess("Objectif atteint. Le bon score a été réalisé.", "Attrape-symboles", symbolScore);
-      }else{
-        showFail(`Objectif non atteint : ${symbolScore} / ${goal}.`);
-      }
-    }
-  },1000);
 }
 </script>
 </body>
