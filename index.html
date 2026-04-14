@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<title>Les Masqués — V2</title>
+<title>Les Masqués — Mission NPS</title>
 <style>
 :root{
   --bg:#06070b;
@@ -26,18 +26,26 @@
   --safe-bottom:env(safe-area-inset-bottom, 0px);
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{margin:0;padding:0;background:
-radial-gradient(circle at top right, rgba(255,159,67,.10), transparent 24%),
-radial-gradient(circle at bottom left, rgba(111,231,255,.10), transparent 20%),
-linear-gradient(180deg, #05060a 0%, #090b12 40%, #0d1019 100%);
-color:var(--text);font-family:Arial,Helvetica,sans-serif;min-height:100%}
+html,body{
+  margin:0;
+  padding:0;
+  background:
+    radial-gradient(circle at top right, rgba(255,159,67,.10), transparent 24%),
+    radial-gradient(circle at bottom left, rgba(111,231,255,.10), transparent 20%),
+    linear-gradient(180deg, #05060a 0%, #090b12 40%, #0d1019 100%);
+  color:var(--text);
+  font-family:Arial,Helvetica,sans-serif;
+  min-height:100%;
+}
 body{padding-bottom:94px}
 button,input{font:inherit}
 a{text-decoration:none;color:inherit}
 .app{max-width:520px;margin:0 auto;min-height:100vh;position:relative}
 
 .top-hero{
-  position:sticky;top:0;z-index:15;
+  position:sticky;
+  top:0;
+  z-index:15;
   padding:14px 14px 10px 14px;
   background:linear-gradient(180deg, rgba(6,7,11,.95), rgba(6,7,11,.72), transparent);
   backdrop-filter:blur(10px);
@@ -55,41 +63,69 @@ a{text-decoration:none;color:inherit}
   position:relative;
 }
 .hero-badge{
-  display:inline-flex;align-items:center;gap:8px;
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
   border:1px solid rgba(255,255,255,.10);
   background:rgba(255,255,255,.06);
-  border-radius:999px;padding:8px 12px;
-  font-size:11px;font-weight:900;letter-spacing:1px;text-transform:uppercase
+  border-radius:999px;
+  padding:8px 12px;
+  font-size:11px;
+  font-weight:900;
+  letter-spacing:1px;
+  text-transform:uppercase;
 }
 .hero-title{
-  margin:12px 0 8px 0;font-size:28px;line-height:1.02;
-  text-transform:uppercase;font-weight:900;letter-spacing:.5px
+  margin:12px 0 8px 0;
+  font-size:28px;
+  line-height:1.02;
+  text-transform:uppercase;
+  font-weight:900;
+  letter-spacing:.5px;
 }
 .hero-sub{
-  color:var(--muted);font-size:14px;line-height:1.55;margin-bottom:14px
+  color:var(--muted);
+  font-size:14px;
+  line-height:1.55;
+  margin-bottom:14px;
 }
 .hero-grid{
-  display:grid;grid-template-columns:1fr 1fr;gap:10px
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
 }
 .mini-chip{
   border:1px solid var(--line);
   background:rgba(255,255,255,.04);
-  border-radius:18px;padding:12px
+  border-radius:18px;
+  padding:12px;
 }
 .mini-chip-label{
-  font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:6px
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:1px;
+  color:var(--muted);
+  margin-bottom:6px;
 }
 .mini-chip-value{
-  font-weight:900;font-size:18px
+  font-weight:900;
+  font-size:18px;
 }
 .neon-line{
-  position:absolute;right:-40px;top:-30px;width:160px;height:160px;border-radius:50%;
+  position:absolute;
+  right:-40px;
+  top:-30px;
+  width:160px;
+  height:160px;
+  border-radius:50%;
   background:radial-gradient(circle, rgba(255,159,67,.15), transparent 60%);
-  filter:blur(16px);pointer-events:none
+  filter:blur(16px);
+  pointer-events:none;
 }
 
 .screen{
-  display:none;padding:8px 14px 20px 14px
+  display:none;
+  padding:8px 14px 20px 14px;
 }
 .screen.active{display:block}
 .stack{display:grid;gap:14px}
@@ -97,13 +133,21 @@ a{text-decoration:none;color:inherit}
 .card{
   border:1px solid var(--line);
   background:linear-gradient(180deg, rgba(18,22,34,.94), rgba(13,17,27,.94));
-  border-radius:24px;padding:16px;box-shadow:var(--shadow)
+  border-radius:24px;
+  padding:16px;
+  box-shadow:var(--shadow);
 }
 .card-title{
-  font-size:18px;font-weight:900;text-transform:uppercase;letter-spacing:.6px;margin:0 0 12px 0
+  font-size:18px;
+  font-weight:900;
+  text-transform:uppercase;
+  letter-spacing:.6px;
+  margin:0 0 12px 0;
 }
 .card-sub{
-  color:var(--muted);font-size:14px;line-height:1.6
+  color:var(--muted);
+  font-size:14px;
+  line-height:1.6;
 }
 .row{display:flex;gap:10px;align-items:center}
 .row.wrap{flex-wrap:wrap}
@@ -114,292 +158,590 @@ a{text-decoration:none;color:inherit}
 .gold{color:var(--gold)}
 .red{color:var(--red)}
 
-.kpi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.kpi-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+}
 .kpi{
-  border:1px solid var(--line);border-radius:18px;padding:14px 10px;text-align:center;
-  background:rgba(255,255,255,.04)
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:14px 10px;
+  text-align:center;
+  background:rgba(255,255,255,.04);
 }
 .kpi-label{
-  font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:8px
+  font-size:10px;
+  text-transform:uppercase;
+  letter-spacing:1px;
+  color:var(--muted);
+  margin-bottom:8px;
 }
-.kpi-value{font-size:28px;font-weight:900;line-height:1}
+.kpi-value{
+  font-size:28px;
+  font-weight:900;
+  line-height:1;
+}
 
 .stat-banner{
   border:1px solid rgba(255,255,255,.09);
   background:linear-gradient(135deg, rgba(255,159,67,.10), rgba(111,231,255,.08));
-  border-radius:20px;padding:14px;font-size:14px;line-height:1.6
+  border-radius:20px;
+  padding:14px;
+  font-size:14px;
+  line-height:1.6;
 }
 
 .btn{
-  width:100%;border:none;border-radius:18px;padding:15px 16px;
-  font-weight:900;font-size:15px;cursor:pointer;transition:.16s ease;
+  width:100%;
+  border:none;
+  border-radius:18px;
+  padding:15px 16px;
+  font-weight:900;
+  font-size:15px;
+  cursor:pointer;
+  transition:.16s ease;
 }
 .btn:active{transform:scale(.99)}
 .btn-primary{
-  color:#23180a;background:linear-gradient(135deg, var(--gold), var(--gold-2));
-  box-shadow:0 14px 30px rgba(201,139,29,.28)
+  color:#23180a;
+  background:linear-gradient(135deg, var(--gold), var(--gold-2));
+  box-shadow:0 14px 30px rgba(201,139,29,.28);
 }
 .btn-ghost{
-  color:var(--text);background:rgba(255,255,255,.06);border:1px solid var(--line)
+  color:var(--text);
+  background:rgba(255,255,255,.06);
+  border:1px solid var(--line);
 }
 .btn-orange{
-  color:#24170a;background:linear-gradient(135deg, var(--orange-2), var(--orange));
-  box-shadow:0 14px 30px rgba(255,159,67,.22)
+  color:#24170a;
+  background:linear-gradient(135deg, var(--orange-2), var(--orange));
+  box-shadow:0 14px 30px rgba(255,159,67,.22);
 }
 .btn-green{
-  color:#06150d;background:linear-gradient(135deg, #a6f6c0, #66d28c);
-  box-shadow:0 14px 30px rgba(102,210,140,.20)
+  color:#06150d;
+  background:linear-gradient(135deg, #a6f6c0, #66d28c);
+  box-shadow:0 14px 30px rgba(102,210,140,.20);
 }
 .btn-red{
-  color:#fff;background:linear-gradient(135deg, #ff7c7c, #d94343)
+  color:#fff;
+  background:linear-gradient(135deg, #ff7c7c, #d94343);
 }
 
 .pills{display:flex;gap:8px;flex-wrap:wrap}
 .pill{
-  border:1px solid var(--line);background:rgba(255,255,255,.05);
-  border-radius:999px;padding:8px 12px;font-size:12px;font-weight:800
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.05);
+  border-radius:999px;
+  padding:8px 12px;
+  font-size:12px;
+  font-weight:800;
 }
 
 .game-grid{
-  display:grid;grid-template-columns:1fr 1fr;gap:10px
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
 }
 .game-card{
   border:1px solid var(--line);
   background:
    radial-gradient(circle at top right, rgba(111,231,255,.10), transparent 30%),
    linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
-  border-radius:20px;padding:14px
+  border-radius:20px;
+  padding:14px;
 }
 .game-icon{font-size:24px;margin-bottom:8px}
 .game-name{font-size:15px;font-weight:900;margin-bottom:6px}
 .game-desc{font-size:12px;line-height:1.5;color:var(--muted);min-height:54px}
-.game-diff{font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:1px;color:var(--orange);margin:10px 0}
+.game-diff{
+  font-size:11px;
+  font-weight:900;
+  text-transform:uppercase;
+  letter-spacing:1px;
+  color:var(--orange);
+  margin:10px 0;
+}
 
 .rule-list,.tip-list{display:grid;gap:10px}
 .rule-item,.tip-item{
-  border:1px solid var(--line);background:rgba(255,255,255,.04);
-  border-radius:18px;padding:14px
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.04);
+  border-radius:18px;
+  padding:14px;
 }
 .rule-top{font-weight:900;margin-bottom:6px}
-.tip-role{font-size:12px;text-transform:uppercase;letter-spacing:1px;color:var(--gold);font-weight:900;margin-bottom:8px}
+.tip-role{
+  font-size:12px;
+  text-transform:uppercase;
+  letter-spacing:1px;
+  color:var(--gold);
+  font-weight:900;
+  margin-bottom:8px;
+}
 .copy-btn{margin-top:10px}
 
 .bottom-nav{
-  position:fixed;left:0;right:0;bottom:0;z-index:40;
+  position:fixed;
+  left:0;
+  right:0;
+  bottom:0;
+  z-index:40;
   padding:10px 12px calc(10px + var(--safe-bottom)) 12px;
   background:linear-gradient(180deg, transparent, rgba(6,7,11,.92) 28%, rgba(6,7,11,.98));
-  backdrop-filter:blur(12px)
+  backdrop-filter:blur(12px);
 }
 .bottom-nav-inner{
-  max-width:520px;margin:0 auto;
+  max-width:520px;
+  margin:0 auto;
   border:1px solid var(--line);
   background:rgba(17,21,34,.96);
-  border-radius:22px;padding:8px;
-  display:grid;grid-template-columns:repeat(5,1fr);gap:6px;
-  box-shadow:var(--shadow)
+  border-radius:22px;
+  padding:8px;
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:6px;
+  box-shadow:var(--shadow);
 }
 .nav-btn{
-  border:none;background:transparent;color:var(--muted);
-  border-radius:16px;padding:10px 4px;font-size:11px;font-weight:900;
-  display:grid;justify-items:center;gap:5px;cursor:pointer
+  border:none;
+  background:transparent;
+  color:var(--muted);
+  border-radius:16px;
+  padding:10px 4px;
+  font-size:11px;
+  font-weight:900;
+  display:grid;
+  justify-items:center;
+  gap:5px;
+  cursor:pointer;
 }
 .nav-btn.active{
-  color:var(--text);background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
+  color:var(--text);
+  background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
 }
 .nav-ico{font-size:18px;line-height:1}
 
-.player-box{
-  display:grid;gap:10px
-}
+.player-box{display:grid;gap:10px}
 .input{
-  width:100%;border:none;border-radius:18px;padding:15px 16px;
-  background:#f5efe6;color:#161616;font-size:16px;font-weight:800
+  width:100%;
+  border:none;
+  border-radius:18px;
+  padding:15px 16px;
+  background:#f5efe6;
+  color:#161616;
+  font-size:16px;
+  font-weight:800;
 }
-.helper{font-size:12px;color:var(--muted);line-height:1.5}
+.helper{
+  font-size:12px;
+  color:var(--muted);
+  line-height:1.5;
+}
 
 .chart{
-  border:1px solid var(--line);background:rgba(255,255,255,.04);
-  border-radius:20px;padding:12px;overflow:hidden
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.04);
+  border-radius:20px;
+  padding:12px;
+  overflow:hidden;
 }
 .chart svg{width:100%;height:auto;display:block}
-.legend{display:flex;gap:12px;flex-wrap:wrap;margin-top:10px}
-.legend-item{display:flex;align-items:center;gap:8px;font-size:12px}
-.dot{width:10px;height:10px;border-radius:50%}
+.legend{
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+  margin-top:10px;
+}
+.legend-item{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  font-size:12px;
+}
+.dot{
+  width:10px;
+  height:10px;
+  border-radius:50%;
+}
 
-.arena{
-  display:grid;gap:14px
+/* Overlay de jeu */
+.game-overlay{
+  position:fixed;
+  inset:0;
+  z-index:80;
+  background:rgba(4,5,9,.90);
+  backdrop-filter:blur(14px);
+  display:none;
+  padding:14px;
+  overflow:auto;
+}
+.game-overlay.show{display:block}
+.overlay-shell{
+  max-width:520px;
+  margin:0 auto;
+  min-height:calc(100vh - 28px);
+  display:flex;
+  flex-direction:column;
 }
 .game-shell{
   border:1px solid rgba(255,255,255,.10);
   background:
     radial-gradient(circle at top center, rgba(255,159,67,.09), transparent 24%),
     linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
-  border-radius:26px;padding:16px
+  border-radius:26px;
+  padding:16px;
+  margin:auto 0;
 }
-.game-head{display:flex;justify-content:space-between;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:12px}
+.game-head{
+  display:flex;
+  justify-content:space-between;
+  gap:8px;
+  align-items:center;
+  flex-wrap:wrap;
+  margin-bottom:12px;
+}
 .game-title{font-size:18px;font-weight:900}
 .timer{
-  min-width:76px;text-align:center;padding:10px 12px;border-radius:999px;
-  font-size:15px;font-weight:900;color:#251608;
-  background:linear-gradient(135deg, var(--orange-2), var(--orange))
+  min-width:76px;
+  text-align:center;
+  padding:10px 12px;
+  border-radius:999px;
+  font-size:15px;
+  font-weight:900;
+  color:#251608;
+  background:linear-gradient(135deg, var(--orange-2), var(--orange));
 }
 .goal{
-  font-size:12px;color:var(--muted);font-weight:800;text-transform:uppercase;letter-spacing:1px
+  font-size:12px;
+  color:var(--muted);
+  font-weight:800;
+  text-transform:uppercase;
+  letter-spacing:1px;
 }
 .game-zone{
   min-height:300px;
-  display:flex;flex-direction:column;justify-content:center;gap:14px
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  gap:14px;
 }
 .result-box{
   border:1px solid rgba(255,255,255,.10);
   background:rgba(255,255,255,.04);
-  border-radius:18px;padding:14px;font-size:14px;line-height:1.6
+  border-radius:18px;
+  padding:14px;
+  font-size:14px;
+  line-height:1.6;
 }
 
 /* Jeux */
 .tap-drum{
-  width:220px;height:220px;border-radius:50%;margin:0 auto;
-  display:flex;align-items:center;justify-content:center;text-align:center;padding:20px;
-  font-weight:900;font-size:26px;line-height:1.15;user-select:none;cursor:pointer;
+  width:220px;
+  height:220px;
+  border-radius:50%;
+  margin:0 auto;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:20px;
+  font-weight:900;
+  font-size:26px;
+  line-height:1.15;
+  user-select:none;
+  cursor:pointer;
   background:
     radial-gradient(circle at 30% 30%, rgba(255,255,255,.10), transparent 35%),
     linear-gradient(145deg, rgba(255,159,67,.30), rgba(192,47,69,.30));
   border:1px solid rgba(255,255,255,.12);
-  box-shadow:0 18px 34px rgba(0,0,0,.28), 0 0 30px rgba(255,159,67,.08)
+  box-shadow:0 18px 34px rgba(0,0,0,.28), 0 0 30px rgba(255,159,67,.08);
 }
 .tap-count{text-align:center;font-size:15px;font-weight:900}
 .bar{
-  width:100%;height:18px;border-radius:999px;background:rgba(255,255,255,.08);overflow:hidden;border:1px solid var(--line)
+  width:100%;
+  height:18px;
+  border-radius:999px;
+  background:rgba(255,255,255,.08);
+  overflow:hidden;
+  border:1px solid var(--line);
 }
-.bar-fill{height:100%;width:0;background:linear-gradient(90deg, var(--orange), var(--gold));border-radius:999px;transition:width .08s linear}
+.bar-fill{
+  height:100%;
+  width:0;
+  background:linear-gradient(90deg, var(--orange), var(--gold));
+  border-radius:999px;
+  transition:width .08s linear;
+}
 
 .balance-track{
-  position:relative;width:100%;height:26px;border-radius:999px;background:rgba(255,255,255,.08);
-  overflow:hidden;border:1px solid var(--line)
+  position:relative;
+  width:100%;
+  height:26px;
+  border-radius:999px;
+  background:rgba(255,255,255,.08);
+  overflow:hidden;
+  border:1px solid var(--line);
 }
 .balance-safe{
-  position:absolute;top:0;height:100%;width:13%;
+  position:absolute;
+  top:0;
+  height:100%;
+  width:13%;
   background:rgba(142,240,176,.28);
   border-left:2px solid rgba(142,240,176,.96);
   border-right:2px solid rgba(142,240,176,.96);
 }
 .balance-marker{
-  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
-  width:34px;height:34px;border-radius:50%;
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  width:34px;
+  height:34px;
+  border-radius:50%;
   background:linear-gradient(135deg, var(--gold), var(--gold-2));
   border:2px solid rgba(255,255,255,.16);
-  box-shadow:0 10px 20px rgba(0,0,0,.28)
+  box-shadow:0 10px 20px rgba(0,0,0,.28);
 }
 .control-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 
 .pad-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .pad{
-  height:110px;border:none;border-radius:22px;cursor:pointer;color:#1d1408;font-size:22px;font-weight:900;
-  background:linear-gradient(145deg, #ffd37d, #f0a832);box-shadow:0 12px 22px rgba(0,0,0,.20);
-  transition:transform .1s ease, filter .1s ease
+  height:110px;
+  border:none;
+  border-radius:22px;
+  cursor:pointer;
+  color:#1d1408;
+  font-size:22px;
+  font-weight:900;
+  background:linear-gradient(145deg, #ffd37d, #f0a832);
+  box-shadow:0 12px 22px rgba(0,0,0,.20);
+  transition:transform .1s ease, filter .1s ease;
 }
 .pad.dim{filter:brightness(.62)}
 .pad.active{transform:scale(1.03);filter:brightness(1.15)}
 
 .flash-code{
-  text-align:center;font-size:40px;font-weight:900;letter-spacing:8px;
-  padding:18px;border-radius:20px;border:1px dashed rgba(255,255,255,.18);
-  background:rgba(255,255,255,.04)
+  text-align:center;
+  font-size:40px;
+  font-weight:900;
+  letter-spacing:8px;
+  padding:18px;
+  border-radius:20px;
+  border:1px dashed rgba(255,255,255,.18);
+  background:rgba(255,255,255,.04);
 }
 
 .alt-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .alt-btn{
-  height:120px;border:none;border-radius:24px;cursor:pointer;font-size:24px;font-weight:900;
-  color:#241709;background:linear-gradient(145deg, var(--orange-2), var(--orange))
+  height:120px;
+  border:none;
+  border-radius:24px;
+  cursor:pointer;
+  font-size:24px;
+  font-weight:900;
+  color:#241709;
+  background:linear-gradient(145deg, var(--orange-2), var(--orange));
 }
-.alt-btn.good{box-shadow:0 0 0 3px rgba(142,240,176,.28) inset}
-.alt-btn.bad{box-shadow:0 0 0 3px rgba(255,107,107,.28) inset}
 
 .hunter-board{
-  position:relative;height:300px;border-radius:22px;border:1px solid var(--line);
+  position:relative;
+  height:300px;
+  border-radius:22px;
+  border:1px solid var(--line);
   background:
     radial-gradient(circle at 50% 50%, rgba(111,231,255,.08), transparent 55%),
     linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01));
-  overflow:hidden
+  overflow:hidden;
 }
 .target{
-  position:absolute;width:58px;height:58px;border-radius:50%;border:none;cursor:pointer;
-  display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:900
+  position:absolute;
+  width:58px;
+  height:58px;
+  border-radius:50%;
+  border:none;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:22px;
+  font-weight:900;
 }
-.target.good{background:linear-gradient(145deg, #ffd37d, #f0a832);color:#241709}
-.target.bad{background:linear-gradient(145deg, #ff8c8c, #d94343);color:#fff}
+.target.good{
+  background:linear-gradient(145deg, #ffd37d, #f0a832);
+  color:#241709;
+}
+.target.bad{
+  background:linear-gradient(145deg, #ff8c8c, #d94343);
+  color:#fff;
+}
 
 .precision-wrap{display:grid;gap:14px}
 .precision-ring{
-  width:220px;height:220px;border-radius:50%;margin:0 auto;position:relative;
+  width:220px;
+  height:220px;
+  border-radius:50%;
+  margin:0 auto;
+  position:relative;
   background:conic-gradient(var(--orange) 0deg, rgba(255,255,255,.08) 0deg);
-  display:grid;place-items:center;border:1px solid rgba(255,255,255,.10)
+  display:grid;
+  place-items:center;
+  border:1px solid rgba(255,255,255,.10);
 }
 .precision-ring::after{
-  content:"";width:138px;height:138px;border-radius:50%;background:var(--panel);border:1px solid var(--line)
+  content:"";
+  width:138px;
+  height:138px;
+  border-radius:50%;
+  background:var(--panel);
+  border:1px solid var(--line);
 }
 .precision-center{
-  position:absolute;inset:0;display:grid;place-items:center;font-weight:900;font-size:24px;z-index:2
+  position:absolute;
+  inset:0;
+  display:grid;
+  place-items:center;
+  font-weight:900;
+  font-size:24px;
+  z-index:2;
 }
-.precision-window{
-  text-align:center;font-size:13px;color:var(--muted)
-}
+.precision-window{text-align:center;font-size:13px;color:var(--muted)}
 
 .reaction-box{
-  height:180px;border-radius:24px;border:1px solid var(--line);
-  display:grid;place-items:center;text-align:center;padding:20px;
-  background:rgba(255,255,255,.04);font-size:24px;font-weight:900
+  height:180px;
+  border-radius:24px;
+  border:1px solid var(--line);
+  display:grid;
+  place-items:center;
+  text-align:center;
+  padding:20px;
+  background:rgba(255,255,255,.04);
+  font-size:24px;
+  font-weight:900;
 }
 .reaction-box.wait{color:var(--muted)}
 .reaction-box.go{
-  color:#08140d;background:linear-gradient(145deg, #a6f6c0, #66d28c)
+  color:#08140d;
+  background:linear-gradient(145deg, #a6f6c0, #66d28c);
 }
 .reaction-box.fail{
-  color:#fff;background:linear-gradient(145deg, #ff8c8c, #d94343)
+  color:#fff;
+  background:linear-gradient(145deg, #ff8c8c, #d94343);
 }
 
+/* Ticket */
 .ticket-overlay{
-  position:fixed;inset:0;z-index:90;background:rgba(4,5,9,.82);
-  backdrop-filter:blur(12px);display:none;padding:18px;overflow:auto
+  position:fixed;
+  inset:0;
+  z-index:90;
+  background:rgba(4,5,9,.82);
+  backdrop-filter:blur(12px);
+  display:none;
+  padding:18px;
+  overflow:auto;
 }
 .ticket-overlay.show{display:block}
 .ticket{
-  max-width:520px;margin:20px auto;padding:18px;
-  border-radius:28px;border:1px solid rgba(255,255,255,.10);
+  max-width:520px;
+  margin:20px auto;
+  padding:18px;
+  border-radius:28px;
+  border:1px solid rgba(255,255,255,.10);
   background:
     radial-gradient(circle at top right, rgba(255,159,67,.18), transparent 24%),
     radial-gradient(circle at bottom left, rgba(111,231,255,.10), transparent 20%),
     linear-gradient(180deg, rgba(22,27,42,.98), rgba(10,13,21,.98));
-  box-shadow:0 28px 60px rgba(0,0,0,.42)
+  box-shadow:0 28px 60px rgba(0,0,0,.42);
 }
 .ticket-head{
-  display:flex;justify-content:space-between;gap:10px;align-items:flex-start;margin-bottom:14px
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  align-items:flex-start;
+  margin-bottom:14px;
 }
 .ticket-title{
-  font-size:24px;line-height:1.02;font-weight:900;text-transform:uppercase
+  font-size:24px;
+  line-height:1.02;
+  font-weight:900;
+  text-transform:uppercase;
 }
 .ticket-badge{
-  border-radius:999px;padding:8px 12px;font-size:11px;font-weight:900;letter-spacing:1px;text-transform:uppercase;
-  background:linear-gradient(135deg, #a6f6c0, #66d28c);color:#06140d
+  border-radius:999px;
+  padding:8px 12px;
+  font-size:11px;
+  font-weight:900;
+  letter-spacing:1px;
+  text-transform:uppercase;
+  background:linear-gradient(135deg, #a6f6c0, #66d28c);
+  color:#06140d;
 }
-.ticket-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0}
+.ticket-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin:14px 0;
+}
 .ticket-cell{
-  border:1px solid var(--line);border-radius:18px;padding:12px;background:rgba(255,255,255,.04)
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:12px;
+  background:rgba(255,255,255,.04);
 }
-.ticket-label{font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:6px}
-.ticket-value{font-size:16px;font-weight:900;word-break:break-word}
+.ticket-label{
+  font-size:10px;
+  text-transform:uppercase;
+  letter-spacing:1px;
+  color:var(--muted);
+  margin-bottom:6px;
+}
+.ticket-value{
+  font-size:16px;
+  font-weight:900;
+  word-break:break-word;
+}
 .ticket-big{
-  text-align:center;padding:16px;border-radius:20px;margin:14px 0;
-  border:1px solid rgba(255,255,255,.10);background:rgba(255,255,255,.05)
+  text-align:center;
+  padding:16px;
+  border-radius:20px;
+  margin:14px 0;
+  border:1px solid rgba(255,255,255,.10);
+  background:rgba(255,255,255,.05);
 }
-.ticket-big strong{display:block;font-size:30px;color:var(--gold);margin-bottom:6px}
-.ticket-note{font-size:12px;line-height:1.55;color:var(--muted);text-align:center}
-.ticket-actions{display:grid;gap:10px;margin-top:14px}
+.ticket-big strong{
+  display:block;
+  font-size:30px;
+  color:var(--gold);
+  margin-bottom:6px;
+}
+.ticket-note{
+  font-size:12px;
+  line-height:1.55;
+  color:var(--muted);
+  text-align:center;
+}
+.ticket-actions{
+  display:grid;
+  gap:10px;
+  margin-top:14px;
+}
 
 @media (min-width:521px){
   body{padding-bottom:24px}
-  .bottom-nav{position:static;padding:0;background:none;backdrop-filter:none}
+  .bottom-nav{
+    position:static;
+    padding:0;
+    background:none;
+    backdrop-filter:none;
+  }
   .bottom-nav-inner{margin:0 auto 20px auto}
+  .game-overlay{
+    padding:24px;
+  }
+  .overlay-shell{
+    min-height:calc(100vh - 48px);
+  }
 }
 </style>
 </head>
@@ -412,7 +754,7 @@ a{text-decoration:none;color:inherit}
       <div class="hero-badge">🎭 Mission active</div>
       <div class="hero-title">Les Masqués</div>
       <div class="hero-sub">
-        Nouvelle version pensée smartphone. Plus nerveuse, plus dense, beaucoup plus difficile.
+        Version smartphone. Plus propre, plus directe. Les jeux s’ouvrent maintenant immédiatement en plein écran.
       </div>
       <div class="hero-grid">
         <div class="mini-chip">
@@ -451,32 +793,11 @@ a{text-decoration:none;color:inherit}
         </div>
 
         <div class="card">
-          <h2 class="card-title">Statut rapide</h2>
-          <div class="kpi-grid">
-            <div class="kpi">
-              <div class="kpi-label">Loyaux</div>
-              <div id="homeLoyaux" class="kpi-value green">18</div>
-            </div>
-            <div class="kpi">
-              <div class="kpi-label">Masqués</div>
-              <div id="homeMasques" class="kpi-value gold">14</div>
-            </div>
-            <div class="kpi">
-              <div class="kpi-label">Enquêteur</div>
-              <div id="homeEnqueteur" class="kpi-value orange" style="font-size:20px">À venir</div>
-            </div>
-          </div>
-          <div id="homeStatus" class="stat-banner" style="margin-top:12px">
-            Les Loyaux gardent l’avantage pour l’instant, mais une seule série d’épreuves réussies peut faire basculer la semaine.
-          </div>
-        </div>
-
-        <div class="card">
           <h2 class="card-title">Joueur</h2>
           <div class="player-box">
             <input id="playerName" class="input" type="text" placeholder="Entre ton prénom avant de lancer une épreuve" autocomplete="off" />
             <div class="helper">
-              Le prénom sera injecté automatiquement dans le ticket de réussite. La capture affichera la date, l’heure et un code de session unique.
+              Le prénom sera intégré dans le ticket de réussite. La capture affichera la date, l’heure et un code unique.
             </div>
             <button class="btn btn-orange" onclick="goTo('lab')">Entrer dans la salle des épreuves</button>
           </div>
@@ -529,7 +850,7 @@ a{text-decoration:none;color:inherit}
             <div class="game-card">
               <div class="game-icon">⚔️</div>
               <div class="game-name">Tenter une épreuve</div>
-              <div class="game-desc">Accès à la salle des épreuves. Les jeux sont volontairement difficiles.</div>
+              <div class="game-desc">Accès à la salle des épreuves. Les jeux s’ouvrent maintenant directement en overlay.</div>
               <div class="game-diff">+3 si réussite / 0 si échec</div>
               <button class="btn btn-primary" onclick="goTo('lab')">Accéder aux épreuves</button>
             </div>
@@ -625,6 +946,7 @@ a{text-decoration:none;color:inherit}
             <input id="weeklyLead" class="input" type="text" value="À venir" />
             <button class="btn btn-primary" onclick="updateStatus()">Mettre à jour le statut</button>
             <div class="helper">Ordre des champs : score Loyaux, score Masqués, Enquêteur de la semaine.</div>
+            <div id="statusBanner" class="stat-banner">Les Loyaux mènent avec 4 points d’avance. Rien n’est figé.</div>
           </div>
         </div>
       </div>
@@ -670,793 +992,8 @@ a{text-decoration:none;color:inherit}
         <div class="card">
           <h2 class="card-title">Salle des épreuves</h2>
           <div class="card-sub">
-            Les jeux ci-dessous sont plus durs. Une victoire affiche un ticket de validation à capturer avec le prénom, la date, l’heure et un code unique.
+            Quand tu appuies sur <strong>Lancer</strong>, le jeu s’ouvre maintenant immédiatement en plein écran. Plus besoin de scroller pour le trouver.
           </div>
           <div class="pills" style="margin-top:12px">
             <div class="pill">Réussite = +3</div>
-            <div class="pill">Échec = 0</div>
-            <div class="pill">Capture anti-réutilisation</div>
-          </div>
-        </div>
-
-        <div class="game-grid">
-          <div class="game-card">
-            <div class="game-icon">⚡</div>
-            <div class="game-name">Sprint</div>
-            <div class="game-desc">90 pressions en 10 secondes.</div>
-            <div class="game-diff">Difficile</div>
-            <button class="btn btn-primary" onclick="startGame('tap')">Lancer</button>
-          </div>
-          <div class="game-card">
-            <div class="game-icon">🎯</div>
-            <div class="game-name">Stabilité X</div>
-            <div class="game-desc">Rester 8 s dans une zone qui bouge.</div>
-            <div class="game-diff">Très difficile</div>
-            <button class="btn btn-primary" onclick="startGame('balance')">Lancer</button>
-          </div>
-          <div class="game-card">
-            <div class="game-icon">🧠</div>
-            <div class="game-name">Mémoire noire</div>
-            <div class="game-desc">Séquence de 6 cases, vitesse rapide.</div>
-            <div class="game-diff">Très difficile</div>
-            <button class="btn btn-primary" onclick="startGame('memory')">Lancer</button>
-          </div>
-          <div class="game-card">
-            <div class="game-icon">🔐</div>
-            <div class="game-name">Code flash</div>
-            <div class="game-desc">Mémoriser un code affiché très peu de temps.</div>
-            <div class="game-diff">Difficile</div>
-            <button class="btn btn-primary" onclick="startGame('flash')">Lancer</button>
-          </div>
-          <div class="game-card">
-            <div class="game-icon">↔️</div>
-            <div class="game-name">Alternance</div>
-            <div class="game-desc">Gauche / droite en alternance parfaite.</div>
-            <div class="game-diff">Difficile</div>
-            <button class="btn btn-primary" onclick="startGame('alternate')">Lancer</button>
-          </div>
-          <div class="game-card">
-            <div class="game-icon">🎯</div>
-            <div class="game-name">Chasseur</div>
-            <div class="game-desc">Cliquer les cibles or, éviter les bombes rouges.</div>
-            <div class="game-diff">Très difficile</div>
-            <button class="btn btn-primary" onclick="startGame('hunter')">Lancer</button>
-          </div>
-          <div class="game-card">
-            <div class="game-icon">🌀</div>
-            <div class="game-name">Précision</div>
-            <div class="game-desc">Valider 5 fois au bon moment dans une fenêtre minuscule.</div>
-            <div class="game-diff">Très difficile</div>
-            <button class="btn btn-primary" onclick="startGame('precision')">Lancer</button>
-          </div>
-          <div class="game-card">
-            <div class="game-icon">🚦</div>
-            <div class="game-name">Réflexe</div>
-            <div class="game-desc">Attendre le vert, taper vite, sans faux départ.</div>
-            <div class="game-diff">Très difficile</div>
-            <button class="btn btn-primary" onclick="startGame('reaction')">Lancer</button>
-          </div>
-        </div>
-
-        <div id="arena" class="arena" style="display:none">
-          <div class="game-shell">
-            <div class="game-head">
-              <div>
-                <div id="gameTitle" class="game-title">Épreuve</div>
-                <div id="gameGoal" class="goal">Objectif</div>
-              </div>
-              <div id="timer" class="timer">0</div>
-            </div>
-            <div id="gameZone" class="game-zone"></div>
-            <div id="gameResult" class="result-box" style="display:none"></div>
-            <div style="margin-top:12px">
-              <button class="btn btn-ghost" onclick="resetArena()">Quitter l’épreuve</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <div class="bottom-nav">
-    <div class="bottom-nav-inner">
-      <button class="nav-btn active" data-screen="home" onclick="goTo('home')"><span class="nav-ico">🏠</span><span>Accueil</span></button>
-      <button class="nav-btn" data-screen="mission" onclick="goTo('mission')"><span class="nav-ico">🎭</span><span>Mission</span></button>
-      <button class="nav-btn" data-screen="nps" onclick="goTo('nps')"><span class="nav-ico">📈</span><span>NPS</span></button>
-      <button class="nav-btn" data-screen="tips" onclick="goTo('tips')"><span class="nav-ico">💬</span><span>Répliques</span></button>
-      <button class="nav-btn" data-screen="lab" onclick="goTo('lab')"><span class="nav-ico">🕹️</span><span>Épreuves</span></button>
-    </div>
-  </div>
-
-  <div id="ticketOverlay" class="ticket-overlay">
-    <div class="ticket">
-      <div class="ticket-head">
-        <div>
-          <div class="ticket-title">Mission validée</div>
-          <div class="muted" style="font-size:13px;margin-top:6px">Capture d’écran à envoyer immédiatement</div>
-        </div>
-        <div class="ticket-badge">+3 points</div>
-      </div>
-
-      <div class="ticket-big">
-        <strong id="ticketGame">Sprint</strong>
-        Épreuve réussie
-      </div>
-
-      <div class="ticket-grid">
-        <div class="ticket-cell">
-          <div class="ticket-label">Joueur</div>
-          <div id="ticketPlayer" class="ticket-value">Prénom</div>
-        </div>
-        <div class="ticket-cell">
-          <div class="ticket-label">Date</div>
-          <div id="ticketDate" class="ticket-value">--/--/----</div>
-        </div>
-        <div class="ticket-cell">
-          <div class="ticket-label">Heure</div>
-          <div id="ticketTime" class="ticket-value">--:--:--</div>
-        </div>
-        <div class="ticket-cell">
-          <div class="ticket-label">Code session</div>
-          <div id="ticketCode" class="ticket-value">XXXX</div>
-        </div>
-      </div>
-
-      <div class="ticket-note">
-        Capture valable uniquement si la date, l’heure et le code correspondent à la session affichée.
-      </div>
-
-      <div class="ticket-actions">
-        <button class="btn btn-primary" onclick="closeTicket()">Fermer</button>
-      </div>
-    </div>
-  </div>
-
-</div>
-
-<script>
-/* ========= Navigation ========= */
-function goTo(screen){
-  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
-  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
-  document.getElementById('screen-' + screen).classList.add('active');
-  const btn = document.querySelector('.nav-btn[data-screen="' + screen + '"]');
-  if(btn) btn.classList.add('active');
-  window.scrollTo({top:0,behavior:'smooth'});
-}
-
-/* ========= Copier ========= */
-function copyTip(id, btn){
-  const text = document.getElementById(id).innerText;
-  const old = btn.innerText;
-  navigator.clipboard.writeText(text).then(()=>{
-    btn.innerText = 'Copié ✅';
-    setTimeout(()=>btn.innerText = old, 1200);
-  }).catch(()=>{
-    btn.innerText = 'Copié ✅';
-    setTimeout(()=>btn.innerText = old, 1200);
-  });
-}
-
-/* ========= Statut ========= */
-function updateStatus(){
-  const l = parseInt(document.getElementById('scoreLoyaux').value || '0', 10);
-  const m = parseInt(document.getElementById('scoreMasques').value || '0', 10);
-  const e = (document.getElementById('weeklyLead').value || 'À venir').trim() || 'À venir';
-
-  document.getElementById('homeLoyaux').textContent = l;
-  document.getElementById('homeMasques').textContent = m;
-  document.getElementById('homeEnqueteur').textContent = e;
-
-  const gap = l - m;
-  let text = '';
-  if(gap > 0){
-    text = `Les Loyaux mènent avec ${gap} point${gap>1?'s':''} d’avance. Rien n’est figé.`;
-  }else if(gap < 0){
-    text = `Les Masqués avancent dans l’ombre avec ${Math.abs(gap)} point${Math.abs(gap)>1?'s':''} d’avance.`;
-  }else{
-    text = `Égalité parfaite. La prochaine série d’avis ou une épreuve réussie peut tout faire basculer.`;
-  }
-  document.getElementById('homeStatus').textContent = text;
-}
-updateStatus();
-
-/* ========= Secure ========= */
-function showSecureMessage(){
-  const box = document.getElementById('secureMessage');
-  box.style.display = 'block';
-  box.innerHTML = '✅ Gain sécurisé : <strong>+1 point garanti</strong>.';
-}
-
-/* ========= Utilitaires temps ========= */
-function nowParis(){
-  const now = new Date();
-  const date = new Intl.DateTimeFormat('fr-FR',{
-    timeZone:'Europe/Paris',
-    year:'numeric', month:'2-digit', day:'2-digit'
-  }).format(now);
-  const time = new Intl.DateTimeFormat('fr-FR',{
-    timeZone:'Europe/Paris',
-    hour:'2-digit', minute:'2-digit', second:'2-digit',
-    hour12:false
-  }).format(now);
-  return {date, time, raw: now};
-}
-function makeTicketCode(player, game){
-  const t = Date.now().toString().slice(-6);
-  const p = (player || 'XX').toUpperCase().replace(/[^A-Z0-9]/g,'').slice(0,3).padEnd(3,'X');
-  const g = game.toUpperCase().replace(/[^A-Z0-9]/g,'').slice(0,3).padEnd(3,'X');
-  const r = Math.random().toString(36).toUpperCase().replace(/[^A-Z0-9]/g,'').slice(2,6);
-  return `${p}-${g}-${t}-${r}`;
-}
-function getPlayerName(){
-  return (document.getElementById('playerName').value || '').trim();
-}
-function ensurePlayer(){
-  const name = getPlayerName();
-  if(!name){
-    alert("Entre d’abord le prénom du vendeur avant de lancer une épreuve.");
-    goTo('home');
-    return false;
-  }
-  return true;
-}
-function showTicket(gameName){
-  const player = getPlayerName();
-  const n = nowParis();
-  document.getElementById('ticketGame').textContent = gameName;
-  document.getElementById('ticketPlayer').textContent = player;
-  document.getElementById('ticketDate').textContent = n.date;
-  document.getElementById('ticketTime').textContent = n.time;
-  document.getElementById('ticketCode').textContent = makeTicketCode(player, gameName);
-  document.getElementById('ticketOverlay').classList.add('show');
-}
-function closeTicket(){
-  document.getElementById('ticketOverlay').classList.remove('show');
-}
-
-/* ========= Arena ========= */
-const arena = document.getElementById('arena');
-const gameZone = document.getElementById('gameZone');
-const gameTitle = document.getElementById('gameTitle');
-const gameGoal = document.getElementById('gameGoal');
-const timerEl = document.getElementById('timer');
-const gameResult = document.getElementById('gameResult');
-
-let activeGame = null;
-let timerInterval = null;
-let frameInterval = null;
-let timeLeft = 0;
-
-function resetArena(){
-  clearInterval(timerInterval);
-  clearInterval(frameInterval);
-  activeGame = null;
-  arena.style.display = 'none';
-  gameResult.style.display = 'none';
-  gameResult.innerHTML = '';
-  gameZone.innerHTML = '';
-}
-function setupArena(title, goal, seconds){
-  goTo('lab');
-  arena.style.display = 'block';
-  gameResult.style.display = 'none';
-  gameResult.innerHTML = '';
-  gameZone.innerHTML = '';
-  gameTitle.textContent = title;
-  gameGoal.textContent = goal;
-  timeLeft = seconds;
-  timerEl.textContent = seconds;
-}
-function startTimer(onEnd){
-  clearInterval(timerInterval);
-  timerInterval = setInterval(()=>{
-    timeLeft--;
-    timerEl.textContent = timeLeft;
-    if(timeLeft <= 0){
-      clearInterval(timerInterval);
-      onEnd();
-    }
-  },1000);
-}
-function fail(msg){
-  clearInterval(timerInterval);
-  clearInterval(frameInterval);
-  gameResult.style.display = 'block';
-  gameResult.innerHTML = `<span class="red" style="font-weight:900">Échec.</span><br>${msg}`;
-  activeGame = null;
-}
-function success(msg, gameName){
-  clearInterval(timerInterval);
-  clearInterval(frameInterval);
-  gameResult.style.display = 'block';
-  gameResult.innerHTML = `<span class="green" style="font-weight:900">Réussite.</span><br>${msg}<br><br><button class="btn btn-green" onclick="showTicket('${gameName.replace(/'/g,"\\'")}')">Afficher le ticket de capture</button>`;
-  activeGame = null;
-}
-
-/* ========= Lancer jeux ========= */
-function startGame(type){
-  if(!ensurePlayer()) return;
-
-  resetArena();
-  activeGame = type;
-
-  if(type === 'tap') return gameTap();
-  if(type === 'balance') return gameBalance();
-  if(type === 'memory') return gameMemory();
-  if(type === 'flash') return gameFlash();
-  if(type === 'alternate') return gameAlternate();
-  if(type === 'hunter') return gameHunter();
-  if(type === 'precision') return gamePrecision();
-  if(type === 'reaction') return gameReaction();
-}
-
-/* ========= 1. Sprint ========= */
-function gameTap(){
-  const goal = 90;
-  let count = 0;
-  setupArena('Sprint', `${goal} pressions en 10 secondes`, 10);
-
-  gameZone.innerHTML = `
-    <div class="tap-drum" id="tapDrum">TAPOTE<br>VITE</div>
-    <div class="bar"><div id="tapFill" class="bar-fill"></div></div>
-    <div id="tapCount" class="tap-count">0 / ${goal}</div>
-    <div class="muted" style="text-align:center;font-size:13px">Objectif volontairement élevé. Pas de marge.</div>
-  `;
-  const drum = document.getElementById('tapDrum');
-  const fill = document.getElementById('tapFill');
-  const txt = document.getElementById('tapCount');
-  const update = ()=>{
-    fill.style.width = Math.min((count/goal)*100, 100) + '%';
-    txt.textContent = `${count} / ${goal}`;
-  };
-  drum.addEventListener('click', ()=>{
-    if(activeGame !== 'tap') return;
-    count++;
-    update();
-    if(count >= goal){
-      success('Le rythme a tenu jusqu’au bout. Le joueur gagne +3 points.', 'Sprint');
-    }
-  });
-  startTimer(()=>{
-    if(count >= goal){
-      success('Le rythme a tenu jusqu’au bout. Le joueur gagne +3 points.', 'Sprint');
-    }else{
-      fail(`Objectif non atteint : ${count} / ${goal}. Le joueur repart avec 0 point.`);
-    }
-  });
-}
-
-/* ========= 2. Stabilité X ========= */
-function gameBalance(){
-  setupArena('Stabilité X', 'Rester 8 s dans une zone mobile', 14);
-  let x = 50;
-  let dir = 0;
-  let safeX = 46;
-  let hold = 0;
-
-  gameZone.innerHTML = `
-    <div class="balance-track">
-      <div id="safeZone" class="balance-safe"></div>
-      <div id="marker" class="balance-marker"></div>
-    </div>
-    <div class="control-row">
-      <button class="btn btn-orange" id="leftBtn">⬅ Gauche</button>
-      <button class="btn btn-orange" id="rightBtn">Droite ➡</button>
-    </div>
-    <div id="balanceTxt" class="tap-count">Temps validé : 0.0 / 8 s</div>
-    <div class="muted" style="text-align:center;font-size:13px">La zone bouge toute seule. Il faut corriger sans arrêt.</div>
-  `;
-  const safe = document.getElementById('safeZone');
-  const marker = document.getElementById('marker');
-  const txt = document.getElementById('balanceTxt');
-
-  const render = ()=>{
-    safe.style.left = safeX + '%';
-    marker.style.left = x + '%';
-    txt.textContent = `Temps validé : ${hold.toFixed(1)} / 8 s`;
-  };
-
-  const setDir = (v)=>()=>{ if(activeGame==='balance') dir = v; };
-  const stopDir = ()=>{ if(activeGame==='balance') dir = 0; };
-
-  ['mousedown','touchstart'].forEach(ev=>{
-    document.getElementById('leftBtn').addEventListener(ev, setDir(-1));
-    document.getElementById('rightBtn').addEventListener(ev, setDir(1));
-  });
-  ['mouseup','mouseleave','touchend','touchcancel'].forEach(ev=>{
-    document.getElementById('leftBtn').addEventListener(ev, stopDir);
-    document.getElementById('rightBtn').addEventListener(ev, stopDir);
-  });
-
-  render();
-  frameInterval = setInterval(()=>{
-    if(activeGame !== 'balance') return;
-    safeX += (Math.random() - 0.5) * 3.1;
-    if(safeX < 8) safeX = 8;
-    if(safeX > 79) safeX = 79;
-
-    x += dir * 2.7;
-    x += (Math.random() - 0.5) * 2.8;
-    if(x < 0) x = 0;
-    if(x > 100) x = 100;
-
-    if(x >= safeX && x <= safeX + 13){
-      hold += 0.1;
-    }
-    render();
-    if(hold >= 8){
-      success('Le marqueur a été maîtrisé assez longtemps. Le joueur gagne +3 points.', 'Stabilité X');
-    }
-  },100);
-
-  startTimer(()=>{
-    if(hold >= 8){
-      success('Le marqueur a été maîtrisé assez longtemps. Le joueur gagne +3 points.', 'Stabilité X');
-    }else{
-      fail(`Temps validé insuffisant : ${hold.toFixed(1)} / 8 s.`);
-    }
-  });
-}
-
-/* ========= 3. Mémoire noire ========= */
-function gameMemory(){
-  setupArena('Mémoire noire', 'Séquence de 6 cases', 18);
-  const seq = Array.from({length:6}, ()=>Math.floor(Math.random()*4));
-  let playerIndex = 0;
-  let canPlay = false;
-
-  gameZone.innerHTML = `
-    <div class="muted" id="memoryPhase" style="text-align:center">Observe la séquence…</div>
-    <div class="pad-grid">
-      <button class="pad dim" data-i="0">A</button>
-      <button class="pad dim" data-i="1">B</button>
-      <button class="pad dim" data-i="2">C</button>
-      <button class="pad dim" data-i="3">D</button>
-    </div>
-    <div id="memoryTxt" class="tap-count">Progression : 0 / 6</div>
-  `;
-  const pads = [...document.querySelectorAll('.pad')];
-  const phase = document.getElementById('memoryPhase');
-  const txt = document.getElementById('memoryTxt');
-
-  pads.forEach((pad, idx)=>{
-    pad.addEventListener('click', ()=>{
-      if(activeGame !== 'memory' || !canPlay) return;
-      pad.classList.add('active');
-      setTimeout(()=>pad.classList.remove('active'), 160);
-
-      if(idx === seq[playerIndex]){
-        playerIndex++;
-        txt.textContent = `Progression : ${playerIndex} / 6`;
-        if(playerIndex >= seq.length){
-          success('Séquence reproduite sans erreur. Le joueur gagne +3 points.', 'Mémoire noire');
-        }
-      }else{
-        fail('Mauvaise case. Le joueur repart avec 0 point.');
-      }
-    });
-  });
-
-  let s = 0;
-  const showStep = ()=>{
-    if(s > 0){
-      pads[seq[s-1]].classList.remove('active');
-      pads[seq[s-1]].classList.add('dim');
-    }
-    if(s >= seq.length){
-      canPlay = true;
-      phase.textContent = 'À toi de jouer.';
-      return;
-    }
-    pads[seq[s]].classList.remove('dim');
-    pads[seq[s]].classList.add('active');
-    s++;
-    setTimeout(showStep, 520);
-  };
-  setTimeout(showStep, 500);
-
-  startTimer(()=>{
-    if(playerIndex >= seq.length){
-      success('Séquence reproduite sans erreur. Le joueur gagne +3 points.', 'Mémoire noire');
-    }else{
-      fail('Temps écoulé avant la fin de la séquence.');
-    }
-  });
-}
-
-/* ========= 4. Code flash ========= */
-function randomCode(len=6){
-  const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
-  let out = '';
-  for(let i=0;i<len;i++) out += chars[Math.floor(Math.random()*chars.length)];
-  return out;
-}
-function gameFlash(){
-  setupArena('Code flash', 'Mémoriser un code de 6 caractères', 12);
-  const code = randomCode(6);
-
-  gameZone.innerHTML = `
-    <div class="flash-code" id="flashCode">${code}</div>
-    <div class="muted" style="text-align:center">Le code disparaît vite. Recopie-le exactement.</div>
-    <input id="flashInput" class="input" type="text" placeholder="Recopie le code ici" autocomplete="off" disabled />
-    <button id="flashBtn" class="btn btn-primary" disabled>Valider</button>
-  `;
-  const codeEl = document.getElementById('flashCode');
-  const input = document.getElementById('flashInput');
-  const btn = document.getElementById('flashBtn');
-
-  setTimeout(()=>{
-    if(activeGame !== 'flash') return;
-    codeEl.textContent = '••••••';
-    input.disabled = false;
-    btn.disabled = false;
-    input.focus();
-  }, 2300);
-
-  btn.addEventListener('click', ()=>{
-    if(activeGame !== 'flash') return;
-    if((input.value || '').trim().toUpperCase() === code){
-      success('Code parfaitement restitué. Le joueur gagne +3 points.', 'Code flash');
-    }else{
-      fail(`Code incorrect. Le bon code était ${code}.`);
-    }
-  });
-
-  startTimer(()=>{
-    if((input.value || '').trim().toUpperCase() === code){
-      success('Code parfaitement restitué. Le joueur gagne +3 points.', 'Code flash');
-    }else{
-      fail(`Temps écoulé. Le bon code était ${code}.`);
-    }
-  });
-}
-
-/* ========= 5. Alternance ========= */
-function gameAlternate(){
-  setupArena('Alternance', '36 pressions en alternance parfaite', 12);
-  let expected = 'L';
-  let count = 0;
-  const goal = 36;
-
-  gameZone.innerHTML = `
-    <div class="alt-grid">
-      <button id="altL" class="alt-btn">GAUCHE</button>
-      <button id="altR" class="alt-btn">DROITE</button>
-    </div>
-    <div id="altTxt" class="tap-count">0 / ${goal} — départ à gauche</div>
-    <div class="muted" style="text-align:center;font-size:13px">Un seul mauvais ordre = échec immédiat.</div>
-  `;
-  const L = document.getElementById('altL');
-  const R = document.getElementById('altR');
-  const txt = document.getElementById('altTxt');
-
-  const press = side=>{
-    if(activeGame !== 'alternate') return;
-    if(side !== expected){
-      fail('Mauvaise alternance. Le joueur repart avec 0 point.');
-      return;
-    }
-    count++;
-    expected = expected === 'L' ? 'R' : 'L';
-    txt.textContent = `${count} / ${goal} — prochain : ${expected === 'L' ? 'gauche' : 'droite'}`;
-    if(count >= goal){
-      success('Alternance parfaite jusqu’au bout. Le joueur gagne +3 points.', 'Alternance');
-    }
-  };
-  L.addEventListener('click', ()=>press('L'));
-  R.addEventListener('click', ()=>press('R'));
-
-  startTimer(()=>{
-    if(count >= goal){
-      success('Alternance parfaite jusqu’au bout. Le joueur gagne +3 points.', 'Alternance');
-    }else{
-      fail(`Objectif non atteint : ${count} / ${goal}.`);
-    }
-  });
-}
-
-/* ========= 6. Chasseur ========= */
-function gameHunter(){
-  setupArena('Chasseur', '12 cibles or sans toucher les bombes', 14);
-  let good = 0;
-  const targetGoal = 12;
-
-  gameZone.innerHTML = `
-    <div id="hunterBoard" class="hunter-board"></div>
-    <div id="hunterTxt" class="tap-count">0 / ${targetGoal} cibles validées</div>
-    <div class="muted" style="text-align:center;font-size:13px">Touchez uniquement les cibles or. Une bombe rouge = échec immédiat.</div>
-  `;
-  const board = document.getElementById('hunterBoard');
-  const txt = document.getElementById('hunterTxt');
-
-  function spawnTarget(){
-    if(activeGame !== 'hunter') return;
-    const isGood = Math.random() > 0.33;
-    const b = document.createElement('button');
-    b.className = 'target ' + (isGood ? 'good' : 'bad');
-    b.textContent = isGood ? '✦' : '✕';
-    b.style.left = Math.random() * (board.clientWidth - 58) + 'px';
-    b.style.top = Math.random() * (board.clientHeight - 58) + 'px';
-
-    const life = setTimeout(()=>b.remove(), 850);
-
-    b.addEventListener('click', ()=>{
-      if(activeGame !== 'hunter') return;
-      clearTimeout(life);
-      if(isGood){
-        good++;
-        txt.textContent = `${good} / ${targetGoal} cibles validées`;
-        b.remove();
-        if(good >= targetGoal){
-          success('Toutes les bonnes cibles ont été prises sans erreur. Le joueur gagne +3 points.', 'Chasseur');
-        }
-      }else{
-        b.remove();
-        fail('Bombe rouge touchée. Le joueur repart avec 0 point.');
-      }
-    });
-
-    board.appendChild(b);
-  }
-
-  frameInterval = setInterval(spawnTarget, 520);
-  startTimer(()=>{
-    if(good >= targetGoal){
-      success('Toutes les bonnes cibles ont été prises sans erreur. Le joueur gagne +3 points.', 'Chasseur');
-    }else{
-      fail(`Objectif non atteint : ${good} / ${targetGoal}.`);
-    }
-  });
-}
-
-/* ========= 7. Précision ========= */
-function gamePrecision(){
-  setupArena('Précision', '5 validations dans une fenêtre minuscule', 15);
-  let angle = 0;
-  let hits = 0;
-  const goal = 5;
-  let speed = 9;
-
-  gameZone.innerHTML = `
-    <div class="precision-wrap">
-      <div class="precision-ring" id="precisionRing">
-        <div class="precision-center" id="precisionCenter">TAP</div>
-      </div>
-      <div class="precision-window">Valide seulement quand l’aiguille passe dans la zone verte.</div>
-      <div id="precisionTxt" class="tap-count">0 / ${goal} validations</div>
-      <button class="btn btn-primary" id="precisionBtn">Valider maintenant</button>
-    </div>
-  `;
-  const ring = document.getElementById('precisionRing');
-  const txt = document.getElementById('precisionTxt');
-  const btn = document.getElementById('precisionBtn');
-
-  const render = ()=>{
-    const greenStart = 332;
-    const greenEnd = 360;
-    ring.style.background = `conic-gradient(
-      rgba(255,255,255,.08) 0deg,
-      rgba(255,255,255,.08) ${greenStart}deg,
-      rgba(142,240,176,.85) ${greenStart}deg,
-      rgba(142,240,176,.85) ${greenEnd}deg
-    )`;
-    ring.querySelector('.precision-center').style.transform = `rotate(${angle}deg)`;
-    ring.querySelector('.precision-center').innerHTML = '│';
-  };
-
-  frameInterval = setInterval(()=>{
-    if(activeGame !== 'precision') return;
-    angle += speed;
-    if(angle >= 360) angle -= 360;
-    render();
-  }, 50);
-
-  btn.addEventListener('click', ()=>{
-    if(activeGame !== 'precision') return;
-    const ok = angle >= 332 && angle <= 360;
-    if(ok){
-      hits++;
-      txt.textContent = `${hits} / ${goal} validations`;
-      speed += 1.2;
-      if(hits >= goal){
-        success('Le timing a été validé cinq fois. Le joueur gagne +3 points.', 'Précision');
-      }
-    }else{
-      fail('Mauvais timing. Le joueur repart avec 0 point.');
-    }
-  });
-
-  render();
-  startTimer(()=>{
-    if(hits >= goal){
-      success('Le timing a été validé cinq fois. Le joueur gagne +3 points.', 'Précision');
-    }else{
-      fail(`Objectif non atteint : ${hits} / ${goal}.`);
-    }
-  });
-}
-
-/* ========= 8. Réflexe ========= */
-function gameReaction(){
-  setupArena('Réflexe', '5 réactions valides sans faux départ', 18);
-  let round = 0;
-  let waiting = false;
-  let canTap = false;
-  let startAt = 0;
-  let totalRt = 0;
-
-  gameZone.innerHTML = `
-    <div id="reactionBox" class="reaction-box wait">Attends le vert</div>
-    <div id="reactionTxt" class="tap-count">Manche 0 / 5</div>
-    <button id="reactionBtn" class="btn btn-primary">Taper ici</button>
-    <div class="muted" style="text-align:center;font-size:13px">Taper trop tôt = échec immédiat. Il faut tenir 5 manches.</div>
-  `;
-  const box = document.getElementById('reactionBox');
-  const txt = document.getElementById('reactionTxt');
-  const btn = document.getElementById('reactionBtn');
-
-  function nextRound(){
-    if(activeGame !== 'reaction') return;
-    if(round >= 5){
-      const avg = Math.round(totalRt / 5);
-      if(avg <= 420){
-        success(`Réussite sur 5 manches. Temps moyen : ${avg} ms. Le joueur gagne +3 points.`, 'Réflexe');
-      }else{
-        fail(`Temps moyen trop lent : ${avg} ms. Il fallait rester très rapide.`);
-      }
-      return;
-    }
-    round++;
-    txt.textContent = `Manche ${round} / 5`;
-    box.className = 'reaction-box wait';
-    box.textContent = 'Attends…';
-    waiting = true;
-    canTap = false;
-
-    const delay = 1200 + Math.random() * 2400;
-    setTimeout(()=>{
-      if(activeGame !== 'reaction') return;
-      waiting = false;
-      canTap = true;
-      startAt = performance.now();
-      box.className = 'reaction-box go';
-      box.textContent = 'TAPE !';
-    }, delay);
-  }
-
-  btn.addEventListener('click', ()=>{
-    if(activeGame !== 'reaction') return;
-    if(waiting){
-      box.className = 'reaction-box fail';
-      box.textContent = 'Trop tôt';
-      fail('Faux départ. Le joueur repart avec 0 point.');
-      return;
-    }
-    if(canTap){
-      const rt = performance.now() - startAt;
-      totalRt += rt;
-      canTap = false;
-      box.className = 'reaction-box';
-      box.textContent = `${Math.round(rt)} ms`;
-      setTimeout(nextRound, 700);
-    }
-  });
-
-  nextRound();
-  startTimer(()=>{
-    if(round >= 5 && !waiting && !canTap){
-      const avg = Math.round(totalRt / 5);
-      if(avg <= 420){
-        success(`Réussite sur 5 manches. Temps moyen : ${avg} ms. Le joueur gagne +3 points.`, 'Réflexe');
-      }else{
-        fail(`Temps moyen trop lent : ${avg} ms.`);
-      }
-    }else{
-      fail('Temps écoulé avant la fin des 5 manches.');
-    }
-  });
-}
-</script>
-</body>
-</html>
+            <div class="pill">Échec
