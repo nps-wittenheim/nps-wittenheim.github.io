@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Le Coffre</title>
+<title>Les Masqués – Mission NPS</title>
 
 <style>
 *{
@@ -19,22 +19,28 @@ font-family:Arial, sans-serif;
 --red-1:#8a2030;
 --red-2:#c02f45;
 --text:#f7f1e7;
---muted:rgba(247,241,231,0.82);
+--muted:rgba(247,241,231,0.78);
 --success:#8ef0b0;
 --danger:#ff6b6b;
 --warning:#ffd166;
---dark:#080811;
+--dark:#070811;
+--card:rgba(255,255,255,0.05);
+--card-border:rgba(255,255,255,0.08);
 }
 
 body{
 min-height:100vh;
-background:url("boulanger.jpg") center/cover no-repeat;
+background:
+radial-gradient(circle at top center, rgba(192,47,69,0.16), transparent 24%),
+radial-gradient(circle at bottom left, rgba(246,198,90,0.10), transparent 22%),
+linear-gradient(135deg, #05060d 0%, #0a0d17 45%, #120c18 100%);
 display:flex;
 justify-content:center;
 align-items:center;
 padding:18px;
 position:relative;
 overflow-x:hidden;
+color:var(--text);
 }
 
 body::before{
@@ -42,18 +48,21 @@ content:"";
 position:absolute;
 inset:0;
 background:
-radial-gradient(circle at top center, rgba(192,47,69,0.16), transparent 24%),
-radial-gradient(circle at bottom left, rgba(246,198,90,0.10), transparent 22%),
-rgba(6,6,14,0.82);
-backdrop-filter:blur(9px);
+linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.02) 50%, transparent 100%);
+opacity:0.18;
+pointer-events:none;
 }
 
 body::after{
 content:"";
 position:absolute;
-inset:0;
-background:linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.02) 50%, transparent 100%);
-opacity:0.16;
+width:520px;
+height:520px;
+border-radius:50%;
+background:radial-gradient(circle, rgba(246,198,90,0.10), transparent 65%);
+top:-180px;
+right:-120px;
+filter:blur(24px);
 pointer-events:none;
 }
 
@@ -61,8 +70,8 @@ pointer-events:none;
 position:relative;
 z-index:2;
 width:100%;
-max-width:1180px;
-background:linear-gradient(180deg, rgba(24,18,38,0.95), rgba(12,10,22,0.96));
+max-width:1220px;
+background:linear-gradient(180deg, rgba(24,18,38,0.95), rgba(11,10,20,0.96));
 border-radius:30px;
 padding:28px;
 box-shadow:0 30px 80px rgba(0,0,0,0.58);
@@ -90,24 +99,82 @@ max-width:340px;
 min-width:340px;
 }
 
-.coffre-wrap{
+.visual-card{
 position:relative;
 width:100%;
+min-height:560px;
+border-radius:28px;
+overflow:hidden;
+background:
+linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01)),
+radial-gradient(circle at top center, rgba(246,198,90,0.12), transparent 25%),
+radial-gradient(circle at 30% 80%, rgba(192,47,69,0.18), transparent 28%),
+linear-gradient(160deg, #13111f 0%, #191126 45%, #0b0c14 100%);
+border:1px solid rgba(255,255,255,0.07);
+box-shadow:0 26px 60px rgba(0,0,0,0.45);
+display:flex;
+flex-direction:column;
+justify-content:space-between;
+padding:20px;
 }
 
-.coffre-glow{
+.visual-card::before{
+content:"";
 position:absolute;
-inset:50% auto auto 50%;
-transform:translate(-50%,-50%);
-width:240px;
-height:240px;
+inset:0;
+background:
+repeating-linear-gradient(
+135deg,
+rgba(255,255,255,0.015),
+rgba(255,255,255,0.015) 2px,
+transparent 2px,
+transparent 12px
+);
+opacity:0.5;
+pointer-events:none;
+}
+
+.visual-badge{
+position:relative;
+z-index:2;
+display:inline-flex;
+align-items:center;
+gap:8px;
+padding:9px 13px;
+border-radius:999px;
+font-size:12px;
+font-weight:800;
+letter-spacing:1px;
+color:var(--text);
+background:linear-gradient(135deg, rgba(138,32,48,0.96), rgba(63,15,25,0.96));
+border:1px solid rgba(255,255,255,0.08);
+box-shadow:0 10px 24px rgba(0,0,0,0.28);
+backdrop-filter:blur(8px);
+width:max-content;
+}
+
+.visual-center{
+position:relative;
+z-index:2;
+display:flex;
+align-items:center;
+justify-content:center;
+flex-direction:column;
+gap:18px;
+padding:20px 0;
+}
+
+.mask-glow{
+width:210px;
+height:210px;
 border-radius:50%;
 background:radial-gradient(circle, rgba(246,198,90,0.22), transparent 65%);
-filter:blur(24px);
-z-index:1;
+filter:blur(14px);
+position:absolute;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
 animation:pulseGlow 3.2s ease-in-out infinite;
-pointer-events:none;
-transition:0.4s ease;
 }
 
 @keyframes pulseGlow{
@@ -121,65 +188,53 @@ transform:translate(-50%,-50%) scale(1.08);
 }
 }
 
-.coffre{
+.mask-symbol{
 position:relative;
-z-index:2;
-width:100%;
-display:block;
-border-radius:24px;
-box-shadow:0 26px 60px rgba(0,0,0,0.45);
-border:1px solid rgba(255,255,255,0.06);
-transition:transform 0.35s ease, box-shadow 0.35s ease;
-user-select:none;
--webkit-user-drag:none;
-}
-
-.coffre:hover{
-transform:translateY(-2px) scale(1.01);
-box-shadow:0 30px 70px rgba(0,0,0,0.52), 0 0 40px rgba(246,198,90,0.10);
-}
-
-.coffre.shake{
-animation:shake 0.45s ease;
-}
-
-@keyframes shake{
-0%{transform:translateX(0)}
-20%{transform:translateX(-8px)}
-40%{transform:translateX(8px)}
-60%{transform:translateX(-6px)}
-80%{transform:translateX(6px)}
-100%{transform:translateX(0)}
-}
-
-.ritual-badge{
-position:absolute;
-top:14px;
-left:14px;
-z-index:3;
+width:170px;
+height:170px;
+border-radius:50%;
 display:flex;
 align-items:center;
-gap:8px;
-padding:9px 13px;
-border-radius:999px;
-font-size:12px;
-font-weight:800;
-letter-spacing:1px;
-color:var(--text);
-background:linear-gradient(135deg, rgba(138,32,48,0.96), rgba(63,15,25,0.96));
+justify-content:center;
+background:
+radial-gradient(circle at 30% 30%, rgba(255,255,255,0.10), transparent 36%),
+linear-gradient(145deg, rgba(246,198,90,0.20), rgba(138,32,48,0.25));
 border:1px solid rgba(255,255,255,0.08);
-box-shadow:0 10px 24px rgba(0,0,0,0.28);
-backdrop-filter:blur(8px);
-user-select:none;
+box-shadow:
+0 20px 40px rgba(0,0,0,0.34),
+0 0 34px rgba(246,198,90,0.10);
+font-size:72px;
 }
 
-.logo-badge{
-width:22px;
-height:22px;
-border-radius:50%;
-object-fit:cover;
-background:#fff;
-flex:0 0 auto;
+.visual-lines{
+display:grid;
+gap:12px;
+width:100%;
+}
+
+.line-card{
+position:relative;
+z-index:2;
+padding:16px;
+border-radius:18px;
+background:linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+border:1px solid rgba(255,255,255,0.08);
+box-shadow:0 10px 20px rgba(0,0,0,0.18);
+}
+
+.line-label{
+font-size:11px;
+text-transform:uppercase;
+letter-spacing:1px;
+color:rgba(247,241,231,0.56);
+margin-bottom:8px;
+}
+
+.line-value{
+font-size:15px;
+line-height:1.55;
+color:var(--text);
+font-weight:700;
 }
 
 .whisper{
@@ -220,16 +275,7 @@ justify-content:center;
 backdrop-filter:blur(8px);
 animation:logoPulse 3.2s ease-in-out infinite;
 user-select:none;
-}
-
-.logo-top-right img{
-width:100%;
-height:100%;
-border-radius:50%;
-object-fit:cover;
-border:2px solid rgba(255,255,255,0.18);
-background:#fff;
-pointer-events:none;
+font-size:34px;
 }
 
 @keyframes logoPulse{
@@ -283,7 +329,7 @@ transform:translateY(-1px);
 background:linear-gradient(135deg, rgba(138,32,48,0.96), rgba(201,139,29,0.78));
 }
 
-.marquee-coffre{
+.marquee-bar{
 width:calc(100% - 110px);
 overflow:hidden;
 margin-bottom:16px;
@@ -296,7 +342,7 @@ box-shadow:0 8px 20px rgba(0,0,0,0.25);
 .marquee-track{
 display:flex;
 width:max-content;
-animation:scrollLoop 18s linear infinite;
+animation:scrollLoop 20s linear infinite;
 will-change:transform;
 }
 
@@ -329,16 +375,13 @@ font-size:18px;
 line-height:1.6;
 margin-bottom:18px;
 color:var(--muted);
-max-width:700px;
+max-width:760px;
 }
 
-.code-panel,
-.rules-box,
-.game-panel,
-.tips-panel{
+.panel{
 position:relative;
 background:linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
-border:1px solid rgba(246,198,90,0.22);
+border:1px solid rgba(246,198,90,0.20);
 border-radius:26px;
 padding:22px;
 box-shadow:
@@ -347,151 +390,7 @@ inset 0 1px 0 rgba(255,255,255,0.04),
 margin-bottom:18px;
 }
 
-.code-panel::before{
-content:"ZONE DE SAISIE";
-position:absolute;
-top:-12px;
-left:18px;
-font-size:11px;
-font-weight:900;
-letter-spacing:1px;
-color:#24180b;
-background:linear-gradient(135deg, var(--gold-1), var(--gold-2));
-padding:6px 10px;
-border-radius:999px;
-box-shadow:0 8px 18px rgba(201,139,29,0.22);
-}
-
-.code-intro{
-text-align:center;
-font-size:14px;
-color:rgba(247,241,231,0.78);
-margin-bottom:14px;
-line-height:1.5;
-font-weight:700;
-}
-
-input{
-width:100%;
-padding:18px 16px;
-border-radius:18px;
-border:none;
-margin-bottom:14px;
-font-size:18px;
-background:#f8f4ee;
-color:#181818;
-box-shadow:inset 0 2px 10px rgba(0,0,0,0.08);
-font-weight:700;
-text-align:center;
-}
-
-input::placeholder{
-color:#8b8b8b;
-font-weight:700;
-}
-
-button.main-btn,
-.level-btn,
-.answer-btn,
-.secondary-btn,
-.copy-btn{
-width:100%;
-padding:18px;
-border:none;
-border-radius:18px;
-font-size:18px;
-font-weight:900;
-cursor:pointer;
-transition:0.18s ease;
-}
-
-button.main-btn,
-.level-btn,
-.copy-btn{
-background:linear-gradient(135deg, var(--gold-1), var(--gold-2));
-color:#24180b;
-box-shadow:0 16px 30px rgba(201,139,29,0.28);
-}
-
-button.main-btn:hover,
-.level-btn:hover,
-.copy-btn:hover{
-transform:translateY(-1px);
-box-shadow:0 20px 36px rgba(201,139,29,0.34);
-}
-
-.secondary-btn{
-background:rgba(255,255,255,0.08);
-color:var(--text);
-border:1px solid rgba(255,255,255,0.08);
-}
-
-#message,
-#quizResultMessage{
-margin-top:14px;
-min-height:42px;
-font-weight:bold;
-text-align:center;
-line-height:1.5;
-border-radius:14px;
-transition:0.25s ease;
-}
-
-.error-state{
-background:rgba(192,47,69,0.12);
-border:1px solid rgba(255,107,107,0.18);
-color:#ff5c5c !important;
-padding:16px;
-font-size:18px !important;
-font-weight:800;
-box-shadow:0 0 22px rgba(255,60,60,0.18);
-}
-
-.secret-state{
-background:rgba(246,198,90,0.10);
-border:1px solid rgba(246,198,90,0.18);
-color:#ffe6a4 !important;
-padding:16px;
-font-size:17px !important;
-font-weight:800;
-box-shadow:0 0 20px rgba(246,198,90,0.14);
-}
-
-.escape-box{
-display:grid;
-grid-template-columns:1fr;
-gap:12px;
-margin-bottom:18px;
-}
-
-.escape-chip{
-background:linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
-border:1px solid rgba(255,255,255,0.08);
-border-radius:18px;
-padding:16px;
-box-shadow:0 10px 20px rgba(0,0,0,0.15);
-min-height:78px;
-display:flex;
-flex-direction:column;
-justify-content:center;
-}
-
-.escape-label{
-font-size:11px;
-text-transform:uppercase;
-letter-spacing:1px;
-color:rgba(247,241,231,0.56);
-margin-bottom:8px;
-}
-
-.escape-value{
-font-size:15px;
-line-height:1.5;
-color:var(--text);
-font-weight:700;
-}
-
-.rules-title{
+.section-title{
 font-size:28px;
 margin-bottom:18px;
 font-weight:900;
@@ -500,14 +399,14 @@ text-transform:uppercase;
 padding-right:110px;
 }
 
-.rules-intro-main{
+.section-intro{
 font-size:17px;
 line-height:1.75;
 color:var(--muted);
 margin-bottom:20px;
 }
 
-.rules-subtitle{
+.sub-title{
 font-size:18px;
 font-weight:900;
 color:var(--gold-1);
@@ -541,13 +440,6 @@ font-size:18px;
 font-weight:900;
 }
 
-.rules-paragraph{
-font-size:15px;
-line-height:1.7;
-color:var(--muted);
-margin-bottom:10px;
-}
-
 .mission-box{
 margin-top:18px;
 padding:16px 18px;
@@ -568,18 +460,49 @@ text-transform:uppercase;
 letter-spacing:0.6px;
 }
 
-.nps-hero{
-display:flex;
-flex-direction:column;
-gap:18px;
+.hero-grid{
+display:grid;
+grid-template-columns:repeat(2, minmax(0, 1fr));
+gap:14px;
+margin-top:14px;
 }
 
+.hero-card{
+background:linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+border:1px solid rgba(255,255,255,0.08);
+border-radius:22px;
+padding:18px;
+min-height:148px;
+}
+
+.hero-card-title{
+font-size:13px;
+text-transform:uppercase;
+letter-spacing:1px;
+color:rgba(247,241,231,0.60);
+margin-bottom:10px;
+}
+
+.hero-card-value{
+font-size:26px;
+font-weight:900;
+margin-bottom:10px;
+}
+
+.hero-card-text{
+font-size:15px;
+line-height:1.65;
+color:var(--muted);
+}
+
+.status-grid,
 .nps-quick-stats{
 display:grid;
 grid-template-columns:repeat(3, minmax(0, 1fr));
 gap:12px;
 }
 
+.status-card,
 .nps-stat{
 background:linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
 border:1px solid rgba(255,255,255,0.08);
@@ -588,6 +511,7 @@ padding:18px 16px;
 text-align:center;
 }
 
+.status-label,
 .nps-stat-label{
 font-size:13px;
 text-transform:uppercase;
@@ -596,14 +520,124 @@ color:rgba(247,241,231,0.60);
 margin-bottom:8px;
 }
 
+.status-value,
 .nps-stat-value{
 font-size:30px;
 font-weight:900;
 }
 
-.nps-bad{ color:#ff6b6b; }
+.nps-bad{ color:#ff8e8e; }
 .nps-mid{ color:#ffd166; }
 .nps-good{ color:#8ef0b0; }
+.nps-gold{ color:#f6c65a; }
+
+.status-text{
+margin-top:16px;
+padding:16px 18px;
+border-radius:18px;
+background:linear-gradient(135deg, rgba(246,198,90,0.12), rgba(138,32,48,0.10));
+border:1px solid rgba(246,198,90,0.18);
+font-size:15px;
+line-height:1.7;
+}
+
+.enqueteur-box{
+margin-top:16px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:12px;
+flex-wrap:wrap;
+padding:18px;
+border-radius:18px;
+background:linear-gradient(135deg, rgba(138,32,48,0.24), rgba(246,198,90,0.12));
+border:1px solid rgba(255,255,255,0.08);
+}
+
+.enqueteur-title{
+font-size:13px;
+text-transform:uppercase;
+letter-spacing:1px;
+color:rgba(247,241,231,0.64);
+margin-bottom:6px;
+}
+
+.enqueteur-name{
+font-size:26px;
+font-weight:900;
+color:var(--gold-1);
+}
+
+.enqueteur-note{
+font-size:14px;
+line-height:1.6;
+color:var(--muted);
+max-width:460px;
+}
+
+.nps-hero{
+display:flex;
+flex-direction:column;
+gap:18px;
+}
+
+.chart-wrap{
+position:relative;
+padding:18px;
+border-radius:22px;
+background:linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+border:1px solid rgba(255,255,255,0.08);
+overflow:hidden;
+}
+
+.chart-title{
+font-size:16px;
+font-weight:900;
+color:var(--gold-1);
+margin-bottom:12px;
+text-transform:uppercase;
+letter-spacing:0.6px;
+}
+
+.chart-box{
+width:100%;
+overflow-x:auto;
+}
+
+.chart-box svg{
+width:100%;
+height:auto;
+min-width:700px;
+display:block;
+}
+
+.chart-caption{
+margin-top:12px;
+font-size:15px;
+line-height:1.7;
+color:var(--muted);
+}
+
+.legend{
+display:flex;
+gap:18px;
+flex-wrap:wrap;
+margin-top:14px;
+}
+
+.legend-item{
+display:flex;
+align-items:center;
+gap:8px;
+font-size:14px;
+color:var(--text);
+}
+
+.legend-dot{
+width:12px;
+height:12px;
+border-radius:50%;
+}
 
 .tips-intro{
 font-size:15px;
@@ -640,52 +674,113 @@ white-space:pre-line;
 margin-bottom:14px;
 }
 
-.copy-btn{
-padding:14px 16px;
+.copy-btn,
+.action-btn,
+.secondary-btn,
+.answer-btn{
+width:100%;
+padding:15px 16px;
+border:none;
+border-radius:18px;
 font-size:15px;
+font-weight:900;
+cursor:pointer;
+transition:0.18s ease;
+}
+
+.copy-btn,
+.action-btn{
+background:linear-gradient(135deg, var(--gold-1), var(--gold-2));
+color:#24180b;
+box-shadow:0 16px 30px rgba(201,139,29,0.28);
+}
+
+.copy-btn:hover,
+.action-btn:hover{
+transform:translateY(-1px);
+box-shadow:0 20px 36px rgba(201,139,29,0.34);
+}
+
+.secondary-btn{
+background:rgba(255,255,255,0.08);
+color:var(--text);
+border:1px solid rgba(255,255,255,0.08);
 }
 
 .hidden{
 display:none !important;
 }
 
-.level-grid{
+.choice-grid{
 display:grid;
-grid-template-columns:repeat(3, minmax(0, 1fr));
-gap:12px;
-margin-top:10px;
+grid-template-columns:repeat(2, minmax(0, 1fr));
+gap:14px;
+margin-bottom:20px;
 }
 
-.level-card{
+.choice-card{
 background:linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
 border:1px solid rgba(255,255,255,0.08);
-border-radius:18px;
-padding:16px;
-text-align:center;
+border-radius:22px;
+padding:18px;
 }
 
-.level-card h3{
+.choice-card h3{
+font-size:20px;
+margin-bottom:10px;
+}
+
+.choice-card p{
+color:var(--muted);
+line-height:1.65;
+font-size:15px;
+margin-bottom:14px;
+}
+
+.game-grid{
+display:grid;
+grid-template-columns:repeat(3, minmax(0, 1fr));
+gap:14px;
+margin-top:18px;
+}
+
+.game-card{
+background:linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+border:1px solid rgba(255,255,255,0.08);
+border-radius:22px;
+padding:18px;
+}
+
+.game-card h3{
 font-size:20px;
 margin-bottom:8px;
 }
 
-.level-card p{
-color:var(--muted);
-line-height:1.5;
+.game-card p{
 font-size:14px;
+line-height:1.6;
+color:var(--muted);
 margin-bottom:12px;
 }
 
-.quiz-top{
+.game-area{
+margin-top:18px;
+padding:20px;
+border-radius:22px;
+background:linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+border:1px solid rgba(255,255,255,0.08);
+}
+
+.game-top{
 display:flex;
-gap:10px;
 align-items:center;
 justify-content:space-between;
+gap:10px;
 flex-wrap:wrap;
 margin-bottom:16px;
 }
 
-.quiz-pill{
+.game-pill{
 padding:10px 14px;
 border-radius:999px;
 background:rgba(255,255,255,0.05);
@@ -694,94 +789,198 @@ font-size:14px;
 font-weight:800;
 }
 
-.timer{
+.timer-pill{
 background:linear-gradient(135deg, var(--gold-1), var(--gold-2));
 color:#24180b;
-min-width:74px;
+min-width:78px;
 text-align:center;
 }
 
-.question-box{
-background:linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
-border:1px solid rgba(255,255,255,0.08);
-border-radius:20px;
-padding:20px;
-margin-bottom:16px;
+.game-instructions{
+font-size:15px;
+line-height:1.7;
+color:var(--muted);
+margin-bottom:18px;
 }
 
-.question-box h3{
-font-size:22px;
-line-height:1.45;
-}
-
-.answers-box{
-display:grid;
-gap:12px;
-}
-
-.answer-btn{
-text-align:left;
-font-size:16px;
-background:rgba(255,255,255,0.07);
-color:var(--text);
-border:1px solid rgba(255,255,255,0.08);
-box-shadow:none;
-}
-
-.answer-btn:hover{
-transform:translateY(-1px);
-background:rgba(255,255,255,0.11);
-}
-
-.result-actions{
-display:flex;
-gap:12px;
-flex-wrap:wrap;
-margin-top:16px;
-}
-
-.result-actions .secondary-btn{
-flex:1 1 220px;
-text-align:center;
-text-decoration:none;
-display:flex;
-align-items:center;
-justify-content:center;
-}
-
-.clue-box{
+.result-box{
 margin-top:16px;
 padding:16px 18px;
 border-radius:18px;
 background:linear-gradient(135deg, rgba(246,198,90,0.12), rgba(138,32,48,0.10));
 border:1px solid rgba(246,198,90,0.18);
-}
-
-.clue-box-title{
-font-size:16px;
-font-weight:900;
-color:var(--gold-1);
-margin-bottom:10px;
-text-transform:uppercase;
-letter-spacing:0.5px;
-}
-
-.clue-item{
 font-size:15px;
 line-height:1.7;
+text-align:center;
+}
+
+.result-success{
+color:#bdf7cb;
+font-weight:900;
+}
+
+.result-fail{
+color:#ff9b9b;
+font-weight:900;
+}
+
+.tap-wrapper{
+display:flex;
+flex-direction:column;
+gap:16px;
+align-items:center;
+}
+
+.tap-target{
+width:200px;
+height:200px;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+text-align:center;
+padding:20px;
+font-weight:900;
+font-size:26px;
+line-height:1.2;
+background:
+radial-gradient(circle at 30% 30%, rgba(255,255,255,0.12), transparent 36%),
+linear-gradient(145deg, rgba(246,198,90,0.26), rgba(138,32,48,0.30));
+border:1px solid rgba(255,255,255,0.10);
+box-shadow:0 20px 40px rgba(0,0,0,0.34), 0 0 34px rgba(246,198,90,0.08);
+cursor:pointer;
+user-select:none;
+}
+
+.tap-target:active{
+transform:scale(0.98);
+}
+
+.progress-bar{
+width:100%;
+height:18px;
+border-radius:999px;
+background:rgba(255,255,255,0.08);
+overflow:hidden;
+border:1px solid rgba(255,255,255,0.08);
+}
+
+.progress-fill{
+height:100%;
+width:0%;
+background:linear-gradient(90deg, var(--gold-1), var(--gold-2));
+border-radius:999px;
+transition:width 0.08s linear;
+}
+
+.progress-text{
+font-size:14px;
 color:var(--text);
-margin-bottom:8px;
+font-weight:800;
+text-align:center;
+}
+
+.balance-wrapper{
+display:flex;
+flex-direction:column;
+gap:18px;
+align-items:center;
+}
+
+.balance-track{
+position:relative;
+width:100%;
+max-width:520px;
+height:24px;
+border-radius:999px;
+background:rgba(255,255,255,0.08);
+overflow:hidden;
+border:1px solid rgba(255,255,255,0.08);
+}
+
+.balance-safe{
+position:absolute;
+top:0;
+left:42%;
+width:16%;
+height:100%;
+background:rgba(142,240,176,0.26);
+border-left:2px solid rgba(142,240,176,0.9);
+border-right:2px solid rgba(142,240,176,0.9);
+}
+
+.balance-marker{
+position:absolute;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+width:34px;
+height:34px;
+border-radius:50%;
+background:linear-gradient(135deg, var(--gold-1), var(--gold-2));
+box-shadow:0 10px 20px rgba(201,139,29,0.28);
+border:2px solid rgba(255,255,255,0.18);
+transition:left 0.08s linear;
+}
+
+.balance-controls{
+display:flex;
+gap:12px;
+width:100%;
+max-width:520px;
+}
+
+.balance-controls button{
+flex:1;
+}
+
+.memory-wrapper{
+display:flex;
+flex-direction:column;
+gap:16px;
+}
+
+.memory-grid{
+display:grid;
+grid-template-columns:repeat(2, minmax(0, 1fr));
+gap:12px;
+max-width:420px;
+margin:0 auto;
+width:100%;
+}
+
+.memory-pad{
+height:120px;
+border:none;
+border-radius:22px;
+font-size:20px;
+font-weight:900;
+cursor:pointer;
+color:#24180b;
+background:linear-gradient(145deg, rgba(246,198,90,0.86), rgba(201,139,29,0.96));
+box-shadow:0 16px 28px rgba(0,0,0,0.22);
+transition:transform 0.12s ease, filter 0.12s ease, box-shadow 0.12s ease;
+}
+
+.memory-pad.dim{
+filter:brightness(0.72);
+}
+
+.memory-pad.active{
+transform:scale(1.03);
+filter:brightness(1.15);
+box-shadow:0 18px 34px rgba(246,198,90,0.22);
 }
 
 .small-note{
-margin-top:10px;
+margin-top:12px;
 color:rgba(247,241,231,0.65);
 font-size:13px;
 line-height:1.5;
 text-align:center;
 }
 
-@media (max-width: 900px){
+@media (max-width: 980px){
 body{ padding:10px; }
 
 .container{
@@ -798,16 +997,8 @@ min-width:0;
 width:100%;
 }
 
-.coffre{
-max-width:100%;
-max-height:180px;
-object-fit:cover;
-border-radius:20px;
-}
-
-.coffre-glow{
-width:150px;
-height:150px;
+.visual-card{
+min-height:440px;
 }
 
 .right-side{
@@ -821,6 +1012,7 @@ margin:0 auto 10px auto;
 width:56px;
 height:56px;
 padding:4px;
+font-size:24px;
 }
 
 .topbar{
@@ -830,13 +1022,13 @@ margin-bottom:12px;
 gap:10px;
 }
 
-.marquee-coffre{
+.marquee-bar{
 width:100%;
 margin-bottom:12px;
 }
 
 h1,
-.rules-title{
+.section-title{
 font-size:24px;
 padding-right:0;
 }
@@ -846,38 +1038,44 @@ font-size:14px;
 max-width:none;
 }
 
-.rules-intro-main,
-.rules-paragraph,
+.section-intro,
 .rules-list li,
 .mission-box,
 .tips-intro,
 .tip-text,
-.clue-item{
+.chart-caption,
+.game-instructions,
+.status-text{
 font-size:14px;
 }
 
-.rules-subtitle,
+.sub-title,
 .tip-title,
-.clue-box-title{
+.chart-title{
 font-size:16px;
 }
 
-.level-grid,
+.hero-grid,
+.choice-grid,
+.game-grid,
+.status-grid,
 .nps-quick-stats{
 grid-template-columns:1fr;
-}
-
-.question-box h3{
-font-size:18px;
-}
-
-.answer-btn{
-font-size:15px;
 }
 
 .topbtn{
 font-size:13px;
 padding:10px 14px;
+}
+
+.balance-controls{
+flex-direction:column;
+}
+
+.tap-target{
+width:180px;
+height:180px;
+font-size:22px;
 }
 }
 </style>
@@ -887,135 +1085,327 @@ padding:10px 14px;
 <div class="container">
 
 <div class="left-side">
-<div class="coffre-wrap">
-<div class="coffre-glow"></div>
+<div class="visual-card">
+<div class="visual-badge">MISSION STRATÉGIQUE</div>
 
-<div class="ritual-badge">
-<img src="logo.png" alt="Logo Wittenheim" class="logo-badge" />
-<span>DÉFI STRATÉGIQUE</span>
+<div class="visual-center">
+<div class="mask-glow"></div>
+<div class="mask-symbol">🎭</div>
 </div>
 
-<img id="coffre" src="coffre-ferme.png" class="coffre" alt="Coffre verrouillé" />
+<div class="visual-lines">
+<div class="line-card">
+<div class="line-label">Univers</div>
+<div class="line-value">Trois Masqués avancent dans l’ombre. Les Loyaux doivent faire progresser leur camp, tenter des épreuves et réussir le bon démasquage.</div>
 </div>
 
-<div class="whisper">Tous n’y arriveront pas.</div>
+<div class="line-card">
+<div class="line-label">Rythme</div>
+<div class="line-value">Une semaine de mission, une seule tentative de démasquage, un Enquêteur mis à l’honneur sans classement toxique affiché.</div>
+</div>
+
+<div class="line-card">
+<div class="line-label">Objectif</div>
+<div class="line-value">Faire monter le NPS, garder la dynamique et créer une animation qui donne envie de jouer sans casser l’équipe.</div>
+</div>
+</div>
+</div>
+
+<div class="whisper">Le doute s’installe. La mission est lancée.</div>
 </div>
 
 <div class="right-side">
 
-<div class="logo-top-right">
-<img src="logo.png" alt="Logo du magasin" />
-</div>
+<div class="logo-top-right">🕵️</div>
 
 <div class="topbar">
-<button id="btnCoffre" class="topbtn active" onclick="afficherSection('coffre')">Le Coffre</button>
-<button id="btnRegles" class="topbtn" onclick="afficherSection('regles')">Règles du jeu</button>
+<button id="btnMission" class="topbtn active" onclick="afficherSection('mission')">Mission</button>
+<button id="btnRegles" class="topbtn" onclick="afficherSection('regles')">Règles</button>
+<button id="btnStatut" class="topbtn" onclick="afficherSection('statut')">Statut</button>
 <button id="btnNps" class="topbtn" onclick="afficherSection('nps')">NPS actuel</button>
-<button id="btnTips" class="topbtn" onclick="afficherSection('tips')">Tips pour obtenir des 9/10 ou 10/10</button>
-<button id="btnJeu" class="topbtn" onclick="afficherSection('jeu')">Jeu du jour</button>
+<button id="btnTips" class="topbtn" onclick="afficherSection('tips')">Répliques terrain</button>
+<button id="btnEpreuves" class="topbtn" onclick="afficherSection('epreuves')">Épreuves</button>
 </div>
 
-<div id="sectionCoffre">
-<div class="marquee-coffre">
+<div id="sectionMission">
+<div class="marquee-bar">
 <div class="marquee-track">
-<span>😈 CHALLENGE NPS EN COURS… • QUI TROUVERA LE MOT AVANT LES AUTRES ? 🔐 •</span>
-<span>😈 CHALLENGE NPS EN COURS… • QUI TROUVERA LE MOT AVANT LES AUTRES ? 🔐 •</span>
+<span>🎭 LES MASQUÉS SONT EN MISSION… • LES LOYAUX DOIVENT LES DÉMASQUER… • UNE SEULE TENTATIVE PAR SEMAINE… •</span>
+<span>🎭 LES MASQUÉS SONT EN MISSION… • LES LOYAUX DOIVENT LES DÉMASQUER… • UNE SEULE TENTATIVE PAR SEMAINE… •</span>
 </div>
 </div>
 
-<h1>Le Coffre</h1>
+<h1>Les Masqués</h1>
 
 <p class="desc">
-Le coffre est verrouillé 🤫.<br>
-Un seul mot peut le débloquer…<br>
-À vous de le découvrir 😈.
+Bienvenue dans la mission NPS.<br>
+Trois joueurs avancent dans l’ombre. Les autres sont Loyaux.<br>
+Chaque avis peut faire gagner des points… mais chacun devra choisir entre sécuriser son gain ou tenter une épreuve.
 </p>
 
-<div class="code-panel">
-<div class="code-intro">
-Entre le mot ici pour envoyer ta proposition.
-</div>
-
-<input type="text" id="mot" placeholder="ENTRE LE MOT ICI" autocomplete="off" />
-<button id="mainButton" class="main-btn" onclick="envoyerReponse()">Envoyer le mot</button>
-
-<p id="message"></p>
-</div>
-
-<div class="escape-box">
-<div class="escape-chip">
-<div class="escape-label">Progression</div>
-<div id="attemptsText" class="escape-value">🔎 3 tentatives restantes</div>
-</div>
-</div>
-</div>
-
-<div id="sectionRegles" class="rules-box hidden">
-<div class="rules-title">Les règles du jeu</div>
-
-<div class="rules-intro-main">
-<strong>Le défi est lancé.</strong><br><br>
-Le coffre est verrouillé. Un seul mot peut le débloquer.
-</div>
-
-<div class="rules-subtitle">Pour avancer</div>
-<ul class="rules-list">
-<li>Un avis NPS positif à votre nom avec une note de 9 ou 10 = 2 indices</li>
-<li>Un avis Google positif à votre nom = 1 indice</li>
-<li>Le jeu du jour peut aussi vous faire gagner des indices</li>
-</ul>
-
-<div class="rules-subtitle">Pour tenter votre chance</div>
-<p class="rules-paragraph">
-Entrez votre mot dans <strong>Le Coffre</strong> puis cliquez sur <strong>Envoyer</strong>.
+<div class="panel">
+<div class="section-title">Le principe en un coup d’œil</div>
+<p class="section-intro">
+Le jeu repose sur un équilibre simple : du collectif pour protéger l’équipe, une pointe d’individualité pour faire émerger un leader de semaine, et une vraie tension avec le démasquage final.
 </p>
-<p class="rules-paragraph">
-Vous serez redirigé vers <strong>WhatsApp</strong> pour transmettre votre proposition avec votre prénom.
-</p>
-<p class="rules-paragraph">
-Un administrateur du jeu vous confirmera ensuite si le mot est correct.
-</p>
+
+<div class="hero-grid">
+<div class="hero-card">
+<div class="hero-card-title">Camp 1</div>
+<div class="hero-card-value nps-gold">Les Masqués</div>
+<div class="hero-card-text">
+Ils sont trois, cachés, et valent davantage à chaque avis obtenu à leur nom. Leur force vient de leur rareté.
+</div>
+</div>
+
+<div class="hero-card">
+<div class="hero-card-title">Camp 2</div>
+<div class="hero-card-value nps-good">Les Loyaux</div>
+<div class="hero-card-text">
+Ils sont plus nombreux et doivent maintenir la dynamique, faire progresser leur camp et identifier le bon suspect.
+</div>
+</div>
+
+<div class="hero-card">
+<div class="hero-card-title">Choix après un avis</div>
+<div class="hero-card-value nps-mid">Sécuriser ou tenter</div>
+<div class="hero-card-text">
+Après un avis obtenu, le joueur choisit soit un point garanti, soit une épreuve du site pour tenter de prendre trois points d’un coup.
+</div>
+</div>
+
+<div class="hero-card">
+<div class="hero-card-title">Moment fort</div>
+<div class="hero-card-value nps-gold">Le démasquage</div>
+<div class="hero-card-text">
+Une seule tentative par semaine. L’Enquêteur de la semaine peut désigner un suspect. Si c’est le bon, les Masqués perdent un point.
+</div>
+</div>
+</div>
 
 <div class="mission-box">
 <strong>La mission</strong>
-Trouver le mot secret, atteindre 64 % de NPS et conserver la prime.
+Créer une vraie animation magasin, garder l’énergie collective, valoriser une personne chaque semaine et continuer à pousser le NPS vers l’objectif.
+</div>
 </div>
 </div>
 
-<div id="sectionNps" class="rules-box hidden">
-<div class="rules-title">NPS actuel</div>
+<div id="sectionRegles" class="panel hidden">
+<div class="section-title">Les règles du jeu</div>
+
+<p class="section-intro">
+Le fonctionnement doit rester simple pour que tout le monde comprenne vite, sans se sentir écrasé ni perdu.
+</p>
+
+<div class="sub-title">Les rôles</div>
+<ul class="rules-list">
+<li>3 joueurs sont désignés en secret comme <strong>Masqués</strong>.</li>
+<li>Tous les autres joueurs sont dans le camp des <strong>Loyaux</strong>.</li>
+<li>Les rôles restent secrets jusqu’au démasquage ou jusqu’à la fin de la semaine.</li>
+</ul>
+
+<div class="sub-title">Les points</div>
+<ul class="rules-list">
+<li>Un <strong>Masqué</strong> obtient <strong>2 points</strong> par avis NPS obtenu à son nom.</li>
+<li>Un <strong>Loyal</strong> obtient <strong>1 point</strong> par avis NPS obtenu à son nom.</li>
+</ul>
+
+<div class="sub-title">Après chaque avis</div>
+<ul class="rules-list">
+<li><strong>Sécuriser</strong> : le joueur prend <strong>+1 point garanti</strong>.</li>
+<li><strong>Tenter une épreuve</strong> : s’il réussit, il prend <strong>+3 points</strong>. S’il échoue, il prend <strong>0 point</strong>.</li>
+</ul>
+
+<div class="sub-title">L’Enquêteur de la semaine</div>
+<ul class="rules-list">
+<li>Chaque semaine, le joueur qui a obtenu le plus d’avis devient <strong>l’Enquêteur de la semaine</strong>.</li>
+<li>Son nom est mis à l’honneur sans afficher de classement complet.</li>
+<li>Il gagne le droit à <strong>une seule tentative de démasquage</strong>.</li>
+</ul>
+
+<div class="sub-title">Le démasquage</div>
+<ul class="rules-list">
+<li>L’Enquêteur désigne une personne qu’il pense être Masquée.</li>
+<li>Si le démasquage est correct, <strong>les Masqués perdent 1 point</strong>.</li>
+<li>Si le démasquage est faux, <strong>aucune pénalité</strong> n’est appliquée.</li>
+</ul>
+
+<div class="sub-title">La récompense</div>
+<ul class="rules-list">
+<li>Le camp qui termine devant remporte la mission.</li>
+<li>Dans le camp gagnant, la personne ayant obtenu le plus d’avis remporte la récompense.</li>
+</ul>
+
+<div class="mission-box">
+<strong>Esprit du jeu</strong>
+Le site sert à animer, valoriser et donner envie de jouer. Il ne doit pas mettre les gens en échec publiquement. On montre l’énergie de la mission, pas un classement qui humilie.
+</div>
+</div>
+
+<div id="sectionStatut" class="panel hidden">
+<div class="section-title">Statut de mission</div>
+
+<div class="status-grid">
+<div class="status-card">
+<div class="status-label">Score Loyaux</div>
+<div id="loyalScore" class="status-value nps-good">18</div>
+</div>
+
+<div class="status-card">
+<div class="status-label">Score Masqués</div>
+<div id="maskedScore" class="status-value nps-gold">14</div>
+</div>
+
+<div class="status-card">
+<div class="status-label">Écart</div>
+<div id="scoreGap" class="status-value nps-mid">+4</div>
+</div>
+</div>
+
+<div id="missionStatusText" class="status-text">
+Les Loyaux gardent l’avantage pour le moment, mais la mission reste ouverte. Une bonne série d’avis ou une épreuve réussie peut encore faire basculer la semaine.
+</div>
+
+<div class="enqueteur-box">
+<div>
+<div class="enqueteur-title">Enquêteur de la semaine</div>
+<div id="enqueteurName" class="enqueteur-name">À désigner</div>
+</div>
+<div class="enqueteur-note">
+Une seule tentative de démasquage par semaine. Si l’Enquêteur trouve le bon Masqué, le camp adverse perd 1 point.
+</div>
+</div>
+
+<div class="sub-title">Mettre à jour le statut</div>
+<p class="section-intro" style="margin-bottom:16px;">
+Change simplement les valeurs dans les champs ci-dessous pour refléter la semaine en cours. Le texte d’ambiance se recalculera automatiquement.
+</p>
+
+<div class="hero-grid">
+<div class="hero-card">
+<div class="hero-card-title">Loyaux</div>
+<input id="inputLoyaux" type="number" value="18" style="width:100%;padding:16px;border-radius:16px;border:none;font-size:18px;background:#f8f4ee;color:#181818;font-weight:700;text-align:center;" />
+</div>
+
+<div class="hero-card">
+<div class="hero-card-title">Masqués</div>
+<input id="inputMasques" type="number" value="14" style="width:100%;padding:16px;border-radius:16px;border:none;font-size:18px;background:#f8f4ee;color:#181818;font-weight:700;text-align:center;" />
+</div>
+
+<div class="hero-card">
+<div class="hero-card-title">Enquêteur</div>
+<input id="inputEnqueteur" type="text" value="À désigner" style="width:100%;padding:16px;border-radius:16px;border:none;font-size:18px;background:#f8f4ee;color:#181818;font-weight:700;text-align:center;" />
+</div>
+
+<div class="hero-card" style="display:flex;align-items:center;">
+<button class="action-btn" onclick="mettreAJourStatut()">Mettre à jour le statut</button>
+</div>
+</div>
+</div>
+
+<div id="sectionNps" class="panel hidden">
+<div class="section-title">NPS actuel</div>
 
 <div class="nps-hero">
 <div class="nps-quick-stats">
 <div class="nps-stat">
 <div class="nps-stat-label">NPS du moment</div>
-<div class="nps-stat-value nps-bad">52,5</div>
+<div class="nps-stat-value nps-good">61,4</div>
 </div>
 
 <div class="nps-stat">
 <div class="nps-stat-label">Objectif</div>
-<div class="nps-stat-value nps-good">64</div>
+<div class="nps-stat-value nps-gold">64</div>
 </div>
 
 <div class="nps-stat">
 <div class="nps-stat-label">Écart</div>
-<div class="nps-stat-value nps-mid">-11,5</div>
+<div class="nps-stat-value nps-mid">-2,6</div>
+</div>
+</div>
+
+<div class="chart-wrap">
+<div class="chart-title">Progression du NPS</div>
+
+<div class="chart-box">
+<svg viewBox="0 0 760 300" xmlns="http://www.w3.org/2000/svg" aria-label="Courbe de progression du NPS">
+<defs>
+<linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+<stop offset="0%" stop-color="#c02f45"/>
+<stop offset="55%" stop-color="#f6c65a"/>
+<stop offset="100%" stop-color="#8ef0b0"/>
+</linearGradient>
+<linearGradient id="areaGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+<stop offset="0%" stop-color="rgba(246,198,90,0.28)" />
+<stop offset="100%" stop-color="rgba(246,198,90,0.02)" />
+</linearGradient>
+</defs>
+
+<!-- grid -->
+<line x1="70" y1="60" x2="710" y2="60" stroke="rgba(255,255,255,0.08)" />
+<line x1="70" y1="115" x2="710" y2="115" stroke="rgba(255,255,255,0.06)" />
+<line x1="70" y1="170" x2="710" y2="170" stroke="rgba(255,255,255,0.06)" />
+<line x1="70" y1="225" x2="710" y2="225" stroke="rgba(255,255,255,0.06)" />
+
+<!-- objectif line -->
+<line x1="70" y1="92" x2="710" y2="92" stroke="#f6c65a" stroke-width="2" stroke-dasharray="8 8" />
+<text x="718" y="96" fill="#f6c65a" font-size="14" font-weight="700">Objectif 64</text>
+
+<!-- area -->
+<path d="M70 230 L180 210 L300 188 L430 160 L560 128 L670 116 L670 230 Z"
+fill="url(#areaGradient)" opacity="0.8"/>
+
+<!-- curve -->
+<path d="M70 230 C120 224, 145 216, 180 210 C220 202, 255 194, 300 188 C345 181, 390 170, 430 160 C475 148, 515 136, 560 128 C602 121, 635 118, 670 116"
+fill="none" stroke="url(#lineGradient)" stroke-width="5" stroke-linecap="round"/>
+
+<!-- points -->
+<circle cx="70" cy="230" r="7" fill="#c02f45" />
+<circle cx="180" cy="210" r="7" fill="#c9504f" />
+<circle cx="300" cy="188" r="7" fill="#d67a4a" />
+<circle cx="430" cy="160" r="7" fill="#e9a74b" />
+<circle cx="560" cy="128" r="7" fill="#f6c65a" />
+<circle cx="670" cy="116" r="10" fill="#8ef0b0" stroke="rgba(255,255,255,0.22)" stroke-width="3"/>
+
+<!-- labels -->
+<text x="70" y="255" fill="rgba(247,241,231,0.72)" font-size="13" font-weight="700">Départ</text>
+<text x="180" y="255" fill="rgba(247,241,231,0.72)" font-size="13" font-weight="700">Étape 2</text>
+<text x="300" y="255" fill="rgba(247,241,231,0.72)" font-size="13" font-weight="700">Étape 3</text>
+<text x="430" y="255" fill="rgba(247,241,231,0.72)" font-size="13" font-weight="700">Étape 4</text>
+<text x="560" y="255" fill="rgba(247,241,231,0.72)" font-size="13" font-weight="700">Étape 5</text>
+<text x="640" y="255" fill="#8ef0b0" font-size="14" font-weight="900">Aujourd’hui : 61,4</text>
+
+<text x="18" y="64" fill="rgba(247,241,231,0.68)" font-size="13" font-weight="700">70</text>
+<text x="18" y="119" fill="rgba(247,241,231,0.68)" font-size="13" font-weight="700">64</text>
+<text x="18" y="174" fill="rgba(247,241,231,0.68)" font-size="13" font-weight="700">58</text>
+<text x="18" y="229" fill="rgba(247,241,231,0.68)" font-size="13" font-weight="700">52</text>
+</svg>
+</div>
+
+<div class="legend">
+<div class="legend-item"><span class="legend-dot" style="background:#8ef0b0;"></span> Point actuel</div>
+<div class="legend-item"><span class="legend-dot" style="background:#f6c65a;"></span> Objectif</div>
+<div class="legend-item"><span class="legend-dot" style="background:#c02f45;"></span> Départ plus bas</div>
+</div>
+
+<div class="chart-caption">
+Le magasin est en progression et se rapproche de l’objectif. Le NPS actuel est à <strong>61,4</strong>, soit un écart de <strong>2,6 points</strong> seulement avec la cible à <strong>64</strong>.
 </div>
 </div>
 </div>
 </div>
 
-<div id="sectionTips" class="tips-panel hidden">
-<div class="rules-title">Tips pour obtenir des 9/10 ou 10/10</div>
+<div id="sectionTips" class="panel hidden">
+<div class="section-title">Répliques terrain</div>
 
 <p class="tips-intro">
-Des phrases simples, naturelles et efficaces pour maximiser les 9/10 ou 10/10.
+Des phrases simples, naturelles et efficaces pour favoriser les 9/10 ou 10/10 sans que cela sonne faux.
 </p>
 
 <div class="tips-grid">
 
 <div class="tip-card">
-<div class="tip-title">🛍️ VENDEUR</div>
+<div class="tip-title">🛍️ VENTE</div>
 <div id="tip-vendeur" class="tip-text">“Merci pour votre confiance.
 Vous allez recevoir une petite enquête sur votre passage aujourd’hui.
 Elle concerne mon accompagnement, pas le magasin.
@@ -1060,71 +1450,103 @@ Si tout s’est bien passé, un 9 ou un 10 valorise vraiment notre travail 🙏�
 </div>
 </div>
 
-<div id="sectionJeu" class="game-panel hidden">
-<div class="rules-title">Jeu du jour</div>
+<div id="sectionEpreuves" class="panel hidden">
+<div class="section-title">Épreuves</div>
 
-<div id="gameStart">
-<p class="rules-paragraph" style="margin-bottom:18px;">
-Choisis ton niveau. Tu as 50 secondes pour répondre à 10 questions.
-Aucune correction ne s’affiche pendant le jeu.
+<p class="section-intro">
+Après un avis obtenu, le joueur a deux possibilités : sécuriser son gain ou tenter une épreuve. Ici, tu peux utiliser les mini-jeux pour animer la prise de risque.
 </p>
 
-<div class="level-grid">
-<div class="level-card">
-<h3>Niveau 1</h3>
-<p>Accessible mais piégeux.<br>Récompense : 1 indice.</p>
-<button class="level-btn" onclick="startQuiz(1)">Lancer</button>
+<div class="choice-grid">
+<div class="choice-card">
+<h3>Sécuriser</h3>
+<p>Le joueur ne prend aucun risque et valide un point garanti pour son camp.</p>
+<button class="action-btn" onclick="afficherMessageChoix('✅ Gain sécurisé : +1 point garanti.')">Valider la sécurisation</button>
 </div>
 
-<div class="level-card">
-<h3>Niveau 2</h3>
-<p>Réflexion terrain.<br>Récompense : 2 indices.</p>
-<button class="level-btn" onclick="startQuiz(2)">Lancer</button>
+<div class="choice-card">
+<h3>Tenter une épreuve</h3>
+<p>Le joueur choisit un défi ci-dessous. S’il réussit, il obtient +3 points. S’il échoue, il repart avec 0.</p>
+<button class="secondary-btn" onclick="document.getElementById('gamesList').scrollIntoView({behavior:'smooth'});">Voir les épreuves</button>
+</div>
 </div>
 
-<div class="level-card">
-<h3>Niveau 3</h3>
-<p>Niveau expert.<br>Récompense : 3 indices.</p>
-<button class="level-btn" onclick="startQuiz(3)">Lancer</button>
+<div id="choiceMessage" class="result-box hidden"></div>
+
+<div id="gamesList" class="game-grid">
+<div class="game-card">
+<h3>⚡ Impulsion</h3>
+<p>Appuie très vite pour remplir la jauge avant la fin du chrono.</p>
+<button class="action-btn" onclick="startGame('tap')">Lancer</button>
 </div>
+
+<div class="game-card">
+<h3>🎯 Stabilité</h3>
+<p>Garde le marqueur dans la zone verte jusqu’à la fin du temps.</p>
+<button class="action-btn" onclick="startGame('balance')">Lancer</button>
+</div>
+
+<div class="game-card">
+<h3>🧠 Mémoire</h3>
+<p>Observe la séquence lumineuse puis reproduis-la sans erreur.</p>
+<button class="action-btn" onclick="startGame('memory')">Lancer</button>
+</div>
+</div>
+
+<div id="gameArea" class="game-area hidden">
+<div class="game-top">
+<div id="gameName" class="game-pill">Épreuve</div>
+<div id="gameGoal" class="game-pill">Objectif</div>
+<div id="gameTimer" class="game-pill timer-pill">0</div>
+</div>
+
+<div id="gameInstructions" class="game-instructions"></div>
+
+<div id="tapGame" class="hidden">
+<div class="tap-wrapper">
+<div id="tapTarget" class="tap-target">TAPOTE</div>
+<div class="progress-bar">
+<div id="tapFill" class="progress-fill"></div>
+</div>
+<div id="tapCountText" class="progress-text">0 / 45 pressions</div>
+</div>
+</div>
+
+<div id="balanceGame" class="hidden">
+<div class="balance-wrapper">
+<div class="balance-track">
+<div class="balance-safe"></div>
+<div id="balanceMarker" class="balance-marker"></div>
+</div>
+<div class="balance-controls">
+<button class="action-btn" onmousedown="setBalanceDirection(-1)" ontouchstart="setBalanceDirection(-1)" onmouseup="setBalanceDirection(0)" onmouseleave="setBalanceDirection(0)" ontouchend="setBalanceDirection(0)">⬅ Gauche</button>
+<button class="action-btn" onmousedown="setBalanceDirection(1)" ontouchstart="setBalanceDirection(1)" onmouseup="setBalanceDirection(0)" onmouseleave="setBalanceDirection(0)" ontouchend="setBalanceDirection(0)">Droite ➡</button>
+</div>
+<div id="balanceText" class="progress-text">Temps dans la zone : 0 / 6 s</div>
+</div>
+</div>
+
+<div id="memoryGame" class="hidden">
+<div class="memory-wrapper">
+<div class="small-note" id="memoryPhaseText">Observe la séquence…</div>
+<div class="memory-grid">
+<button class="memory-pad dim" data-pad="0" onclick="handleMemoryClick(0)">A</button>
+<button class="memory-pad dim" data-pad="1" onclick="handleMemoryClick(1)">B</button>
+<button class="memory-pad dim" data-pad="2" onclick="handleMemoryClick(2)">C</button>
+<button class="memory-pad dim" data-pad="3" onclick="handleMemoryClick(3)">D</button>
+</div>
+<div id="memoryText" class="progress-text">Séquence de 4 cases</div>
+</div>
+</div>
+
+<div id="gameResult" class="result-box hidden"></div>
+
+<div style="margin-top:16px;display:flex;gap:12px;flex-wrap:wrap;">
+<button class="secondary-btn" onclick="resetGameArea()">Quitter l’épreuve</button>
 </div>
 
 <div class="small-note">
-Pour gagner les indices du niveau choisi, il faut faire <strong>10/10</strong>.
-</div>
-</div>
-
-<div id="quizPlay" class="hidden">
-<div class="quiz-top">
-<div id="quizLevel" class="quiz-pill">Niveau 1</div>
-<div id="quizProgress" class="quiz-pill">Question 1 / 10</div>
-<div id="quizTimer" class="quiz-pill timer">50</div>
-</div>
-
-<div class="question-box">
-<h3 id="quizQuestion">Question</h3>
-</div>
-
-<div id="quizAnswers" class="answers-box"></div>
-</div>
-
-<div id="quizResult" class="hidden">
-<div class="question-box">
-<h3 id="quizResultTitle">Résultat</h3>
-<p id="quizResultMessage"></p>
-
-<div id="clueBox" class="clue-box hidden">
-<div class="clue-box-title">Indice(s) du moment</div>
-<div id="clueContent"></div>
-</div>
-
-<div class="result-actions">
-<button class="secondary-btn" onclick="resetQuiz()">Revenir aux niveaux</button>
-</div>
-
-<div class="small-note">
-Les réponses sont mélangées à chaque lancement. Les indices changent toutes les 60 secondes.
-</div>
+Les épreuves servent à animer le risque. Réussite = <strong>+3 points</strong>. Échec = <strong>0 point</strong>.
 </div>
 </div>
 </div>
@@ -1133,190 +1555,23 @@ Les réponses sont mélangées à chaque lancement. Les indices changent toutes 
 </div>
 
 <script>
-const WHATSAPP_NUMBER = "33637993778";
-
-const QUIZ_DATA = {
-1: [
-{
-question:"Un client met 8 et dit “c’était top” :",
-answers:["C’est un promoteur","C’est un neutre","C’est un détracteur"],
-correct:"C’est un neutre"
-},
-{
-question:"Le bon moment pour proposer l’enquête :",
-answers:["Dès le début","À la fin, après satisfaction validée","À la caisse uniquement"],
-correct:"À la fin, après satisfaction validée"
-},
-{
-question:"Dire “notez le magasin” est une erreur car :",
-answers:["Ça ne sert à rien","Ça fausse la réponse client","C’est interdit"],
-correct:"Ça fausse la réponse client"
-},
-{
-question:"Un client satisfait mais sans émotion forte devient souvent :",
-answers:["Promoteur","Neutre","Détracteur"],
-correct:"Neutre"
-},
-{
-question:"Le NPS mesure surtout :",
-answers:["Le chiffre d’affaires","L’intention de recommander","Le temps passé"],
-correct:"L’intention de recommander"
-},
-{
-question:"Un client met 9 mais ne recommande pas :",
-answers:["Impossible","Rare mais possible","Faux"],
-correct:"Rare mais possible"
-},
-{
-question:"Le bouche-à-oreille vient surtout d’une expérience :",
-answers:["Moyenne","Mémorable","Rapide"],
-correct:"Mémorable"
-},
-{
-question:"Combien de secondes dure ce jeu ?",
-answers:["30","50","60"],
-correct:"50"
-},
-{
-question:"Un client satisfait mais pressé :",
-answers:["Tu insistes","Tu adaptes et fais court","Tu abandonnes"],
-correct:"Tu adaptes et fais court"
-},
-{
-question:"Un client très satisfait peut devenir :",
-answers:["Un relais positif","Un client classique","Un problème"],
-correct:"Un relais positif"
-}
-],
-2: [
-{
-question:"Le plus dangereux pour ton NPS :",
-answers:["Les détracteurs","Les neutres en masse","Les promoteurs"],
-correct:"Les neutres en masse"
-},
-{
-question:"Pourquoi un client satisfait ne recommande pas forcément :",
-answers:["Il oublie","Il manque d’émotion forte","Il refuse"],
-correct:"Il manque d’émotion forte"
-},
-{
-question:"Le vrai levier pour passer de 8 à 10 :",
-answers:["Le prix","L’émotion + expérience","La rapidité"],
-correct:"L’émotion + expérience"
-},
-{
-question:"Un client dit “c’était bien” :",
-answers:["C’est gagné","Ce n’est pas suffisant pour recommander","C’est parfait"],
-correct:"Ce n’est pas suffisant pour recommander"
-},
-{
-question:"Une recommandation repose sur :",
-answers:["Le hasard","La confiance","La pression"],
-correct:"La confiance"
-},
-{
-question:"Une expérience fluide mais sans surprise donne souvent :",
-answers:["10","8 ou 9","0"],
-correct:"8 ou 9"
-},
-{
-question:"Un avis positif peut :",
-answers:["Attirer un nouveau client","Ne rien changer","Bloquer une vente"],
-correct:"Attirer un nouveau client"
-},
-{
-question:"Un client satisfait en vente mais déçu en caisse :",
-answers:["Met 10","Met souvent neutre ou pire","Ne répond pas"],
-correct:"Met souvent neutre ou pire"
-},
-{
-question:"Quel est le bon réflexe avant de proposer l’enquête :",
-answers:["Vérifier la satisfaction","Aller vite","Demander au hasard"],
-correct:"Vérifier la satisfaction"
-},
-{
-question:"Combien fait 9 + 1 ?",
-answers:["10","11","9"],
-correct:"10"
-}
-],
-3: [
-{
-question:"Pourquoi dire “un 9 ou 10 ça m’aide” est puissant :",
-answers:["Ça manipule","Ça donne du sens personnel à la note","Ça force"],
-correct:"Ça donne du sens personnel à la note"
-},
-{
-question:"Le vrai problème si tu ne proposes pas l’enquête :",
-answers:["Rien","Tu perds des promoteurs potentiels","Tu gagnes du temps"],
-correct:"Tu perds des promoteurs potentiels"
-},
-{
-question:"Pourquoi une équipe peut chuter malgré de bons vendeurs :",
-answers:["Le hasard","Manque de régularité NPS","Trop de clients"],
-correct:"Manque de régularité NPS"
-},
-{
-question:"Le NPS devient inutile si :",
-answers:["On le suit","On ne comprend pas ce qu’on mesure","On l’analyse"],
-correct:"On ne comprend pas ce qu’on mesure"
-},
-{
-question:"Pourquoi certains clients satisfaits ne répondent pas :",
-answers:["Ils n’ont pas reçu le mail","Ils oublient","Ils refusent"],
-correct:"Ils n’ont pas reçu le mail"
-},
-{
-question:"Le rôle clé de l’email dans le NPS :",
-answers:["Publicité","Déclenche l’enquête","Facturation"],
-correct:"Déclenche l’enquête"
-},
-{
-question:"Un vendeur dit “je ne m’y connais pas” :",
-answers:["Normal","Doit être formé pour éviter perte de NPS","Pas grave"],
-correct:"Doit être formé pour éviter perte de NPS"
-},
-{
-question:"Pourquoi la cohérence équipe est essentielle :",
-answers:["Organisation","Expérience client uniforme","Gain de temps"],
-correct:"Expérience client uniforme"
-},
-{
-question:"Le vrai objectif du NPS :",
-answers:["Faire joli","Créer des clients ambassadeurs","Noter le magasin"],
-correct:"Créer des clients ambassadeurs"
-},
-{
-question:"Si 3 vendeurs font bien et 1 casse l’expérience :",
-answers:["Ça ne change rien","Le client retient le pire moment","Il oublie"],
-correct:"Le client retient le pire moment"
-}
-]
-};
-
-let currentLevel = 1;
-let currentQuestions = [];
-let currentQuestionIndex = 0;
-let currentScore = 0;
-let timeLeft = 50;
-let quizTimerInterval = null;
-let quizLocked = false;
-
 function afficherSection(section) {
 const sections = {
-coffre: document.getElementById("sectionCoffre"),
+mission: document.getElementById("sectionMission"),
 regles: document.getElementById("sectionRegles"),
+statut: document.getElementById("sectionStatut"),
 nps: document.getElementById("sectionNps"),
 tips: document.getElementById("sectionTips"),
-jeu: document.getElementById("sectionJeu")
+epreuves: document.getElementById("sectionEpreuves")
 };
 
 const buttons = {
-coffre: document.getElementById("btnCoffre"),
+mission: document.getElementById("btnMission"),
 regles: document.getElementById("btnRegles"),
+statut: document.getElementById("btnStatut"),
 nps: document.getElementById("btnNps"),
 tips: document.getElementById("btnTips"),
-jeu: document.getElementById("btnJeu")
+epreuves: document.getElementById("btnEpreuves")
 };
 
 Object.values(sections).forEach(sectionEl => sectionEl.classList.add("hidden"));
@@ -1324,214 +1579,6 @@ Object.values(buttons).forEach(btn => btn.classList.remove("active"));
 
 sections[section].classList.remove("hidden");
 buttons[section].classList.add("active");
-}
-
-function resetMessageStyles() {
-const message = document.getElementById("message");
-message.classList.remove("error-state", "secret-state");
-message.innerHTML = "";
-}
-
-function shakeCoffre() {
-const coffre = document.getElementById("coffre");
-coffre.classList.remove("shake");
-void coffre.offsetWidth;
-coffre.classList.add("shake");
-}
-
-function getParisDateKey() {
-const parts = new Intl.DateTimeFormat("fr-FR", {
-timeZone:"Europe/Paris",
-year:"numeric",
-month:"2-digit",
-day:"2-digit"
-}).formatToParts(new Date());
-
-const day = parts.find(p => p.type === "day").value;
-const month = parts.find(p => p.type === "month").value;
-const year = parts.find(p => p.type === "year").value;
-
-return `${year}-${month}-${day}`;
-}
-
-function getDailyAttempts() {
-const pattern = [2,4,5,3,6,2,5,4,3,6,5,2];
-const dateKey = getParisDateKey();
-const parts = dateKey.split("-").map(Number);
-const seed = (parts[0] * 372) + (parts[1] * 31) + parts[2];
-return pattern[seed % pattern.length];
-}
-
-function updateAttemptsText() {
-const attempts = getDailyAttempts();
-const label = attempts > 1 ? "tentatives restantes" : "tentative restante";
-document.getElementById("attemptsText").textContent = `🔎 ${attempts} ${label}`;
-}
-
-function envoyerReponse() {
-const inputEl = document.getElementById("mot");
-const input = inputEl.value.trim();
-const message = document.getElementById("message");
-const button = document.getElementById("mainButton");
-
-resetMessageStyles();
-
-if (!input) {
-message.innerHTML = "Entre un mot avant d’envoyer ta tentative.";
-message.classList.add("error-state");
-shakeCoffre();
-return;
-}
-
-button.disabled = true;
-button.textContent = "Préparation...";
-
-try {
-const maintenant = new Date();
-const dateHeure = maintenant.toLocaleString("fr-FR");
-
-const texte = encodeURIComponent(
-`🎯 Tentative coffre Wittenheim\nMot proposé : ${input}\nDate : ${dateHeure}\nPrénom : `
-);
-
-window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${texte}`, "_blank");
-
-message.innerHTML = "🕵️‍♂️ Mot envoyé.<br>Il sera vérifié par l’administrateur sur WhatsApp.";
-message.classList.add("secret-state");
-inputEl.value = "";
-} catch (error) {
-message.innerHTML = "Impossible d’ouvrir WhatsApp. Réessaie dans un instant.";
-message.classList.add("error-state");
-shakeCoffre();
-} finally {
-button.disabled = false;
-button.textContent = "Envoyer le mot";
-}
-}
-
-function shuffleArray(array) {
-const arr = [...array];
-for (let i = arr.length - 1; i > 0; i--) {
-const j = Math.floor(Math.random() * (i + 1));
-[arr[i], arr[j]] = [arr[j], arr[i]];
-}
-return arr;
-}
-
-function startQuiz(level) {
-currentLevel = level;
-currentQuestions = QUIZ_DATA[level].map(q => ({
-question: q.question,
-answers: shuffleArray(q.answers),
-correct: q.correct
-}));
-currentQuestionIndex = 0;
-currentScore = 0;
-timeLeft = 50;
-quizLocked = false;
-
-document.getElementById("gameStart").classList.add("hidden");
-document.getElementById("quizResult").classList.add("hidden");
-document.getElementById("quizPlay").classList.remove("hidden");
-document.getElementById("clueBox").classList.add("hidden");
-document.getElementById("clueContent").innerHTML = "";
-
-document.getElementById("quizLevel").textContent = `Niveau ${level}`;
-document.getElementById("quizTimer").textContent = timeLeft;
-
-renderQuestion();
-clearInterval(quizTimerInterval);
-
-quizTimerInterval = setInterval(() => {
-timeLeft--;
-document.getElementById("quizTimer").textContent = timeLeft;
-
-if (timeLeft <= 0) {
-finishQuiz();
-}
-}, 1000);
-}
-
-function renderQuestion() {
-const questionData = currentQuestions[currentQuestionIndex];
-document.getElementById("quizProgress").textContent = `Question ${currentQuestionIndex + 1} / ${currentQuestions.length}`;
-document.getElementById("quizQuestion").textContent = questionData.question;
-
-const answersBox = document.getElementById("quizAnswers");
-answersBox.innerHTML = "";
-
-questionData.answers.forEach((answer) => {
-const btn = document.createElement("button");
-btn.className = "answer-btn";
-btn.textContent = answer;
-btn.onclick = () => selectAnswer(answer);
-answersBox.appendChild(btn);
-});
-}
-
-function selectAnswer(answer) {
-if (quizLocked) return;
-quizLocked = true;
-
-const questionData = currentQuestions[currentQuestionIndex];
-if (answer === questionData.correct) {
-currentScore++;
-}
-
-currentQuestionIndex++;
-
-if (currentQuestionIndex >= currentQuestions.length) {
-finishQuiz();
-} else {
-renderQuestion();
-quizLocked = false;
-}
-}
-
-function getRewardCount(level) {
-if (level === 1) return 1;
-if (level === 2) return 2;
-return 3;
-}
-
-function finishQuiz() {
-clearInterval(quizTimerInterval);
-
-document.getElementById("quizPlay").classList.add("hidden");
-document.getElementById("quizResult").classList.remove("hidden");
-
-const resultTitle = document.getElementById("quizResultTitle");
-const resultMessage = document.getElementById("quizResultMessage");
-const clueBox = document.getElementById("clueBox");
-const clueContent = document.getElementById("clueContent");
-
-clueBox.classList.add("hidden");
-clueContent.innerHTML = "";
-
-const rewardCount = getRewardCount(currentLevel);
-const perfectScore = currentScore === currentQuestions.length;
-
-if (!perfectScore) {
-resultTitle.textContent = "Résultat";
-resultMessage.innerHTML = `Tu as obtenu <strong>${currentScore}/10</strong> au niveau ${currentLevel}.<br>Aucun indice débloqué cette fois.`;
-return;
-}
-
-resultTitle.textContent = "Sans-faute";
-resultMessage.innerHTML = `Tu as obtenu <strong>10/10</strong> au niveau ${currentLevel}.<br>Voici ${rewardCount} indice${rewardCount > 1 ? "s" : ""} du moment :`;
-
-const clues = getRotatingClues(currentLevel, rewardCount);
-clueContent.innerHTML = clues.map((c, i) => `<div class="clue-item"><strong>${i + 1}.</strong> ${c}</div>`).join("");
-clueBox.classList.remove("hidden");
-}
-
-function resetQuiz() {
-clearInterval(quizTimerInterval);
-document.getElementById("quizPlay").classList.add("hidden");
-document.getElementById("quizResult").classList.add("hidden");
-document.getElementById("gameStart").classList.remove("hidden");
-document.getElementById("clueBox").classList.add("hidden");
-document.getElementById("clueContent").innerHTML = "";
 }
 
 function copyTip(id, button) {
@@ -1551,143 +1598,312 @@ button.innerText = originalText;
 });
 }
 
-function _u(v){
-return decodeURIComponent(escape(atob(v.split("").reverse().join(""))));
+function mettreAJourStatut() {
+const loyaux = parseInt(document.getElementById("inputLoyaux").value || "0", 10);
+const masques = parseInt(document.getElementById("inputMasques").value || "0", 10);
+const enqueteur = document.getElementById("inputEnqueteur").value.trim() || "À désigner";
+
+document.getElementById("loyalScore").textContent = loyaux;
+document.getElementById("maskedScore").textContent = masques;
+
+const gap = loyaux - masques;
+const gapText = gap > 0 ? `+${gap}` : `${gap}`;
+document.getElementById("scoreGap").textContent = gapText;
+document.getElementById("enqueteurName").textContent = enqueteur;
+
+const statusText = document.getElementById("missionStatusText");
+
+if (gap > 0) {
+statusText.innerHTML = `Les <strong>Loyaux</strong> gardent l’avantage avec <strong>${gap} point${Math.abs(gap) > 1 ? "s" : ""}</strong> d’écart. La mission reste ouverte, mais ils tiennent le rythme pour le moment.`;
+} else if (gap < 0) {
+statusText.innerHTML = `Les <strong>Masqués</strong> progressent dans l’ombre et prennent l’avantage avec <strong>${Math.abs(gap)} point${Math.abs(gap) > 1 ? "s" : ""}</strong> d’avance. La semaine peut encore basculer.`;
+} else {
+statusText.innerHTML = `Les deux camps sont à égalité parfaite. La prochaine série d’avis ou une épreuve réussie peut faire basculer toute la mission.`;
+}
 }
 
-/* Indices obfusqués : base64 inversé, sans texte lisible en clair */
-const _p = [
-"uVXmAKedxxWZ1FHI05WZtVmdpRXaz9Gcgk6w1Fnch1GIhBSZj5WZpJXqDDHelBSZuVHIpNHI05WZtVWdxlmb1BSZ0NXa4VGI09WbgU2Q",
-"=k6wyl6wwNXZgMnc19ma19GdgMXah1GIsQnbl1WZ0NWZylGZgk6wk5WYtVGZgMXah1WYqBCdzVWmAKubgwWS",
-"=42bpR3YhNnbhJHdgUmb1BycoOscwFGIzFGcgwibvlGdv1WqDDSZuVHIzh6wyBXYgQnrDHmbgwWS",
-"==wchBHIlR3cphXZZCo4uBCdv1GIlNGIsU2YuFWam52bjBycuF2U",
-"=UGbil2cpZnbpBycpFGblJHIuVGI05WZpx2YgUGbw1WazBib1BSZtJ3bmNnbhJHdgwWS",
-"pOMdpNWasJWdwBSYsBichBHIyV2czFGcgMnbhNHIlxGbpVmcvBCoDDSZoNWdvJGIlRGIldWY59mdgwWS",
-"==gbvlGdv12byBHIlxGblVXcgUGdy9GctlWmAKubgUWdxBic1VGbhZHIlRGIzVHbwBSYgwWS",
-"==AdpFmZyFGcgk6w0l6wgEGI0V3b0BCZuFWdxBSqD7WY052bwNHI0NXZgwWS",
-"=UGbiFmcv1WqD3GI05WZt9Wbg4WdZCo4kBSZj5WZ1FXqDPnbvNGIhxGI0NXZgwWS",
-"==Abhl2YyVWbt92YgQnbl1WdnJXYgwWZ1FHIlRncvBXbplJgi7GIlVXcgMXdsBHIlNmblVHbm5WagwWS",
-"6VWayRnbvNmblJHIlxGIzV3b2BSZ1FHIz5WYzBCduVWasNGI1FWZ2V3buBib1Bicp5WZ2BSZylWYmBCd1VGcgwWS",
-"==QZoN2byBHIuVHIgOMIpOsbu9GZgQnblZXdvNHI0NXZgwWS",
-"pOMdpxWailGZpOscjBSYsBic1NHIlN3bwVmcgwWS",
-"pOMdpxWqDTWamBSZkBycll2ZpOMdhJHdzByclRGIyV3kFPGI1FGI0NXZgwWS",
-"==QZ1FXa0lmcjBSYsBSZ1FHI05WZtVGbpNWYmByc1xGcgQXZtNnbhJHdgU2cgwWS",
-"==AbhRXanlGZgU3bgwWYiJXZ2BSZyRnqDDCd1VGcgwWS",
-"=Umbu92cyVGcgUmb1BCoDDSZpOMZy92YjFGIlNmbhlmZu92YgEGbgA6wgk6wpxGI0NXZgwWS",
-"==QqDTXajlGbiVHcgMnbhNHIlNXayBXZyRnblBSZuVHIylGZuFmcnBCdpFmZgwWS",
-"=42bpR3YhZ2cpRXYzBSZ0J3bmBSZuVHIyFGcgk6woNmblx2YpOMZgQnblZXdvNHI0NXZgwWS",
-"==QZsJWYyV3cl1GIzlWYtBSZsJWazlmdulGI0NXZgwWS",
-"TBlTgUHZg42bpR3clVXcgEGbgA6wgk6wpxGI05WZtVGdjVmcpRGI0NXZgwWS",
-"=4WdZCo41FHblVXcgIXZsxWalNnbvNGI0VXZ2BibvBCZuFWdxBSqD7mbvRGI0NXZgwWS",
-"dCo4mCo4lxGbpV2cu92YgUGdgUmacCo4gIXYwBCduVmd192cgU2YuVWbt92YgwWS",
-"==QZyVHdh5GIyFGcgYWa0l2cvBHI0NXZgwWS",
-"mlGdhdWqD7GIzlmdhBib1lJgiTGIpO8cvBHcvlJgizGI0NXZgwWS",
-"lNWa2JXZzBib1BSdvBCdpVHZvJHcg4WdgwSZu52bzJXZwBSZuVHIyVmcpO8ZnV3cgA6wgUGdzl2cu92YgwWS",
-"lV3ZoOMbs92Yg4WdgA6wgU3bgkWbhBib1BCoDDSZylWYmBSZsBCd1VGcg42T",
-"wEDI19GI5ACdl1GI05WZpx2Yg4WdgQmbhVXcgUHZuVGd0FGI0NXZgwWS",
-"dCo4lxGbpVmcv1CoD3SZoNWdvJGnAKOI09WbgUXYgk6wpN2bzNXYgQnblZXdvNHI056whJXYwBXYgwWS",
-"==QZ0V3bkBSZsBycuFGZgQnbllWYyVGdzVmcgMnbvl2cpNWqDTGIlRGIwV3bjVXYlJGIskWdsBycuF2U",
-"lVXcyFWbgUmb1BSdvBSZjlmdyV2cg4Wdgwic1VGZuVmdg4WdgIXZuJXZj52bjBCd1VGcgwWS",
-"05WZtVGbpNWYmByc1xGcgIXazl2boNGIgOMIzVmc0VXYgMXZsBSZklWYgwWS",
-"==QZj5WZpJXqDDHelBSZu52biBSZuVHIzh6wyBXYgQnblZXdvNHI056whJXYwBXYgwWS",
-"==Abhl2YyVWbt92YgMnc192YzlGZgMnbhNHIlJ3YulWY252bjBCd1VGcgwWS",
-"==Adhh2YhBib1BCduFmdhBSZyV3czFmcgwWS",
-"=IXdvRHIu92cgA6wgIXZ5F2czVWmAKOZgUWa25WZgUmbu9GZgwWS",
-"=k6w0l2YpxmY1BHIl5WdZCo41FHI0J3bmByc1xGcgQnblZXdvNHI0NXZgwWS",
-"==QZ2lGdpN3bwBibvlmbpB3bgUmb1Bic1NHIlN3bwVmcgwWS",
-"05WZtVGbsVmc1RXYuBCduVWa2BCbpBCZuFWdxBCe1VWajl6wyBHI0NXZgwWS",
-"=UnblRnYvBycyV3bqV3b0BSZyRnqDDycuF2cgMXZzlmcwVmc05WZgMXZsByclRXdvRHIyFGcgk6woNmclh2YlJHI0NXZgwWS",
-"==QZoN2byBHIuVXmAKOZgQnbllmdgwWagQmbhVXcgQ3YhBXbplJgiTGIzVHbwBSYgwWS",
-"=Umc0RXZtNnbhJHdgU2cgUGZgQnbhZXYgQnbllGbjBSdkBCdpJHczVWmAKObgMnbhRGI0lWdyR3cu92YgU2cgwWS",
-"=UGbsVmbu9Wa09WbvJHcgUmcmZ2bgMnbhNHIl1mqD3GIyVGdzlGelBCd1VGcgwWS",
-"lxmYpRWqDL3YgQ3clBCbplJgiXXcgU2YyFGcgIXdlxWY2BSYsBSZkBSYgwWS",
-"ll2czVXqDLHIlNmbhlmZu92YgUGZg42bpRXYsVmcgUmb1lJgiTGI0FGdsV3cpOscgUGbgQnblZXdvNHI0NXZgwWS",
-"=Q3YlJXakBCdjFGdu92YgMnbhNHI0FGajFGIuVHI19GIlRXazlmdgUmb1Biclh2YuVGbjl6wkBCd1VGcgwWS",
-"=42bpNXajl6wkBSZkBic1VGdhJXqDzWqDP2YhBib1BSZt12bjBCdpdWYgwWS",
-"pO8Yy9mZgMXYwBCdzVWmAKubgwWagQmbhVXcgQnbhN3cpVHcgMXdsBHI0NXZgwWS",
-"=UGbslWbhZGI19GIzlWbhBCLzVWdnh6wsx2bjBSZyRnblBiclxWdjJXajBCd1VGcgwWS",
-"lZXa0NWZsx2bjBSZj5WZ1xmZulGIuVGIlxGblVHZpZXak5WagU2YuVWayl6wwhXZgUmb1BSZtJ3bmNnbhJHdgwWS",
-"lRmbh1WZkBSZzBSZuBCbplJgiXXcgU2ZhRnbhZXYkBSZ0lmcpOcbgU2cgwWS",
-"lxmYhVXcyFWblJHIlNmbllmcpOMc4VGIl5WdgIXYwBSZpO8czlWYsBSZsJWazlmdulGIlNWYyRHIhxGI0NXZgwWS",
-"=42bpN3cp12cuFmc0BSYsBycuFGZgQXaulmZgQXZg42bpR3btl6wZCo4sBycuFGZgU2YuVWbt92YgwWS",
-"==QYpRWqD3GI0V2ZkVnYgMnbhNHIu9Wa0FGd1BXqDLHIl5WdgA6wgU2Yy9mZgEGbgUGZgUmbu9GZgwWS",
-"slWZ1N2YhBCduVGbsV2Y4VGIuVXmAKOZgwWZyVHdh5GI05WZtV2Zu9GbvJHcgUGbgQnblZXdvNHI0NXZgwWS",
-"=UmcoO8Yul2cgQ3clBCbplJgiXXczJ3bsBSZ0lmdgMXdsBHIldWY59mdgwWS",
-"yVGbpOsdpOscgUGbgQXdlBHIlR3buBSYsBycpFWbgwSZ09mbgMnbhNHIyVGdzlGelBCd1VGcgwWS",
-"ll6wuVWbg4WZpJGIu9Wa0FGblJHIl5WdZCo4kBiZpRXaz9GcgUmcpFGZu92YlNHI0VmZmVGIuVHI0NXZgwWS",
-"lNmblVHbm5WagQXZgU2YuFWam52bjBCLu9Wa0NWYmNXa0F2cgQnbl1WZ0NWZylGZgUWasVmcgwWS",
-"==QZj5WYpZmbvNGIlRGI0VGIpOMdpJXdjl6wzBSZkBCduVWbpRnblNHIuVHIyFGcgk6woNmblx2YpOMZgQnblZXdvNHI0NXZgwWS",
-"==QZ0h6wyNmbvNGIlNmblVHbm5Wag4WZg42bpR3YhZ2cpRXYzBSYsBSZtJ3bmNnbhJHdgwWS",
-"==QZjlmdyV2cg4WdZCo4kBCduVGdu92YgMHqDLHdgk6w0l6wgIXavZXYgMHqDLHchBSZylWYmBSZsBCd1VGcg42T",
-"slWZz52bjBib1BSZoNmclh2YgkWdxBib1lJgiXXcsVWdxBCoDDSqDP3clJHZhBSZyRnqDDCd1VGcgwWS",
-"0l2bnOcZyBSZsBSa1FHIpVHblNGIgOMIlNmbhlmZu92YgUmbu9GZgwWS",
-"=UGdpNXqDjGIpVXcgkWdsV2YgA6wgMHctVGdgUHZgIXZudWYnBCdpFmZgwWS",
-"==gbvlGdhR3clJHcgUmb1BSdvBibpNXYnFWbg4WdgwSZu52bzJXZwBSZuVHIyV3cgIXZ0J3bwBCd1VGcgwWS",
-"=UmdpRXaz9Gcg42bpRnblRnbpBSZuVHI05WZ2V3bzBSYgwWS",
-"==Aep9GajBibvJGIlxGIzJXZ2Bib1lJgiXXcsVWdxBSZ05WZpJ3bgwWS",
-"05WZtVGdjVmcpRGIlJHZuVmdgMnbhNHIlNmblVHbm5WagwWS",
-"==QZj5WYpZmbvNGIlRGI0VGIpOMdpJXdjl6wzBSZkBCduVWbpRnblNHIuVHIyFGcgk6woNmblx2YpOMZgQnblZXdvNHI0NXZgwWS",
-"==QZ0h6wyNmbvNGIlNmblVHbm5Wag4WZg42bpR3YhZ2cpRXYzBSYsBSZtJ3bmNnbhJHdgwWS",
-"==QZjlmdyV2cg4WdZCo4kBCduVGdu92YgMHqDLHdgk6w0l6wgIXavZXYgMHqDLHchBSZylWYmBSZsBCd1VGcg42T",
-"slWZz52bjBib1BSZoNmclh2YgkWdxBib1lJgiXXcsVWdxBCoDDSqDP3clJHZhBSZyRnqDDCd1VGcgwWS",
-"0l2bnOcZyBSZsBSa1FHIpVHblNGIgOMIlNmbhlmZu92YgUmbu9GZgwWS",
-"=UGdpNXqDjGIpVXcgkWdsV2YgA6wgMHctVGdgUHZgIXZudWYnBCdpFmZgwWS",
-"==gbvlGdhR3clJHcgUmb1BSdvBibpNXYnFWbg4WdgwSZu52bzJXZwBSZuVHIyV3cgIXZ0J3bwBCd1VGcgwWS",
-"=UmdpRXaz9Gcg42bpRnblRnbpBSZuVHI05WZ2V3bzBSYgwWS",
-"==Aep9GajBibvJGIlxGIzJXZ2Bib1lJgiXXcsVWdxBSZ05WZpJ3bgwWS",
-"05WZtVGdjVmcpRGIlJHZuVmdgMnbhNHIlNmblVHbm5WagwWS",
-"==Abhl2YyVWbt92YgIXahlJgizGIzFGcgEWmAKubgwWaZCo41FHIlNmchBHI05WYzNXa1BHI0NXZgwWS",
-"=YWa0l2cvBHIlRGIlN3boNGIlVXcsVWdxBSdjl6w2Bicp9mdhlJgiTGIu9Wa0NWa252bjBSYsBic1NHIlN3bwVmcgwWS",
-"=YWa0NWZsx2bjBCdjFGctlGIuVGIsVWdklmdpRmbpBSa05WZzNXZyBib1BSZtJ3bmNnbhJHdgwWS",
-"=0JgiPXqD3mclZGI4VXZ5ByclxGIyVGbsFGI5BCe1VGcgUHdcCo4goDI05WZtVmcoO8Yul2cgU2cuVGcg4WdZCo41FHblVXcgQmbhVXcgQnrDHmbgwWS",
-"==QZpOcbpJHc4VGIlNmbhlmZu92YgUGZgMXZ0J3bmByc1xGcgMXZsBycl1mcvZGIzVGZgUmb1lJgizGI0NXZgwWS",
-"==AMxAib1BSdvBSOg4WdgMHqDLHchBSZyh6wwNXZg42bZCo41FHIlNGI05WZtVGdpFmZyFGcgUWb1NXqDLHI09WbgU2Q"
-];
-
-/* Décodage */
-function getDecodedClues() {
-return _p.map(_u);
+function afficherMessageChoix(message) {
+const box = document.getElementById("choiceMessage");
+box.classList.remove("hidden");
+box.innerHTML = message;
 }
 
-/* Pools différents selon le niveau */
-function getPoolForLevel(level) {
-const decoded = getDecodedClues();
+/* =========================
+   MINI-JEUX
+========================= */
+let activeGame = null;
+let gameTimerInterval = null;
+let timeLeft = 0;
 
-if (level === 1) {
-return decoded.slice(25);
-}
-if (level === 2) {
-return decoded.slice(10, 90);
-}
-return decoded.slice(0, 70);
-}
+/* Tap Game */
+let tapCount = 0;
+const tapGoal = 45;
 
-function getRotatingClues(level, count) {
-const pool = getPoolForLevel(level);
-const tick = Math.floor(Date.now() / 60000);
-const start = (tick * (level + 2)) % pool.length;
-const used = [];
-let i = 0;
+/* Balance Game */
+let balanceX = 50;
+let balanceDirection = 0;
+let balanceStableTime = 0;
+let balanceInterval = null;
 
-while (used.length < count && i < pool.length * 2) {
-const idx = (start + i * 7 + level * 3) % pool.length;
-const candidate = pool[idx];
-if (!used.includes(candidate)) {
-used.push(candidate);
-}
-i++;
-}
-return used;
+/* Memory Game */
+let memorySequence = [];
+let memoryPlayerIndex = 0;
+let memoryCanClick = false;
+
+function hideAllGames() {
+document.getElementById("tapGame").classList.add("hidden");
+document.getElementById("balanceGame").classList.add("hidden");
+document.getElementById("memoryGame").classList.add("hidden");
+document.getElementById("gameResult").classList.add("hidden");
 }
 
-document.getElementById("mot").addEventListener("keydown", function(event) {
-if (event.key === "Enter") {
-envoyerReponse();
+function resetGameArea() {
+clearInterval(gameTimerInterval);
+clearInterval(balanceInterval);
+activeGame = null;
+hideAllGames();
+document.getElementById("gameArea").classList.add("hidden");
+balanceDirection = 0;
+memoryCanClick = false;
 }
+
+function setGameHeader(name, goal, seconds, instructions) {
+document.getElementById("gameName").textContent = name;
+document.getElementById("gameGoal").textContent = goal;
+document.getElementById("gameTimer").textContent = seconds;
+document.getElementById("gameInstructions").textContent = instructions;
+}
+
+function startGame(type) {
+resetGameArea();
+activeGame = type;
+document.getElementById("gameArea").classList.remove("hidden");
+hideAllGames();
+
+if (type === "tap") {
+startTapGame();
+}
+if (type === "balance") {
+startBalanceGame();
+}
+if (type === "memory") {
+startMemoryGame();
+}
+}
+
+function startGlobalTimer(seconds, onEnd) {
+timeLeft = seconds;
+document.getElementById("gameTimer").textContent = timeLeft;
+
+gameTimerInterval = setInterval(() => {
+timeLeft--;
+document.getElementById("gameTimer").textContent = timeLeft;
+if (timeLeft <= 0) {
+clearInterval(gameTimerInterval);
+onEnd();
+}
+}, 1000);
+}
+
+function showGameResult(success, successText, failText) {
+const box = document.getElementById("gameResult");
+box.classList.remove("hidden");
+
+if (success) {
+box.innerHTML = `<span class="result-success">Réussite.</span><br>${successText}`;
+} else {
+box.innerHTML = `<span class="result-fail">Échec.</span><br>${failText}`;
+}
+}
+
+/* ===== Impulsion ===== */
+function startTapGame() {
+document.getElementById("tapGame").classList.remove("hidden");
+setGameHeader(
+"⚡ Impulsion",
+`Atteindre ${tapGoal} pressions`,
+10,
+"Appuie le plus vite possible sur le cercle avant la fin du chrono."
+);
+
+tapCount = 0;
+updateTapUI();
+
+const target = document.getElementById("tapTarget");
+target.onclick = () => {
+if (activeGame !== "tap") return;
+tapCount++;
+updateTapUI();
+if (tapCount >= tapGoal) {
+clearInterval(gameTimerInterval);
+showGameResult(true, "Le joueur a rempli la jauge à temps. Il gagne +3 points.", "Le joueur n’a pas atteint la jauge à temps.");
+activeGame = null;
+}
+};
+
+startGlobalTimer(10, () => {
+if (tapCount >= tapGoal) {
+showGameResult(true, "Le joueur a rempli la jauge à temps. Il gagne +3 points.", "Le joueur n’a pas atteint la jauge à temps.");
+} else {
+showGameResult(false, "Le joueur a rempli la jauge à temps. Il gagne +3 points.", "Le joueur n’a pas atteint l’objectif. Il repart avec 0 point.");
+}
+activeGame = null;
+});
+}
+
+function updateTapUI() {
+const percent = Math.min((tapCount / tapGoal) * 100, 100);
+document.getElementById("tapFill").style.width = percent + "%";
+document.getElementById("tapCountText").textContent = `${tapCount} / ${tapGoal} pressions`;
+}
+
+/* ===== Stabilité ===== */
+function startBalanceGame() {
+document.getElementById("balanceGame").classList.remove("hidden");
+setGameHeader(
+"🎯 Stabilité",
+"Rester 6 s dans la zone verte",
+12,
+"Utilise Gauche et Droite pour garder le marqueur dans la zone verte. Le temps dans la zone s’accumule."
+);
+
+balanceX = 50;
+balanceDirection = 0;
+balanceStableTime = 0;
+updateBalanceUI();
+
+startGlobalTimer(12, () => {
+clearInterval(balanceInterval);
+if (balanceStableTime >= 6) {
+showGameResult(true, "Le joueur a tenu la zone assez longtemps. Il gagne +3 points.", "Le joueur n’a pas tenu la zone assez longtemps.");
+} else {
+showGameResult(false, "Le joueur a tenu la zone assez longtemps. Il gagne +3 points.", "Le joueur a perdu le contrôle avant la fin. Il repart avec 0 point.");
+}
+activeGame = null;
 });
 
-updateAttemptsText();
-afficherSection("coffre");
+balanceInterval = setInterval(() => {
+if (activeGame !== "balance") return;
+
+balanceX += balanceDirection * 2.4;
+balanceX += (Math.random() - 0.5) * 2.2;
+if (balanceX < 0) balanceX = 0;
+if (balanceX > 100) balanceX = 100;
+
+if (balanceX >= 42 && balanceX <= 58) {
+balanceStableTime += 0.1;
+}
+
+updateBalanceUI();
+
+if (balanceStableTime >= 6) {
+clearInterval(gameTimerInterval);
+clearInterval(balanceInterval);
+showGameResult(true, "Le joueur a tenu la zone assez longtemps. Il gagne +3 points.", "Le joueur n’a pas tenu la zone assez longtemps.");
+activeGame = null;
+}
+}, 100);
+}
+
+function setBalanceDirection(dir) {
+if (activeGame !== "balance") return;
+balanceDirection = dir;
+}
+
+function updateBalanceUI() {
+document.getElementById("balanceMarker").style.left = `${balanceX}%`;
+document.getElementById("balanceText").textContent = `Temps dans la zone : ${balanceStableTime.toFixed(1)} / 6 s`;
+}
+
+/* ===== Mémoire ===== */
+function startMemoryGame() {
+document.getElementById("memoryGame").classList.remove("hidden");
+setGameHeader(
+"🧠 Mémoire",
+"Reproduire une séquence de 4 cases",
+18,
+"Observe la séquence, puis reproduis-la dans le bon ordre."
+);
+
+memorySequence = [];
+memoryPlayerIndex = 0;
+memoryCanClick = false;
+
+for (let i = 0; i < 4; i++) {
+memorySequence.push(Math.floor(Math.random() * 4));
+}
+
+document.getElementById("memoryText").textContent = "Séquence de 4 cases";
+document.getElementById("memoryPhaseText").textContent = "Observe la séquence…";
+
+startGlobalTimer(18, () => {
+if (memoryCanClick && memoryPlayerIndex >= memorySequence.length) {
+showGameResult(true, "Le joueur a reproduit la séquence. Il gagne +3 points.", "Le joueur n’a pas terminé la séquence.");
+} else {
+showGameResult(false, "Le joueur a reproduit la séquence. Il gagne +3 points.", "Le joueur n’a pas réussi à reproduire la séquence à temps. Il repart avec 0 point.");
+}
+activeGame = null;
+memoryCanClick = false;
+});
+
+playMemorySequence();
+}
+
+function playMemorySequence() {
+const pads = document.querySelectorAll(".memory-pad");
+pads.forEach(p => p.classList.add("dim"));
+
+let step = 0;
+const interval = setInterval(() => {
+if (step > 0) {
+pads[memorySequence[step - 1]].classList.remove("active");
+pads[memorySequence[step - 1]].classList.add("dim");
+}
+
+if (step >= memorySequence.length) {
+clearInterval(interval);
+memoryCanClick = true;
+document.getElementById("memoryPhaseText").textContent = "À toi de jouer.";
+return;
+}
+
+const current = memorySequence[step];
+pads[current].classList.remove("dim");
+pads[current].classList.add("active");
+step++;
+}, 850);
+}
+
+function handleMemoryClick(index) {
+if (activeGame !== "memory" || !memoryCanClick) return;
+
+const pads = document.querySelectorAll(".memory-pad");
+pads[index].classList.add("active");
+setTimeout(() => {
+pads[index].classList.remove("active");
+pads[index].classList.add("dim");
+}, 180);
+
+if (index === memorySequence[memoryPlayerIndex]) {
+memoryPlayerIndex++;
+document.getElementById("memoryText").textContent = `Progression : ${memoryPlayerIndex} / ${memorySequence.length}`;
+
+if (memoryPlayerIndex >= memorySequence.length) {
+clearInterval(gameTimerInterval);
+showGameResult(true, "Le joueur a reproduit la séquence. Il gagne +3 points.", "Le joueur n’a pas reproduit la séquence.");
+activeGame = null;
+memoryCanClick = false;
+}
+} else {
+clearInterval(gameTimerInterval);
+showGameResult(false, "Le joueur a reproduit la séquence. Il gagne +3 points.", "Mauvaise case. Le joueur repart avec 0 point.");
+activeGame = null;
+memoryCanClick = false;
+}
+}
+
+afficherSection("mission");
+mettreAJourStatut();
 </script>
 
 </body>
