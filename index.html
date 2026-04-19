@@ -8,9 +8,7 @@
 <style>
 :root{
   --bg:#07080d;
-  --bg-2:#0c1018;
   --panel:#121722;
-  --panel-2:#181d2a;
   --line:rgba(255,255,255,.08);
   --text:#f7f1e8;
   --muted:rgba(247,241,232,.72);
@@ -20,7 +18,6 @@
   --gold-2:#c99124;
   --gold-3:#ffbe61;
   --orange:#ff9f43;
-  --orange-2:#ffbe7b;
   --green:#8ef0b0;
   --green-2:#63d78d;
   --red:#ff6b6b;
@@ -31,7 +28,6 @@
 
   --radius-xl:28px;
   --radius-lg:22px;
-  --radius-md:18px;
 
   --safe-top:env(safe-area-inset-top, 0px);
   --safe-bottom:env(safe-area-inset-bottom, 0px);
@@ -61,7 +57,7 @@ body{
   overflow-x:hidden;
 }
 
-button,input,textarea{
+button,input{
   font:inherit;
 }
 
@@ -747,7 +743,7 @@ a{
 
 .launch-shell,
 .play-shell{
-  max-width:920px;
+  max-width:980px;
   margin:0 auto;
   min-height:calc(100vh - 32px);
   display:flex;
@@ -870,23 +866,13 @@ a{
   z-index:1;
 }
 
-.play-zone{
-  min-height:620px;
-  display:flex;
-  flex-direction:column;
-  justify-content:flex-start;
-  gap:14px;
-}
-
-.play-actions{
-  margin-top:14px;
-  display:grid;
-  gap:12px;
-}
-
 /* =========================
    TOWER GAME
 ========================= */
+.play-zone{
+  min-height:620px;
+}
+
 .tower-app{
   position:relative;
   border-radius:26px;
@@ -895,7 +881,7 @@ a{
   background:
     linear-gradient(180deg, rgba(8,10,16,.20), rgba(8,10,16,.46)),
     url("bg-chateau.jpg") center/cover no-repeat;
-  min-height:660px;
+  min-height:680px;
   box-shadow:var(--shadow-xl);
 }
 
@@ -911,48 +897,76 @@ a{
 
 .tower-head{
   position:relative;
-  z-index:2;
+  z-index:3;
   display:grid;
   grid-template-columns:1fr auto;
   gap:16px;
   align-items:start;
-  padding:22px 22px 14px;
-  background:linear-gradient(180deg, rgba(8,10,16,.58), rgba(8,10,16,.18));
+  padding:20px 20px 12px;
+  background:linear-gradient(180deg, rgba(8,10,16,.72), rgba(8,10,16,.16));
   border-bottom:1px solid rgba(255,255,255,.08);
 }
 
 .tower-head-text h2{
   margin:0;
-  font-size:34px;
+  font-size:32px;
   text-transform:uppercase;
-  letter-spacing:.6px;
+  letter-spacing:.5px;
   line-height:1;
 }
 
 .tower-head-text p{
   margin:10px 0 0;
-  font-size:14px;
+  font-size:13px;
   font-weight:900;
   letter-spacing:1px;
   text-transform:uppercase;
   color:rgba(247,241,232,.84);
 }
 
+.tower-counter{
+  text-align:center;
+  font-size:18px;
+  font-weight:900;
+  margin:14px 0 12px;
+  position:relative;
+  z-index:3;
+}
+
+.progress{
+  width:100%;
+  height:16px;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,.10);
+  background:rgba(255,255,255,.08);
+  overflow:hidden;
+  box-shadow:inset 0 2px 8px rgba(0,0,0,.24);
+}
+
+.progress-fill{
+  height:100%;
+  width:0%;
+  border-radius:999px;
+  background:linear-gradient(90deg, var(--orange), var(--gold), #ffe08a);
+  box-shadow:0 0 18px rgba(255,190,97,.24);
+  transition:width .15s linear;
+}
+
 .tower-stage-wrap{
   position:relative;
   z-index:2;
-  padding:0 18px;
+  padding:12px 18px 132px;
 }
 
 .tower-stage{
   position:relative;
   height:470px;
-  border-radius:26px;
+  border-radius:24px;
   overflow:hidden;
   border:1px solid rgba(255,255,255,.10);
   background:
-    linear-gradient(180deg, rgba(12,14,22,.08), rgba(12,14,22,.22)),
-    radial-gradient(circle at center, rgba(255,190,97,.16), transparent 56%);
+    linear-gradient(180deg, rgba(12,14,22,.06), rgba(12,14,22,.20)),
+    radial-gradient(circle at center, rgba(255,190,97,.14), transparent 56%);
   box-shadow:inset 0 0 60px rgba(0,0,0,.18);
 }
 
@@ -961,7 +975,7 @@ a{
   left:0;
   right:0;
   bottom:0;
-  height:1400px;
+  height:1420px;
   will-change:transform;
   transform-origin:50% 100%;
 }
@@ -972,7 +986,7 @@ a{
   transform:translateX(-50%);
   bottom:0;
   width:320px;
-  height:86px;
+  height:84px;
   border-radius:22px 22px 10px 10px;
   background:
     linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.03)),
@@ -1021,7 +1035,7 @@ a{
 
 .tower-feedback{
   position:absolute;
-  top:18px;
+  top:16px;
   left:50%;
   transform:translateX(-50%);
   z-index:8;
@@ -1045,47 +1059,24 @@ a{
 
 .tower-feedback.perfect{ color:var(--green); }
 .tower-feedback.good{ color:#fff2cd; }
-.tower-feedback.danger{ color:#ff9f43; }
+.tower-feedback.danger{ color:#ffb36b; }
 
-.tower-bottom-ui{
-  position:relative;
-  z-index:2;
-  padding:18px 22px 22px;
-  background:linear-gradient(180deg, rgba(8,10,16,.12), rgba(8,10,16,.52));
-}
-
-.tower-counter{
-  text-align:center;
-  font-size:18px;
-  font-weight:900;
-  margin-bottom:14px;
-}
-
-.progress{
-  width:100%;
-  height:18px;
-  border-radius:999px;
-  border:1px solid rgba(255,255,255,.10);
-  background:rgba(255,255,255,.08);
-  overflow:hidden;
-  box-shadow:inset 0 2px 8px rgba(0,0,0,.24);
-}
-
-.progress-fill{
-  height:100%;
-  width:0%;
-  border-radius:999px;
-  background:linear-gradient(90deg, var(--orange), var(--gold), #ffe08a);
-  box-shadow:0 0 18px rgba(255,190,97,.24);
-  transition:width .15s linear;
+.tower-fixed-bottom{
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:0;
+  z-index:5;
+  padding:14px 18px calc(14px + var(--safe-bottom));
+  background:linear-gradient(180deg, rgba(8,10,16,0), rgba(8,10,16,.82) 26%, rgba(8,10,16,.96) 100%);
+  backdrop-filter:blur(8px);
 }
 
 .tower-button{
   width:100%;
-  margin-top:18px;
   border:none;
   border-radius:22px;
-  padding:22px 18px;
+  padding:20px 18px;
   font-size:22px;
   font-weight:900;
   cursor:pointer;
@@ -1110,27 +1101,27 @@ a{
 
 .tower-help{
   text-align:center;
-  margin-top:14px;
+  margin-top:12px;
   color:var(--muted);
   font-size:13px;
-  line-height:1.6;
+  line-height:1.5;
 }
 
 .tower-meta{
   display:flex;
   align-items:center;
   justify-content:center;
-  gap:14px;
+  gap:10px;
   flex-wrap:wrap;
-  margin-top:14px;
+  margin-top:12px;
 }
 
 .tower-pill{
   border-radius:999px;
   border:1px solid rgba(255,255,255,.10);
   background:rgba(255,255,255,.06);
-  padding:10px 14px;
-  font-size:12px;
+  padding:8px 12px;
+  font-size:11px;
   font-weight:900;
   text-transform:uppercase;
   letter-spacing:1px;
@@ -1149,7 +1140,7 @@ a{
   align-items:center;
   justify-content:center;
   padding:20px;
-  background:rgba(6,7,11,.78);
+  background:rgba(6,7,11,.80);
   backdrop-filter:blur(10px);
 }
 
@@ -1223,12 +1214,6 @@ a{
   }
 
   .quick-actions{ grid-template-columns:1fr; }
-  .tower-head{ grid-template-columns:1fr; }
-
-  .timer-chip{
-    width:92px;
-    height:92px;
-  }
 }
 
 @media (max-width: 680px){
@@ -1279,10 +1264,6 @@ a{
     font-size:24px;
   }
 
-  .play-zone{
-    min-height:calc(100vh - 170px);
-  }
-
   .play-overlay,
   .launch-overlay{
     padding:0;
@@ -1302,7 +1283,7 @@ a{
   }
 
   .play-content{
-    padding:12px;
+    padding:10px;
     min-height:100vh;
   }
 
@@ -1310,51 +1291,88 @@ a{
     padding:18px;
   }
 
-  .tower-app{
-    min-height:calc(100vh - 150px);
-    border-radius:20px;
+  .play-zone{
+    min-height:calc(100vh - 128px);
   }
 
-  .tower-stage-wrap{ padding:0 8px; }
-
-  .tower-stage{
-    height:60vh;
-    min-height:500px;
+  .tower-app{
+    min-height:calc(100vh - 148px);
     border-radius:20px;
   }
 
   .tower-head{
+    grid-template-columns:1fr auto;
     padding:14px 14px 10px;
+    gap:10px;
   }
 
-  .tower-head-text h2{ font-size:26px; }
-  .tower-head-text p{ font-size:12px; }
-
-  .tower-counter{ font-size:18px; }
-
-  .tower-button{
-    font-size:22px;
-    padding:20px 14px;
-    min-height:72px;
-  }
+  .tower-head-text h2{ font-size:24px; }
+  .tower-head-text p{ font-size:11px; }
 
   .timer-chip{
-    min-width:82px;
-    min-height:82px;
-    font-size:26px;
+    min-width:78px;
+    min-height:78px;
+    font-size:24px;
   }
 
-  .tower-base{
-    width:250px;
-    height:74px;
+  .tower-counter{
+    font-size:17px;
+    margin:12px 0 10px;
+    padding:0 10px;
+  }
+
+  .tower-stage-wrap{
+    padding:10px 10px 146px;
+  }
+
+  .tower-stage{
+    height:calc(100vh - 350px);
+    min-height:420px;
+    max-height:560px;
+    border-radius:18px;
   }
 
   .tower-world{
     height:1320px;
   }
 
+  .tower-base{
+    width:248px;
+    height:72px;
+  }
+
+  .tower-step{
+    width:300px;
+  }
+
   .tower-block{
     height:30px;
+    border-radius:12px;
+  }
+
+  .tower-fixed-bottom{
+    padding:12px 12px calc(12px + var(--safe-bottom));
+  }
+
+  .tower-button{
+    font-size:22px;
+    min-height:74px;
+    padding:20px 14px;
+  }
+
+  .tower-help{
+    font-size:12px;
+    margin-top:10px;
+  }
+
+  .tower-meta{
+    gap:8px;
+    margin-top:10px;
+  }
+
+  .tower-pill{
+    font-size:10px;
+    padding:7px 10px;
   }
 
   .launch-actions{
@@ -1459,7 +1477,7 @@ a{
     </section>
 
     <section id="section-regles" class="section">
-            <div class="card rules-banner">
+      <div class="card rules-banner">
         <div class="card-inner">
           <h2 class="section-title">Règles du jeu</h2>
           <div class="section-sub">Une lecture rapide, claire et sans perte de temps.</div>
@@ -1514,7 +1532,7 @@ a{
             <div class="rule-box">
               <div class="rule-top">Table ronde</div>
               <div class="rule-body">
-                Le lundi, la personne peut se concerter avec l’équipe avant d’envoyer le nom du suspect,
+                La personne peut se concerter avec l’équipe avant d’envoyer le nom du suspect,
                 mais attention aux Masqués qui écoutent : ils peuvent pousser sur une mauvaise piste.
               </div>
             </div>
@@ -1799,8 +1817,7 @@ Si tout s’est bien passé, un 9 ou un 10 valorise vraiment notre travail.</div
       </div>
     </div>
   </div>
-
-<script>
+  <script>
 const WHATSAPP_NUMBER = "33637993778";
 const navButtons = document.querySelectorAll(".nav-btn");
 
@@ -1832,6 +1849,9 @@ function openSection(section){
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
+/* =========================
+   COPY TIPS
+========================= */
 function copyTip(id, button){
   const text = document.getElementById(id).innerText;
   const original = button.innerText;
@@ -1845,6 +1865,9 @@ function copyTip(id, button){
   });
 }
 
+/* =========================
+   TABLE RONDE
+========================= */
 const suspectInput = document.getElementById("suspectName");
 const senderInput = document.getElementById("senderName");
 const votePreview = document.getElementById("votePreview");
@@ -1881,6 +1904,9 @@ Envoyé par : ${sender}`;
   window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, "_blank");
 }
 
+/* =========================
+   UTILS
+========================= */
 function nowParis(){
   const now = new Date();
 
@@ -1929,6 +1955,9 @@ function schedule(fn, delay){
   return t;
 }
 
+/* =========================
+   OVERLAYS
+========================= */
 const launchOverlay = document.getElementById("launchOverlay");
 const playOverlay = document.getElementById("playOverlay");
 const playZone = document.getElementById("playZone");
@@ -1961,6 +1990,9 @@ function closePlay(){
   }
 }
 
+/* =========================
+   TIMER
+========================= */
 function updateTimerRing(timeLeft, total){
   const chip = document.getElementById("playTimer");
   if(!chip) return;
@@ -1987,8 +2019,12 @@ function startCountdown(onEnd){
   }, 1000);
 }
 
+/* =========================
+   GAME FEEDBACK
+========================= */
 function flashFeedback(text, variant){
   if(!towerState || !towerState.feedback) return;
+
   towerState.feedback.className = `tower-feedback show ${variant}`;
   towerState.feedback.textContent = text;
 
@@ -2000,16 +2036,18 @@ function flashFeedback(text, variant){
 }
 
 function buildWhatsAppWinMessage(score, code){
+  const info = nowParis();
   return `🏰 Mission validée
 
 Joueur : ${currentPlayerName}
 Score : ${score}/20
-Date : ${nowParis().date}
-Heure : ${nowParis().time}
+Date : ${info.date}
+Heure : ${info.time}
 Code : ${code}
 
 J’envoie ma capture de réussite juste ici.`;
 }
+
 function showTowerEnd(type, title, text, score){
   if(!towerState || !towerState.endMount) return;
 
@@ -2031,7 +2069,7 @@ function showTowerEnd(type, title, text, score){
 
         <div class="tower-end-actions">
           ${type === "win" ? `
-            <button class="btn btn-green" onclick="window.open('https://wa.me/${WHATSAPP_NUMBER}?text=' + encodeURIComponent(${JSON.stringify("")} + \`${whatsappMessage}\`), '_blank')">
+            <button class="btn btn-green" onclick="window.open('https://wa.me/${WHATSAPP_NUMBER}?text=' + encodeURIComponent(${JSON.stringify(whatsappMessage)}), '_blank')">
               Ouvrir WhatsApp
             </button>
           ` : ""}
@@ -2043,6 +2081,9 @@ function showTowerEnd(type, title, text, score){
   `;
 }
 
+/* =========================
+   START GAME
+========================= */
 function startTowerGame(){
   const name = document.getElementById("launchPlayerName").value.trim();
   if(!name){
@@ -2072,7 +2113,11 @@ function launchTowerGame(){
         </div>
       </div>
 
+      <div class="tower-counter" id="towerCounter">Étages validés : 0 / 20</div>
+
       <div class="tower-stage-wrap">
+        <div class="progress"><div id="towerFill" class="progress-fill"></div></div>
+
         <div id="towerStage" class="tower-stage">
           <div id="towerFeedback" class="tower-feedback"></div>
           <div id="towerWorld" class="tower-world">
@@ -2082,10 +2127,7 @@ function launchTowerGame(){
         </div>
       </div>
 
-      <div class="tower-bottom-ui">
-        <div id="towerCounter" class="tower-counter">Étages validés : 0 / 20</div>
-        <div class="progress"><div id="towerFill" class="progress-fill"></div></div>
-
+      <div class="tower-fixed-bottom">
         <button id="towerButton" class="tower-button">Poser le bloc</button>
 
         <div class="tower-help">
@@ -2219,7 +2261,10 @@ function launchTowerGame(){
       towerState.movingBlock.remove();
     }
 
-    const width = Math.max(towerState.minWidth, Math.min(getPlayableWidth(), computeWidthForScore(towerState.score)));
+    const width = Math.max(
+      towerState.minWidth,
+      Math.min(getPlayableWidth(), computeWidthForScore(towerState.score))
+    );
     const maxLeft = towerState.stage.clientWidth - width - towerState.sidePadding;
 
     towerState.currentWidth = width;
