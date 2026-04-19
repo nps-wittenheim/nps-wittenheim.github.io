@@ -241,6 +241,10 @@ a{
   transition:.16s ease;
 }
 
+.btn:hover{
+  transform:translateY(-1px);
+}
+
 .btn:active{
   transform:scale(.99);
 }
@@ -274,9 +278,7 @@ a{
   font-weight:800;
 }
 
-.orange{color:var(--orange)}
 .green{color:var(--green)}
-.gold{color:var(--gold)}
 
 .helper{
   font-size:12px;
@@ -727,8 +729,7 @@ a{
    OVERLAYS
 ========================= */
 .launch-overlay,
-.play-overlay,
-.ticket-overlay{
+.play-overlay{
   position:fixed;
   inset:0;
   z-index:100;
@@ -740,15 +741,13 @@ a{
 }
 
 .launch-overlay.show,
-.play-overlay.show,
-.ticket-overlay.show{
+.play-overlay.show{
   display:block;
 }
 
 .launch-shell,
-.play-shell,
-.ticket-shell{
-  max-width:860px;
+.play-shell{
+  max-width:920px;
   margin:0 auto;
   min-height:calc(100vh - 32px);
   display:flex;
@@ -757,8 +756,7 @@ a{
 }
 
 .launch-card,
-.play-card,
-.ticket-card{
+.play-card{
   border:1px solid rgba(255,255,255,.10);
   border-radius:28px;
   overflow:hidden;
@@ -774,8 +772,7 @@ a{
 }
 
 .launch-content,
-.play-content,
-.ticket-content{
+.play-content{
   padding:20px;
 }
 
@@ -964,9 +961,8 @@ a{
   left:0;
   right:0;
   bottom:0;
-  height:1320px;
+  height:1400px;
   will-change:transform;
-  transition:transform .18s linear;
   transform-origin:50% 100%;
 }
 
@@ -1047,17 +1043,9 @@ a{
   transform:translateX(-50%) translateY(-2px);
 }
 
-.tower-feedback.perfect{
-  color:var(--green);
-}
-
-.tower-feedback.good{
-  color:#fff2cd;
-}
-
-.tower-feedback.danger{
-  color:#ff9f43;
-}
+.tower-feedback.perfect{ color:var(--green); }
+.tower-feedback.good{ color:#fff2cd; }
+.tower-feedback.danger{ color:#ff9f43; }
 
 .tower-bottom-ui{
   position:relative;
@@ -1182,13 +1170,8 @@ a{
   margin-bottom:10px;
 }
 
-.tower-end-title.fail{
-  color:#ff9f9f;
-}
-
-.tower-end-title.win{
-  color:#aef8c7;
-}
+.tower-end-title.fail{ color:#ff9f9f; }
+.tower-end-title.win{ color:#aef8c7; }
 
 .tower-end-text{
   font-size:15px;
@@ -1213,122 +1196,9 @@ a{
   color:var(--text);
 }
 
-/* =========================
-   TICKET
-========================= */
-.ticket-card{
-  overflow:hidden;
-}
-
-.ticket-head{
-  min-height:180px;
-  background:
-    linear-gradient(90deg, rgba(6,7,11,.76), rgba(6,7,11,.28)),
-    url("ref-tower.jpg") center/cover no-repeat;
-}
-
-.ticket-content{
-  padding:20px;
-}
-
-.ticket-title{
-  font-size:30px;
-  font-weight:900;
-  line-height:1;
-  text-transform:uppercase;
-}
-
-.ticket-sub{
-  margin-top:8px;
-  font-size:13px;
-  color:var(--muted);
-  line-height:1.6;
-}
-
-.ticket-badge{
-  display:inline-flex;
-  align-items:center;
-  gap:8px;
-  margin-top:14px;
-  border-radius:999px;
-  padding:9px 12px;
-  font-size:11px;
-  letter-spacing:1px;
-  text-transform:uppercase;
-  font-weight:900;
-  background:linear-gradient(135deg, #aef8c7, var(--green-2));
-  color:#06150e;
-}
-
-.ticket-game{
-  margin:18px 0 12px 0;
-  border:1px solid rgba(255,255,255,.10);
-  border-radius:20px;
-  background:rgba(255,255,255,.04);
-  padding:16px;
-  text-align:center;
-}
-
-.ticket-game strong{
-  display:block;
-  font-size:32px;
-  line-height:1;
-  color:var(--gold);
-  margin-bottom:8px;
-}
-
-.ticket-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:12px;
-  margin-top:16px;
-}
-
-.ticket-box{
-  border:1px solid rgba(255,255,255,.08);
-  border-radius:18px;
-  background:rgba(255,255,255,.04);
-  padding:14px;
-}
-
-.ticket-label{
-  font-size:10px;
-  text-transform:uppercase;
-  letter-spacing:1px;
-  color:var(--muted-2);
-  margin-bottom:8px;
-}
-
-.ticket-value{
-  font-size:16px;
-  font-weight:900;
-  word-break:break-word;
-}
-
-.ticket-note{
-  margin-top:14px;
-  font-size:12px;
-  line-height:1.55;
-  color:var(--muted);
-  text-align:center;
-}
-
-.ticket-actions{
-  margin-top:16px;
-  display:grid;
-  gap:12px;
-}
-
-/* =========================
-   RESPONSIVE
-========================= */
 @media (max-width: 1180px){
-  .mission-layout{
-    grid-template-columns:1fr;
-  }
-  .vote-layout{
-    grid-template-columns:1fr;
-  }
+  .mission-layout{ grid-template-columns:1fr; }
+  .vote-layout{ grid-template-columns:1fr; }
 }
 
 @media (max-width: 900px){
@@ -1343,9 +1213,7 @@ a{
     justify-content:flex-start;
   }
 
-  .mission-title{
-    font-size:46px;
-  }
+  .mission-title{ font-size:46px; }
 
   .mission-stat-row,
   .rules-grid,
@@ -1354,13 +1222,8 @@ a{
     grid-template-columns:1fr;
   }
 
-  .quick-actions{
-    grid-template-columns:1fr;
-  }
-
-  .tower-head{
-    grid-template-columns:1fr;
-  }
+  .quick-actions{ grid-template-columns:1fr; }
+  .tower-head{ grid-template-columns:1fr; }
 
   .timer-chip{
     width:92px;
@@ -1369,25 +1232,13 @@ a{
 }
 
 @media (max-width: 680px){
-  :root{
-    --header-h:72px;
-  }
+  :root{ --header-h:72px; }
 
-  .main{
-    padding:10px;
-  }
+  .main{ padding:10px; }
+  .top-nav{ padding:10px; }
 
-  .top-nav{
-    padding:10px;
-  }
-
-  .brand-title{
-    font-size:16px;
-  }
-
-  .brand-sub{
-    font-size:10px;
-  }
+  .brand-title{ font-size:16px; }
+  .brand-sub{ font-size:10px; }
 
   .brand-mark{
     width:44px;
@@ -1406,26 +1257,17 @@ a{
     padding:10px 12px;
   }
 
-  .card-inner{
-    padding:16px;
-  }
+  .card-inner{ padding:16px; }
 
-  .mission-title{
-    font-size:34px;
-  }
+  .mission-title{ font-size:34px; }
 
   .mission-text{
     font-size:14px;
     line-height:1.7;
   }
 
-  .section-title{
-    font-size:22px;
-  }
-
-  .section-sub{
-    font-size:14px;
-  }
+  .section-title{ font-size:22px; }
+  .section-sub{ font-size:14px; }
 
   .visual-card img{
     min-height:280px;
@@ -1433,29 +1275,27 @@ a{
   }
 
   .launch-title,
-  .play-title,
-  .ticket-title{
+  .play-title{
     font-size:24px;
-  }
-
-  .ticket-grid{
-    grid-template-columns:1fr;
   }
 
   .play-zone{
     min-height:calc(100vh - 170px);
   }
 
-  .play-overlay{
+  .play-overlay,
+  .launch-overlay{
     padding:0;
   }
 
-  .play-shell{
+  .play-shell,
+  .launch-shell{
     max-width:100%;
     min-height:100vh;
   }
 
-  .play-card{
+  .play-card,
+  .launch-card{
     border-radius:0;
     min-height:100vh;
     border:none;
@@ -1466,19 +1306,20 @@ a{
     min-height:100vh;
   }
 
+  .launch-content{
+    padding:18px;
+  }
+
   .tower-app{
     min-height:calc(100vh - 150px);
     border-radius:20px;
   }
 
-  .tower-stage-wrap{
-    padding:0 8px;
-  }
+  .tower-stage-wrap{ padding:0 8px; }
 
   .tower-stage{
-    height:58vh;
-    min-height:460px;
-    max-height:none;
+    height:60vh;
+    min-height:500px;
     border-radius:20px;
   }
 
@@ -1486,17 +1327,10 @@ a{
     padding:14px 14px 10px;
   }
 
-  .tower-head-text h2{
-    font-size:26px;
-  }
+  .tower-head-text h2{ font-size:26px; }
+  .tower-head-text p{ font-size:12px; }
 
-  .tower-head-text p{
-    font-size:12px;
-  }
-
-  .tower-counter{
-    font-size:18px;
-  }
+  .tower-counter{ font-size:18px; }
 
   .tower-button{
     font-size:22px;
@@ -1516,7 +1350,7 @@ a{
   }
 
   .tower-world{
-    height:1280px;
+    height:1320px;
   }
 
   .tower-block{
@@ -1525,25 +1359,6 @@ a{
 
   .launch-actions{
     grid-template-columns:1fr;
-  }
-
-  .launch-overlay{
-    padding:0;
-  }
-
-  .launch-shell{
-    max-width:100%;
-    min-height:100vh;
-  }
-
-  .launch-card{
-    border-radius:0;
-    min-height:100vh;
-    border:none;
-  }
-
-  .launch-content{
-    padding:18px;
   }
 
   .tower-end-card{
@@ -1644,7 +1459,7 @@ a{
     </section>
 
     <section id="section-regles" class="section">
-      <div class="card rules-banner">
+            <div class="card rules-banner">
         <div class="card-inner">
           <h2 class="section-title">Règles du jeu</h2>
           <div class="section-sub">Une lecture rapide, claire et sans perte de temps.</div>
@@ -1962,3 +1777,612 @@ Si tout s’est bien passé, un 9 ou un 10 valorise vraiment notre travail.</div
       </div>
     </div>
   </div>
+
+  <div id="playOverlay" class="play-overlay">
+    <div class="play-shell">
+      <div class="play-card">
+        <div class="play-content">
+          <div class="play-head">
+            <div>
+              <div id="playTitle" class="play-title">Tour du château</div>
+              <div id="playGoal" class="play-goal">Atteindre 20 étages en 30 secondes</div>
+            </div>
+            <div id="playTimer" class="timer-chip"><span>30</span></div>
+          </div>
+
+          <div id="playZone" class="play-zone"></div>
+
+          <div class="play-actions">
+            <button class="btn btn-ghost" onclick="closePlay()">Fermer le jeu</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script>
+const WHATSAPP_NUMBER = "33637993778";
+const navButtons = document.querySelectorAll(".nav-btn");
+
+let currentPlayerName = "";
+let gameTimerInterval = null;
+let gameTimeLeft = 30;
+let towerState = null;
+let activeTimeouts = [];
+
+/* =========================
+   NAVIGATION
+========================= */
+navButtons.forEach(btn=>{
+  btn.addEventListener("click", ()=>{
+    const section = btn.getAttribute("data-section");
+    openSection(section);
+  });
+});
+
+function openSection(section){
+  document.querySelectorAll(".section").forEach(el=>el.classList.remove("active"));
+  const target = document.getElementById("section-" + section);
+  if(target) target.classList.add("active");
+
+  navButtons.forEach(btn=>btn.classList.remove("active"));
+  const activeBtn = document.querySelector(`.nav-btn[data-section="${section}"]`);
+  if(activeBtn) activeBtn.classList.add("active");
+
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function copyTip(id, button){
+  const text = document.getElementById(id).innerText;
+  const original = button.innerText;
+
+  navigator.clipboard.writeText(text).then(()=>{
+    button.innerText = "Copié ✅";
+    setTimeout(()=>button.innerText = original, 1200);
+  }).catch(()=>{
+    button.innerText = "Copié ✅";
+    setTimeout(()=>button.innerText = original, 1200);
+  });
+}
+
+const suspectInput = document.getElementById("suspectName");
+const senderInput = document.getElementById("senderName");
+const votePreview = document.getElementById("votePreview");
+
+function updateVotePreview(){
+  const suspect = suspectInput.value.trim();
+  const sender = senderInput.value.trim();
+
+  votePreview.innerText =
+`🎭 Table ronde — Vote de démasquage
+
+Prénom du suspect : ${suspect}
+Envoyé par : ${sender}`;
+}
+
+suspectInput.addEventListener("input", updateVotePreview);
+senderInput.addEventListener("input", updateVotePreview);
+
+function sendVoteWhatsApp(){
+  const suspect = suspectInput.value.trim();
+  const sender = senderInput.value.trim();
+
+  if(!suspect){
+    alert("Entre le nom du suspect avant d’envoyer.");
+    return;
+  }
+
+  const msg =
+`🎭 Table ronde — Vote de démasquage
+
+Prénom du suspect : ${suspect}
+Envoyé par : ${sender}`;
+
+  window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, "_blank");
+}
+
+function nowParis(){
+  const now = new Date();
+
+  const date = new Intl.DateTimeFormat("fr-FR", {
+    timeZone:"Europe/Paris",
+    year:"numeric",
+    month:"2-digit",
+    day:"2-digit"
+  }).format(now);
+
+  const time = new Intl.DateTimeFormat("fr-FR", {
+    timeZone:"Europe/Paris",
+    hour:"2-digit",
+    minute:"2-digit",
+    second:"2-digit",
+    hour12:false
+  }).format(now);
+
+  return { date, time };
+}
+
+function makeTicketCode(player, game, score){
+  const t = Date.now().toString().slice(-6);
+  const p = (player || "XX").toUpperCase().replace(/[^A-Z0-9]/g, "").slice(0,3).padEnd(3,"X");
+  const g = (game || "GM").toUpperCase().replace(/[^A-Z0-9]/g, "").slice(0,3).padEnd(3,"X");
+  const s = String(score || 0).padStart(3, "0");
+  const r = Math.random().toString(36).toUpperCase().replace(/[^A-Z0-9]/g, "").slice(2,6);
+  return `${p}-${g}-${s}-${t}-${r}`;
+}
+
+function clearAllTimers(){
+  clearInterval(gameTimerInterval);
+  gameTimerInterval = null;
+
+  if(towerState && towerState.animationId){
+    cancelAnimationFrame(towerState.animationId);
+  }
+
+  activeTimeouts.forEach(t=>clearTimeout(t));
+  activeTimeouts = [];
+}
+
+function schedule(fn, delay){
+  const t = setTimeout(fn, delay);
+  activeTimeouts.push(t);
+  return t;
+}
+
+const launchOverlay = document.getElementById("launchOverlay");
+const playOverlay = document.getElementById("playOverlay");
+const playZone = document.getElementById("playZone");
+const playTimer = document.getElementById("playTimer").querySelector("span");
+
+function openLaunch(){
+  launchOverlay.classList.add("show");
+  document.body.style.overflow = "hidden";
+}
+
+function closeLaunch(){
+  launchOverlay.classList.remove("show");
+  if(!playOverlay.classList.contains("show")){
+    document.body.style.overflow = "";
+  }
+}
+
+function openPlay(){
+  playOverlay.classList.add("show");
+  document.body.style.overflow = "hidden";
+}
+
+function closePlay(){
+  clearAllTimers();
+  towerState = null;
+  playOverlay.classList.remove("show");
+  playZone.innerHTML = "";
+  if(!launchOverlay.classList.contains("show")){
+    document.body.style.overflow = "";
+  }
+}
+
+function updateTimerRing(timeLeft, total){
+  const chip = document.getElementById("playTimer");
+  if(!chip) return;
+  const ratio = Math.max(0, Math.min(1, timeLeft / total));
+  const deg = Math.round(ratio * 360);
+  chip.style.background =
+    `radial-gradient(circle at 35% 35%, rgba(255,255,255,.55), transparent 28%), conic-gradient(var(--gold) 0deg, var(--gold-3) ${deg}deg, rgba(255,255,255,.10) ${deg}deg)`;
+}
+
+function startCountdown(onEnd){
+  clearInterval(gameTimerInterval);
+  gameTimerInterval = setInterval(()=>{
+    gameTimeLeft--;
+    playTimer.textContent = gameTimeLeft;
+
+    if(towerState){
+      updateTimerRing(gameTimeLeft, towerState.totalTime);
+    }
+
+    if(gameTimeLeft <= 0){
+      clearInterval(gameTimerInterval);
+      onEnd();
+    }
+  }, 1000);
+}
+
+function flashFeedback(text, variant){
+  if(!towerState || !towerState.feedback) return;
+  towerState.feedback.className = `tower-feedback show ${variant}`;
+  towerState.feedback.textContent = text;
+
+  schedule(()=>{
+    if(towerState && towerState.feedback){
+      towerState.feedback.className = "tower-feedback";
+    }
+  }, 420);
+}
+
+function buildWhatsAppWinMessage(score, code){
+  return `🏰 Mission validée
+
+Joueur : ${currentPlayerName}
+Score : ${score}/20
+Date : ${nowParis().date}
+Heure : ${nowParis().time}
+Code : ${code}
+
+J’envoie ma capture de réussite juste ici.`;
+}
+function showTowerEnd(type, title, text, score){
+  if(!towerState || !towerState.endMount) return;
+
+  const code = makeTicketCode(currentPlayerName, "Tour du château", score);
+  const whatsappMessage = buildWhatsAppWinMessage(score, code);
+
+  towerState.endMount.innerHTML = `
+    <div class="tower-end-overlay">
+      <div class="tower-end-card">
+        <div class="tower-end-title ${type}">${title}</div>
+        <div class="tower-end-text">${text}</div>
+
+        ${type === "win" ? `
+          <div class="win-capture-note">
+            <strong>Capture maintenant.</strong><br>
+            Fais la capture de cet écran puis ouvre WhatsApp pour me l’envoyer.
+          </div>
+        ` : ""}
+
+        <div class="tower-end-actions">
+          ${type === "win" ? `
+            <button class="btn btn-green" onclick="window.open('https://wa.me/${WHATSAPP_NUMBER}?text=' + encodeURIComponent(${JSON.stringify("")} + \`${whatsappMessage}\`), '_blank')">
+              Ouvrir WhatsApp
+            </button>
+          ` : ""}
+          <button class="btn btn-primary" onclick="launchTowerGame()">Rejouer</button>
+          <button class="btn btn-ghost" onclick="closePlay()">Fermer le jeu</button>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function startTowerGame(){
+  const name = document.getElementById("launchPlayerName").value.trim();
+  if(!name){
+    alert("Entre ton prénom avant de lancer l’épreuve.");
+    return;
+  }
+
+  currentPlayerName = name;
+  closeLaunch();
+  launchTowerGame();
+}
+
+function launchTowerGame(){
+  clearAllTimers();
+  towerState = null;
+
+  gameTimeLeft = 30;
+  playTimer.textContent = "30";
+  updateTimerRing(30, 30);
+
+  playZone.innerHTML = `
+    <div class="tower-app">
+      <div class="tower-head">
+        <div class="tower-head-text">
+          <h2>Tour du château</h2>
+          <p>Atteindre 20 étages en 30 secondes</p>
+        </div>
+      </div>
+
+      <div class="tower-stage-wrap">
+        <div id="towerStage" class="tower-stage">
+          <div id="towerFeedback" class="tower-feedback"></div>
+          <div id="towerWorld" class="tower-world">
+            <div class="tower-step"></div>
+            <div class="tower-base"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tower-bottom-ui">
+        <div id="towerCounter" class="tower-counter">Étages validés : 0 / 20</div>
+        <div class="progress"><div id="towerFill" class="progress-fill"></div></div>
+
+        <button id="towerButton" class="tower-button">Poser le bloc</button>
+
+        <div class="tower-help">
+          Le bloc se déplace tout seul. Il faut le poser au bon moment.
+        </div>
+
+        <div class="tower-meta">
+          <div class="tower-pill">30 secondes</div>
+          <div class="tower-pill">20 étages</div>
+          <div class="tower-pill tower-score-glow">Difficulté élevée</div>
+        </div>
+      </div>
+
+      <div id="towerEndMount"></div>
+    </div>
+  `;
+
+  openPlay();
+
+  const stage = document.getElementById("towerStage");
+  const world = document.getElementById("towerWorld");
+  const button = document.getElementById("towerButton");
+  const counter = document.getElementById("towerCounter");
+  const fill = document.getElementById("towerFill");
+  const feedback = document.getElementById("towerFeedback");
+  const endMount = document.getElementById("towerEndMount");
+
+  const isMobile = window.innerWidth <= 680;
+  const totalGoal = 20;
+  const totalTime = 30;
+  const blockHeight = isMobile ? 30 : 34;
+  const gap = isMobile ? 10 : 8;
+  const baseBottom = isMobile ? 72 : 78;
+  const sidePadding = isMobile ? 14 : 18;
+
+  towerState = {
+    totalGoal,
+    totalTime,
+    score: 0,
+    blockHeight,
+    gap,
+    baseBottom,
+    sidePadding,
+    stage,
+    world,
+    button,
+    counter,
+    fill,
+    feedback,
+    endMount,
+    movingBlock: null,
+    currentWidth: 0,
+    previousLeft: null,
+    movingLeft: sidePadding,
+    movingDir: 1,
+    speed: 0,
+    levelBottom: baseBottom + 18,
+    minWidth: 56,
+    isLocked: false,
+    lastWidth: 0,
+    animationId: null,
+    cameraOffset: 0,
+    ended: false,
+    frameTime: 0
+  };
+
+  function updateUI(){
+    towerState.counter.textContent = `Étages validés : ${towerState.score} / ${towerState.totalGoal}`;
+    towerState.fill.style.width = `${(towerState.score / towerState.totalGoal) * 100}%`;
+  }
+
+  function getBlockBottom(index){
+    return towerState.levelBottom + index * (towerState.blockHeight + towerState.gap);
+  }
+
+  function updateCamera(force = false){
+    const currentTop = getBlockBottom(towerState.score) + towerState.blockHeight;
+    const visibleHeight = towerState.stage.clientHeight;
+    const worldHeight = towerState.world.clientHeight;
+
+    const desired = Math.max(
+      0,
+      Math.min(worldHeight - visibleHeight, currentTop - (visibleHeight - 150))
+    );
+
+    if(force){
+      towerState.cameraOffset = desired;
+    }else{
+      towerState.cameraOffset += (desired - towerState.cameraOffset) * 0.18;
+    }
+
+    towerState.world.style.transform = `translateY(${towerState.cameraOffset}px)`;
+  }
+
+  function addFixedBlock(width, left, bottom, perfect = false){
+    const block = document.createElement("div");
+    block.className = `tower-block fixed${perfect ? " perfect" : ""}`;
+    block.style.width = `${width}px`;
+    block.style.left = `${left}px`;
+    block.style.bottom = `${bottom}px`;
+    towerState.world.appendChild(block);
+  }
+
+  function getPlayableWidth(){
+    return towerState.stage.clientWidth - (towerState.sidePadding * 2);
+  }
+
+  function computeWidthForScore(score){
+    const max = Math.min(getPlayableWidth(), isMobile ? 260 : 300);
+
+    if(score <= 2) return max;
+    if(score <= 5) return max - ((score - 2) * 24);
+    if(score <= 9) return (max - 72) - ((score - 5) * 18);
+    if(score <= 13) return (max - 144) - ((score - 9) * 14);
+    if(score <= 17) return (max - 200) - ((score - 13) * 10);
+    return Math.max(56, (max - 240) - ((score - 17) * 6));
+  }
+
+  function computeSpeedForScore(score){
+    if(score <= 4) return 360;
+    if(score <= 8) return 440;
+    if(score <= 12) return 520;
+    if(score <= 16) return 610;
+    return 700;
+  }
+
+  function spawnMovingBlock(){
+    if(!towerState || towerState.ended) return;
+
+    if(towerState.movingBlock){
+      towerState.movingBlock.remove();
+    }
+
+    const width = Math.max(towerState.minWidth, Math.min(getPlayableWidth(), computeWidthForScore(towerState.score)));
+    const maxLeft = towerState.stage.clientWidth - width - towerState.sidePadding;
+
+    towerState.currentWidth = width;
+    towerState.speed = computeSpeedForScore(towerState.score);
+    towerState.movingDir = Math.random() > 0.5 ? 1 : -1;
+    towerState.movingLeft = towerState.movingDir === 1 ? towerState.sidePadding : maxLeft;
+
+    const block = document.createElement("div");
+    block.className = "tower-block moving";
+    block.style.width = `${width}px`;
+    block.style.left = `${towerState.movingLeft}px`;
+    block.style.bottom = `${getBlockBottom(towerState.score)}px`;
+
+    towerState.world.appendChild(block);
+    towerState.movingBlock = block;
+  }
+
+  function endGameFail(message){
+    if(!towerState || towerState.ended) return;
+    towerState.ended = true;
+    towerState.button.disabled = true;
+
+    if(towerState.movingBlock){
+      towerState.movingBlock.remove();
+      towerState.movingBlock = null;
+    }
+
+    clearAllTimers();
+
+    towerState.world.style.transition = "transform .55s ease-in";
+    towerState.world.style.transform = `translateY(${towerState.cameraOffset + 220}px) rotate(8deg)`;
+
+    schedule(()=>{
+      if(!towerState) return;
+      showTowerEnd("fail", "Échec", message, towerState.score);
+    }, 520);
+  }
+
+  function endGameWin(){
+    if(!towerState || towerState.ended) return;
+    towerState.ended = true;
+    towerState.button.disabled = true;
+    clearAllTimers();
+    showTowerEnd("win", "Mission validée", `Les 20 étages ont été validés. Bravo ${currentPlayerName}.`, towerState.score);
+  }
+
+  function finalizeBlock(){
+    if(!towerState || towerState.ended || towerState.isLocked || !towerState.movingBlock) return;
+    towerState.isLocked = true;
+
+    const currentLeft = towerState.movingLeft;
+    const currentWidth = towerState.currentWidth;
+
+    let finalWidth = currentWidth;
+    let finalLeft = currentLeft;
+    let perfect = false;
+
+    if(towerState.score === 0){
+      finalLeft = Math.round((towerState.stage.clientWidth - currentWidth) / 2);
+      finalWidth = currentWidth;
+      perfect = true;
+      flashFeedback("Perfect", "perfect");
+    }else{
+      const prevLeft = towerState.previousLeft;
+      const prevWidth = towerState.lastWidth;
+      const overlapLeft = Math.max(currentLeft, prevLeft);
+      const overlapRight = Math.min(currentLeft + currentWidth, prevLeft + prevWidth);
+      const overlap = overlapRight - overlapLeft;
+
+      if(overlap <= 14){
+        endGameFail(`Bloc mal aligné. Score final : ${towerState.score} / ${towerState.totalGoal}.`);
+        return;
+      }
+
+      finalLeft = overlapLeft;
+      finalWidth = overlap;
+
+      const diff = Math.abs(currentLeft - prevLeft);
+
+      if(diff <= 4){
+        perfect = true;
+        finalWidth = prevWidth;
+        finalLeft = prevLeft;
+        flashFeedback("Perfect", "perfect");
+      }else if(diff <= 12){
+        flashFeedback("Propre", "good");
+      }else{
+        flashFeedback("Dangereux", "danger");
+      }
+    }
+
+    towerState.movingBlock.remove();
+    towerState.movingBlock = null;
+
+    addFixedBlock(finalWidth, finalLeft, getBlockBottom(towerState.score), perfect);
+
+    towerState.previousLeft = finalLeft;
+    towerState.lastWidth = finalWidth;
+    towerState.score++;
+    updateUI();
+    updateCamera(true);
+
+    if(towerState.score >= towerState.totalGoal){
+      endGameWin();
+      return;
+    }
+
+    schedule(()=>{
+      if(!towerState || towerState.ended) return;
+      spawnMovingBlock();
+      towerState.isLocked = false;
+    }, 90);
+  }
+
+  function gameLoop(timestamp){
+    if(!towerState || towerState.ended) return;
+
+    if(!towerState.frameTime){
+      towerState.frameTime = timestamp;
+    }
+
+    const dt = (timestamp - towerState.frameTime) / 1000;
+    towerState.frameTime = timestamp;
+
+    if(towerState.movingBlock){
+      const maxLeft = towerState.stage.clientWidth - towerState.currentWidth - towerState.sidePadding;
+
+      towerState.movingLeft += towerState.movingDir * towerState.speed * dt;
+
+      if(towerState.movingLeft <= towerState.sidePadding){
+        towerState.movingLeft = towerState.sidePadding;
+        towerState.movingDir = 1;
+      }
+
+      if(towerState.movingLeft >= maxLeft){
+        towerState.movingLeft = maxLeft;
+        towerState.movingDir = -1;
+      }
+
+      towerState.movingBlock.style.left = `${towerState.movingLeft}px`;
+    }
+
+    updateCamera(false);
+    towerState.animationId = requestAnimationFrame(gameLoop);
+  }
+
+  button.addEventListener("click", finalizeBlock);
+
+  spawnMovingBlock();
+  updateUI();
+  updateCamera(true);
+  towerState.animationId = requestAnimationFrame(gameLoop);
+
+  startCountdown(()=>{
+    if(!towerState || towerState.ended) return;
+
+    if(towerState.score >= towerState.totalGoal){
+      endGameWin();
+    }else{
+      endGameFail(`Temps écoulé. Objectif non atteint : ${towerState.score} / 20 étages.`);
+    }
+  });
+}
+</script>
+</body>
+</html>
