@@ -12,7 +12,6 @@
   --panel:#121722;
   --panel-2:#181d2a;
   --line:rgba(255,255,255,.08);
-  --line-strong:rgba(255,255,255,.14);
   --text:#f7f1e8;
   --muted:rgba(247,241,232,.72);
   --muted-2:rgba(247,241,232,.54);
@@ -25,7 +24,6 @@
   --green:#8ef0b0;
   --green-2:#63d78d;
   --red:#ff6b6b;
-  --red-2:#c02f45;
 
   --shadow-xl:0 30px 70px rgba(0,0,0,.50);
   --shadow-lg:0 18px 36px rgba(0,0,0,.32);
@@ -251,12 +249,6 @@ a{
   color:#271908;
   background:linear-gradient(135deg, var(--gold), var(--gold-2));
   box-shadow:0 14px 32px rgba(201,145,36,.28);
-}
-
-.btn-orange{
-  color:#271507;
-  background:linear-gradient(135deg, var(--orange-2), var(--orange));
-  box-shadow:0 14px 32px rgba(255,159,67,.22);
 }
 
 .btn-green{
@@ -494,16 +486,6 @@ a{
   color:var(--text);
 }
 
-.rule-note{
-  margin-top:18px;
-  border:1px solid rgba(255,255,255,.08);
-  border-radius:22px;
-  background:linear-gradient(135deg, rgba(201,47,69,.14), rgba(244,201,101,.08));
-  padding:18px;
-  font-size:15px;
-  line-height:1.75;
-}
-
 /* =========================
    GAME CARD
 ========================= */
@@ -703,23 +685,6 @@ a{
   width:10px;
   height:10px;
   border-radius:50%;
-}
-
-.status-editor{
-  margin-top:18px;
-  display:grid;
-  grid-template-columns:repeat(3, minmax(0,1fr));
-  gap:12px;
-}
-
-.status-text{
-  margin-top:12px;
-  border:1px solid rgba(255,255,255,.08);
-  border-radius:18px;
-  background:linear-gradient(135deg, rgba(244,201,101,.10), rgba(201,47,69,.10));
-  padding:14px;
-  font-size:14px;
-  line-height:1.7;
 }
 
 /* =========================
@@ -931,9 +896,9 @@ a{
   overflow:hidden;
   border:1px solid rgba(255,255,255,.10);
   background:
-    linear-gradient(180deg, rgba(8,10,16,.26), rgba(8,10,16,.54)),
+    linear-gradient(180deg, rgba(8,10,16,.20), rgba(8,10,16,.46)),
     url("bg-chateau.jpg") center/cover no-repeat;
-  min-height:640px;
+  min-height:660px;
   box-shadow:var(--shadow-xl);
 }
 
@@ -984,24 +949,14 @@ a{
 
 .tower-stage{
   position:relative;
-  height:460px;
+  height:470px;
   border-radius:26px;
   overflow:hidden;
   border:1px solid rgba(255,255,255,.10);
   background:
-    linear-gradient(180deg, rgba(12,14,22,.12), rgba(12,14,22,.28)),
+    linear-gradient(180deg, rgba(12,14,22,.08), rgba(12,14,22,.22)),
     radial-gradient(circle at center, rgba(255,190,97,.16), transparent 56%);
   box-shadow:inset 0 0 60px rgba(0,0,0,.18);
-}
-
-.tower-stage::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:
-    linear-gradient(180deg, transparent 0 82%, rgba(255,255,255,.05) 82%, transparent 82%);
-  opacity:.35;
-  pointer-events:none;
 }
 
 .tower-world{
@@ -1108,7 +1063,7 @@ a{
   position:relative;
   z-index:2;
   padding:18px 22px 22px;
-  background:linear-gradient(180deg, rgba(8,10,16,.14), rgba(8,10,16,.60));
+  background:linear-gradient(180deg, rgba(8,10,16,.12), rgba(8,10,16,.52));
 }
 
 .tower-counter{
@@ -1132,8 +1087,7 @@ a{
   height:100%;
   width:0%;
   border-radius:999px;
-  background:
-    linear-gradient(90deg, var(--orange), var(--gold), #ffe08a);
+  background:linear-gradient(90deg, var(--orange), var(--gold), #ffe08a);
   box-shadow:0 0 18px rgba(255,190,97,.24);
   transition:width .15s linear;
 }
@@ -1159,6 +1113,11 @@ a{
 
 .tower-button:active{
   transform:scale(.99);
+}
+
+.tower-button[disabled]{
+  opacity:.6;
+  cursor:not-allowed;
 }
 
 .tower-help{
@@ -1202,22 +1161,22 @@ a{
   align-items:center;
   justify-content:center;
   padding:20px;
-  background:rgba(6,7,11,.72);
+  background:rgba(6,7,11,.78);
   backdrop-filter:blur(10px);
 }
 
 .tower-end-card{
-  width:min(460px, 100%);
+  width:min(520px, 100%);
   border:1px solid rgba(255,255,255,.10);
   border-radius:24px;
-  background:linear-gradient(180deg, rgba(21,24,36,.96), rgba(10,13,20,.96));
+  background:linear-gradient(180deg, rgba(21,24,36,.97), rgba(10,13,20,.97));
   box-shadow:var(--shadow-xl);
-  padding:22px;
+  padding:24px;
   text-align:center;
 }
 
 .tower-end-title{
-  font-size:28px;
+  font-size:30px;
   font-weight:900;
   text-transform:uppercase;
   margin-bottom:10px;
@@ -1241,6 +1200,17 @@ a{
 .tower-end-actions{
   display:grid;
   gap:12px;
+}
+
+.win-capture-note{
+  margin:14px 0 18px;
+  padding:14px;
+  border-radius:18px;
+  border:1px solid rgba(255,255,255,.10);
+  background:linear-gradient(135deg, rgba(142,240,176,.12), rgba(244,201,101,.10));
+  font-size:14px;
+  line-height:1.65;
+  color:var(--text);
 }
 
 /* =========================
@@ -1380,7 +1350,6 @@ a{
   .mission-stat-row,
   .rules-grid,
   .tips-grid,
-  .status-editor,
   .nps-grid{
     grid-template-columns:1fr;
   }
@@ -1474,19 +1443,51 @@ a{
   }
 
   .play-zone{
-    min-height:560px;
+    min-height:calc(100vh - 170px);
+  }
+
+  .play-overlay{
+    padding:0;
+  }
+
+  .play-shell{
+    max-width:100%;
+    min-height:100vh;
+  }
+
+  .play-card{
+    border-radius:0;
+    min-height:100vh;
+    border:none;
+  }
+
+  .play-content{
+    padding:12px;
+    min-height:100vh;
   }
 
   .tower-app{
-    min-height:580px;
+    min-height:calc(100vh - 150px);
+    border-radius:20px;
+  }
+
+  .tower-stage-wrap{
+    padding:0 8px;
   }
 
   .tower-stage{
-    height:360px;
+    height:58vh;
+    min-height:460px;
+    max-height:none;
+    border-radius:20px;
+  }
+
+  .tower-head{
+    padding:14px 14px 10px;
   }
 
   .tower-head-text h2{
-    font-size:24px;
+    font-size:26px;
   }
 
   .tower-head-text p{
@@ -1494,18 +1495,19 @@ a{
   }
 
   .tower-counter{
-    font-size:16px;
+    font-size:18px;
   }
 
   .tower-button{
-    font-size:18px;
-    padding:18px 14px;
+    font-size:22px;
+    padding:20px 14px;
+    min-height:72px;
   }
 
   .timer-chip{
-    min-width:78px;
-    min-height:78px;
-    font-size:24px;
+    min-width:82px;
+    min-height:82px;
+    font-size:26px;
   }
 
   .tower-base{
@@ -1514,7 +1516,7 @@ a{
   }
 
   .tower-world{
-    height:1220px;
+    height:1280px;
   }
 
   .tower-block{
@@ -1523,6 +1525,30 @@ a{
 
   .launch-actions{
     grid-template-columns:1fr;
+  }
+
+  .launch-overlay{
+    padding:0;
+  }
+
+  .launch-shell{
+    max-width:100%;
+    min-height:100vh;
+  }
+
+  .launch-card{
+    border-radius:0;
+    min-height:100vh;
+    border:none;
+  }
+
+  .launch-content{
+    padding:18px;
+  }
+
+  .tower-end-card{
+    width:100%;
+    padding:20px;
   }
 }
 </style>
@@ -1649,7 +1675,7 @@ a{
               <div class="rule-body">
                 Le joueur choisit entre :
                 <strong>sécuriser</strong> pour prendre <strong>+1 point garanti</strong>,
-                ou <strong>tenter l’épreuve</strong>.
+                ou <strong>tenter l’épreuve pour doubler son point</strong>.
               </div>
             </div>
 
@@ -1673,8 +1699,8 @@ a{
             <div class="rule-box">
               <div class="rule-top">Table ronde</div>
               <div class="rule-body">
-                Le lundi, l’Enquêteur peut envoyer un nom à la table ronde via <strong>WhatsApp</strong>.
-                L’équipe peut se concerter, mais les Masqués sont dans le groupe.
+                Le lundi, la personne peut se concerter avec l’équipe avant d’envoyer le nom du suspect,
+                mais attention aux Masqués qui écoutent : ils peuvent pousser sur une mauvaise piste.
               </div>
             </div>
 
@@ -1690,13 +1716,8 @@ a{
               <div class="rule-top">Victoire finale</div>
               <div class="rule-body">
                 Le camp qui termine avec le plus de points gagne.
-                Dans ce camp, le joueur ayant obtenu le plus d’avis positifs remporte le cadeau.
               </div>
             </div>
-          </div>
-
-          <div class="rule-note">
-            <strong>But du jeu :</strong> il faut que tout le monde comprenne vite qu’il y a une vraie concurrence entre le score total des Masqués et le score total des Loyaux, mais que le mini-jeu sert uniquement à récupérer des points.
           </div>
         </div>
       </div>
@@ -1736,7 +1757,7 @@ a{
           </div>
 
           <div class="helper">
-            À la fin, si l’épreuve est réussie, un ticket de validation s’affiche avec le prénom, la date, l’heure, le score et un code unique.
+            Si l’épreuve est réussie, le joueur doit faire une capture puis l’envoyer sur WhatsApp.
           </div>
         </div>
       </div>
@@ -1757,9 +1778,8 @@ a{
           <div class="vote-box">
             <div class="vote-title">La règle du lundi</div>
             <div class="vote-text">
-              La table ronde n’est ouverte qu’une fois par semaine.
-              La personne ayant obtenu le plus d’avis positifs à son nom peut voter.
-              Elle peut se concerter avec l’équipe avant d’envoyer le nom du suspect, mais les Masqués sont présents dans le groupe et peuvent pousser sur une mauvaise piste.
+              La personne peut se concerter avec l’équipe avant d’envoyer le nom du suspect,
+              mais attention aux Masqués qui écoutent : ils peuvent pousser sur une mauvaise piste.
             </div>
 
             <div class="vote-title" style="margin-top:18px;">Accusation</div>
@@ -1858,18 +1878,6 @@ Envoyé par :</div>
               <div class="legend-item"><span class="legend-dot" style="background:#ff6b6b;"></span>Départ plus bas</div>
             </div>
           </div>
-
-          <div class="status-editor">
-            <input id="scoreLoyaux" class="input" type="number" value="18" />
-            <input id="scoreMasques" class="input" type="number" value="14" />
-            <input id="weeklyLead" class="input" type="text" value="À venir" />
-          </div>
-
-          <button class="btn btn-primary" style="margin-top:12px;" onclick="updateStatusText()">Mettre à jour le statut mission</button>
-
-          <div id="statusText" class="status-text">
-            Les Loyaux gardent actuellement l’avantage. Une réussite parfaite dans l’épreuve peut encore faire basculer la semaine.
-          </div>
         </div>
       </div>
     </section>
@@ -1939,7 +1947,7 @@ Si tout s’est bien passé, un 9 ou un 10 valorise vraiment notre travail.</div
           <div class="launch-title">Tour du château</div>
           <div class="launch-text">
             Empile les blocs au bon moment. L’objectif est d’atteindre 20 étages en 30 secondes.
-            Plus tu avances, plus les blocs deviennent fins et rapides.
+            Plus tu avances, plus les blocs deviennent petits et plus la vitesse augmente.
           </div>
 
           <div style="margin-top:16px;display:grid;gap:12px;">
@@ -1954,695 +1962,3 @@ Si tout s’est bien passé, un 9 ou un 10 valorise vraiment notre travail.</div
       </div>
     </div>
   </div>
-
-  <div id="playOverlay" class="play-overlay">
-    <div class="play-shell">
-      <div class="play-card">
-        <div class="play-content">
-          <div class="play-head">
-            <div>
-              <div id="playTitle" class="play-title">Tour du château</div>
-              <div id="playGoal" class="play-goal">Atteindre 20 étages en 30 secondes</div>
-            </div>
-            <div id="playTimer" class="timer-chip"><span>30</span></div>
-          </div>
-
-          <div id="playZone" class="play-zone"></div>
-
-          <div class="play-actions">
-            <button class="btn btn-ghost" onclick="closePlay()">Fermer le jeu</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div id="ticketOverlay" class="ticket-overlay">
-    <div class="ticket-shell">
-      <div class="ticket-card">
-        <div class="ticket-head"></div>
-        <div class="ticket-content">
-          <div class="ticket-title">Mission validée</div>
-          <div class="ticket-sub">Capture d’écran à envoyer immédiatement.</div>
-          <div class="ticket-badge">+3 points</div>
-
-          <div class="ticket-game">
-            <strong id="ticketGameName">Tour du château</strong>
-            Épreuve réussie
-          </div>
-
-          <div class="ticket-grid">
-            <div class="ticket-box">
-              <div class="ticket-label">Joueur</div>
-              <div id="ticketPlayer" class="ticket-value">Prénom</div>
-            </div>
-            <div class="ticket-box">
-              <div class="ticket-label">Date</div>
-              <div id="ticketDate" class="ticket-value">--/--/----</div>
-            </div>
-            <div class="ticket-box">
-              <div class="ticket-label">Heure</div>
-              <div id="ticketTime" class="ticket-value">--:--:--</div>
-            </div>
-            <div class="ticket-box">
-              <div class="ticket-label">Score</div>
-              <div id="ticketScore" class="ticket-value">0</div>
-            </div>
-            <div class="ticket-box" style="grid-column:1 / -1;">
-              <div class="ticket-label">Code session</div>
-              <div id="ticketCode" class="ticket-value">XXXX</div>
-            </div>
-          </div>
-
-          <div class="ticket-note">
-            Capture valable uniquement si la date, l’heure, le score et le code correspondent à la session affichée.
-          </div>
-
-          <div class="ticket-actions">
-            <button class="btn btn-primary" onclick="closeTicket()">Fermer</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-</div>
-
-<script>
-const WHATSAPP_NUMBER = "33637993778";
-
-const navButtons = document.querySelectorAll(".nav-btn");
-
-let currentPlayerName = "";
-let gameTimerInterval = null;
-let activeTimeouts = [];
-let gameTimeLeft = 30;
-let towerState = null;
-
-/* =========================
-   NAVIGATION
-========================= */
-navButtons.forEach(btn=>{
-  btn.addEventListener("click", ()=>{
-    const section = btn.getAttribute("data-section");
-    openSection(section);
-  });
-});
-
-function openSection(section){
-  document.querySelectorAll(".section").forEach(el=>el.classList.remove("active"));
-  const target = document.getElementById("section-" + section);
-  if(target) target.classList.add("active");
-
-  navButtons.forEach(btn=>btn.classList.remove("active"));
-  const activeBtn = document.querySelector(`.nav-btn[data-section="${section}"]`);
-  if(activeBtn) activeBtn.classList.add("active");
-
-  window.scrollTo({ top: 0, behavior: "smooth" });
-}
-
-/* =========================
-   COPY TIPS
-========================= */
-function copyTip(id, button){
-  const text = document.getElementById(id).innerText;
-  const original = button.innerText;
-
-  navigator.clipboard.writeText(text).then(()=>{
-    button.innerText = "Copié ✅";
-    setTimeout(()=>button.innerText = original, 1200);
-  }).catch(()=>{
-    button.innerText = "Copié ✅";
-    setTimeout(()=>button.innerText = original, 1200);
-  });
-}
-
-/* =========================
-   NPS STATUS
-========================= */
-function updateStatusText(){
-  const loyaux = parseInt(document.getElementById("scoreLoyaux").value || "0", 10);
-  const masques = parseInt(document.getElementById("scoreMasques").value || "0", 10);
-  const lead = (document.getElementById("weeklyLead").value || "À venir").trim() || "À venir";
-
-  const gap = loyaux - masques;
-  let text = `Enquêteur de la semaine : ${lead}. `;
-
-  if(gap > 0){
-    text += `Les Loyaux mènent avec ${gap} point${gap > 1 ? "s" : ""} d’avance. Une réussite parfaite dans l’épreuve peut encore creuser l’écart.`;
-  }else if(gap < 0){
-    text += `Les Masqués avancent dans l’ombre avec ${Math.abs(gap)} point${Math.abs(gap) > 1 ? "s" : ""} d’avance. Rien n’est encore verrouillé.`;
-  }else{
-    text += `Égalité parfaite entre les deux camps. La prochaine série d’avis ou la prochaine réussite peut tout faire basculer.`;
-  }
-
-  document.getElementById("statusText").innerText = text;
-}
-
-/* =========================
-   TABLE RONDE
-========================= */
-const suspectInput = document.getElementById("suspectName");
-const senderInput = document.getElementById("senderName");
-const votePreview = document.getElementById("votePreview");
-
-function updateVotePreview(){
-  const suspect = suspectInput.value.trim();
-  const sender = senderInput.value.trim();
-
-  votePreview.innerText =
-`🎭 Table ronde — Vote de démasquage
-
-Prénom du suspect : ${suspect}
-Envoyé par : ${sender}`;
-}
-
-suspectInput.addEventListener("input", updateVotePreview);
-senderInput.addEventListener("input", updateVotePreview);
-
-function sendVoteWhatsApp(){
-  const suspect = suspectInput.value.trim();
-  const sender = senderInput.value.trim();
-
-  if(!suspect){
-    alert("Entre le nom du suspect avant d’envoyer.");
-    return;
-  }
-
-  const msg =
-`🎭 Table ronde — Vote de démasquage
-
-Prénom du suspect : ${suspect}
-Envoyé par : ${sender}`;
-
-  window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, "_blank");
-}
-
-/* =========================
-   UTILS
-========================= */
-function nowParis(){
-  const now = new Date();
-
-  const date = new Intl.DateTimeFormat("fr-FR", {
-    timeZone:"Europe/Paris",
-    year:"numeric",
-    month:"2-digit",
-    day:"2-digit"
-  }).format(now);
-
-  const time = new Intl.DateTimeFormat("fr-FR", {
-    timeZone:"Europe/Paris",
-    hour:"2-digit",
-    minute:"2-digit",
-    second:"2-digit",
-    hour12:false
-  }).format(now);
-
-  return { date, time };
-}
-
-function makeTicketCode(player, game, score){
-  const t = Date.now().toString().slice(-6);
-  const p = (player || "XX").toUpperCase().replace(/[^A-Z0-9]/g, "").slice(0,3).padEnd(3,"X");
-  const g = (game || "GM").toUpperCase().replace(/[^A-Z0-9]/g, "").slice(0,3).padEnd(3,"X");
-  const s = String(score || 0).padStart(3, "0");
-  const r = Math.random().toString(36).toUpperCase().replace(/[^A-Z0-9]/g, "").slice(2,6);
-  return `${p}-${g}-${s}-${t}-${r}`;
-}
-
-function clearAllTimers(){
-  clearInterval(gameTimerInterval);
-  gameTimerInterval = null;
-  activeTimeouts.forEach(t=>clearTimeout(t));
-  activeTimeouts = [];
-}
-
-function schedule(fn, delay){
-  const t = setTimeout(fn, delay);
-  activeTimeouts.push(t);
-  return t;
-}
-
-/* =========================
-   OVERLAYS
-========================= */
-const launchOverlay = document.getElementById("launchOverlay");
-const playOverlay = document.getElementById("playOverlay");
-const ticketOverlay = document.getElementById("ticketOverlay");
-
-const playZone = document.getElementById("playZone");
-const playTimer = document.getElementById("playTimer").querySelector("span");
-
-const ticketGameName = document.getElementById("ticketGameName");
-const ticketPlayer = document.getElementById("ticketPlayer");
-const ticketDate = document.getElementById("ticketDate");
-const ticketTime = document.getElementById("ticketTime");
-const ticketScore = document.getElementById("ticketScore");
-const ticketCode = document.getElementById("ticketCode");
-
-function openLaunch(){
-  launchOverlay.classList.add("show");
-  document.body.style.overflow = "hidden";
-}
-
-function closeLaunch(){
-  launchOverlay.classList.remove("show");
-  if(!playOverlay.classList.contains("show") && !ticketOverlay.classList.contains("show")){
-    document.body.style.overflow = "";
-  }
-}
-
-function openPlay(){
-  playOverlay.classList.add("show");
-  document.body.style.overflow = "hidden";
-}
-
-function closePlay(){
-  clearAllTimers();
-  towerState = null;
-  playOverlay.classList.remove("show");
-  playZone.innerHTML = "";
-  if(!launchOverlay.classList.contains("show") && !ticketOverlay.classList.contains("show")){
-    document.body.style.overflow = "";
-  }
-}
-
-function openTicket(score){
-  const info = nowParis();
-  ticketGameName.innerText = "Tour du château";
-  ticketPlayer.innerText = currentPlayerName;
-  ticketDate.innerText = info.date;
-  ticketTime.innerText = info.time;
-  ticketScore.innerText = score;
-  ticketCode.innerText = makeTicketCode(currentPlayerName, "Tour du château", score);
-  ticketOverlay.classList.add("show");
-  document.body.style.overflow = "hidden";
-}
-
-function closeTicket(){
-  ticketOverlay.classList.remove("show");
-  if(!launchOverlay.classList.contains("show") && !playOverlay.classList.contains("show")){
-    document.body.style.overflow = "";
-  }
-}
-
-function updateTimerRing(timeLeft, total){
-  const chip = document.getElementById("playTimer");
-  if(!chip) return;
-  const ratio = Math.max(0, Math.min(1, timeLeft / total));
-  const deg = Math.round(ratio * 360);
-  chip.style.background =
-    `radial-gradient(circle at 35% 35%, rgba(255,255,255,.55), transparent 28%), conic-gradient(var(--gold) 0deg, var(--gold-3) ${deg}deg, rgba(255,255,255,.10) ${deg}deg)`;
-}
-
-function startCountdown(onEnd){
-  clearInterval(gameTimerInterval);
-  gameTimerInterval = setInterval(()=>{
-    gameTimeLeft--;
-    playTimer.textContent = gameTimeLeft;
-
-    if(towerState){
-      updateTimerRing(gameTimeLeft, towerState.totalTime);
-    }
-
-    if(gameTimeLeft <= 0){
-      clearInterval(gameTimerInterval);
-      onEnd();
-    }
-  }, 1000);
-}
-
-function showTowerEnd(type, title, text, score){
-  if(!towerState || !towerState.endMount) return;
-
-  towerState.endMount.innerHTML = `
-    <div class="tower-end-overlay">
-      <div class="tower-end-card">
-        <div class="tower-end-title ${type}">${title}</div>
-        <div class="tower-end-text">${text}</div>
-        <div class="tower-end-actions">
-          ${type === 'win'
-            ? `<button class="btn btn-green" onclick="openTicket(${score})">Afficher le ticket de capture</button>`
-            : `<button class="btn btn-primary" onclick="launchTowerGame()">Rejouer</button>`
-          }
-          <button class="btn btn-ghost" onclick="closePlay()">Fermer le jeu</button>
-        </div>
-      </div>
-    </div>
-  `;
-}
-
-function flashFeedback(text, variant){
-  if(!towerState || !towerState.feedback) return;
-  towerState.feedback.className = `tower-feedback show ${variant}`;
-  towerState.feedback.textContent = text;
-  schedule(()=>{
-    if(towerState && towerState.feedback){
-      towerState.feedback.className = "tower-feedback";
-    }
-  }, 420);
-}
-
-/* =========================
-   START TOWER GAME
-========================= */
-function startTowerGame(){
-  const name = document.getElementById("launchPlayerName").value.trim();
-  if(!name){
-    alert("Entre ton prénom avant de lancer l’épreuve.");
-    return;
-  }
-
-  currentPlayerName = name;
-  closeLaunch();
-  launchTowerGame();
-}
-
-function launchTowerGame(){
-  clearAllTimers();
-  towerState = null;
-
-  gameTimeLeft = 30;
-  playTimer.textContent = "30";
-  updateTimerRing(30, 30);
-
-  playZone.innerHTML = `
-    <div class="tower-app">
-      <div class="tower-head">
-        <div class="tower-head-text">
-          <h2>Tour du château</h2>
-          <p>Atteindre 20 étages en 30 secondes</p>
-        </div>
-      </div>
-
-      <div class="tower-stage-wrap">
-        <div id="towerStage" class="tower-stage">
-          <div id="towerFeedback" class="tower-feedback"></div>
-          <div id="towerWorld" class="tower-world">
-            <div class="tower-step"></div>
-            <div class="tower-base"></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="tower-bottom-ui">
-        <div id="towerCounter" class="tower-counter">Étages validés : 0 / 20</div>
-        <div class="progress"><div id="towerFill" class="progress-fill"></div></div>
-
-        <button id="towerButton" class="tower-button">Poser le bloc</button>
-
-        <div class="tower-help">
-          Le bloc se déplace tout seul. Il faut le poser au bon moment.
-        </div>
-
-        <div class="tower-meta">
-          <div class="tower-pill">30 secondes</div>
-          <div class="tower-pill">20 étages</div>
-          <div class="tower-pill tower-score-glow">Difficulté élevée</div>
-        </div>
-      </div>
-
-      <div id="towerEndMount"></div>
-    </div>
-  `;
-
-  openPlay();
-
-  const stage = document.getElementById("towerStage");
-  const world = document.getElementById("towerWorld");
-  const button = document.getElementById("towerButton");
-  const counter = document.getElementById("towerCounter");
-  const fill = document.getElementById("towerFill");
-  const feedback = document.getElementById("towerFeedback");
-  const endMount = document.getElementById("towerEndMount");
-
-  const totalGoal = 20;
-  const totalTime = 30;
-  const blockHeight = 34;
-  const gap = 8;
-  const baseBottom = 78;
-  const sidePadding = 18;
-
-  towerState = {
-    totalGoal,
-    totalTime,
-    score: 0,
-    blockHeight,
-    gap,
-    baseBottom,
-    sidePadding,
-    stage,
-    world,
-    button,
-    counter,
-    fill,
-    feedback,
-    endMount,
-    movingBlock: null,
-    currentWidth: 0,
-    previousLeft: null,
-    movingLeft: sidePadding,
-    movingDir: 1,
-    speed: 0,
-    levelBottom: baseBottom + 18,
-    minWidth: 56,
-    isLocked: false,
-    lastWidth: 0,
-    animationId: null,
-    cameraOffset: 0,
-    cameraTarget: 0,
-    ended: false
-  };
-
-  function updateUI(){
-    towerState.counter.textContent = `Étages validés : ${towerState.score} / ${towerState.totalGoal}`;
-    towerState.fill.style.width = `${(towerState.score / towerState.totalGoal) * 100}%`;
-  }
-
-  function getBlockBottom(index){
-    return towerState.levelBottom + index * (towerState.blockHeight + towerState.gap);
-  }
-
-  function updateCamera(force = false){
-    const currentTop = getBlockBottom(towerState.score) + towerState.blockHeight;
-    const visibleHeight = towerState.stage.clientHeight;
-    const worldHeight = towerState.world.clientHeight;
-
-    const desired = Math.max(
-      0,
-      Math.min(
-        worldHeight - visibleHeight,
-        currentTop - (visibleHeight - 150)
-      )
-    );
-
-    towerState.cameraTarget = desired;
-
-    if(force){
-      towerState.cameraOffset = desired;
-    }else{
-      towerState.cameraOffset += (desired - towerState.cameraOffset) * 0.22;
-    }
-
-    towerState.world.style.transform = `translateY(${towerState.cameraOffset}px)`;
-  }
-
-  function addFixedBlock(width, left, bottom, perfect = false){
-    const block = document.createElement("div");
-    block.className = `tower-block fixed${perfect ? " perfect" : ""}`;
-    block.style.width = `${width}px`;
-    block.style.left = `${left}px`;
-    block.style.bottom = `${bottom}px`;
-    towerState.world.appendChild(block);
-  }
-
-  function getStagePlayableWidth(){
-    return towerState.stage.clientWidth - (towerState.sidePadding * 2);
-  }
-
-  function computeWidthForScore(score){
-    if(score <= 2) return 300;
-    if(score <= 5) return 270 - (score - 2) * 18;
-    if(score <= 9) return 216 - (score - 5) * 16;
-    if(score <= 13) return 152 - (score - 9) * 12;
-    if(score <= 17) return 104 - (score - 13) * 8;
-    return 72 - (score - 17) * 4;
-  }
-
-  function computeSpeedForScore(score){
-    if(score <= 4) return 5.4;
-    if(score <= 8) return 6.3;
-    if(score <= 12) return 7.3;
-    if(score <= 16) return 8.2;
-    return 9.2;
-  }
-
-  function spawnMovingBlock(){
-    if(towerState.ended) return;
-
-    if(towerState.movingBlock){
-      towerState.movingBlock.remove();
-    }
-
-    const playableWidth = getStagePlayableWidth();
-    const rawWidth = computeWidthForScore(towerState.score);
-    const width = Math.max(towerState.minWidth, Math.min(rawWidth, playableWidth));
-    const maxLeft = towerState.stage.clientWidth - width - towerState.sidePadding;
-
-    towerState.currentWidth = width;
-    towerState.movingLeft = towerState.sidePadding;
-    towerState.movingDir = 1;
-    towerState.speed = computeSpeedForScore(towerState.score);
-
-    const block = document.createElement("div");
-    block.className = "tower-block moving";
-    block.style.width = `${width}px`;
-    block.style.left = `${towerState.movingLeft}px`;
-    block.style.bottom = `${getBlockBottom(towerState.score)}px`;
-
-    towerState.world.appendChild(block);
-    towerState.movingBlock = block;
-  }
-
-  function endGameFail(message){
-    if(towerState.ended) return;
-    towerState.ended = true;
-    towerState.button.disabled = true;
-
-    if(towerState.movingBlock){
-      towerState.movingBlock.remove();
-      towerState.movingBlock = null;
-    }
-
-    const currentTransform = `translateY(${towerState.cameraOffset}px)`;
-    towerState.world.style.transition = "transform .55s ease-in";
-    towerState.world.style.transform = `${currentTransform} rotate(8deg) translateY(260px)`;
-
-    clearAllTimers();
-
-    schedule(()=>{
-      showTowerEnd("fail", "Échec", message, towerState.score);
-    }, 520);
-  }
-
-  function endGameWin(){
-    if(towerState.ended) return;
-    towerState.ended = true;
-    towerState.button.disabled = true;
-    clearAllTimers();
-    showTowerEnd("win", "Réussite parfaite", "Les 20 étages ont été validés. L’épreuve est remportée.", towerState.score);
-  }
-
-  function finalizeBlock(){
-    if(!towerState || towerState.isLocked || towerState.ended || !towerState.movingBlock) return;
-    towerState.isLocked = true;
-
-    const currentLeft = towerState.movingLeft;
-    const currentWidth = towerState.currentWidth;
-
-    let finalWidth = currentWidth;
-    let finalLeft = currentLeft;
-    let perfect = false;
-
-    if(towerState.score === 0){
-      finalLeft = Math.round((towerState.stage.clientWidth - currentWidth) / 2);
-      finalWidth = currentWidth;
-      perfect = true;
-    }else{
-      const prevLeft = towerState.previousLeft;
-      const prevWidth = towerState.lastWidth;
-      const overlapLeft = Math.max(currentLeft, prevLeft);
-      const overlapRight = Math.min(currentLeft + currentWidth, prevLeft + prevWidth);
-      const overlap = overlapRight - overlapLeft;
-
-      if(overlap <= 14){
-        endGameFail(`Bloc mal aligné. Score final : ${towerState.score} / ${towerState.totalGoal}.`);
-        return;
-      }
-
-      finalLeft = overlapLeft;
-      finalWidth = overlap;
-
-      const diff = Math.abs(currentLeft - prevLeft);
-
-      if(diff <= 4){
-        perfect = true;
-        finalWidth = prevWidth;
-        finalLeft = prevLeft;
-        flashFeedback("Perfect", "perfect");
-      }else if(diff <= 12){
-        flashFeedback("Propre", "good");
-      }else{
-        flashFeedback("Dangereux", "danger");
-      }
-    }
-
-    towerState.movingBlock.remove();
-    towerState.movingBlock = null;
-
-    addFixedBlock(finalWidth, finalLeft, getBlockBottom(towerState.score), perfect);
-
-    towerState.previousLeft = finalLeft;
-    towerState.lastWidth = finalWidth;
-    towerState.score++;
-    updateUI();
-    updateCamera(true);
-
-    if(towerState.score >= towerState.totalGoal){
-      endGameWin();
-      return;
-    }
-
-    schedule(()=>{
-      if(!towerState || towerState.ended) return;
-      spawnMovingBlock();
-      towerState.isLocked = false;
-    }, 85);
-  }
-
-  function gameLoop(){
-    if(!towerState || towerState.ended) return;
-
-    if(towerState.movingBlock){
-      const maxLeft = towerState.stage.clientWidth - towerState.currentWidth - towerState.sidePadding;
-
-      towerState.movingLeft += towerState.movingDir * towerState.speed;
-
-      if(towerState.movingLeft <= towerState.sidePadding){
-        towerState.movingLeft = towerState.sidePadding;
-        towerState.movingDir = 1;
-      }
-
-      if(towerState.movingLeft >= maxLeft){
-        towerState.movingLeft = maxLeft;
-        towerState.movingDir = -1;
-      }
-
-      towerState.movingBlock.style.left = `${towerState.movingLeft}px`;
-    }
-
-    updateCamera(false);
-    towerState.animationId = requestAnimationFrame(gameLoop);
-  }
-
-  button.addEventListener("click", finalizeBlock);
-
-  spawnMovingBlock();
-  updateUI();
-  updateCamera(true);
-  towerState.animationId = requestAnimationFrame(gameLoop);
-
-  startCountdown(()=>{
-    if(!towerState || towerState.ended) return;
-
-    if(towerState.score >= towerState.totalGoal){
-      endGameWin();
-    }else{
-      endGameFail(`Temps écoulé. Objectif non atteint : ${towerState.score} / 20 étages.`);
-    }
-  });
-}
-</script>
-</body>
-</html>
