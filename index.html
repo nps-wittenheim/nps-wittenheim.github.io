@@ -2487,6 +2487,18 @@ async function loadNpsData(){
   }
 }
 
+// Barème de couleur selon l'écart par rapport à l'objectif :
+//   ecart <= -5      -> rouge   (nettement en dessous)
+//   -5 < ecart < 0   -> orange  (en dessous)
+//   0 <= ecart < 5    -> vert    (objectif atteint / légèrement dépassé)
+//   ecart >= 5        -> vert foncé (largement dépassé)
+function getNpsColor(ecart){
+  if(ecart <= -5) return "#ff6b6b";
+  if(ecart < 0) return "#ff9f43";
+  if(ecart < 5) return "#8ef0b0";
+  return "#1fae5c";
+}
+
 function renderNpsData(data){
   if(!data || !Array.isArray(data.history) || data.history.length === 0) return;
 
@@ -2495,10 +2507,11 @@ function renderNpsData(data){
   const current = history[history.length - 1].value;
   const ecart = current - objectif;
   const ecartLabel = (ecart >= 0 ? "+" : "") + ecart;
+  const color = getNpsColor(ecart);
 
   ["missionNpsValue","npsValue"].forEach(id=>{
     const el = document.getElementById(id);
-    if(el) el.textContent = current;
+    if(el){ el.textContent = current; el.style.color = color; }
   });
   ["missionNpsObjectif","npsObjectif"].forEach(id=>{
     const el = document.getElementById(id);
@@ -2506,13 +2519,13 @@ function renderNpsData(data){
   });
   ["missionNpsEcart","npsEcart"].forEach(id=>{
     const el = document.getElementById(id);
-    if(el) el.textContent = ecartLabel;
+    if(el){ el.textContent = ecartLabel; el.style.color = color; }
   });
 
-  drawNpsChart(history, objectif);
+  drawNpsChart(history, objectif, color);
 }
 
-function drawNpsChart(history, objectif){
+function drawNpsChart(history, objectif, statusColor){
   const grid = document.getElementById("npsChartGrid");
   const content = document.getElementById("npsChartContent");
   if(!grid || !content) return;
@@ -2546,9 +2559,10 @@ function drawNpsChart(history, objectif){
   }
   const areaD = `${pathD} L${points[points.length-1].x} ${bottom} L${points[0].x} ${bottom} Z`;
 
+  const lastColor = statusColor || "#8ef0b0";
   let dotsSvg = points.map((p,i)=>{
     const isLast = i === points.length - 1;
-    return `<circle cx="${p.x}" cy="${p.y}" r="${isLast ? 10 : 6}" fill="${isLast ? "#8ef0b0" : "#ffad57"}" ${isLast ? 'stroke="rgba(255,255,255,.22)" stroke-width="3"' : ""}/>`;
+    return `<circle cx="${p.x}" cy="${p.y}" r="${isLast ? 10 : 6}" fill="${isLast ? lastColor : "#ffad57"}" ${isLast ? 'stroke="rgba(255,255,255,.22)" stroke-width="3"' : ""}/>`;
   }).join("");
 
   const lastDate = history[history.length-1].date;
