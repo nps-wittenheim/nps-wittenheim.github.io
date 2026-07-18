@@ -1684,6 +1684,8 @@ Envoyé par :</div>
               <div class="legend-item"><span class="legend-dot" style="background:#8ef0b0;"></span>Objectif</div>
               <div class="legend-item"><span class="legend-dot" style="background:#ff6b6b;"></span>Départ plus bas</div>
             </div>
+
+            <div id="npsLastUpdate" class="helper" style="margin-top:10px;font-weight:900;color:#8ef0b0;"></div>
           </div>
         </div>
       </div>
@@ -2483,7 +2485,6 @@ async function loadNpsData(){
     npsDataCache = data;
     renderNpsData(data);
   }catch(err){
-    // Pas de fichier de données encore publié : on garde les valeurs statiques d'origine.
     console.warn("nps-data.json indisponible, valeurs par défaut affichées.", err);
   }
 }
@@ -2498,6 +2499,17 @@ function getNpsColor(ecart){
   if(ecart < 0) return "#ff9f43";
   if(ecart < 5) return "#8ef0b0";
   return "#1fae5c";
+}
+
+function formatDateWords(dateStr){
+  // Transforme "2026-07-18" en "18 juillet 2026"
+  const d = new Date(dateStr + "T00:00:00");
+  if(isNaN(d.getTime())) return dateStr;
+  return new Intl.DateTimeFormat("fr-FR", {
+    day: "numeric",
+    month: "long",
+    year: "numeric"
+  }).format(d);
 }
 
 function renderNpsData(data){
@@ -2522,6 +2534,12 @@ function renderNpsData(data){
     const el = document.getElementById(id);
     if(el){ el.textContent = ecartLabel; el.style.color = color; }
   });
+
+  const lastUpdateEl = document.getElementById("npsLastUpdate");
+  if(lastUpdateEl){
+    const lastDate = history[history.length - 1].date;
+    lastUpdateEl.textContent = `Dernière mise à jour : ${formatDateWords(lastDate)}`;
+  }
 
   drawNpsChart(history, objectif, color);
 }
@@ -2575,7 +2593,6 @@ function drawNpsChart(history, objectif, statusColor){
     <text x="24" y="${top+4}" fill="rgba(247,241,232,.72)" font-size="12" font-weight="700">${Math.round(maxV)}</text>
     <text x="24" y="${bottom+4}" fill="rgba(247,241,232,.72)" font-size="12" font-weight="700">${Math.round(minV)}</text>
     <text x="${left}" y="228" fill="rgba(247,241,232,.62)" font-size="12" font-weight="700">Départ</text>
-    <text x="${right-90}" y="228" fill="#8ef0b0" font-size="13" font-weight="900">Dernier : ${lastDate}</text>
   `;
 }
 
