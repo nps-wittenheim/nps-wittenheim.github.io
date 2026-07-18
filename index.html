@@ -1766,7 +1766,7 @@ Si tout s’est bien passé, un 9 ou un 10 valorise vraiment notre travail.</div
                   <input id="adminDate" class="input" type="date" />
                   <input id="adminNpsValue" class="input" type="number" placeholder="Valeur NPS (ex: 66)" />
                   <input id="adminObjectif" class="input" type="number" placeholder="Objectif (optionnel, laisse vide pour garder l'actuel)" />
-                  <input id="adminToken" class="input" type="password" placeholder="Jeton GitHub (personal access token)" autocomplete="off" />
+                  <input id="adminToken" class="input" type="password" placeholder="Jeton GitHub (personal access token)" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" />
                   <button class="btn btn-green" onclick="publishNpsUpdate()">Mettre à jour le NPS</button>
                 </div>
 
@@ -2483,6 +2483,7 @@ async function loadNpsData(){
     npsDataCache = data;
     renderNpsData(data);
   }catch(err){
+    // Pas de fichier de données encore publié : on garde les valeurs statiques d'origine.
     console.warn("nps-data.json indisponible, valeurs par défaut affichées.", err);
   }
 }
@@ -2534,7 +2535,7 @@ function drawNpsChart(history, objectif, statusColor){
   const minV = Math.min(...values) - 4;
   const maxV = Math.max(...values) + 4;
 
-  const left = 54, right = 710, top = 40, bottom = 198;
+  const left = 54, right = 610, top = 40, bottom = 198;
   const xStep = history.length > 1 ? (right - left) / (history.length - 1) : 0;
 
   function xFor(i){ return left + i * xStep; }
@@ -2547,7 +2548,7 @@ function drawNpsChart(history, objectif, statusColor){
   });
   const objY = yFor(objectif);
   gridSvg += `<line x1="${left}" y1="${objY}" x2="${right}" y2="${objY}" stroke="#8ef0b0" stroke-width="2" stroke-dasharray="8 8"/>`;
-  gridSvg += `<text x="${right+8}" y="${objY+4}" fill="#8ef0b0" font-size="14" font-weight="900">Objectif ${objectif}</text>`;
+  gridSvg += `<text x="${right+12}" y="${objY+4}" fill="#8ef0b0" font-size="14" font-weight="900">Objectif ${objectif}</text>`;
   grid.innerHTML = gridSvg;
 
   let points = history.map((p,i)=>({ x: xFor(i), y: yFor(p.value) }));
