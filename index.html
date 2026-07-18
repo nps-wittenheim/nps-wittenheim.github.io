@@ -1408,6 +1408,7 @@ a{
         <button class="nav-btn" data-section="table-ronde">Table ronde</button>
         <button class="nav-btn" data-section="nps">NPS actuel</button>
         <button class="nav-btn" data-section="tips">Phrases tips</button>
+        <button class="nav-btn" data-section="admin" style="opacity:.55;font-size:12px;">🔒 Admin</button>
       </nav>
     </div>
   </header>
@@ -1439,15 +1440,15 @@ a{
               <div class="mission-stat-row">
                 <div class="mission-stat">
                   <div class="mission-stat-label">NPS du moment</div>
-                  <div class="mission-stat-value green">65</div>
+                  <div class="mission-stat-value green" id="missionNpsValue">65</div>
                 </div>
                 <div class="mission-stat">
                   <div class="mission-stat-label">Objectif</div>
-                  <div class="mission-stat-value green">64</div>
+                  <div class="mission-stat-value green" id="missionNpsObjectif">64</div>
                 </div>
                 <div class="mission-stat">
                   <div class="mission-stat-label">Écart</div>
-                  <div class="mission-stat-value green">+1</div>
+                  <div class="mission-stat-value green" id="missionNpsEcart">+1</div>
                 </div>
               </div>
             </div>
@@ -1646,21 +1647,23 @@ Envoyé par :</div>
           <div class="nps-grid">
             <div class="nps-box">
               <div class="nps-label">NPS du moment</div>
-              <div class="nps-value green">65</div>
+              <div class="nps-value green" id="npsValue">65</div>
             </div>
             <div class="nps-box">
               <div class="nps-label">Objectif</div>
-              <div class="nps-value green">64</div>
+              <div class="nps-value green" id="npsObjectif">64</div>
             </div>
             <div class="nps-box">
               <div class="nps-label">Écart</div>
-              <div class="nps-value green">+1</div>
+              <div class="nps-value green" id="npsEcart">+1</div>
             </div>
           </div>
 
+          <div id="npsStatus" class="helper" style="margin-top:10px;"></div>
+
           <div class="chart-card">
             <div class="chart-title">Progression du NPS</div>
-            <svg viewBox="0 0 760 280" xmlns="http://www.w3.org/2000/svg" aria-label="Courbe NPS">
+            <svg id="npsChart" viewBox="0 0 760 280" xmlns="http://www.w3.org/2000/svg" aria-label="Courbe NPS">
               <defs>
                 <linearGradient id="lineGradientNps" x1="0%" y1="0%" x2="100%" y2="0%">
                   <stop offset="0%" stop-color="#ff6b6b"/>
@@ -1672,37 +1675,8 @@ Envoyé par :</div>
                   <stop offset="100%" stop-color="rgba(142,240,176,.02)" />
                 </linearGradient>
               </defs>
-
-              <line x1="54" y1="40" x2="710" y2="40" stroke="rgba(255,255,255,.08)"/>
-              <line x1="54" y1="92" x2="710" y2="92" stroke="rgba(255,255,255,.06)"/>
-              <line x1="54" y1="144" x2="710" y2="144" stroke="rgba(255,255,255,.06)"/>
-              <line x1="54" y1="196" x2="710" y2="196" stroke="rgba(255,255,255,.06)"/>
-
-              <line x1="54" y1="96" x2="710" y2="96" stroke="#8ef0b0" stroke-width="2" stroke-dasharray="8 8"/>
-              <text x="720" y="100" fill="#8ef0b0" font-size="14" font-weight="900">Objectif 64</text>
-
-              <path d="M54 198 L150 184 L245 168 L340 148 L440 126 L540 110 L640 92 L700 84 L700 198 Z"
-                    fill="url(#areaGradientNps)"/>
-              <path d="M54 198 C92 192,118 188,150 184 C184 178,213 173,245 168 C279 162,308 153,340 148 C374 141,405 131,440 126 C474 121,507 114,540 110 C575 103,608 95,640 92 C662 89,682 86,700 84"
-                    fill="none" stroke="url(#lineGradientNps)" stroke-width="5" stroke-linecap="round"/>
-
-              <circle cx="54" cy="198" r="6" fill="#ff6b6b"/>
-              <circle cx="150" cy="184" r="6" fill="#ff845b"/>
-              <circle cx="245" cy="168" r="6" fill="#ff9b4b"/>
-              <circle cx="340" cy="148" r="6" fill="#ffad57"/>
-              <circle cx="440" cy="126" r="6" fill="#ffbe7b"/>
-              <circle cx="540" cy="110" r="6" fill="#f4c965"/>
-              <circle cx="640" cy="92" r="6" fill="#9dedb7"/>
-              <circle cx="700" cy="84" r="10" fill="#8ef0b0" stroke="rgba(255,255,255,.22)" stroke-width="3"/>
-
-              <text x="24" y="44" fill="rgba(247,241,232,.72)" font-size="12" font-weight="700">70</text>
-              <text x="24" y="96" fill="rgba(247,241,232,.72)" font-size="12" font-weight="700">64</text>
-              <text x="24" y="148" fill="rgba(247,241,232,.72)" font-size="12" font-weight="700">58</text>
-              <text x="24" y="200" fill="rgba(247,241,232,.72)" font-size="12" font-weight="700">52</text>
-
-              <text x="54" y="228" fill="rgba(247,241,232,.62)" font-size="12" font-weight="700">Départ</text>
-              <text x="248" y="228" fill="rgba(247,241,232,.62)" font-size="12" font-weight="700">Progression</text>
-              <text x="615" y="228" fill="#8ef0b0" font-size="13" font-weight="900">Aujourd’hui : 65</text>
+              <g id="npsChartGrid"></g>
+              <g id="npsChartContent"></g>
             </svg>
 
             <div class="chart-legend">
@@ -1763,6 +1737,48 @@ Si tout s’est bien passé, un 9 ou un 10 m’aide énormément.</div>
 Vous allez recevoir une enquête sur notre intervention.
 Si tout s’est bien passé, un 9 ou un 10 valorise vraiment notre travail.</div>
               <button class="btn btn-ghost" onclick="copyTip('tip-livraison', this)">Copier la phrase</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="section-admin" class="section">
+      <div class="card">
+        <div class="card-inner">
+          <h2 class="section-title">Admin — Mise à jour du NPS</h2>
+          <div class="section-sub">Espace réservé. Un mot de passe et un jeton GitHub sont nécessaires pour publier une nouvelle valeur.</div>
+
+          <div id="adminGate" style="margin-top:18px;max-width:420px;">
+            <div class="input-stack">
+              <input id="adminPassword" class="input" type="password" placeholder="Mot de passe admin" autocomplete="off" />
+              <button class="btn btn-primary" onclick="checkAdminPassword()">Déverrouiller</button>
+            </div>
+            <div id="adminGateMsg" class="helper" style="margin-top:8px;"></div>
+          </div>
+
+          <div id="adminPanel" style="display:none;margin-top:22px;">
+            <div class="vote-layout">
+              <div class="vote-box">
+                <div class="vote-title">Nouvelle valeur du jour</div>
+
+                <div class="input-stack">
+                  <input id="adminDate" class="input" type="date" />
+                  <input id="adminNpsValue" class="input" type="number" placeholder="Valeur NPS (ex: 66)" />
+                  <input id="adminObjectif" class="input" type="number" placeholder="Objectif (optionnel, laisse vide pour garder l'actuel)" />
+                  <input id="adminToken" class="input" type="password" placeholder="Jeton GitHub (personal access token)" autocomplete="off" />
+                  <button class="btn btn-green" onclick="publishNpsUpdate()">Mettre à jour le NPS</button>
+                </div>
+
+                <div class="vote-note" style="margin-top:12px;">
+                  Le jeton n'est jamais enregistré : il n'est utilisé que pour cette mise à jour, dans ton navigateur.
+                </div>
+              </div>
+
+              <div class="vote-box">
+                <div class="vote-title">Statut</div>
+                <div id="adminStatus" class="vote-text">En attente d'une mise à jour.</div>
+              </div>
             </div>
           </div>
         </div>
@@ -2427,6 +2443,233 @@ function launchTowerGame(){
       endGameFail(`Temps écoulé. Objectif non atteint : ${towerState.score} / 20 étages.`);
     }
   });
+}
+
+/* =========================
+   NPS — DONNEES DYNAMIQUES (GITHUB)
+========================= */
+
+// --- A PERSONNALISER ---
+// Ton compte/organisation GitHub et le nom du dépôt qui héberge ce site.
+// Pour un site "nps-wittenheim.github.io", c'est en général :
+//   GITHUB_OWNER = "nps-wittenheim"
+//   GITHUB_REPO  = "nps-wittenheim.github.io"
+const GITHUB_OWNER = "nps-wittenheim";
+const GITHUB_REPO = "nps-wittenheim.github.io";
+const GITHUB_BRANCH = "main";
+const NPS_DATA_PATH = "nps-data.json";
+
+// Mot de passe simple pour cacher l'onglet Admin des regards curieux.
+// ATTENTION : ce n'est pas une vraie sécurité (le code est visible dans la page).
+// La vraie protection, c'est que seul toi possèdes le jeton GitHub.
+const ADMIN_PASSWORD = "chateau2026";
+
+let npsDataCache = null;
+let npsDataSha = null;
+
+function rawNpsDataUrl(){
+  return `https://raw.githubusercontent.com/${GITHUB_OWNER}/${GITHUB_REPO}/${GITHUB_BRANCH}/${NPS_DATA_PATH}?t=${Date.now()}`;
+}
+
+function apiNpsDataUrl(){
+  return `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${NPS_DATA_PATH}?ref=${GITHUB_BRANCH}`;
+}
+
+async function loadNpsData(){
+  try{
+    const res = await fetch(rawNpsDataUrl(), { cache: "no-store" });
+    if(!res.ok) throw new Error("fichier introuvable");
+    const data = await res.json();
+    npsDataCache = data;
+    renderNpsData(data);
+  }catch(err){
+    console.warn("nps-data.json indisponible, valeurs par défaut affichées.", err);
+  }
+}
+
+function renderNpsData(data){
+  if(!data || !Array.isArray(data.history) || data.history.length === 0) return;
+
+  const history = [...data.history].sort((a,b)=> new Date(a.date) - new Date(b.date));
+  const objectif = typeof data.objectif === "number" ? data.objectif : 64;
+  const current = history[history.length - 1].value;
+  const ecart = current - objectif;
+  const ecartLabel = (ecart >= 0 ? "+" : "") + ecart;
+
+  ["missionNpsValue","npsValue"].forEach(id=>{
+    const el = document.getElementById(id);
+    if(el) el.textContent = current;
+  });
+  ["missionNpsObjectif","npsObjectif"].forEach(id=>{
+    const el = document.getElementById(id);
+    if(el) el.textContent = objectif;
+  });
+  ["missionNpsEcart","npsEcart"].forEach(id=>{
+    const el = document.getElementById(id);
+    if(el) el.textContent = ecartLabel;
+  });
+
+  drawNpsChart(history, objectif);
+}
+
+function drawNpsChart(history, objectif){
+  const grid = document.getElementById("npsChartGrid");
+  const content = document.getElementById("npsChartContent");
+  if(!grid || !content) return;
+
+  const values = history.map(p=>p.value).concat([objectif]);
+  const minV = Math.min(...values) - 4;
+  const maxV = Math.max(...values) + 4;
+
+  const left = 54, right = 710, top = 40, bottom = 198;
+  const xStep = history.length > 1 ? (right - left) / (history.length - 1) : 0;
+
+  function xFor(i){ return left + i * xStep; }
+  function yFor(v){ return bottom - ((v - minV) / (maxV - minV)) * (bottom - top); }
+
+  let gridSvg = "";
+  [0,.33,.66,1].forEach(r=>{
+    const y = top + r * (bottom - top);
+    gridSvg += `<line x1="${left}" y1="${y}" x2="${right}" y2="${y}" stroke="rgba(255,255,255,.06)"/>`;
+  });
+  const objY = yFor(objectif);
+  gridSvg += `<line x1="${left}" y1="${objY}" x2="${right}" y2="${objY}" stroke="#8ef0b0" stroke-width="2" stroke-dasharray="8 8"/>`;
+  gridSvg += `<text x="${right+8}" y="${objY+4}" fill="#8ef0b0" font-size="14" font-weight="900">Objectif ${objectif}</text>`;
+  grid.innerHTML = gridSvg;
+
+  let points = history.map((p,i)=>({ x: xFor(i), y: yFor(p.value) }));
+  let pathD = `M${points[0].x} ${points[0].y}`;
+  for(let i=1;i<points.length;i++){
+    const prev = points[i-1], cur = points[i];
+    const midX = (prev.x + cur.x) / 2;
+    pathD += ` C${midX} ${prev.y},${midX} ${cur.y},${cur.x} ${cur.y}`;
+  }
+  const areaD = `${pathD} L${points[points.length-1].x} ${bottom} L${points[0].x} ${bottom} Z`;
+
+  let dotsSvg = points.map((p,i)=>{
+    const isLast = i === points.length - 1;
+    return `<circle cx="${p.x}" cy="${p.y}" r="${isLast ? 10 : 6}" fill="${isLast ? "#8ef0b0" : "#ffad57"}" ${isLast ? 'stroke="rgba(255,255,255,.22)" stroke-width="3"' : ""}/>`;
+  }).join("");
+
+  const lastDate = history[history.length-1].date;
+
+  content.innerHTML = `
+    <path d="${areaD}" fill="url(#areaGradientNps)"/>
+    <path d="${pathD}" fill="none" stroke="url(#lineGradientNps)" stroke-width="5" stroke-linecap="round"/>
+    ${dotsSvg}
+    <text x="24" y="${top+4}" fill="rgba(247,241,232,.72)" font-size="12" font-weight="700">${Math.round(maxV)}</text>
+    <text x="24" y="${bottom+4}" fill="rgba(247,241,232,.72)" font-size="12" font-weight="700">${Math.round(minV)}</text>
+    <text x="${left}" y="228" fill="rgba(247,241,232,.62)" font-size="12" font-weight="700">Départ</text>
+    <text x="${right-90}" y="228" fill="#8ef0b0" font-size="13" font-weight="900">Dernier : ${lastDate}</text>
+  `;
+}
+
+loadNpsData();
+
+/* =========================
+   ADMIN — GATE + PUBLICATION
+========================= */
+function checkAdminPassword(){
+  const val = document.getElementById("adminPassword").value;
+  const msg = document.getElementById("adminGateMsg");
+
+  if(val === ADMIN_PASSWORD){
+    document.getElementById("adminGate").style.display = "none";
+    document.getElementById("adminPanel").style.display = "block";
+    const dateInput = document.getElementById("adminDate");
+    if(dateInput && !dateInput.value){
+      dateInput.value = nowParis().date.split("/").reverse().join("-");
+    }
+    if(msg) msg.textContent = "";
+  }else{
+    msg.textContent = "Mot de passe incorrect.";
+  }
+}
+
+async function publishNpsUpdate(){
+  const status = document.getElementById("adminStatus");
+  const dateVal = document.getElementById("adminDate").value;
+  const npsVal = parseFloat(document.getElementById("adminNpsValue").value);
+  const objectifValRaw = document.getElementById("adminObjectif").value;
+  const token = document.getElementById("adminToken").value.trim();
+
+  if(!dateVal || isNaN(npsVal)){
+    status.textContent = "Renseigne au moins une date et une valeur NPS valide.";
+    return;
+  }
+  if(!token){
+    status.textContent = "Le jeton GitHub est requis pour publier la mise à jour.";
+    return;
+  }
+
+  status.textContent = "Publication en cours...";
+
+  try{
+    const getRes = await fetch(apiNpsDataUrl(), {
+      headers:{
+        "Authorization": `Bearer ${token}`,
+        "Accept": "application/vnd.github+json"
+      }
+    });
+
+    let currentData = { objectif: 64, history: [] };
+    let sha = undefined;
+
+    if(getRes.ok){
+      const fileInfo = await getRes.json();
+      sha = fileInfo.sha;
+      const decoded = decodeURIComponent(escape(atob(fileInfo.content.replace(/\n/g,""))));
+      currentData = JSON.parse(decoded);
+    }else if(getRes.status !== 404){
+      throw new Error(`Lecture impossible (${getRes.status})`);
+    }
+
+    if(!Array.isArray(currentData.history)) currentData.history = [];
+
+    const existingIdx = currentData.history.findIndex(p=>p.date === dateVal);
+    if(existingIdx >= 0){
+      currentData.history[existingIdx].value = npsVal;
+    }else{
+      currentData.history.push({ date: dateVal, value: npsVal });
+    }
+
+    if(objectifValRaw !== ""){
+      currentData.objectif = parseFloat(objectifValRaw);
+    }else if(typeof currentData.objectif !== "number"){
+      currentData.objectif = 64;
+    }
+
+    const newContent = btoa(unescape(encodeURIComponent(JSON.stringify(currentData, null, 2))));
+
+    const putBody = {
+      message: `Mise à jour NPS ${dateVal} : ${npsVal}`,
+      content: newContent,
+      branch: GITHUB_BRANCH
+    };
+    if(sha) putBody.sha = sha;
+
+    const putRes = await fetch(apiNpsDataUrl().split("?")[0], {
+      method: "PUT",
+      headers:{
+        "Authorization": `Bearer ${token}`,
+        "Accept": "application/vnd.github+json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(putBody)
+    });
+
+    if(!putRes.ok){
+      const errText = await putRes.text();
+      throw new Error(`Échec de la publication (${putRes.status}) : ${errText}`);
+    }
+
+    status.textContent = "NPS mis à jour. La courbe se rafraîchira dans quelques secondes (le site republie automatiquement).";
+    document.getElementById("adminToken").value = "";
+    renderNpsData(currentData);
+  }catch(err){
+    console.error(err);
+    status.textContent = "Erreur : " + err.message;
+  }
 }
 </script>
 </body>
